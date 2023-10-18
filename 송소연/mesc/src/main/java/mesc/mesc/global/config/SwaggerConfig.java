@@ -25,6 +25,7 @@ public class SwaggerConfig {
 			.security(Arrays.asList(securityRequirement))
 			.info(apiInfo());
 	}
+
 	private Info apiInfo() {
 		return new Info()
 			.title("Springdoc")
