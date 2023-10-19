@@ -11,6 +11,10 @@ public enum ErrorCode {
 	// EMAIL_DUPLICATION(400, "M001", "Email is Duplication"),
 	// LOGIN_INPUT_INVALID(400, "M002", "Login input is invalid");
 
+	// User
+	INVALID_TOKEN(400, "U001", "Invalid Token"),
+	EXPIRED_TOKEN(409, "U002", "Expired Token"),
+
 	// Common
 	INVALID_INPUT_VALUE(400, "C001", "Invalid Input Value"),
 	METHOD_NOT_ALLOWED(405, "C002", "Invalid Input Value"),
