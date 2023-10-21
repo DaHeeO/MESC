@@ -34,7 +34,6 @@ public class WebSecurityConfig {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
-	private final UserRepository userRepository;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -57,7 +56,7 @@ public class WebSecurityConfig {
 
 			.exceptionHandling(c -> c.authenticationEntryPoint(new UnauthorizedEntrypointHandler())
 				.accessDeniedHandler(tokenAccessDeniedHandler))
-			.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate, userRepository),
+			.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate),
 				UsernamePasswordAuthenticationFilter.class);
 
 		return httpSecurity.build();
