@@ -55,6 +55,7 @@ public class UserServiceImpl implements UserService {
 		log.info("22222222222222222222222222222222222222222222222222222222");
 
 		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
 		log.info("3333333333333333333333333333333333333333333333333333333");
 		TokenInfo tokenInfo = jwtTokenProvider.createToken(authentication);
 		return tokenInfo;
