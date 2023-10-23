@@ -30,7 +30,7 @@ import mesc.mesc.global.config.jwt.UnauthorizedEntrypointHandler;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSecurityConfig {
-	private static final String[] WHITE_LIST = {"/api/logout", "/swagger-ui/**", "/v3/**", "/**"};
+	private static final String[] WHITE_LIST = { "/swagger-ui/**", "/**"};
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;

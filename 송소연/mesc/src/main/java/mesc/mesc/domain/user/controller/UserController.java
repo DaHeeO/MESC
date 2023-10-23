@@ -29,7 +29,7 @@ public class UserController {
 	@Operation(summary = "회원가입 API", description = "입력된 이메일, 패스워드로 DB에 저장한다.")
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(
-		@Parameter(description = "이메일, 패스워드", required = true) @RequestBody SignUpReq signUpReq) {
+		@Parameter(description = "이메일, 패스워드", required = true) @RequestBody @Validated SignUpReq signUpReq) {
 		userService.signUp(signUpReq);
 		return ResponseEntity.ok().build();
 	}
@@ -37,7 +37,7 @@ public class UserController {
 	@Operation(summary = "로그인 API", description = "입력된 이메일과 패스워드가 일치하는 지 검증한 뒤 로그인 토큰을 전달한다.")
 	@PostMapping("/login")
 	public ResponseEntity<?> login(
-		@Parameter(description = "이메일, 패스워드", required = true) @RequestBody LoginReq loginReq) {
+		@Parameter(description = "이메일, 패스워드", required = true) @RequestBody @Validated LoginReq loginReq) {
 		TokenInfo tokenInfo = userService.login(loginReq);
 		return ResponseEntity.ok(tokenInfo);
 	}
