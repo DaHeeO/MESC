@@ -36,6 +36,10 @@ public class Test {
         printBlock(block);
         while(true) {
             int next = sc.nextInt();
+            if (next == 55) {
+                br.hmmm();
+               continue;
+            }
             if (next == 100)
                 break;
             block = br.findBlock(Integer.parseInt(block.getButtons().get(next).getLink()));
