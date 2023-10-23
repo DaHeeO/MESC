@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mesc.mesc.domain.user.dto.LoginReq;
+import mesc.mesc.domain.user.dto.SendEmailReq;
 import mesc.mesc.domain.user.dto.SignUpReq;
 import mesc.mesc.domain.user.service.UserService;
 import mesc.mesc.global.config.jwt.TokenInfo;
@@ -40,6 +41,14 @@ public class UserController {
 		@Parameter(description = "이메일, 패스워드", required = true) @RequestBody @Validated LoginReq loginReq) {
 		TokenInfo tokenInfo = userService.login(loginReq);
 		return ResponseEntity.ok(tokenInfo);
+	}
+
+	@Operation(summary = "이메일 발송 API", description = "해당 이메일로 메일을 발송한다.")
+	@PostMapping("/email")
+	public ResponseEntity<?> sendEmail(
+		@Parameter(description = "회원 이메일", required = true) @RequestBody @Validated SendEmailReq sendEmailReq) {
+		userService.sendEmail(sendEmailReq.getEmails());
+		return ResponseEntity.ok().build();
 	}
 
 
