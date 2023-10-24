@@ -135,7 +135,7 @@ export const Toggle = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  margin-top: 20px;
+  margin-top: 40px;
   width: 95%;
   height: 56px;
   background-color: ${colors.backgroundIris};

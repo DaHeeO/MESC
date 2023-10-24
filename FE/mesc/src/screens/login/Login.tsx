@@ -1,6 +1,8 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {Text, TouchableOpacity} from 'react-native';
 import * as S from './Login.styles';
+
+import BoxChecked from '../../components/loginComponent/BoxChecked';
 
 import BackgroundImg from '../../assets/images/background.png';
 import Man from '../../assets/images/sammy-finance.png';
@@ -14,65 +16,107 @@ interface LoginProps {
 }
 
 const Login = ({navigation}: LoginProps) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const [isRemebered, setIsRemembered] = useState(false);
+
+  const toggleCheckBox = () => {
+    setIsRemembered(!isRemebered);
+  };
+
+  const [otpType, setOtpType] = useState<string>('email');
+
+  const selectEmail = () => {
+    setOtpType('email');
+  };
+
+  const selectSMS = () => {
+    setOtpType('sms');
+  };
+
   return (
     <S.Container>
       <S.BackgroundImg source={BackgroundImg} />
       <S.Img source={Man} />
       <S.Div>
         <S.Top>
-          <S.Title>Sign In</S.Title>
-          <Text>Welcome Back!</Text>
+          <S.Title>Log In</S.Title>
+          <Text>로그인하세요 </Text>
         </S.Top>
         <S.Body>
           {/* 아이디 입력창 */}
           <S.InputBox>
             <S.InputDiv>
               <User />
-              <S.Input placeholder="Enter Your Know account ID"></S.Input>
+              <S.Input placeholder="KNOX 아이디"></S.Input>
             </S.InputDiv>
           </S.InputBox>
           {/* 비밀번호 입력창 */}
           <S.InputBox>
             <S.InputDiv>
               <Lock />
-              <S.Input placeholder="Password"></S.Input>
+              <S.Input
+                secureTextEntry={!showPassword}
+                placeholder="비밀번호"></S.Input>
             </S.InputDiv>
-            <TouchableOpacity onPress={() => console.log('눈까리')}>
-              <Eye />
+            <TouchableOpacity onPress={togglePasswordVisibility}>
+              {showPassword ? <Eye /> : <EyeOff />}
             </TouchableOpacity>
           </S.InputBox>
           {/*아이디 저장, 아이디, 패스워드 찾기 */}
           <S.SubContainer>
-            <S.CheckDiv onPress={() => console.log('checkbox')}>
-              <S.Box />
-              <S.SubText>Remember Me</S.SubText>
+            <S.CheckDiv onPress={toggleCheckBox}>
+              {isRemebered ? <BoxChecked /> : <S.Box />}
+              <S.SubText>아이디 저장</S.SubText>
             </S.CheckDiv>
             <S.SubDiv>
-              <S.Anchor onPress={() => console.log('Press')}>
-                <S.IrisText>Forgot ID</S.IrisText>
+              <S.Anchor onPress={() => console.log('씨바')}>
+                <S.IrisText>아이디</S.IrisText>
               </S.Anchor>
               <S.IrisText> / </S.IrisText>
-              <S.Anchor onPress={() => console.log('Press')}>
-                <S.IrisText>Password</S.IrisText>
+              <S.Anchor onPress={() => console.log('씨바')}>
+                <S.IrisText>비밀번호 찾기</S.IrisText>
               </S.Anchor>
-              <S.IrisText>?</S.IrisText>
             </S.SubDiv>
           </S.SubContainer>
         </S.Body>
+
         <S.Bottom>
           {/* 토글버튼 */}
           <S.Toggle>
-            <S.NotSelected>
-              <S.NotSelectedText>Email</S.NotSelectedText>
-            </S.NotSelected>
-            <S.Selected>
-              <S.SelectedText>SMS</S.SelectedText>
-            </S.Selected>
+            {otpType === 'email' ? (
+              <S.Selected onPress={selectEmail}>
+                <S.SelectedText>Email</S.SelectedText>
+              </S.Selected>
+            ) : (
+              <S.NotSelected onPress={selectEmail}>
+                <S.NotSelectedText>Email</S.NotSelectedText>
+              </S.NotSelected>
+            )}
+            {otpType === 'sms' ? (
+              <S.Selected onPress={selectSMS}>
+                <S.SelectedText>SMS</S.SelectedText>
+              </S.Selected>
+            ) : (
+              <S.NotSelected onPress={selectSMS}>
+                <S.NotSelectedText>SMS</S.NotSelectedText>
+              </S.NotSelected>
+            )}
           </S.Toggle>
           {/* OTP 버튼 */}
-          <S.OTPButton onPress={() => navigation.navigate('OTP')}>
-            <S.ButtonText> Send OTP </S.ButtonText>
-          </S.OTPButton>
+          {otpType === 'email' ? (
+            <S.OTPButton onPress={() => navigation.navigate('EmailOTP')}>
+              <S.ButtonText> OTP 전송 </S.ButtonText>
+            </S.OTPButton>
+          ) : (
+            <S.OTPButton onPress={() => navigation.navigate('SMSOTP')}>
+              <S.ButtonText> OTP 전송 </S.ButtonText>
+            </S.OTPButton>
+          )}
         </S.Bottom>
       </S.Div>
     </S.Container>
