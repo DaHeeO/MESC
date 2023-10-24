@@ -10,6 +10,8 @@ import User from '../../assets/icons/user.svg';
 import Eye from '../../assets/icons/eye.svg';
 import EyeOff from '../../assets/icons/eye-off.svg';
 import Lock from '../../assets/icons/lock.svg';
+import FindId from './FindId';
+import FindPassword from './FindPassword';
 
 interface LoginProps {
   navigation: any;
@@ -74,11 +76,11 @@ const Login = ({navigation}: LoginProps) => {
               <S.SubText>아이디 저장</S.SubText>
             </S.CheckDiv>
             <S.SubDiv>
-              <S.Anchor onPress={() => console.log('씨바')}>
+              <S.Anchor onPress={() => navigation.navigate(FindId)}>
                 <S.IrisText>아이디</S.IrisText>
               </S.Anchor>
               <S.IrisText> / </S.IrisText>
-              <S.Anchor onPress={() => console.log('씨바')}>
+              <S.Anchor onPress={() => navigation.navigate(FindPassword)}>
                 <S.IrisText>비밀번호 찾기</S.IrisText>
               </S.Anchor>
             </S.SubDiv>
@@ -107,17 +109,17 @@ const Login = ({navigation}: LoginProps) => {
               </S.NotSelected>
             )}
           </S.Toggle>
-          {/* OTP 버튼 */}
-          {otpType === 'email' ? (
-            <S.OTPButton onPress={() => navigation.navigate('EmailOTP')}>
-              <S.ButtonText> OTP 전송 </S.ButtonText>
-            </S.OTPButton>
-          ) : (
-            <S.OTPButton onPress={() => navigation.navigate('SMSOTP')}>
-              <S.ButtonText> OTP 전송 </S.ButtonText>
-            </S.OTPButton>
-          )}
         </S.Bottom>
+        {/* OTP 버튼 */}
+        {otpType === 'email' ? (
+          <S.OTPButton onPress={() => navigation.navigate('EmailOTP')}>
+            <S.ButtonText> OTP 발송 </S.ButtonText>
+          </S.OTPButton>
+        ) : (
+          <S.OTPButton onPress={() => navigation.navigate('SMSOTP')}>
+            <S.ButtonText> OTP 발송 </S.ButtonText>
+          </S.OTPButton>
+        )}
       </S.Div>
     </S.Container>
   );

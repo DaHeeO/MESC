@@ -126,7 +126,7 @@ export const IrisText = styled.Text`
 
 export const Bottom = styled.View`
   align-items: center;
-  height: 30%;
+  height: 15%;
   // background-color: green;
 `;
 
