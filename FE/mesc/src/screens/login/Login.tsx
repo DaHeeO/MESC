@@ -26,13 +26,13 @@ const Login = ({navigation}: LoginProps) => {
           <Text>Welcome Back!</Text>
         </S.Top>
         <S.Body>
-          <InputId></InputId>
-          <InputPwd></InputPwd>
-          <SubText></SubText>
+          <InputId />
+          <InputPwd />
+          <SubText />
         </S.Body>
         <S.Bottom>
-          <ToggleEmail></ToggleEmail>
-          <Button></Button>
+          <ToggleEmail />
+          <Button />
         </S.Bottom>
       </S.Div>
     </S.Container>

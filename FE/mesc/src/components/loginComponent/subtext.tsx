@@ -6,10 +6,10 @@ function SubText() {
     <S.Container>
       <S.Div>
         <S.Check></S.Check>
-        <S.Text>RememberMe</S.Text>
+        <S.Text>Remember Me</S.Text>
       </S.Div>
       <S.Div>
-        <S.Anchor>Forgor ID</S.Anchor>
+        <S.Anchor>Forgot ID</S.Anchor>
         <S.IrisText> / </S.IrisText>
         <S.Anchor>Password</S.Anchor>
         <S.IrisText>?</S.IrisText>
