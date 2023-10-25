@@ -40,8 +40,8 @@ export const Top = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 25px;
+  font-weight: 900;
   color: ${colors.primary};
   margin-bottom: 35px;
 `;

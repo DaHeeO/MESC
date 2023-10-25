@@ -15,7 +15,7 @@ const FindId = ({navigation}: LoginProps) => {
       <S.Img source={Girl} />
       <S.Div>
         <S.Top>
-          <S.Title>Forgot ID</S.Title>
+          <S.Title>아이디 찾기</S.Title>
         </S.Top>
         <S.Body>
           <S.Text>삼성 임직원은 Knox Portal 계정을 아이디로 사용하시고,</S.Text>
@@ -24,11 +24,11 @@ const FindId = ({navigation}: LoginProps) => {
             {'('}1661-3311, 2{'>'}3{'>'}4 또는 말로 하는 ARS{')'}
           </S.IrisText>
         </S.Body>
-        {/* 비율 맞추기 위함 */}
-        <S.Bottom></S.Bottom>
-        <S.Button onPress={() => navigation.navigate('Login')}>
-          <S.ButtonText> 로그인 </S.ButtonText>
-        </S.Button>
+        <S.Bottom>
+          <S.Button onPress={() => navigation.navigate('Login')}>
+            <S.ButtonText> 뒤로가기 </S.ButtonText>
+          </S.Button>
+        </S.Bottom>
       </S.Div>
     </S.Container>
   );

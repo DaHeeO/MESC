@@ -8,6 +8,7 @@ import SMSOTP from './src/screens/login/SMSOTP';
 import FindId from './src/screens/login/FindId';
 import FindPassword from './src/screens/login/FindPassword';
 import ChangePassword from './src/screens/login/ChangePassword';
+import Success from './src/screens/login/Success';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,11 @@ function App() {
         <Stack.Screen
           name="ChangePassword"
           component={ChangePassword}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Success"
+          component={Success}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
