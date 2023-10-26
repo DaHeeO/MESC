@@ -46,7 +46,7 @@ const Login = ({navigation}: LoginProps) => {
       <S.Img source={Man} />
       <S.Div>
         <S.Top>
-          <S.Title>Log In</S.Title>
+          <S.Title>로그인</S.Title>
           <Text>로그인하세요 </Text>
         </S.Top>
         <S.Body>

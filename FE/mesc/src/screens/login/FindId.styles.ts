@@ -40,16 +40,15 @@ export const Top = styled.View`
 `;
 
 export const Title = styled.Text`
-  font-size: 30px;
-  font-weight: bold;
+  font-size: 25px;
+  font-weight: 900;
   color: ${colors.primary};
 `;
 
 export const Body = styled.View`
   display: flex;
   justify-content: center;
-  height: 40%;
-  padding-top: 12px;
+  height: 50%;
 `;
 
 export const Text = styled.Text`
@@ -66,7 +65,7 @@ export const IrisText = styled.Text`
 
 export const Bottom = styled.View`
   align-items: center;
-  height: 10%;
+  height: 15%;
   // background-color: green;
 `;
 
