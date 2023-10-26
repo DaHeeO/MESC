@@ -14,17 +14,25 @@ interface LoginProps {
 }
 
 const ChangePassword = ({navigation}: LoginProps) => {
+  // 비밀번호 눈까리
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  // 비밀번호 확인 눈까리
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const toggleShowConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
+
+  // 비밀번호 체크
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const passwordMatch = password === confirmPassword;
 
   return (
     <S.Container>
@@ -43,7 +51,9 @@ const ChangePassword = ({navigation}: LoginProps) => {
                 <Lock />
                 <S.Input
                   secureTextEntry={!showPassword}
-                  placeholder="비밀번호"></S.Input>
+                  placeholder="비밀번호"
+                  value={password}
+                  onChangeText={text => setPassword(text)}></S.Input>
               </S.InputDiv>
               <TouchableOpacity onPress={togglePasswordVisibility}>
                 {showPassword ? <Eye /> : <EyeOff />}
@@ -54,7 +64,9 @@ const ChangePassword = ({navigation}: LoginProps) => {
                 <Lock />
                 <S.Input
                   secureTextEntry={!showConfirmPassword}
-                  placeholder="비밀번호 확인"></S.Input>
+                  placeholder="비밀번호 확인"
+                  value={confirmPassword}
+                  onChangeText={text => setConfirmPassword(text)}></S.Input>
               </S.InputDiv>
               <TouchableOpacity onPress={toggleShowConfirmPasswordVisibility}>
                 {showConfirmPassword ? <Eye /> : <EyeOff />}
@@ -63,9 +75,15 @@ const ChangePassword = ({navigation}: LoginProps) => {
           </View>
         </S.Body>
         <S.Bottom>
-          <S.Button onPress={() => navigation.navigate('Login')}>
-            <S.ButtonText> 제출 </S.ButtonText>
-          </S.Button>
+          {passwordMatch ? (
+            <S.Button onPress={() => navigation.navigate('Login')}>
+              <S.ButtonText> 제출 </S.ButtonText>
+            </S.Button>
+          ) : (
+            <S.BorderButton>
+              <S.BorderButtonText> 제출 </S.BorderButtonText>
+            </S.BorderButton>
+          )}
         </S.Bottom>
       </S.Div>
     </S.Container>

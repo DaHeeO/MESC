@@ -103,3 +103,20 @@ export const ButtonText = styled.Text`
   font-weight: bold;
   color: white;
 `;
+
+export const BorderButton = styled.TouchableOpacity`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  height: 56px;
+  background-color: ${colors.backgroundIris};
+  border-radius: 14px;
+`;
+
+export const BorderButtonText = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${colors.iris};
+`;
