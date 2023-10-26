@@ -47,11 +47,8 @@ export const Title = styled.Text`
 `;
 
 export const Body = styled.View`
-  height: 30%;
-  padding-top: 12px;
-  border-bottom-style: solid;
-  border-bottom-color: ${colors.tertiary};
-  border-bottom-width: 1px;
+  height: 45%;
+  padding-top: 15%;
   // background-color: blue;
 `;
 
@@ -86,7 +83,7 @@ export const SubContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 0px 4px;
 `;
 

@@ -30,16 +30,6 @@ const Login = ({navigation}: LoginProps) => {
     setIsRemembered(!isRemebered);
   };
 
-  const [otpType, setOtpType] = useState<string>('email');
-
-  const selectEmail = () => {
-    setOtpType('email');
-  };
-
-  const selectSMS = () => {
-    setOtpType('sms');
-  };
-
   return (
     <S.Container>
       <S.BackgroundImg source={BackgroundImg} />
@@ -86,40 +76,12 @@ const Login = ({navigation}: LoginProps) => {
             </S.SubDiv>
           </S.SubContainer>
         </S.Body>
-
         <S.Bottom>
-          {/* 토글버튼 */}
-          <S.Toggle>
-            {otpType === 'email' ? (
-              <S.Selected onPress={selectEmail}>
-                <S.SelectedText>Email</S.SelectedText>
-              </S.Selected>
-            ) : (
-              <S.NotSelected onPress={selectEmail}>
-                <S.NotSelectedText>Email</S.NotSelectedText>
-              </S.NotSelected>
-            )}
-            {otpType === 'sms' ? (
-              <S.Selected onPress={selectSMS}>
-                <S.SelectedText>SMS</S.SelectedText>
-              </S.Selected>
-            ) : (
-              <S.NotSelected onPress={selectSMS}>
-                <S.NotSelectedText>SMS</S.NotSelectedText>
-              </S.NotSelected>
-            )}
-          </S.Toggle>
-        </S.Bottom>
-        {/* OTP 버튼 */}
-        {otpType === 'email' ? (
+          {/* 로그인 버튼 */}
           <S.OTPButton onPress={() => navigation.navigate('EmailOTP')}>
-            <S.ButtonText> OTP 발송 </S.ButtonText>
+            <S.ButtonText> 로그인 </S.ButtonText>
           </S.OTPButton>
-        ) : (
-          <S.OTPButton onPress={() => navigation.navigate('SMSOTP')}>
-            <S.ButtonText> OTP 발송 </S.ButtonText>
-          </S.OTPButton>
-        )}
+        </S.Bottom>
       </S.Div>
     </S.Container>
   );

@@ -32,7 +32,12 @@ const ChangePassword = ({navigation}: LoginProps) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const passwordMatch = password === confirmPassword;
+  const valid = () => {
+    return (
+      password === confirmPassword &&
+      (password.length > 0 || confirmPassword.length > 0)
+    );
+  };
 
   return (
     <S.Container>
@@ -75,7 +80,7 @@ const ChangePassword = ({navigation}: LoginProps) => {
           </View>
         </S.Body>
         <S.Bottom>
-          {passwordMatch ? (
+          {valid() ? (
             <S.Button onPress={() => navigation.navigate('Login')}>
               <S.ButtonText> 제출 </S.ButtonText>
             </S.Button>
