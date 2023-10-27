@@ -2,13 +2,13 @@ import React from 'react';
 import * as S from './Intro1.styles';
 
 import BackgroundIntro from '../../assets/images/background-intro.png';
-import asset from '../../assets/images/intro1.png';
+import asset from '../../assets/images/intro2.png';
 
 interface LoginProps {
   navigation: any;
 }
 
-const Intro1 = ({navigation}: LoginProps) => {
+const Intro2 = ({navigation}: LoginProps) => {
   return (
     <S.Container>
       <S.BackgroundImg source={BackgroundIntro} />
@@ -26,8 +26,8 @@ const Intro1 = ({navigation}: LoginProps) => {
             channel you want.
           </S.SubText>
           <S.Circles>
-            <S.CircleSelected></S.CircleSelected>
             <S.Circle></S.Circle>
+            <S.CircleSelected></S.CircleSelected>
             <S.Circle></S.Circle>
           </S.Circles>
         </S.Body>
@@ -36,4 +36,4 @@ const Intro1 = ({navigation}: LoginProps) => {
   );
 };
 
-export default Intro1;
+export default Intro2;

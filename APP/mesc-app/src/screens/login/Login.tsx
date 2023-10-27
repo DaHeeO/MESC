@@ -79,12 +79,13 @@ const Login = ({navigation}: LoginProps) => {
         <S.Bottom>
           {/* 로그인 버튼 */}
           <S.Button
-            onPress={() => {
-              navigation.reset({
-                index: 0,
-                routes: [{name: 'Intro1'}],
-              });
-            }}>
+            // onPress={() => {
+            //   navigation.reset({
+            //     index: 0,
+            //     routes: [{name: 'Intro1'}],
+            //   });
+            // }}>
+            onPress={() => navigation.navigate('Intro3')}>
             <S.ButtonText> 로그인 </S.ButtonText>
           </S.Button>
         </S.Bottom>
