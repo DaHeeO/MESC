@@ -78,9 +78,15 @@ const Login = ({navigation}: LoginProps) => {
         </S.Body>
         <S.Bottom>
           {/* 로그인 버튼 */}
-          <S.OTPButton onPress={() => navigation.navigate('EmailOTP')}>
+          <S.Button
+            onPress={() => {
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'Intro1'}],
+              });
+            }}>
             <S.ButtonText> 로그인 </S.ButtonText>
-          </S.OTPButton>
+          </S.Button>
         </S.Bottom>
       </S.Div>
     </S.Container>

@@ -166,7 +166,7 @@ export const NotSelectedText = styled.Text`
   color: ${colors.secondary}
 `;
 
-export const OTPButton = styled.TouchableOpacity`
+export const Button = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
