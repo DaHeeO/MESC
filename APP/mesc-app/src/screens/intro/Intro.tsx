@@ -14,28 +14,30 @@ interface LoginProps {
 const PAGES = [
   {
     num: 1,
-    maintext: 'Work Smater And Collaborate Better',
-    subtext:
-      'You can easily put data with ChatBot in Apps, and add to chatroom or channel you want.',
+    maintext: '데이터 조회 가능',
+    subtext: '챗봇을 통해 복잡한 데이터를 쉽게 파악할 수 있어요',
     image: intro1,
   },
   {
     num: 2,
-    maintext: 'Work Smater And Collaborate Better',
-    subtext:
-      'You can easily put data with ChatBot in Apps, and add to chatroom or channel you want.',
+    maintext: '데이터 조작 가능',
+    subtext: '챗봇을 통해 데이터를 쉽게 조작 할 수 있어요.',
     image: intro2,
   },
   {
     num: 3,
-    maintext: 'Work Smater And Collaborate Better',
+    maintext: '업무 효율 증진',
     subtext:
-      'You can easily put data with ChatBot in Apps, and add to chatroom or channel you want.',
+      'MESC로 바로 연락을 취하고 회사 밖에서도 \n 데이터를 조작할 수 있어요',
     image: intro3,
   },
 ];
 
 const Intro = ({navigation}: LoginProps) => {
+  const handleButtonPress = () => {
+    navigation.navigate('Main');
+  };
+
   return (
     <S.Container>
       <S.BackgroundImg source={BackgroundIntro} />
@@ -45,7 +47,7 @@ const Intro = ({navigation}: LoginProps) => {
             <S.Skip>Skip</S.Skip>
           </S.SkipBox>
         </S.Top>
-        <OnBoarding pages={PAGES} />
+        <OnBoarding pages={PAGES} pnButtonPress={handleButtonPress} />
       </S.Div>
     </S.Container>
   );

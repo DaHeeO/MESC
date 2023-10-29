@@ -23,7 +23,7 @@ export const View = styled.View`
 `;
 
 export const MainText = styled.Text`
-  font-size: 30px;
+  font-size: 32px;
   font-weight: bold;
   color: ${colors.primary};
   text-align: center;
