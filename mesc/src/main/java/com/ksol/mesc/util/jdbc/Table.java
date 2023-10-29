@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectResult {
-    List<ColumnData> columns;
-    List<List<String>> rows;
+public class Table {
+    private List<ColumnData> columns;
+    private List<Row> rows;
 
-    public SelectResult(ResultSet resultSet) throws SQLException {
+    public Table(ResultSet resultSet) throws SQLException {
         ResultSetMetaData metaData = resultSet.getMetaData();
         int columnCount = metaData.getColumnCount();
         this.columns = new ArrayList<>();
@@ -19,9 +19,10 @@ public class SelectResult {
         }
         this.rows = new ArrayList<>();
         while (resultSet.next()) {
-            List<String> row = new ArrayList<>();
+            Row row = new Row();
+            List<String> dataList = row.getDataList();
             for(int i = 0; i < columnCount; i++) {
-                row.add("" + resultSet.getObject(i + 1));
+                dataList.add("" + resultSet.getObject(i + 1));
             }
             this.rows.add(row);
         }
@@ -40,7 +41,7 @@ public class SelectResult {
                 System.out.print(' ');
             }
             System.out.print(i + 1);
-            rows.get(i).stream().forEach(data -> {
+            rows.get(i).getDataList().stream().forEach(data -> {
                 System.out.print('|' + data);
                 for (int k = 0; k < 13 - data.length(); k++) {
                     System.out.print(' ');
@@ -97,7 +98,7 @@ public class SelectResult {
         return columns;
     }
 
-    public List<List<String>> getRows() {
+    public List<Row> getRows() {
         return rows;
     }
 }
