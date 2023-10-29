@@ -63,6 +63,11 @@ public class JdbcUtil {
         statement.execute(query);
     }
 
+    // 구분하는 의미가 있을까 싶긴함..
+    public void delete(String query) throws SQLException {
+        statement.execute(query);
+    }
+
 //    public void close() throws SQLException {
 //        if (this.statement != null) {
 //            statement.close();
