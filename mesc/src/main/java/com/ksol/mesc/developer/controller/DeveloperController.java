@@ -1,11 +1,11 @@
 package com.ksol.mesc.developer.controller;
 
 import com.ksol.mesc.developer.dto.request.DeveloperDataRequestDto;
-import com.ksol.mesc.developer.dto.request.DeveloperInsertRequestDto;
+import com.ksol.mesc.developer.dto.request.DeveloperQueryRequestDto;
 import com.ksol.mesc.developer.dto.response.DeveloperDataResponseDto;
+import com.ksol.mesc.developer.dto.response.DeveloperQueryResponseDto;
 import com.ksol.mesc.developer.service.DeveloperService;
 import com.ksol.mesc.util.jdbc.Table;
-import com.ksol.mesc.worker.service.WorkerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -40,13 +40,15 @@ public class DeveloperController {
     }
 
     @PostMapping("/query")
-    public ResponseEntity<String> getData (@RequestBody @Validated DeveloperInsertRequestDto developerInsertRequestDto) {
+    public ResponseEntity<DeveloperQueryResponseDto> executeQuery (@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto) {
+        DeveloperQueryResponseDto developerUpdateResponseDto = new DeveloperQueryResponseDto();
         try {
-            developerService.insertData(developerInsertRequestDto.getQuery());
+            Integer modifiedCount = developerService.executeQuery(developerQueryRequestDto.getQuery());
+            developerUpdateResponseDto.setModifiedCount(modifiedCount);
         } catch (SQLException e) {
             log.debug(e.getMessage());
-            return new ResponseEntity<>(FAIL, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(developerUpdateResponseDto, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+        return new ResponseEntity<>(developerUpdateResponseDto, HttpStatus.OK);
     }
 }

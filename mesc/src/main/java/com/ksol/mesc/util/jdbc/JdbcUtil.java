@@ -55,17 +55,8 @@ public class JdbcUtil {
         return statement.executeQuery(query);
     }
 
-    public Integer update(String query) throws SQLException {
+    public Integer execute(String query) throws SQLException {
         return statement.executeUpdate(query);
-    }
-
-    public void insert(String query) throws SQLException {
-        statement.execute(query);
-    }
-
-    // 구분하는 의미가 있을까 싶긴함..
-    public void delete(String query) throws SQLException {
-        statement.execute(query);
     }
 
 //    public void close() throws SQLException {

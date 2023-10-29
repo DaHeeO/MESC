@@ -25,7 +25,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public void insertData(String query) throws SQLException {
-        jdbcUtil.insert(query);
+    public Integer executeQuery(String query) throws SQLException {
+        return jdbcUtil.execute(query);
     }
 }

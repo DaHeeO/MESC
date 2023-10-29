@@ -6,6 +6,5 @@ import java.sql.SQLException;
 
 public interface DeveloperService {
     public Table getTable(String query) throws Exception;
-
-    public void insertData(String query) throws SQLException;
+    public Integer executeQuery(String query) throws SQLException;
 }
