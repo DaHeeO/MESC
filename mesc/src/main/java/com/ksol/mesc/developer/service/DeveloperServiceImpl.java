@@ -23,4 +23,9 @@ public class DeveloperServiceImpl implements DeveloperService {
     public Table getTable(String query) throws Exception {
         return new Table(jdbcUtil.select(query));
     }
+
+    @Override
+    public void insertData(String query) throws SQLException {
+        jdbcUtil.insert(query);
+    }
 }
