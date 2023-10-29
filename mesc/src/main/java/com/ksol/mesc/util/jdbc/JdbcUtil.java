@@ -1,22 +1,24 @@
 package com.ksol.mesc.util.jdbc;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
+@Component
 @Slf4j
 public class JdbcUtil {
 
-    private static final String URL = "jdbc:mysql://k9b201.p.ssafy.io:1024/blocktest?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true";
+    private static final String URL = "jdbc:mysql://localhost:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
-    private static final String PASSWORD = "ksol1117";
-    private static final String catalog = "blocktest";
+    private static final String PASSWORD = "ssafy";
+    private static final String catalog = "mes";
 
     private Connection connection;
     private Statement statement;
     private DatabaseMetaData metaData;
 
-    private JdbcUtil(String url, String user, String password) throws SQLException {
+    private JdbcUtil() throws SQLException {
         this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
         this.metaData = connection.getMetaData();
         this.statement = connection.createStatement();
@@ -33,7 +35,7 @@ public class JdbcUtil {
 
         static {
             try {
-                INSTANCE = new JdbcUtil(URL, USER, PASSWORD);
+                INSTANCE = new JdbcUtil();
             } catch (SQLException e) {
                 log.debug(e.getMessage());
                 throw new RuntimeException(e);  // 이거 나중에 처리해줘야함 반드시....
