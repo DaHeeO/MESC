@@ -85,7 +85,7 @@ const Login = ({navigation}: LoginProps) => {
             //     routes: [{name: 'Intro1'}],
             //   });
             // }}>
-            onPress={() => navigation.navigate('Intro3')}>
+            onPress={() => navigation.navigate('Intro')}>
             <S.ButtonText> 로그인 </S.ButtonText>
           </S.Button>
         </S.Bottom>

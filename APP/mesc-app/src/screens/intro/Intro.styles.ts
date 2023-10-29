@@ -3,10 +3,8 @@ import {Image} from 'react-native';
 import {colors} from '../../components/theme';
 
 export const Container = styled.View`
-  width: 100%;
-  height: 100%;
   background-color: white;
-  display: flex;
+  flex: 1;
   align-items: center;
 `;
 
@@ -17,15 +15,16 @@ export const BackgroundImg = styled(Image)`
 `;
 
 export const Div = styled.View`
-  width: 80%;
   height: 100%;
+  // background-color: red;
 `;
 
 export const Top = styled.View`
+  padding-right: 10%;
   display: flex;
   align-items: center;
-  padding-top: 10%;
-  height: 55%;
+  justify-content: center;
+  height: 10%;
   // background-color: red;
 `;
 
@@ -40,16 +39,23 @@ export const Skip = styled.Text`
   text-align: right;
 `;
 
+export const Body = styled.View`
+  display: flex;
+  align-items: center;
+  height: 75%;
+  // background-color: blue;
+`;
+
 export const Img = styled(Image)`
   width: 340px;
   height: 340px;
 `;
 
-export const Body = styled.View`
+export const View = styled.View`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  height: 30%;
+  height: 35%;
   // background-color: blue;
 `;
 
