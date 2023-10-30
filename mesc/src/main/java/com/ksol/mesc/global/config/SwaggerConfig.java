@@ -28,8 +28,8 @@ public class SwaggerConfig {
 
 	private Info apiInfo() {
 		return new Info()
-			.title("Springdoc")
-			.description("Springdoc for Swagger UI")
+			.title("MESC doc")
+			.description("mesc doc for Swagger UI")
 			.version("1.0.0");
 	}
 }
