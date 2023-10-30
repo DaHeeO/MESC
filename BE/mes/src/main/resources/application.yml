@@ -1,10 +1,14 @@
 spring:
+  # DB 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/blocktest?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://127.0.0.1:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: root
-    password: ssafy
+    password: ksol1117
+
   jpa:
+    hibernate:
+      ddl-auto: create
     show-sql: true
     database: mysql
     properties:
@@ -14,74 +18,58 @@ spring:
         discriminator:
           ignore_explicit_for_joined: true
     .open-in-view: false
-#  firebase:
-#    serviceAccountPath: path/to/serviceAccountKey.json
-#  security:
-#    user:
-#      name: admin
-#      password: admin
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 50MB
-      max-request-size: 50MB
 
-# JPA log
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
-    com.ksol.mes: debug
+  # redis 설정
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
+  # 이메일
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: B201MESC
+#    password: szwj gsio ejxo zxqp
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          timeout: 5000
+#          starttls:
+#            enable: true
+#  thymeleaf:
+#    cache: false
 
+  #  firebase:
+  #    serviceAccountPath: path/to/serviceAccountKey.json
+  #  security:
+  #    user:
+  #      name: admin
+  #      password: admin
 
-## jwt
-#jwt:
-#  secret: d39gssddf6SsdahASDFFaesdGHJFDGjsdfsddfsdhSDS2HSZDasEsd48Os923459780012I4E3IdjSLOFJaseyH
-#  access:
-#    expiration: 1209600000 #  (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h) * 24L(h -> 하루) * 14(2주))
-#    header: Authorization
-#    # expiration: 3600000 # 1시간(60분) (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h))
+#  servlet:
+#    multipart:
+#      enabled: true
+#      max-file-size: 50MB
+#      max-request-size: 50MB
 #
-#  refresh:
-#    expiration: 1209600000 #  (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h) * 24L(h -> 하루) * 14(2주))
-#    header: Authorization-refresh
-#
-#server:
-#  port: 8811
-#  max-http-header-size: 2MB
+## JPA log
+#logging:
+#  level:
+#    com.ksol.mesc: debug
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
 
-## AWS
-#cloud:
-#  aws:
-#    s3:
-#      bucket: ssafy-square-bucket # .bucket
-#    region:
-#      static: ap-northeast-2
-#      auto: false
-#    stack:
-#      auto: false
-#    credentials:
-#      access-key: AKIAXFHB46BC5APX3VNV
-#      secret-key: 9fY/+lmXNs1ASwYw+tefJIbezVBixArk8P39xgEZ
+# jwt secret key 설정
+jwt:
+  key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
-
-#social:
-#  kakao:
-#    rest-api: 409915cf48a47370a92cea926084d5a1
-#    redirect-uri: https://i9b208.p.ssafy.io/login/KakaoRedirect
-#  naver:
-#    client-id: C4jdFBfefASIcQgC9GDg
-#    client-secret: 8xQtnJy7L1
-#    redirect-uri: https://i9b208.p.ssafy.io/login/NaverRedirect
-#    state: test
-#  google:
-#    client-id: 167666714068-su36v2r5mu1j6spjan4cda8q42hbdhf3.apps.googleusercontent.com
-#    client-secret: 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
-#    redirect-uri: https://i9b208.p.ssafy.io/login/GoogleRedirect
-
+server:
+  port: 8001
+  ec2-url: https://
