@@ -8,7 +8,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     database: mysql
     properties:
@@ -53,23 +53,23 @@ spring:
 #      enabled: true
 #      max-file-size: 50MB
 #      max-request-size: 50MB
-#
-## JPA log
-#logging:
-#  level:
-#    com.ksol.mesc: debug
-#    org:
-#      hibernate:
-#        SQL: DEBUG
-#        type:
-#          descriptor:
-#            sql:
-#              BasicBinder: TRACE
+
+# JPA log
+logging:
+  level:
+    com.ksol.mesc: debug
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
 
 # jwt secret key 설정
 jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
 server:
-  port: 8001
+  port: 8081
   ec2-url: https://
