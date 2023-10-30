@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {colors} from '../../components/theme';
+import {colors} from '../common/theme';
 
 export const BoxChecked = styled.View`
   width: 12px;

@@ -7,7 +7,6 @@ import FindId from './src/screens/login/FindId';
 import FindPassword from './src/screens/login/FindPassword';
 import ChangePassword from './src/screens/login/ChangePassword';
 import Success from './src/screens/login/Success';
-import Main from './src/screens/main/Main';
 import Intro from './src/screens/intro/Intro';
 
 const Stack = createStackNavigator();
@@ -39,11 +38,6 @@ function App() {
         <Stack.Screen
           name="Success"
           component={Success}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Main"
-          component={Main}
           options={{headerShown: false}}
         />
         <Stack.Screen
