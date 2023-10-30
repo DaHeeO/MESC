@@ -19,7 +19,13 @@ spring:
           ignore_explicit_for_joined: true
     .open-in-view: false
 
-  # 이메일 인증
+  # redis 설정
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  # 이메일
   mail:
     host: smtp.gmail.com
     port: 587
@@ -32,7 +38,6 @@ spring:
           timeout: 5000
           starttls:
             enable: true
-
   thymeleaf:
     cache: false
 

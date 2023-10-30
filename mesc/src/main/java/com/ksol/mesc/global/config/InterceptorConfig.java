@@ -8,6 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new mesc.mesc.global.config.LoggingInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(new com.ksol.mesc.global.config.LoggingInterceptor()).addPathPatterns("/**");
 	}
 }
