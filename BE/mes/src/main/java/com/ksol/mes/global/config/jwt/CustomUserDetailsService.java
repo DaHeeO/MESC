@@ -5,9 +5,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.ksol.mes.domain.user.entity.User;
+import com.ksol.mes.domain.user.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
-import mesc.mesc.domain.user.entity.User;
-import mesc.mesc.domain.user.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
