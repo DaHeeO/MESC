@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Title</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+        .container {
+            width: 600px; /* 너비는 필요에 따라 조정하세요 */
+            margin: 0 auto;
+            /*font-family: 'Arial', sans-serif;  !* 글꼴은 이미지에 따라 변경하세요 *!*/
+        }
+
+        .email-header {
+            width: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content {
+            font-size: 14px;
+            font-family: 'Noto Sans KR', sans-serif;
+            color: black;
+            margin-bottom: 20px;
+            /*padding: 10px;*/
+        }
+
+        .content h3 {
+            font-size: 20px; /* 크기는 필요에 따라 조정하세요 */
+            margin-bottom: 20px;
+        }
+
+        footer {
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="email-header">
+            <img src="cid:EmailHeader" alt="Header Image Description"/>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <h3>공장 이슈 발생 안내</h3>
+            <div style="white-space:pre" th:text="${content}"></div>
+        </div>
+    </main>
+    <footer>
+        <hr>
+        <p>※ 본 메일은 MESC 서비스에 의해 자동으로 발송되었습니다.</p>
+    </footer>
+</div>
+</body>
+</html>
