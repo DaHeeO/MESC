@@ -26,6 +26,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.ServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -43,41 +44,45 @@ public class JwtTokenProvider {
 		this.key = Keys.hmacShaKeyFor(keyBytes);
 	}
 
-	public TokenInfo createToken(Authentication authentication) {
-		// 사용자의 권한 정보 가져오기
-		String authorities = authentication.getAuthorities()
-										   .stream()
-										   .map(GrantedAuthority::getAuthority)
-										   .collect(Collectors.joining(","));
-
-		long now = new Date().getTime();
-
-		// AccessToken 생성
-		String accessToken = Jwts.builder()
-								 .setSubject(authentication.getName())
-								 .claim(AUTHORITIES_KEY, authorities)
-								 .setExpiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))
-								 .signWith(key, SignatureAlgorithm.HS256)
-								 .compact();
-
-		// RefreshToken 생성
-		String refreshToken = Jwts.builder()
-								  .setSubject(authentication.getName())
-								  .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
-								  .signWith(key, SignatureAlgorithm.HS256)
-								  .compact();
-
-		// 생성된 토큰을 토큰 dto에 담아 반환
-		return TokenInfo.builder()
-						.grantType(BEARER_TYPE)
-						.accessToken(accessToken)
-						.refreshToken(refreshToken)
-						.expireTime(REFRESH_TOKEN_EXPIRE_TIME)
-						.build();
-	}
+	// public TokenInfo createToken(Authentication authentication) {
+	// 	// 사용자의 권한 정보 가져오기
+	// 	String authorities = authentication.getAuthorities()
+	// 									   .stream()
+	// 									   .map(GrantedAuthority::getAuthority)
+	// 									   .collect(Collectors.joining(","));
+	//
+	// 	long now = new Date().getTime();
+	// 	com.ksol.mes.domain.user.entity.User user = userRepository.findByEmail(authentication.getName())
+	// 															  .orElseThrow(() -> new UserNotFoundException(
+	// 																  "User Not Found"));
+	// 	String userId = user.getId().toString();
+	//
+	// 	// AccessToken 생성
+	// 	String accessToken = Jwts.builder()
+	// 							 .setSubject(authentication.getName())
+	// 							 .claim(AUTHORITIES_KEY, authorities)
+	// 							 .claim("userId", userId)
+	// 							 .setExpiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))
+	// 							 .signWith(key, SignatureAlgorithm.HS256)
+	// 							 .compact();
+	//
+	// 	// RefreshToken 생성
+	// 	String refreshToken = Jwts.builder()
+	// 							  .setSubject(authentication.getName())
+	// 							  .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
+	// 							  .signWith(key, SignatureAlgorithm.HS256)
+	// 							  .compact();
+	//
+	// 	// 생성된 토큰을 토큰 dto에 담아 반환
+	// 	return TokenInfo.builder()
+	// 					.grantType(BEARER_TYPE)
+	// 					.accessToken(accessToken)
+	// 					.refreshToken(refreshToken)
+	// 					.build();
+	// }
 
 	// JWT 토큰을 복호화하여 토큰에 들어있는 정보를 꺼냄
-	public Authentication getAuthentication(String accessToken) {
+	public Authentication getAuthentication(String accessToken, ServletRequest request) {
 		Claims claims = parseClaims(accessToken);
 
 		if (claims.get(AUTHORITIES_KEY) == null) {
@@ -91,7 +96,8 @@ public class JwtTokenProvider {
 																   .collect(Collectors.toList());
 
 		// UserDetails 객체를 만들어서 Authentication 리턴
-		UserDetails principal = new User(claims.getSubject(), "", authorities);
+		UserDetails principal = new User(claims.get("userId",String.class), "", authorities);
+		request.setAttribute("userId", claims.get("userId", String.class));
 		return new UsernamePasswordAuthenticationToken(principal, "", authorities);
 	}
 
