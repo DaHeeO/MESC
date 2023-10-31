@@ -19,15 +19,17 @@ import com.ksol.mesc.domain.group.dto.request.GroupListReq;
 import com.ksol.mesc.domain.group.dto.request.GroupMemberReq;
 import com.ksol.mesc.domain.group.dto.request.GroupReq;
 import com.ksol.mesc.domain.group.dto.response.GroupResponse;
+import com.ksol.mesc.domain.group.dto.response.UserResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
+import com.ksol.mesc.domain.user.User;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/group")
@@ -41,7 +43,7 @@ public class GroupController {
 	@PostMapping("/{userId}")
 	ResponseEntity<CommonResponseDto<?>> addGroup(@Parameter(description = "사용자 id", required = true)
 	@PathVariable Integer userId, @Parameter(description = "그룹명", required = true)
-	@RequestBody GroupReq groupReq){
+	@RequestBody GroupReq groupReq) {
 		groupReq.setUserId(userId);
 		groupService.addGroup(groupReq.toEntity(groupReq));
 		return ResponseEntity.ok(CommonResponseDto.success(null));
@@ -50,7 +52,7 @@ public class GroupController {
 	@Operation(summary = "그룹 삭제 API", description = "DB에서 그룹을 삭제한다.")
 	@DeleteMapping("/{groupId}")
 	ResponseEntity<CommonResponseDto<?>> deleteGroup(@Parameter(description = "그룹 id", required = true)
-		@PathVariable Integer groupId){
+	@PathVariable Integer groupId) {
 		groupService.deleteGroup(groupId);
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
@@ -60,13 +62,13 @@ public class GroupController {
 	@PatchMapping("/{userId}/{groupId}")
 	ResponseEntity<CommonResponseDto<?>> updateGroup(@Parameter(description = "그룹 id", required = true)
 	@PathVariable Integer userId, @Parameter(description = "그룹 id", required = true)
-		@PathVariable Integer groupId, @Parameter(description = "변경할 그룹명", required = true)
-		@RequestBody GroupReq groupReq){
+	@PathVariable Integer groupId, @Parameter(description = "변경할 그룹명", required = true)
+	@RequestBody GroupReq groupReq) {
 		Group group = Group.builder()
 			.id(groupId)
 			.userId(userId)
-				.groupName(groupReq.getName())
-					.build();
+			.groupName(groupReq.getName())
+			.build();
 		groupService.updateGroup(group);
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
@@ -75,12 +77,12 @@ public class GroupController {
 	@Operation(summary = "그룹 멤버 수정 API", description = "그룹 멤버 수정 후, DB에 저장한다.")
 	@PatchMapping("/member/{groupId}")
 	ResponseEntity<CommonResponseDto<?>> updateGroupMember(@Parameter(description = "그룹 id", required = true)
-		@PathVariable @Validated Integer groupId, @Parameter(description = "변경할 멤버", required = true)
-		@RequestBody @Validated GroupMemberReq groupMemberReq){
+	@PathVariable Integer groupId, @Parameter(description = "변경할 멤버", required = true)
+	@RequestBody GroupMemberReq groupMemberReq) {
 		List<Integer> userList = groupMemberReq.getUserList();
 		List<GroupMember> groupMemberList = new ArrayList<>();
 
-		for(Integer reqUserId : userList){
+		for (Integer reqUserId : userList) {
 			GroupMember groupMember = GroupMember.builder()
 				.userId(reqUserId)
 				.group(Group.builder().id(groupId).build())
@@ -96,11 +98,11 @@ public class GroupController {
 	@Operation(summary = "그룹 순서 수정 API", description = "변경할 그룹 순서를 DB에 저장한다.")
 	@PatchMapping("/sequence/{userId}")
 	ResponseEntity<CommonResponseDto<?>> updateGroupSequence(@Parameter(description = "그룹 id 리스트", required = true)
-		@RequestBody @Validated GroupListReq groupListReq){
+	@RequestBody GroupListReq groupListReq) {
 		List<GroupReq> groupReqList = groupListReq.getGroupReqList();
 		List<Group> groupList = new ArrayList<>();
 
-		for(GroupReq groupReq : groupReqList){
+		for (GroupReq groupReq : groupReqList) {
 			Group group = Group.builder()
 				.id(groupReq.getGroupId())
 				.sequence(groupReq.getSequence())
@@ -115,11 +117,11 @@ public class GroupController {
 	@Operation(summary = "그룹 조회 API", description = "사용자가 생성한 그룹을 조회한다.")
 	@GetMapping("/{userId}")
 	ResponseEntity<CommonResponseDto<?>> selectGroup(@Parameter(description = "사용자 id", required = true)
-		@PathVariable Integer userId){
+	@PathVariable Integer userId) {
 		List<Group> groupList = groupService.selectGroup(userId);
 		List<GroupResponse> groupResponseList = new ArrayList<>();
 
-		for(Group group : groupList){
+		for (Group group : groupList) {
 			GroupResponse groupResponse = GroupResponse.builder()
 				.groupId(group.getId())
 				.groupName(group.getGroupName())
@@ -135,13 +137,8 @@ public class GroupController {
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹 멤버를 조회한다.")
 	@GetMapping("/member/{groupId}")
 	ResponseEntity<CommonResponseDto<?>> selectGroupMember(@Parameter(description = "그룹 id", required = true)
-	@PathVariable @Validated Integer groupId){
-		List<Integer> groupMemberList = groupService.selectGroupMember(groupId);
-		
-		//1. mes db에서 사용자 조회 API 요청
-		
-		//2. 요청 후, 받은 결과 출력
-
-		return ResponseEntity.ok(CommonResponseDto.success(null));
+	@PathVariable Integer groupId) {
+		UserResponse userResponse = groupService.selectGroupMember(groupId);
+		return ResponseEntity.ok(CommonResponseDto.success(userResponse));
 	}
 }

@@ -6,6 +6,8 @@
 // import org.springframework.stereotype.Service;
 //
 // import lombok.RequiredArgsConstructor;
+// import mesc.mesc.domain.user.entity.User;
+// import mesc.mesc.domain.user.repository.UserRepository;
 //
 // @Service
 // @RequiredArgsConstructor

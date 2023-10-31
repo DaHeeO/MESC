@@ -74,7 +74,6 @@ logging:
 #  port: 8000
 #  ec2-url: https://
 
-
 ## jwt
 #jwt:
 #  secret: d39gssddf6SsdahASDFFaesdGHJFDGjsdfsddfsdhSDS2HSZDasEsd48Os923459780012I4E3IdjSLOFJaseyH
