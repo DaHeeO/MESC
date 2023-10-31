@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		// 토큰 검증 -> 유효한 경우 : Authentication 객체 SecurityContext 에 저장
 		if (jwtTokenProvider.validateToken(token)) {
-			setSecurityContextHolder(token);
+			setSecurityContextHolder(token, request);
 		}
 
 		chain.doFilter(request, response);
@@ -52,8 +52,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		return null;
 	}
 
-	private void setSecurityContextHolder(String token) {
-		Authentication authentication = jwtTokenProvider.getAuthentication(token);
+	private void setSecurityContextHolder(String token, HttpServletRequest request) {
+		Authentication authentication = jwtTokenProvider.getAuthentication(token, request);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 }

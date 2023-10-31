@@ -1,5 +1,7 @@
 package com.ksol.mesc.domain.user.controller;
 
+import java.security.Principal;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.user.dto.LoginReq;
+import com.ksol.mesc.domain.user.dto.SendEmailReq;
+import com.ksol.mesc.domain.user.entity.User;
 import com.ksol.mesc.domain.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,5 +34,18 @@ public class UserController {
 		@Parameter(description = "이메일, 패스워드", required = true) @RequestBody @Validated LoginReq loginReq) {
 		return userService.forwardLoginRequest(loginReq);
 	}
+
+	@Operation(summary = "이메일 발송 API", description = "해당 이메일로 메일을 발송한다.")
+	@PostMapping("/email")
+	public ResponseEntity<?> sendEmail(
+		@Parameter(description = "회원 이메일", required = true) @RequestBody @Validated SendEmailReq sendEmailReq,
+		Principal principal) {
+		log.debug("principal={}", principal);
+		userService.sendEmail(sendEmailReq);
+		return ResponseEntity.ok().build();
+	}
+
+
+
 
 }

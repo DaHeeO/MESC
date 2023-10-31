@@ -58,6 +58,7 @@ spring:
 logging:
   level:
     com.ksol.mesc: debug
+    org.springframework.security: debug
     org:
       hibernate:
         SQL: DEBUG
