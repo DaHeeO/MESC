@@ -35,10 +35,10 @@ const PAGES = [
 
 const Intro = ({navigation}: LoginProps) => {
   const handleButtonPress = () => {
-    // navigation.reset({
-    //   index: 0,
-    //   routes: [{name: 'BottomTab', params: {screen: 'Main'}}],
-    // });
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'BottomTab', params: {screen: 'Main'}}],
+    });
   };
 
   return (
@@ -48,10 +48,10 @@ const Intro = ({navigation}: LoginProps) => {
         <S.Top>
           <S.SkipBox
             onPress={() => {
-              // navigation.reset({
-              //   index: 0,
-              //   routes: [{name: 'BottomTab', params: {screen: 'Main'}}],
-              // });
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'BottomTab', params: {screen: 'Main'}}],
+              });
             }}>
             <S.Skip>Skip</S.Skip>
           </S.SkipBox>

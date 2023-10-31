@@ -8,6 +8,7 @@ import FindPassword from './src/screens/login/FindPassword';
 import ChangePassword from './src/screens/login/ChangePassword';
 import Success from './src/screens/login/Success';
 import Intro from './src/screens/intro/Intro';
+import BottomTab from './src/components/common/bottomTab/BottomTab';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,11 @@ function App() {
         <Stack.Screen
           name="Intro"
           component={Intro}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BottomTab"
+          component={BottomTab}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
