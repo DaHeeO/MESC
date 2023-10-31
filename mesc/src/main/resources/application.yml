@@ -41,12 +41,12 @@ spring:
   thymeleaf:
     cache: false
 
-#  firebase:
-#    serviceAccountPath: path/to/serviceAccountKey.json
-#  security:
-#    user:
-#      name: admin
-#      password: admin
+  #  firebase:
+  #    serviceAccountPath: path/to/serviceAccountKey.json
+  #  security:
+  #    user:
+  #      name: admin
+  #      password: admin
 
   servlet:
     multipart:
@@ -69,10 +69,10 @@ logging:
 # jwt secret key 설정
 #jwt:
 #  key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
-#
-#server:
-#  port: 8000
-#  ec2-url: https://
+
+server:
+  port: 8000
+  ec2-url: https://
 
 ## jwt
 #jwt:

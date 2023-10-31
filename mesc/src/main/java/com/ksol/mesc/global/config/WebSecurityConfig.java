@@ -39,26 +39,26 @@
 // 	@Bean
 // 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 // 		httpSecurity.csrf(AbstractHttpConfigurer::disable)
-// 					.httpBasic(AbstractHttpConfigurer::disable)
-// 					.formLogin(AbstractHttpConfigurer::disable)
-// 					.cors(c -> c.configurationSource(corsConfigurationSource()))
-// 					.sessionManagement(c -> c.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
+// 			.httpBasic(AbstractHttpConfigurer::disable)
+// 			.formLogin(AbstractHttpConfigurer::disable)
+// 			.cors(c -> c.configurationSource(corsConfigurationSource()))
+// 			.sessionManagement(c -> c.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
 //
-// 					.authorizeHttpRequests(auth -> auth.requestMatchers(Stream.of(WHITE_LIST)
-// 																			  .map(AntPathRequestMatcher::antMatcher)
-// 																			  .toArray(AntPathRequestMatcher[]::new))
-// 													   .permitAll()
-// 													   .requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"))
-// 													   .hasAnyRole("USER")
-// 													   .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"))
-// 													   .hasAnyRole("ADMIN")
-// 													   .anyRequest()
-// 													   .authenticated())
+// 			.authorizeHttpRequests(auth -> auth.requestMatchers(Stream.of(WHITE_LIST)
+// 					.map(AntPathRequestMatcher::antMatcher)
+// 					.toArray(AntPathRequestMatcher[]::new))
+// 				.permitAll()
+// 				.requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"))
+// 				.hasAnyRole("USER")
+// 				.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"))
+// 				.hasAnyRole("ADMIN")
+// 				.anyRequest()
+// 				.authenticated())
 //
-// 					.exceptionHandling(c -> c.authenticationEntryPoint(new UnauthorizedEntrypointHandler())
-// 											 .accessDeniedHandler(tokenAccessDeniedHandler))
-// 					.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate),
-// 						UsernamePasswordAuthenticationFilter.class);
+// 			.exceptionHandling(c -> c.authenticationEntryPoint(new UnauthorizedEntrypointHandler())
+// 				.accessDeniedHandler(tokenAccessDeniedHandler))
+// 			.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate),
+// 				UsernamePasswordAuthenticationFilter.class);
 //
 // 		return httpSecurity.build();
 // 	}

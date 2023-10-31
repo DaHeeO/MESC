@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,14 +21,12 @@ import com.ksol.mesc.domain.group.dto.response.GroupResponse;
 import com.ksol.mesc.domain.group.dto.response.UserResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
-import com.ksol.mesc.domain.user.User;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/group")
@@ -138,7 +135,9 @@ public class GroupController {
 	@GetMapping("/member/{groupId}")
 	ResponseEntity<CommonResponseDto<?>> selectGroupMember(@Parameter(description = "그룹 id", required = true)
 	@PathVariable Integer groupId) {
-		UserResponse userResponse = groupService.selectGroupMember(groupId);
+		// String userEmail = authentication.getName();
+		// UserResponse userResponse = groupService.selectGroupMember(groupId);
+		UserResponse userResponse = groupService.selectGroupMember(groupId).getBody();
 		return ResponseEntity.ok(CommonResponseDto.success(userResponse));
 	}
 }

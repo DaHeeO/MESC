@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -18,7 +19,6 @@ import com.ksol.mesc.domain.group.repository.GroupRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -84,7 +84,7 @@ public class GroupService {
 	}
 
 	//그룹 멤버 조회
-	public UserResponse selectGroupMember(Integer groupId) {
+	public ResponseEntity<UserResponse> selectGroupMember(Integer groupId) {
 		//1. 그룹에 있는 멤버 조회
 		List<Integer> userList = groupMemberRepository.findByGroupId(groupId);
 		Map<String, List<Integer>> reqMap = new HashMap<>();
@@ -95,10 +95,12 @@ public class GroupService {
 		//2. 멤버 정보 mes 서버에 API 요청
 		return webClient.post()
 			.uri("/user")
+			// .header(HttpHeaders.AUTHORIZATION, "Bearer " + authkey)
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(BodyInserters.fromValue(reqMap))
 			.retrieve()
-			.bodyToMono(UserResponse.class)
+			.toEntity(UserResponse.class)
+			// .bodyToMono(UserResponse.class)
 			.block();
 	}
 }

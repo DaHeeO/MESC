@@ -46,34 +46,34 @@
 // 	public TokenInfo createToken(Authentication authentication) {
 // 		// 사용자의 권한 정보 가져오기
 // 		String authorities = authentication.getAuthorities()
-// 										   .stream()
-// 										   .map(GrantedAuthority::getAuthority)
-// 										   .collect(Collectors.joining(","));
+// 			.stream()
+// 			.map(GrantedAuthority::getAuthority)
+// 			.collect(Collectors.joining(","));
 //
 // 		long now = new Date().getTime();
 //
 // 		// AccessToken 생성
 // 		String accessToken = Jwts.builder()
-// 								 .setSubject(authentication.getName())
-// 								 .claim(AUTHORITIES_KEY, authorities)
-// 								 .setExpiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))
-// 								 .signWith(key, SignatureAlgorithm.HS256)
-// 								 .compact();
+// 			.setSubject(authentication.getName())
+// 			.claim(AUTHORITIES_KEY, authorities)
+// 			.setExpiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))
+// 			.signWith(key, SignatureAlgorithm.HS256)
+// 			.compact();
 //
 // 		// RefreshToken 생성
 // 		String refreshToken = Jwts.builder()
-// 								  .setSubject(authentication.getName())
-// 								  .setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
-// 								  .signWith(key, SignatureAlgorithm.HS256)
-// 								  .compact();
+// 			.setSubject(authentication.getName())
+// 			.setExpiration(new Date(now + REFRESH_TOKEN_EXPIRE_TIME))
+// 			.signWith(key, SignatureAlgorithm.HS256)
+// 			.compact();
 //
 // 		// 생성된 토큰을 토큰 dto에 담아 반환
 // 		return TokenInfo.builder()
-// 						.grantType(BEARER_TYPE)
-// 						.accessToken(accessToken)
-// 						.refreshToken(refreshToken)
-// 						.expireTime(REFRESH_TOKEN_EXPIRE_TIME)
-// 						.build();
+// 			.grantType(BEARER_TYPE)
+// 			.accessToken(accessToken)
+// 			.refreshToken(refreshToken)
+// 			.expireTime(REFRESH_TOKEN_EXPIRE_TIME)
+// 			.build();
 // 	}
 //
 // 	// JWT 토큰을 복호화하여 토큰에 들어있는 정보를 꺼냄
@@ -86,9 +86,9 @@
 //
 // 		// Claim 에서 권한 정보 가져오기
 // 		Collection<? extends GrantedAuthority> authorities = Arrays.stream(
-// 																	   claims.get(AUTHORITIES_KEY).toString().split(","))
-// 																   .map(SimpleGrantedAuthority::new)
-// 																   .collect(Collectors.toList());
+// 				claims.get(AUTHORITIES_KEY).toString().split(","))
+// 			.map(SimpleGrantedAuthority::new)
+// 			.collect(Collectors.toList());
 //
 // 		// UserDetails 객체를 만들어서 Authentication 리턴
 // 		UserDetails principal = new User(claims.getSubject(), "", authorities);
@@ -125,11 +125,11 @@
 //
 // 	public boolean getIsExpired(String accessToken) {
 // 		Date expiration = Jwts.parserBuilder()
-// 							  .setSigningKey(key)
-// 							  .build()
-// 							  .parseClaimsJws(accessToken)
-// 							  .getBody()
-// 							  .getExpiration();
+// 			.setSigningKey(key)
+// 			.build()
+// 			.parseClaimsJws(accessToken)
+// 			.getBody()
+// 			.getExpiration();
 // 		// 현재 시간
 // 		long now = new Date().getTime();
 // 		return (expiration.getTime() - now) > 0;
