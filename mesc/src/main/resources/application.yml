@@ -71,7 +71,7 @@ jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
 server:
-  port: 8000
+  port: 8080
   ec2-url: https://
 
 ## jwt
