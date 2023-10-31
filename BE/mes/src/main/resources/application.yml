@@ -4,11 +4,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: root
-    password: ksol1117
+    password: root
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     database: mysql
     properties:
@@ -67,9 +67,9 @@ spring:
 #              BasicBinder: TRACE
 
 # jwt secret key 설정
-jwt:
-  key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
+#jwt:
+#  key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
 server:
-  port: 8001
+  port: 8081
   ec2-url: https://
