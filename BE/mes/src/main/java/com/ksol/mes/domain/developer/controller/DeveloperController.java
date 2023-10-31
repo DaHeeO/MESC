@@ -10,9 +10,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.SQLException;
 
 @RestController
@@ -27,8 +29,10 @@ public class DeveloperController {
     private final static String FAIL = "FAIL";
 
     @PostMapping("/data")
-    public ResponseEntity<DeveloperDataResponseDto> getData (@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto) {
+    public ResponseEntity<DeveloperDataResponseDto> getData (@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto, Principal principal) {
+        log.debug("principal={}", principal);
         DeveloperDataResponseDto developerDataResponseDto = null;
+
         try {
             Table table = developerService.getTable(developerDataRequestDto.getQuery());
             developerDataResponseDto = new DeveloperDataResponseDto(table);

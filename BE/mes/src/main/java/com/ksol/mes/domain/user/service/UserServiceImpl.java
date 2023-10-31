@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 		if (byEmail.isEmpty())
 			throw new UserNotFoundException("User Not Found");
 		UsernamePasswordAuthenticationToken authenticationToken = loginReq.toAuthentication();
-		log.debug("authenticationToken={}", authenticationToken);
+		// log.debug("authenticationToken={}", authenticationToken);
 
 		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 		TokenInfo tokenInfo = jwtTokenProvider.createToken(authentication);
