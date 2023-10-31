@@ -22,7 +22,7 @@ export default function MuiBtn() {
   return (
     <>
       <Container height="30%" width="80%">
-        <FormControl sx={{ m: 1, width: "70%" }} variant="outlined">
+        <FormControl sx={{ m: 1, width: "80%" }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">아이디</InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
@@ -33,7 +33,7 @@ export default function MuiBtn() {
         </FormControl>
       </Container>
       <Container height="30%" width="80%">
-        <FormControl sx={{ m: 1, width: "70%" }} variant="outlined">
+        <FormControl sx={{ m: 1, width: "80%" }} variant="outlined">
           <InputLabel htmlFor="outlined-adornment-password">
             비밀번호
           </InputLabel>
