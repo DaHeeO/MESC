@@ -5,10 +5,10 @@ import OnBoardingItem from './OnBoardingItem';
 
 interface IOnBoarding {
   pages: any[];
-  pnButtonPress: () => void;
+  onButtonPress: () => void;
 }
 
-export default function OnBoarding({pages, pnButtonPress}: IOnBoarding) {
+export default function OnBoarding({pages, onButtonPress}: IOnBoarding) {
   function renderItem({item}: any) {
     return <OnBoardingItem item={item} />;
   }
@@ -64,7 +64,7 @@ export default function OnBoarding({pages, pnButtonPress}: IOnBoarding) {
       </S.IndicatorWrapper>
       <S.Bottom>
         {shouldShowButton && (
-          <S.Button onPress={pnButtonPress}>
+          <S.Button onPress={onButtonPress}>
             <S.ButtonText>시작하기</S.ButtonText>
           </S.Button>
         )}

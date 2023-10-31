@@ -35,7 +35,10 @@ const PAGES = [
 
 const Intro = ({navigation}: LoginProps) => {
   const handleButtonPress = () => {
-    navigation.navigate('Main');
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'BottomTab', params: {screen: 'Main'}}],
+    });
   };
 
   return (
@@ -43,11 +46,17 @@ const Intro = ({navigation}: LoginProps) => {
       <S.BackgroundImg source={BackgroundIntro} />
       <S.Div>
         <S.Top>
-          <S.SkipBox onPress={() => navigation.navigate('Main')}>
+          <S.SkipBox
+            onPress={() => {
+              navigation.reset({
+                index: 0,
+                routes: [{name: 'BottomTab', params: {screen: 'Main'}}],
+              });
+            }}>
             <S.Skip>Skip</S.Skip>
           </S.SkipBox>
         </S.Top>
-        <OnBoarding pages={PAGES} pnButtonPress={handleButtonPress} />
+        <OnBoarding pages={PAGES} onButtonPress={handleButtonPress} />
       </S.Div>
     </S.Container>
   );

@@ -7,8 +7,8 @@ import FindId from './src/screens/login/FindId';
 import FindPassword from './src/screens/login/FindPassword';
 import ChangePassword from './src/screens/login/ChangePassword';
 import Success from './src/screens/login/Success';
-import Main from './src/screens/main/Main';
 import Intro from './src/screens/intro/Intro';
+import BottomTab from './src/components/common/bottomTab/BottomTab';
 
 const Stack = createStackNavigator();
 
@@ -42,13 +42,13 @@ function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Main"
-          component={Main}
+          name="Intro"
+          component={Intro}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Intro"
-          component={Intro}
+          name="BottomTab"
+          component={BottomTab}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
