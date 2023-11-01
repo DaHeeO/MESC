@@ -5,12 +5,12 @@ interface ContactsProps {
   navigation: any;
 }
 
-const Contacts = ({navigation}: ContactsProps) => {
+const Group = ({navigation}: ContactsProps) => {
   return (
     <View>
-      <Text>Contacts</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('Group')}>
-        <Text>Group</Text>
+      <Text>Group</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Contacts')}>
+        <Text>Contacts</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
         <Text>Detail</Text>
@@ -19,4 +19,4 @@ const Contacts = ({navigation}: ContactsProps) => {
   );
 };
 
-export default Contacts;
+export default Group;

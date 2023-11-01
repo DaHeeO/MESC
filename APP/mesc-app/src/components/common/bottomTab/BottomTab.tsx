@@ -10,7 +10,7 @@ import * as S from './BottomTab.styles';
 
 // components
 import Main from '../../../screens/main/Main';
-import Contact from '../../../screens/contacts/Contacts';
+import ContactStack from '../../../screens/contacts/Stack';
 import Message from '../../../screens/messages/Messages';
 import Setting from '../../../screens/settings/Settings';
 
@@ -106,7 +106,7 @@ function BottompTab() {
       initialRouteName="Main">
       <Tab.Screen
         name="Contact"
-        component={Contact}
+        component={ContactStack}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Contact" />

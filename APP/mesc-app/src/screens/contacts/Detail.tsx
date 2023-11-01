@@ -5,18 +5,18 @@ interface ContactsProps {
   navigation: any;
 }
 
-const Contacts = ({navigation}: ContactsProps) => {
+const Detail = ({navigation}: ContactsProps) => {
   return (
     <View>
-      <Text>Contacts</Text>
+      <Text>Detail</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Contacts')}>
+        <Text>Contacts</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Group')}>
         <Text>Group</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Detail')}>
-        <Text>Detail</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Contacts;
+export default Detail;
