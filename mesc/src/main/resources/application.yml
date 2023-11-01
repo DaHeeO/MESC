@@ -2,13 +2,13 @@ spring:
   # DB 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/mesc?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/mescdb?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: root
-    password: ksol1117
+    password: root
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     database: mysql
     properties:
@@ -41,12 +41,12 @@ spring:
   thymeleaf:
     cache: false
 
-#  firebase:
-#    serviceAccountPath: path/to/serviceAccountKey.json
-#  security:
-#    user:
-#      name: admin
-#      password: admin
+  #  firebase:
+  #    serviceAccountPath: path/to/serviceAccountKey.json
+  #  security:
+  #    user:
+  #      name: admin
+  #      password: admin
 
   servlet:
     multipart:
@@ -72,7 +72,7 @@ jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
 server:
-  port: 8080
+  port: 8000
   ec2-url: https://
 
 ## jwt

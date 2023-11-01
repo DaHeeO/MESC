@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
-import com.ksol.mesc.domain.user.entity.User;
 import com.ksol.mesc.domain.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,8 +43,5 @@ public class UserController {
 		userService.sendEmail(sendEmailReq);
 		return ResponseEntity.ok().build();
 	}
-
-
-
 
 }

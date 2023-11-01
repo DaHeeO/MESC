@@ -22,7 +22,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -91,12 +90,12 @@ public class JwtTokenProvider {
 
 		// Claim 에서 권한 정보 가져오기
 		Collection<? extends GrantedAuthority> authorities = Arrays.stream(
-																	   claims.get(AUTHORITIES_KEY).toString().split(","))
-																   .map(SimpleGrantedAuthority::new)
-																   .collect(Collectors.toList());
+				claims.get(AUTHORITIES_KEY).toString().split(","))
+			.map(SimpleGrantedAuthority::new)
+			.collect(Collectors.toList());
 
 		// UserDetails 객체를 만들어서 Authentication 리턴
-		UserDetails principal = new User(claims.get("userId",String.class), "", authorities);
+		UserDetails principal = new User(claims.get("userId", String.class), "", authorities);
 		request.setAttribute("userId", claims.get("userId", String.class));
 		return new UsernamePasswordAuthenticationToken(principal, "", authorities);
 	}
@@ -131,11 +130,11 @@ public class JwtTokenProvider {
 
 	public boolean getIsExpired(String accessToken) {
 		Date expiration = Jwts.parserBuilder()
-							  .setSigningKey(key)
-							  .build()
-							  .parseClaimsJws(accessToken)
-							  .getBody()
-							  .getExpiration();
+			.setSigningKey(key)
+			.build()
+			.parseClaimsJws(accessToken)
+			.getBody()
+			.getExpiration();
 		// 현재 시간
 		long now = new Date().getTime();
 		return (expiration.getTime() - now) > 0;

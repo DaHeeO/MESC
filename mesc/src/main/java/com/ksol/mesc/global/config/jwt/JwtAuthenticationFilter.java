@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -17,11 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private static final String AUTHORIZATION_HEADER = "Authorization";
 	private static final String BEARER_TYPE = "Bearer";
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
+
+	// ThreadLocal 변수를 사용하여 AccessToken을 저장하기 위한 정적 변수
+	private static final ThreadLocal<String> accessTokenThreadLocal = new ThreadLocal<>();
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -37,6 +42,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		// 토큰 검증 -> 유효한 경우 : Authentication 객체 SecurityContext 에 저장
 		if (jwtTokenProvider.validateToken(token)) {
 			setSecurityContextHolder(token, request);
+
+			// AccessToken을 ThreadLocal 변수에 저장
+			accessTokenThreadLocal.set(token);
 		}
 
 		chain.doFilter(request, response);
@@ -55,5 +63,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private void setSecurityContextHolder(String token, HttpServletRequest request) {
 		Authentication authentication = jwtTokenProvider.getAuthentication(token, request);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+	}
+
+	// AccessToken을 반환하는 메소드
+	public String getAccessToken() {
+		return accessTokenThreadLocal.get();
 	}
 }

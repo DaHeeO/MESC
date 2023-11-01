@@ -1,5 +1,6 @@
 package com.ksol.mesc.global.config;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
+import com.ksol.mesc.global.config.jwt.JwtExceptionFilter;
 import com.ksol.mesc.global.config.jwt.JwtTokenProvider;
 import com.ksol.mesc.global.config.jwt.TokenAccessDeniedHandler;
 import com.ksol.mesc.global.config.jwt.UnauthorizedEntrypointHandler;
@@ -31,34 +33,45 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSecurityConfig {
-	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**", "/api/mesc/user/signup", "/api/mesc/user/login", "/**"};
+	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**", "/api/mesc/user/signup",
+		"/api/mesc/user/login"
+		// , "/**"
+	};
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final JwtExceptionFilter jwtExceptionFilter;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+		jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtTokenProvider,
+			redisTemplate);
+
 		httpSecurity.csrf(AbstractHttpConfigurer::disable)
-					.httpBasic(AbstractHttpConfigurer::disable)
-					.formLogin(AbstractHttpConfigurer::disable)
-					.cors(c -> c.configurationSource(corsConfigurationSource()))
-					.sessionManagement(c -> c.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
+			.httpBasic(AbstractHttpConfigurer::disable)
+			.formLogin(AbstractHttpConfigurer::disable)
+			.cors(c -> c.configurationSource(corsConfigurationSource()))
+			.sessionManagement(c -> c.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
 
-					.authorizeHttpRequests(auth -> auth.requestMatchers(Stream.of(WHITE_LIST)
-																			  .map(AntPathRequestMatcher::antMatcher)
-																			  .toArray(AntPathRequestMatcher[]::new))
-													   .permitAll()
-													   .requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"))
-													   .hasAnyRole("USER")
-													   .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"))
-													   .hasAnyRole("ADMIN")
-													   .anyRequest()
-													   .authenticated())
+			.authorizeHttpRequests(auth -> auth.requestMatchers(Stream.of(WHITE_LIST)
+					.map(AntPathRequestMatcher::antMatcher)
+					.toArray(AntPathRequestMatcher[]::new))
+				.permitAll()
+				.requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"))
+				.hasAnyRole("WROKER")
+				.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"))
+				.hasAnyRole("DEVELOPER")
+				.anyRequest()
+				.authenticated())
 
-					.exceptionHandling(c -> c.authenticationEntryPoint(new UnauthorizedEntrypointHandler())
-											 .accessDeniedHandler(tokenAccessDeniedHandler))
-					.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate),
-						UsernamePasswordAuthenticationFilter.class);
+			.exceptionHandling(c -> c.authenticationEntryPoint(new UnauthorizedEntrypointHandler())
+				.accessDeniedHandler(tokenAccessDeniedHandler))
+			.addFilterBefore(jwtAuthenticationFilter,
+				UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(jwtExceptionFilter,
+				JwtAuthenticationFilter.class);
+		;
 
 		return httpSecurity.build();
 	}
@@ -76,8 +89,10 @@ public class WebSecurityConfig {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 
 		corsConfiguration.addAllowedOriginPattern("*");
-		corsConfiguration.addAllowedHeader("*");
+		corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+		// corsConfiguration.addAllowedHeader("*");
 		corsConfiguration.addAllowedMethod("*");
+		// corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
 		corsConfiguration.setAllowCredentials(true);
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return source;
