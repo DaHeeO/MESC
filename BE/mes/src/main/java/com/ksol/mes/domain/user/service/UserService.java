@@ -1,9 +1,11 @@
 package com.ksol.mes.domain.user.service;
 
-import com.ksol.mes.domain.user.dto.FindUserRes;
-import com.ksol.mes.domain.user.dto.LoginReq;
-import com.ksol.mes.domain.user.dto.SignUpReq;
-import com.ksol.mes.domain.user.entity.User;
+import java.util.List;
+
+import com.ksol.mes.domain.user.dto.request.LoginReq;
+import com.ksol.mes.domain.user.dto.request.SignUpReq;
+import com.ksol.mes.domain.user.dto.request.UserReq;
+import com.ksol.mes.domain.user.dto.response.UserResponse;
 import com.ksol.mes.global.config.jwt.TokenInfo;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,4 +19,8 @@ public interface UserService {
 	TokenInfo recreateToken(HttpServletRequest request);
 
 	FindUserRes findByEmail(String email);
+
+	List<UserResponse> getGroupMembers(UserReq userReq) throws Exception;
+
+	List<UserResponse> getUsers() throws Exception;
 }

@@ -1,4 +1,4 @@
-package com.ksol.mes.domain.user.dto;
+package com.ksol.mes.domain.user.dto.request;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 

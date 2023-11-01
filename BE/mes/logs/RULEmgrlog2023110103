@@ -1,0 +1,10 @@
+2023/11/01 12:12:07.623 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 12:12:07.720 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 12:12:14.649 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 12:12:14.729 INFO  [http-nio-8081-exec-9] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 12:12:57.097 INFO  [http-nio-8081-exec-10] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 12:12:57.101 INFO  [http-nio-8081-exec-10] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 12:35:33.177 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 12:35:33.259 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 12:35:37.163 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 12:35:37.261 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 

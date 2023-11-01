@@ -4,7 +4,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: root
-    password: ksol1117
+    password: root
 
   jpa:
     hibernate:
@@ -26,20 +26,20 @@ spring:
       port: 6379
 
   # 이메일
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: B201MESC
-#    password: szwj gsio ejxo zxqp
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          timeout: 5000
-#          starttls:
-#            enable: true
-#  thymeleaf:
-#    cache: false
+  #  mail:
+  #    host: smtp.gmail.com
+  #    port: 587
+  #    username: B201MESC
+  #    password: szwj gsio ejxo zxqp
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          auth: true
+  #          timeout: 5000
+  #          starttls:
+  #            enable: true
+  #  thymeleaf:
+  #    cache: false
 
   #  firebase:
   #    serviceAccountPath: path/to/serviceAccountKey.json
@@ -57,7 +57,7 @@ spring:
 # JPA log
 logging:
   level:
-    com.ksol.mesc: debug
+    com.ksol.mes: debug
     org:
       hibernate:
         SQL: DEBUG
