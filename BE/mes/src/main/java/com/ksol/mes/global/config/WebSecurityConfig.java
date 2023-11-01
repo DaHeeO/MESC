@@ -20,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ksol.mes.global.config.jwt.JwtAuthenticationFilter;
+import com.ksol.mes.global.config.jwt.JwtExceptionFilter;
 import com.ksol.mes.global.config.jwt.JwtTokenProvider;
 import com.ksol.mes.global.config.jwt.TokenAccessDeniedHandler;
 import com.ksol.mes.global.config.jwt.UnauthorizedEntrypointHandler;
@@ -40,9 +41,14 @@ public class WebSecurityConfig {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final RedisTemplate<String, String> redisTemplate;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
+	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final JwtExceptionFilter jwtExceptionFilter;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+		jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtTokenProvider,
+			redisTemplate);
+
 		httpSecurity.csrf(AbstractHttpConfigurer::disable)
 					.httpBasic(AbstractHttpConfigurer::disable)
 					.formLogin(AbstractHttpConfigurer::disable)
@@ -62,8 +68,10 @@ public class WebSecurityConfig {
 
 					.exceptionHandling(c -> c.authenticationEntryPoint(new UnauthorizedEntrypointHandler())
 											 .accessDeniedHandler(tokenAccessDeniedHandler))
-					.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, redisTemplate),
-						UsernamePasswordAuthenticationFilter.class);
+					.addFilterBefore(jwtAuthenticationFilter,
+						UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(jwtExceptionFilter,
+				JwtAuthenticationFilter.class);
 
 		return httpSecurity.build();
 	}

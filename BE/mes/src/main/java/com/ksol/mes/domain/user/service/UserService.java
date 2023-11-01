@@ -17,5 +17,7 @@ public interface UserService {
 
 	User findByEmail(String name);
 
-	List<UserResponse> getUser(UserReq userReq) throws Exception;
+	List<UserResponse> getGroupMembers(UserReq userReq) throws Exception;
+
+	List<UserResponse> getUsers() throws Exception;
 }

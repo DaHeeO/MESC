@@ -20,3 +20,47 @@
 2023/11/01 14:05:47.122 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
 2023/11/01 14:06:10.690 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
 2023/11/01 14:06:10.697 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/11/01 14:06:42.491 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 24460 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 14:06:42.492 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 14:06:42.494 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 14:06:44.080 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 14:06:47.002 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.025 seconds (process running for 5.554) 
+2023/11/01 14:26:17.166 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 14:26:17.602 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 14:26:28.587 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mes/user/members request start 
+2023/11/01 14:26:28.589 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mes/user/members request done 
+2023/11/01 14:26:28.593 INFO  [http-nio-8081-exec-2] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 14:29:27.857 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/11/01 14:29:27.879 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/11/01 14:30:41.937 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 14:30:42.029 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 14:30:52.746 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mes/members request start 
+2023/11/01 14:30:52.748 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mes/members request done 
+2023/11/01 14:30:52.748 INFO  [http-nio-8081-exec-8] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 14:32:59.224 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 4348 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 14:32:59.225 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 14:32:59.226 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 14:33:00.800 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 14:34:54.306 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 17192 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 14:34:54.307 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 14:34:54.307 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 14:34:57.959 DEBUG [restartedMain] JwtAuthenticationFilter[init : 240] - Filter 'jwtAuthenticationFilter' configured for use 
+2023/11/01 14:34:57.960 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 14:36:22.434 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 5556 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 14:36:22.434 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 14:36:22.435 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 14:36:25.657 DEBUG [restartedMain] JwtAuthenticationFilter[init : 240] - Filter 'jwtAuthenticationFilter' configured for use 
+2023/11/01 14:36:25.659 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 14:36:26.692 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.719 seconds (process running for 5.241) 
+2023/11/01 14:36:29.759 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mes/members request start 
+2023/11/01 14:36:29.761 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mes/members request done 
+2023/11/01 14:36:29.765 INFO  [http-nio-8081-exec-1] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 14:37:21.046 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 14:37:21.443 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 14:37:39.589 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mes/members request start 
+2023/11/01 14:37:39.592 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mes/members request done 
+2023/11/01 14:37:39.594 INFO  [http-nio-8081-exec-4] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 14:37:48.960 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mes/user/members request start 
+2023/11/01 14:37:48.978 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mes/user/members request done 
+2023/11/01 14:37:53.921 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mes/user/members request start 
+2023/11/01 14:37:53.929 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mes/user/members request done 

@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserResponse> getUser(UserReq userReq) throws Exception {
+	public List<UserResponse> getGroupMembers(UserReq userReq) throws Exception {
 		List<Integer> userIdList = userReq.getUserList();
 		Integer[] integerArray = userIdList.toArray(new Integer[0]);
 		List<User> userList = userRepository.getUserById(integerArray);
@@ -119,6 +119,25 @@ public class UserServiceImpl implements UserService {
 		//
 		// 	resultUserList.add(user);
 		// }
+
+		return userResponseList;
+	}
+
+	public List<UserResponse> getUsers() throws Exception {
+		List<User> userList = userRepository.findAll();
+
+		List<UserResponse> userResponseList = new ArrayList<>();
+
+		for(User user : userList){
+			UserResponse userResponse = UserResponse.builder()
+				.userId(user.getId())
+				.userName(user.getName())
+				.email(user.getEmail())
+				.phoneNumber(user.getPhoneNumber())
+				.build();
+
+			userResponseList.add(userResponse);
+		}
 
 		return userResponseList;
 	}

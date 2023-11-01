@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,13 +58,33 @@ public class UserController {
 
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹에 있는 멤버 정보를 조회 후, 전달한다.")
 	@PostMapping
-	public ResponseEntity<?> getUsers (@Parameter(description = "그룹 멤버 id 리스트", required = true) @RequestBody @Validated UserReq userReq) {
+	public ResponseEntity<?> getGroupMembers (@Parameter(description = "그룹 멤버 id 리스트", required = true) @RequestBody @Validated UserReq userReq) {
 		//유저 정보 확인
 		
 		List<UserResponse> userList = null;
 
 		try {
-			userList = userService.getUser(userReq);
+			userList = userService.getGroupMembers(userReq);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		GroupMemberResponse groupMemberResponse = GroupMemberResponse.builder()
+			.userList(userList)
+			.build();
+
+		return new ResponseEntity<>(groupMemberResponse, HttpStatus.OK);
+	}
+
+	@Operation(summary = "멤버 전체 조회 API", description = "모든 멤버 정보를 조회 후, 전달한다.")
+	@GetMapping("/members")
+	public ResponseEntity<?> getUsers () {
+		//유저 정보 확인
+
+		List<UserResponse> userList = null;
+
+		try {
+			userList = userService.getUsers();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
