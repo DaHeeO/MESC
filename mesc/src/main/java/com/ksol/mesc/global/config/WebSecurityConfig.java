@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -23,7 +22,6 @@ import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 import com.ksol.mesc.global.config.jwt.JwtExceptionFilter;
 import com.ksol.mesc.global.config.jwt.JwtTokenProvider;
 import com.ksol.mesc.global.config.jwt.TokenAccessDeniedHandler;
-import com.ksol.mesc.global.config.jwt.UnauthorizedEntrypointHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,45 +31,44 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSecurityConfig {
-	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**", "/api/mesc/user/signup",
-		"/api/mesc/user/login"
-		// , "/**"
-	};
 	private final JwtTokenProvider jwtTokenProvider;
-	private final RedisTemplate<String, String> redisTemplate;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
-	private JwtAuthenticationFilter jwtAuthenticationFilter;
-	private final JwtExceptionFilter jwtExceptionFilter;
+
+	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**", "/api/mesc/user/signup",
+		"/api/mesc/user/login", "/api/mesc/user/reissue"};
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtTokenProvider,
-			redisTemplate);
-
 		httpSecurity.csrf(AbstractHttpConfigurer::disable)
-			.httpBasic(AbstractHttpConfigurer::disable)
-			.formLogin(AbstractHttpConfigurer::disable)
-			.cors(c -> c.configurationSource(corsConfigurationSource()))
-			.sessionManagement(c -> c.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
+					.httpBasic(AbstractHttpConfigurer::disable)
+					.formLogin(AbstractHttpConfigurer::disable)
+					.cors(c -> c.configurationSource(corsConfigurationSource()))
+					.sessionManagement(c -> c.sessionCreationPolicy((SessionCreationPolicy.STATELESS)))
 
-			.authorizeHttpRequests(auth -> auth.requestMatchers(Stream.of(WHITE_LIST)
-					.map(AntPathRequestMatcher::antMatcher)
-					.toArray(AntPathRequestMatcher[]::new))
-				.permitAll()
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"))
-				.hasAnyRole("WROKER")
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"))
-				.hasAnyRole("DEVELOPER")
-				.anyRequest()
-				.authenticated())
+					.authorizeHttpRequests(auth -> auth.requestMatchers(Stream.of(WHITE_LIST)
+																			  .map(AntPathRequestMatcher::antMatcher)
+																			  .toArray(AntPathRequestMatcher[]::new))
+													   .permitAll()
+													   .requestMatchers(
+														   AntPathRequestMatcher.antMatcher("/api/mesc/admin/**"))
+													   .hasAuthority("ADMIN")
+													   .requestMatchers(
+														   AntPathRequestMatcher.antMatcher("/api/mesc/developer/**"))
+													   .hasAuthority("DEVELOPER")
+													   .requestMatchers(
+														   AntPathRequestMatcher.antMatcher("/api/mesc/worker/**"))
+													   .hasAuthority("WORKER")
+													   // .requestMatchers(
+														//    AntPathRequestMatcher.antMatcher("/api/mesc/user/email"))
+													   // .hasAuthority("ADMIN")
 
-			.exceptionHandling(c -> c.authenticationEntryPoint(new UnauthorizedEntrypointHandler())
-				.accessDeniedHandler(tokenAccessDeniedHandler))
-			.addFilterBefore(jwtAuthenticationFilter,
-				UsernamePasswordAuthenticationFilter.class)
-			.addFilterBefore(jwtExceptionFilter,
-				JwtAuthenticationFilter.class);
-		;
+													   .anyRequest()
+													   .authenticated())
+
+					.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+						UsernamePasswordAuthenticationFilter.class)
+					.addFilterBefore(new JwtExceptionFilter(), JwtAuthenticationFilter.class)
+					.exceptionHandling().accessDeniedHandler(tokenAccessDeniedHandler);
 
 		return httpSecurity.build();
 	}
