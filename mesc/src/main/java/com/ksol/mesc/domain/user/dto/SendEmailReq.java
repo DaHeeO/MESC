@@ -11,7 +11,7 @@ import lombok.Data;
 public class SendEmailReq {
 
 	@NotNull
-	@Schema(description = "사용자 이메일 목록")
+	@Schema(description = "사용자 이메일 목록", example = "[\"B201MESC@gmail.com\", \"songsoy95@gmail.com\"]")
 	private List<@NotBlank String> emails;
 
 	@NotNull
