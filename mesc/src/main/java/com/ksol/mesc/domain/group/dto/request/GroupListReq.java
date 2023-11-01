@@ -6,5 +6,5 @@ import lombok.Data;
 
 @Data
 public class GroupListReq {
-	private List<GroupReq> groupReqList;
+	private List<GroupReq> groupList;
 }

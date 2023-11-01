@@ -13,6 +13,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserResponse {
+public class GroupMemberResponse {
 	private List<User> userList;
 }

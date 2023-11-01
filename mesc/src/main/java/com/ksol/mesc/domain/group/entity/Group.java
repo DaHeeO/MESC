@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 @Table(name = "MEMBER_GROUP")
+@ToString
 public class Group {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +29,7 @@ public class Group {
 	@JoinColumn(name = "USER_ID")
 	Integer userId;
 
-	@Column(name="GROUP_NAME")
+	@Column(name = "GROUP_NAME")
 	String groupName;
 	Integer sequence;
 }

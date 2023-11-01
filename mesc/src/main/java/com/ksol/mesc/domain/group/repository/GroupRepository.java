@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.ksol.mesc.domain.group.entity.Group;
-import com.ksol.mesc.domain.group.entity.GroupMember;
 
 public interface GroupRepository extends JpaRepository<Group, Integer> {
 	@Modifying
@@ -18,5 +17,8 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
 	@Query("select g from Group g where g.userId=:userId")
 	List<Group> findByUserId(@Param("userId") Integer userId);
+
+	@Query("select g from Group g where g.id=:groupId and g.userId=:userId")
+	Optional<Group> findByUserAndGroup(@Param("groupId") Integer groupId, @Param("userId") Integer userId);
 
 }

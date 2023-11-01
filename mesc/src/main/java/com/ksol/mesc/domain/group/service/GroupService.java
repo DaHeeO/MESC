@@ -1,21 +1,24 @@
-package com.ksol.mesc.domain.group;
+package com.ksol.mesc.domain.group.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ksol.mesc.domain.group.dto.response.UserResponse;
+import com.ksol.mesc.domain.group.dto.response.GroupMemberResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
 import com.ksol.mesc.domain.group.repository.GroupMemberRepository;
 import com.ksol.mesc.domain.group.repository.GroupRepository;
+import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +30,23 @@ public class GroupService {
 	private final GroupRepository groupRepository;
 	private final GroupMemberRepository groupMemberRepository;
 	private final WebClient webClient;
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+	//그룹 id로 조회
+	public Group selectGroupById(Integer groupId) {
+		Optional<Group> optionalGroup = groupRepository.findById(groupId);
+		if (optionalGroup.isEmpty())
+			return null;
+		return optionalGroup.get();
+	}
+
+	//사용자 id로 조회
+	public Group selectGroupByUser(Integer groupId, Integer userId) {
+		Optional<Group> optionalGroup = groupRepository.findByUserAndGroup(groupId, userId);
+		if (optionalGroup.isEmpty())
+			return null;
+		return optionalGroup.get();
+	}
 
 	//그룹 추가
 	public void addGroup(Group group) {
@@ -57,7 +77,7 @@ public class GroupService {
 		for (Integer userId : originMemberList) {
 			if (!newMemberList.contains(userId)) {
 				Integer groupMemberId = groupMemberRepository.findByGroupAndUser(groupId, userId);
-				groupRepository.deleteById(groupMemberId);
+				groupMemberRepository.deleteById(groupMemberId);
 			}
 		}
 
@@ -84,23 +104,22 @@ public class GroupService {
 	}
 
 	//그룹 멤버 조회
-	public ResponseEntity<UserResponse> selectGroupMember(Integer groupId) {
+	public ResponseEntity<GroupMemberResponse> selectGroupMember(Integer groupId) {
+		String accessToken = jwtAuthenticationFilter.getAccessToken();
+
 		//1. 그룹에 있는 멤버 조회
 		List<Integer> userList = groupMemberRepository.findByGroupId(groupId);
 		Map<String, List<Integer>> reqMap = new HashMap<>();
 		reqMap.put("userList", userList);
 
-		log.info("body: {}", BodyInserters.fromValue(reqMap));
-
 		//2. 멤버 정보 mes 서버에 API 요청
 		return webClient.post()
 			.uri("/user")
-			// .header(HttpHeaders.AUTHORIZATION, "Bearer " + authkey)
+			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(BodyInserters.fromValue(reqMap))
 			.retrieve()
-			.toEntity(UserResponse.class)
-			// .bodyToMono(UserResponse.class)
+			.toEntity(GroupMemberResponse.class)
 			.block();
 	}
 }
