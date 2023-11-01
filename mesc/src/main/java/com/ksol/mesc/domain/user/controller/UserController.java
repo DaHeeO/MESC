@@ -4,11 +4,14 @@ import java.security.Principal;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ksol.mesc.domain.common.CommonResponseDto;
+import com.ksol.mesc.domain.group.dto.response.GroupMemberResponse;
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
 import com.ksol.mesc.domain.user.service.UserService;
@@ -44,4 +47,10 @@ public class UserController {
 		return ResponseEntity.ok().build();
 	}
 
+	@Operation(summary = "전체 멤버 연락처 조회 API", description = "전체 멤버 연락처 정보를 DB에서 조회한다.")
+	@GetMapping("/members")
+	public ResponseEntity<CommonResponseDto<?>> selectAllUser() {
+		GroupMemberResponse groupMemberResponse = userService.selectAllUser().getBody();
+		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
+	}
 }
