@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
@@ -15,8 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private final JwtTokenProvider jwtTokenProvider;
+
+	// ThreadLocal 변수를 사용하여 AccessToken을 저장하기 위한 정적 변수
+	private static final ThreadLocal<String> accessTokenThreadLocal = new ThreadLocal<>();
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -42,5 +47,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		Authentication authentication = jwtTokenProvider.getAuthentication(token);
 		log.info("authentication={}", authentication);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+	}
+
+	// AccessToken을 반환하는 메소드
+	public String getAccessToken() {
+		return accessTokenThreadLocal.get();
 	}
 }

@@ -2,9 +2,9 @@ spring:
   # DB 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/mescdb?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://127.0.0.1:3306/mesc?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     username: root
-    password: root
+    password: ksol1117
 
   jpa:
     hibernate:
@@ -72,7 +72,7 @@ jwt:
   key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
 server:
-  port: 8000
+  port: 8080
   ec2-url: https://
 
 ## jwt

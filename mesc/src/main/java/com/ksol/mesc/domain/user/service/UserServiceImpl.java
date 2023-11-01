@@ -2,6 +2,7 @@ package com.ksol.mesc.domain.user.service;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -11,6 +12,7 @@ import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
 import com.ksol.mesc.domain.user.entity.User;
 import com.ksol.mesc.domain.user.exception.EmailMessagingException;
+import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 import com.ksol.mesc.global.config.jwt.JwtTokenProvider;
 import com.ksol.mesc.global.config.jwt.TokenInfo;
 import com.ksol.mesc.global.config.jwt.exception.InvalidTokenException;
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
 	private final WebClient webClient;
 	private final EmailService emailService;
 	private final JwtTokenProvider jwtTokenProvider;
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
 	public TokenInfo forwardLoginRequest(LoginReq loginReq) {
 		return webClient.post()
