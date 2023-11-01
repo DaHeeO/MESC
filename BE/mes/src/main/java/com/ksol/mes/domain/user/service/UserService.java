@@ -6,8 +6,9 @@ import com.ksol.mes.domain.user.dto.request.LoginReq;
 import com.ksol.mes.domain.user.dto.request.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.UserReq;
 import com.ksol.mes.domain.user.dto.response.UserResponse;
-import com.ksol.mes.domain.user.entity.User;
 import com.ksol.mes.global.config.jwt.TokenInfo;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface UserService {
 
@@ -15,7 +16,9 @@ public interface UserService {
 
 	TokenInfo login(LoginReq loginReq);
 
-	User findByEmail(String name);
+	TokenInfo recreateToken(HttpServletRequest request);
+
+	UserResponse findByEmail(String email);
 
 	List<UserResponse> getGroupMembers(UserReq userReq) throws Exception;
 

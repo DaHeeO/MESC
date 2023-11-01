@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -23,7 +22,6 @@ import com.ksol.mes.global.config.jwt.JwtAuthenticationFilter;
 import com.ksol.mes.global.config.jwt.JwtExceptionFilter;
 import com.ksol.mes.global.config.jwt.JwtTokenProvider;
 import com.ksol.mes.global.config.jwt.TokenAccessDeniedHandler;
-import com.ksol.mes.global.config.jwt.UnauthorizedEntrypointHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,22 +31,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class WebSecurityConfig {
-	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**",
-		"/api/mes/user/signup", "/api/mes/user/login"
-		, "/mes/user/login"
-		// , "/**"
-	};
 	private final JwtTokenProvider jwtTokenProvider;
-	private final RedisTemplate<String, String> redisTemplate;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
-	private JwtAuthenticationFilter jwtAuthenticationFilter;
-	private final JwtExceptionFilter jwtExceptionFilter;
+
+	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**", "/api/mes/user/signup",
+		"/api/mes/user/login", "/api/mes/user/reissue", "/api/mes/user/findByEmail/**"};
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-		jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtTokenProvider,
-			redisTemplate);
-
 		httpSecurity.csrf(AbstractHttpConfigurer::disable)
 					.httpBasic(AbstractHttpConfigurer::disable)
 					.formLogin(AbstractHttpConfigurer::disable)
@@ -59,19 +49,25 @@ public class WebSecurityConfig {
 																			  .map(AntPathRequestMatcher::antMatcher)
 																			  .toArray(AntPathRequestMatcher[]::new))
 													   .permitAll()
-													   .requestMatchers(AntPathRequestMatcher.antMatcher("/user/**"))
-													   .hasAnyRole("WORKER")
-													   .requestMatchers(AntPathRequestMatcher.antMatcher("/admin/**"))
-													   .hasAnyRole("DEVELOPER")
+													   .requestMatchers(
+														   AntPathRequestMatcher.antMatcher("/api/mes/admin/**"))
+													   .hasAuthority("ADMIN")
+													   .requestMatchers(
+														   AntPathRequestMatcher.antMatcher("/api/mes/developer/**"))
+													   .hasAuthority("DEVELOPER")
+													   .requestMatchers(
+														   AntPathRequestMatcher.antMatcher("/api/mes/worker/**"))
+													   .hasAuthority("WORKER")
+													   // .requestMatchers(
+													   //    AntPathRequestMatcher.antMatcher("/api/mes/user/findByEmail/**"))
+													   // .hasAuthority("ADMIN")
 													   .anyRequest()
 													   .authenticated())
 
-					.exceptionHandling(c -> c.authenticationEntryPoint(new UnauthorizedEntrypointHandler())
-											 .accessDeniedHandler(tokenAccessDeniedHandler))
-					.addFilterBefore(jwtAuthenticationFilter,
+					.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
 						UsernamePasswordAuthenticationFilter.class)
-			.addFilterBefore(jwtExceptionFilter,
-				JwtAuthenticationFilter.class);
+					.addFilterBefore(new JwtExceptionFilter(), JwtAuthenticationFilter.class)
+					.exceptionHandling().accessDeniedHandler(tokenAccessDeniedHandler);
 
 		return httpSecurity.build();
 	}

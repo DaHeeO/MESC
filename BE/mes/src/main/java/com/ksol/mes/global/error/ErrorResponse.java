@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
@@ -50,6 +51,10 @@ public class ErrorResponse {
 		final String value = e.getValue() == null ? "" : e.getValue().toString();
 		final List<FieldError> errors = FieldError.of(e.getName(), value, e.getErrorCode());
 		return new ErrorResponse(ErrorCode.INVALID_TYPE_VALUE, errors);
+	}
+
+	public static ErrorResponse of(AccessDeniedException e) {
+		return new ErrorResponse(ErrorCode.ACCESS_DENIED);
 	}
 
 	@Getter
