@@ -26,20 +26,20 @@ spring:
       port: 6379
 
   # 이메일
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: B201MESC
-#    password: szwj gsio ejxo zxqp
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          timeout: 5000
-#          starttls:
-#            enable: true
-#  thymeleaf:
-#    cache: false
+  #  mail:
+  #    host: smtp.gmail.com
+  #    port: 587
+  #    username: B201MESC
+  #    password: szwj gsio ejxo zxqp
+  #    properties:
+  #      mail:
+  #        smtp:
+  #          auth: true
+  #          timeout: 5000
+  #          starttls:
+  #            enable: true
+  #  thymeleaf:
+  #    cache: false
 
   #  firebase:
   #    serviceAccountPath: path/to/serviceAccountKey.json
@@ -53,22 +53,22 @@ spring:
 #      enabled: true
 #      max-file-size: 50MB
 #      max-request-size: 50MB
-#
-## JPA log
-#logging:
-#  level:
-#    com.ksol.mesc: debug
-#    org:
-#      hibernate:
-#        SQL: DEBUG
-#        type:
-#          descriptor:
-#            sql:
-#              BasicBinder: TRACE
+
+# JPA log
+logging:
+  level:
+    com.ksol.mes: debug
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
 
 # jwt secret key 설정
-#jwt:
-#  key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
+jwt:
+  key: YourewaitingforatrainAtrainthatwilltakeyoufarawayYouknowwhereyouhope
 
 server:
   port: 8081

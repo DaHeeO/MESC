@@ -23,9 +23,9 @@
 2023/10/31 13:52:52.002 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
 2023/10/31 13:52:54.669 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.678 seconds (process running for 5.205) 
 2023/10/31 13:52:57.139 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /user request start 
-2023/10/31 13:52:57.278 INFO  [http-nio-8081-exec-1] UserController[getUsers : 40] - test : [com.ksol.mes.user.User@79d7359d, com.ksol.mes.user.User@768e986b] 
+2023/10/31 13:52:57.278 INFO  [http-nio-8081-exec-1] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@79d7359d, com.ksol.mes.user1.User@768e986b]
 2023/10/31 13:52:57.317 ERROR [http-nio-8081-exec-1] GlobalExceptionHandler[handleException : 75] - handleEntityNotFoundException 
-org.springframework.http.converter.HttpMessageConversionException: Type definition error: [simple type, class com.ksol.mes.user.User]
+org.springframework.http.converter.HttpMessageConversionException: Type definition error: [simple type, class com.ksol.mes.user1.User]
 	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:489)
 	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:103)
 	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:297)
@@ -123,7 +123,7 @@ org.springframework.http.converter.HttpMessageConversionException: Type definiti
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class com.ksol.mes.user.User and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: com.ksol.mes.user.dto.response.UserResponse["userList"]->java.util.ArrayList[0])
+Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class com.ksol.mes.user1.User and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: com.ksol.mes.domain.user.dto.response.UserResponse["userList"]->java.util.ArrayList[0])
 	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:77)
 	at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1306)
 	at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:408)
@@ -147,9 +147,9 @@ Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No ser
 2023/10/31 13:54:33.967 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
 2023/10/31 13:54:36.203 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.228 seconds (process running for 4.768) 
 2023/10/31 13:54:37.705 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /user request start 
-2023/10/31 13:54:37.865 INFO  [http-nio-8081-exec-9] UserController[getUsers : 40] - test : [com.ksol.mes.user.User@56bdae8b, com.ksol.mes.user.User@17dc4790] 
+2023/10/31 13:54:37.865 INFO  [http-nio-8081-exec-9] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@56bdae8b, com.ksol.mes.user1.User@17dc4790]
 2023/10/31 13:54:37.900 ERROR [http-nio-8081-exec-9] GlobalExceptionHandler[handleException : 75] - handleEntityNotFoundException 
-org.springframework.http.converter.HttpMessageConversionException: Type definition error: [simple type, class com.ksol.mes.user.User]
+org.springframework.http.converter.HttpMessageConversionException: Type definition error: [simple type, class com.ksol.mes.user1.User]
 	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:489)
 	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:103)
 	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:297)
@@ -203,7 +203,7 @@ org.springframework.http.converter.HttpMessageConversionException: Type definiti
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class com.ksol.mes.user.User and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: com.ksol.mes.user.dto.response.UserResponse["userList"]->java.util.ArrayList[0])
+Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class com.ksol.mes.user1.User and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: com.ksol.mes.domain.user.dto.response.UserResponse["userList"]->java.util.ArrayList[0])
 	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:77)
 	at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1306)
 	at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:408)
@@ -227,7 +227,7 @@ Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No ser
 2023/10/31 13:56:32.823 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
 2023/10/31 13:56:35.418 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.672 seconds (process running for 5.178) 
 2023/10/31 13:56:38.006 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /user request start 
-2023/10/31 13:56:38.134 INFO  [http-nio-8081-exec-1] UserController[getUsers : 40] - test : [com.ksol.mes.user.User@677b6c3b, com.ksol.mes.user.User@7ed9285a] 
+2023/10/31 13:56:38.134 INFO  [http-nio-8081-exec-1] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@677b6c3b, com.ksol.mes.user1.User@7ed9285a]
 2023/10/31 13:56:38.164 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /user request done 
 2023/10/31 13:57:26.119 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
 2023/10/31 13:57:26.121 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
@@ -240,7 +240,7 @@ Caused by: com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No ser
 2023/10/31 13:58:07.200 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.574 seconds (process running for 5.068) 
 2023/10/31 13:58:09.208 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
 2023/10/31 13:58:09.289 ERROR [http-nio-8081-exec-1] GlobalExceptionHandler[handleException : 75] - handleEntityNotFoundException 
-org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.ksol.mes.user.dto.request.UserReq` from Array value (token `JsonToken.START_ARRAY`)
+org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.ksol.mes.domain.user.dto.request.UserReq` from Array value (token `JsonToken.START_ARRAY`)
 	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.readJavaType(AbstractJackson2HttpMessageConverter.java:406)
 	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.read(AbstractJackson2HttpMessageConverter.java:354)
 	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:183)
@@ -297,7 +297,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: JSON parse e
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `com.ksol.mes.user.dto.request.UserReq` from Array value (token `JsonToken.START_ARRAY`)
+Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `com.ksol.mes.domain.user.dto.request.UserReq` from Array value (token `JsonToken.START_ARRAY`)
  at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 1]
 	at com.fasterxml.jackson.databind.exc.MismatchedInputException.from(MismatchedInputException.java:59)
 	at com.fasterxml.jackson.databind.DeserializationContext.reportInputMismatch(DeserializationContext.java:1746)
@@ -313,7 +313,7 @@ Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot d
 	... 55 common frames omitted
 2023/10/31 13:59:10.503 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
 2023/10/31 13:59:10.504 ERROR [http-nio-8081-exec-2] GlobalExceptionHandler[handleException : 75] - handleEntityNotFoundException 
-org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.ksol.mes.user.dto.request.UserReq` from Array value (token `JsonToken.START_ARRAY`)
+org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `com.ksol.mes.domain.user.dto.request.UserReq` from Array value (token `JsonToken.START_ARRAY`)
 	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.readJavaType(AbstractJackson2HttpMessageConverter.java:406)
 	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.read(AbstractJackson2HttpMessageConverter.java:354)
 	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:183)
@@ -370,7 +370,7 @@ org.springframework.http.converter.HttpMessageNotReadableException: JSON parse e
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `com.ksol.mes.user.dto.request.UserReq` from Array value (token `JsonToken.START_ARRAY`)
+Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize value of type `com.ksol.mes.domain.user.dto.request.UserReq` from Array value (token `JsonToken.START_ARRAY`)
  at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 1]
 	at com.fasterxml.jackson.databind.exc.MismatchedInputException.from(MismatchedInputException.java:59)
 	at com.fasterxml.jackson.databind.DeserializationContext.reportInputMismatch(DeserializationContext.java:1746)
@@ -385,8 +385,8 @@ Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot d
 	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.readJavaType(AbstractJackson2HttpMessageConverter.java:395)
 	... 55 common frames omitted
 2023/10/31 13:59:36.459 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
-2023/10/31 13:59:36.502 INFO  [http-nio-8081-exec-4] UserController[getUsers : 40] - test : [com.ksol.mes.user.User@2fd8dbfd, com.ksol.mes.user.User@47e84457] 
+2023/10/31 13:59:36.502 INFO  [http-nio-8081-exec-4] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@2fd8dbfd, com.ksol.mes.user1.User@47e84457]
 2023/10/31 13:59:36.510 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
 2023/10/31 13:59:37.720 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
-2023/10/31 13:59:37.722 INFO  [http-nio-8081-exec-5] UserController[getUsers : 40] - test : [com.ksol.mes.user.User@5d9561b6, com.ksol.mes.user.User@53528474] 
+2023/10/31 13:59:37.722 INFO  [http-nio-8081-exec-5] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@5d9561b6, com.ksol.mes.user1.User@53528474]
 2023/10/31 13:59:37.723 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
