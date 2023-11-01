@@ -14,7 +14,11 @@ public enum ErrorCode {
 	// User
 	INVALID_TOKEN(400, "U001", "Invalid Token"),
 	EXPIRED_TOKEN(409, "U002", "Expired Token"),
-	USER_NOT_FOUND(400, "U003", "User Not Found"),
+	ACCESS_DENIED(403, "U003", "Access Denied"),
+	USER_NOT_FOUND(400, "U004", "User Not Found"),
+	TOKEN_NOT_FOUND(400, "U005", "Token Not Found"),
+	TOKEN_NOT_SAME(401, "U006", "Token Not Same"),
+	TOKEN_NOT_EXISTS(400, "U007", "Token Not Exists"),
 
 	// Common
 	INVALID_INPUT_VALUE(400, "C001", "Invalid Input Value"),

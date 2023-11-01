@@ -11,14 +11,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.ksol.mes.domain.user.exception.UserNotFoundException;
 import com.ksol.mes.domain.user.repository.UserRepository;
-import com.ksol.mes.global.config.jwt.exception.ExpiredTokenException;
-import com.ksol.mes.global.config.jwt.exception.InvalidTokenException;
+import com.ksol.mes.global.config.jwt.exception.CustomJwtException;
+import com.ksol.mes.global.error.ErrorCode;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -28,16 +28,18 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.ServletRequest;
+import io.jsonwebtoken.security.SignatureException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
 public class JwtTokenProvider {
-
 	protected static final String AUTHORITIES_KEY = "Auth";
+	private static final String AUTHORIZATION_HEADER = "Authorization";
 	private static final String BEARER_TYPE = "Bearer";
 	private static final long ACCESS_TOKEN_EXPIRE_TIME = 30 * 60 * 1000L; // 30분
+	// private static final long ACCESS_TOKEN_EXPIRE_TIME = 60 * 1000L; // 1분
 	private static final long REFRESH_TOKEN_EXPIRE_TIME = 14 * 24 * 60 * 60 * 1000L; // 2주
 	private final Key key;
 	private final UserRepository userRepository;
@@ -61,13 +63,11 @@ public class JwtTokenProvider {
 		com.ksol.mes.domain.user.entity.User user = userRepository.findByEmail(authentication.getName())
 																  .orElseThrow(() -> new UserNotFoundException(
 																	  "User Not Found"));
-		String userId = user.getId().toString();
-
 		// AccessToken 생성
 		String accessToken = Jwts.builder()
 								 .setSubject(authentication.getName())
 								 .claim(AUTHORITIES_KEY, authorities)
-								 .claim("userId", userId)
+								 .claim("userId", user.getId())
 								 .setExpiration(new Date(now + ACCESS_TOKEN_EXPIRE_TIME))
 								 .signWith(key, SignatureAlgorithm.HS256)
 								 .compact();
@@ -87,9 +87,19 @@ public class JwtTokenProvider {
 						.build();
 	}
 
+	// Request Header에서 토큰 정보 추출
+	public String resolveToken(HttpServletRequest request) {
+		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TYPE)) {
+			return bearerToken.substring(7);
+		}
+		return null;
+	}
+
 	// JWT 토큰을 복호화하여 토큰에 들어있는 정보를 꺼냄
-	public Authentication getAuthentication(String accessToken, ServletRequest request) {
+	public Authentication getAuthentication(String accessToken) {
 		Claims claims = parseClaims(accessToken);
+		log.debug("claims={}", claims);
 
 		if (claims.get(AUTHORITIES_KEY) == null) {
 			throw new RuntimeException("권한 정보가 없는 토큰입니다.");
@@ -102,8 +112,9 @@ public class JwtTokenProvider {
 																   .collect(Collectors.toList());
 
 		// UserDetails 객체를 만들어서 Authentication 리턴
-		UserDetails principal = new User(claims.get("userId",String.class), "", authorities);
-		request.setAttribute("userId", claims.get("userId", String.class));
+		Integer userId = claims.get("userId", Integer.class);
+		UserDetails principal = new org.springframework.security.core.userdetails.User(userId.toString(), "",
+			authorities);
 		return new UsernamePasswordAuthenticationToken(principal, "", authorities);
 	}
 
@@ -122,28 +133,20 @@ public class JwtTokenProvider {
 			return true;
 		} catch (MalformedJwtException e) {
 			log.info("MalformedJwtException");
-			throw new InvalidTokenException("MalformedJwtException");
+			throw new CustomJwtException(ErrorCode.INVALID_TOKEN);
 		} catch (ExpiredJwtException e) {
 			log.info("ExpiredJwtException");
-			throw new ExpiredTokenException("ExpiredJwtException");
+			throw new CustomJwtException(ErrorCode.EXPIRED_TOKEN);
 		} catch (UnsupportedJwtException e) {
 			log.info("UnsupportedJwtException");
-			throw new InvalidTokenException("UnsupportedJwtException");
+			throw new CustomJwtException(ErrorCode.INVALID_TOKEN);
 		} catch (IllegalArgumentException e) {
 			log.info("IllegalArgumentException");
-			throw new InvalidTokenException("IllegalArgumentException");
+			throw new CustomJwtException(ErrorCode.INVALID_TOKEN);
+		} catch (SignatureException e) {
+			log.info("SignatureException");
+			throw new CustomJwtException(ErrorCode.INVALID_TOKEN);
 		}
 	}
 
-	public boolean getIsExpired(String accessToken) {
-		Date expiration = Jwts.parserBuilder()
-							  .setSigningKey(key)
-							  .build()
-							  .parseClaimsJws(accessToken)
-							  .getBody()
-							  .getExpiration();
-		// 현재 시간
-		long now = new Date().getTime();
-		return (expiration.getTime() - now) > 0;
-	}
 }

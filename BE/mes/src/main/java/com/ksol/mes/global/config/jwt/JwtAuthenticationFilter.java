@@ -2,10 +2,8 @@ package com.ksol.mes.global.config.jwt;
 
 import java.io.IOException;
 
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
@@ -18,17 +16,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-	private static final String AUTHORIZATION_HEADER = "Authorization";
-	private static final String BEARER_TYPE = "Bearer";
 	private final JwtTokenProvider jwtTokenProvider;
-	private final RedisTemplate<String, String> redisTemplate;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 		FilterChain chain) throws ServletException, IOException {
 
 		// Request Header 에서 JWT 토큰 추출 - token null => 로그아웃
-		String token = resolveToken(request);
+		String token = jwtTokenProvider.resolveToken(request);
 		if (token == null) {
 			chain.doFilter(request, response);
 			return;
@@ -36,24 +31,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		// 토큰 검증 -> 유효한 경우 : Authentication 객체 SecurityContext 에 저장
 		if (jwtTokenProvider.validateToken(token)) {
-			setSecurityContextHolder(token, request);
+			// 토큰 재발급 요청 path인 경우 예외 처리
+			if (!request.getRequestURI().equals("/api/mes/user/reissue"))
+				setSecurityContextHolder(token);
 		}
-
 		chain.doFilter(request, response);
-
 	}
 
-	// Request Header 에서 토큰 정보 추출
-	private String resolveToken(HttpServletRequest request) {
-		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_TYPE)) {
-			return bearerToken.substring(7);
-		}
-		return null;
-	}
-
-	private void setSecurityContextHolder(String token, HttpServletRequest request) {
-		Authentication authentication = jwtTokenProvider.getAuthentication(token, request);
+	private void setSecurityContextHolder(String token) {
+		Authentication authentication = jwtTokenProvider.getAuthentication(token);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 }

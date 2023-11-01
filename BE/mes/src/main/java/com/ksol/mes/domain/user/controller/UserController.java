@@ -1,14 +1,15 @@
 package com.ksol.mes.domain.user.controller;
 
-import java.security.Principal;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ksol.mes.domain.user.dto.FindUserRes;
 import com.ksol.mes.domain.user.dto.LoginReq;
 import com.ksol.mes.domain.user.dto.SignUpReq;
 import com.ksol.mes.domain.user.entity.User;
@@ -18,6 +19,7 @@ import com.ksol.mes.global.config.jwt.TokenInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,9 +47,21 @@ public class UserController {
 		return ResponseEntity.ok(tokenInfo);
 	}
 
-	// 현재 로그인한 유저 정보를 찾아온다.
-	public User loginUser(Principal principal) {
-		return userService.findByEmail(principal.getName());
+	@Operation(summary = "이메일로 유저 찾기 API", description = "email로 사용자 정보를 찾아온다.")
+	@GetMapping("/findByEmail")
+	public ResponseEntity<?> findByEmail(@RequestParam String email) {
+		FindUserRes findUserRes = userService.findByEmail(email);
+		return ResponseEntity.ok(findUserRes);
 	}
+
+	@Operation(summary = "토큰 재발급 API", description = "입력된 refreshToken을 검증한 뒤 accessToken, refreshToken을 재발급해서 전달한다.")
+	@PostMapping("/reissue")
+	public ResponseEntity<?> recreateToken(HttpServletRequest request) {
+		TokenInfo tokenInfo = userService.recreateToken(request);
+		return ResponseEntity.ok(tokenInfo);
+	}
+
+	// 현재 로그인한 유저 id
+	// => principal.getName()
 
 }

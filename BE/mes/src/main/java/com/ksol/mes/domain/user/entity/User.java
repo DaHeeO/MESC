@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -34,7 +35,7 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "email", length = 80, nullable = false)
 	private String email;
@@ -52,6 +53,9 @@ public class User implements UserDetails {
 	@ElementCollection(fetch = FetchType.LAZY)
 	@Builder.Default
 	private List<String> roles = new ArrayList<>();
+
+	public User(Integer id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
