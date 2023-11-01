@@ -1,0 +1,36 @@
+2023/10/31 10:08:37.645 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 17804 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 10:08:37.646 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 10:08:37.648 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 10:08:39.297 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 10:08:42.015 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.788 seconds (process running for 5.324) 
+2023/10/31 10:09:05.182 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.html request start 
+2023/10/31 10:09:05.196 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.html request done 
+2023/10/31 10:09:05.210 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-initializer.js request start 
+2023/10/31 10:09:05.210 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui.css request start 
+2023/10/31 10:09:05.210 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.css request start 
+2023/10/31 10:09:05.210 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request start 
+2023/10/31 10:09:05.210 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request start 
+2023/10/31 10:09:05.214 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.css request done 
+2023/10/31 10:09:05.215 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui.css request done 
+2023/10/31 10:09:05.217 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request done 
+2023/10/31 10:09:05.223 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request done 
+2023/10/31 10:09:05.236 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-initializer.js request done 
+2023/10/31 10:09:05.359 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/favicon-32x32.png request start 
+2023/10/31 10:09:05.360 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs/swagger-config request start 
+2023/10/31 10:09:05.363 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/favicon-32x32.png request done 
+2023/10/31 10:09:05.376 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs/swagger-config request done 
+2023/10/31 10:09:05.389 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs request start 
+2023/10/31 10:09:05.605 INFO  [http-nio-8081-exec-9] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs request done 
+2023/10/31 10:09:15.511 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/10/31 10:09:15.651 DEBUG [http-nio-8081-exec-10] UserServiceImpl[login : 54] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/10/31 10:09:15.798 DEBUG [http-nio-8081-exec-10] JwtTokenProvider[createToken : 54] - authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ssafy@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[USER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[USER]] 
+2023/10/31 10:09:15.817 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/10/31 10:53:05.325 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 13024 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 10:53:05.326 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 10:53:05.327 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 10:53:06.609 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 10:53:08.718 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 3.736 seconds (process running for 4.307) 
+2023/10/31 10:53:25.696 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/10/31 10:53:25.941 DEBUG [http-nio-8081-exec-1] UserServiceImpl[login : 54] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/10/31 10:53:26.113 DEBUG [http-nio-8081-exec-1] JwtTokenProvider[createToken : 59] - authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=ssafy@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[USER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[USER]] 
+2023/10/31 10:53:26.170 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 

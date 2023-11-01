@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d86d70de-1bcd-48e6-8b8d-d63dab575449" name="Changes" comment="[S09P31S105-] feat : &#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="develop-BE" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectId" id="2XSZkZgPn2pii04rWanl4YzT5jS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/ksol/mesc/domain" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\SSAFY\gitrepo\S09P31S105\mesc\src\main\java\com\ksol\mesc\domain" />
+      <recent name="C:\Users\SSAFY\gitrepo\S09P31S105\mesc\src\main\java\com\ksol\mesc\global\config" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MescApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="mesc.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ksol.mesc.MescApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d86d70de-1bcd-48e6-8b8d-d63dab575449" name="Changes" comment="" />
+      <created>1698624585660</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698624585660</updated>
+      <workItem from="1698624587007" duration="4008000" />
+      <workItem from="1698671141107" duration="4067000" />
+    </task>
+    <task id="LOCAL-00001" summary="[S09P31S105-255] feat : 환경설정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**">
+      <created>1698672864057</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1698672864057</updated>
+    </task>
+    <task id="LOCAL-00002" summary="[S09P31S105-255] feat : Exception 설정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**">
+      <created>1698673241876</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1698673241876</updated>
+    </task>
+    <task id="LOCAL-00003" summary="[S09P31S105-255] feat : config 파일&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**">
+      <created>1698673627262</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698673627262</updated>
+    </task>
+    <task id="LOCAL-00004" summary="[S09P31S105-255] feat : security 및 JWT 설정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**">
+      <created>1698673724400</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698673724400</updated>
+    </task>
+    <task id="LOCAL-00005" summary="[S09P31S105-255] fix : TokenException 수정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**">
+      <created>1698673927094</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1698673927094</updated>
+    </task>
+    <task id="LOCAL-00006" summary="[S09P31S105-255] fix : config 파일 수정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**">
+      <created>1698674377868</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1698674377868</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[S09P12B102-] feat : &#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+    <MESSAGE value="[S09P31S105-255] feat : 환경설정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+    <MESSAGE value="[S09P31S105-255] feat : Exception 설정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+    <MESSAGE value="[S09P31S105-255] feat : config 파일&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+    <MESSAGE value="[S09P31S105-255] feat : security 및 JWT 설정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+    <MESSAGE value="[S09P31S105-255] fix : TokenException 수정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+    <MESSAGE value="[S09P31S105-255] fix : config 파일 수정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+    <option name="LAST_COMMIT_MESSAGE" value="[S09P31S105-255] fix : config 파일 수정&#10;&#10;################&#10;# 1. Commit Message Structure&#10;# 기본적으로 커밋 메세지는 아래와 같이 제목 / 본문 / 꼬리말로 구성합니다.&#10;# type : subject&#10;# body&#10;&#10;################&#10;# 2. Commit Type&#10;# feat : 새로운 기능 추가&#10;# fix : 버그 수정, 기능 수정&#10;# docs : 문서 수정&#10;# refactor : 코드 리팩토링(변수명 수정 등)&#10;# test : 테스트 코드 추가, 리팩토링 테스트 코드 추가&#10;# style : 코드 스타일 변경, 코드 자체 변경이 없는 경우, 주석 추가&#10;# remove : 파일 또는 코드, 리소스 제거&#10;# resource : 이미지 리소스, prefab 등의 코드와 상관없는 리소스 추가&#10;&#10;################&#10;# 3. Subject&#10;# 제목은 50자를 넘기지 않고, 대문자로 작성하고 마침표를 붙이지 않습니다.&#10;# 과거시제를 사용하지 않고 명령어로 작성합니다.&#10;&#10;################&#10;# [S07P12B102-0] feat : 회원가입 입력 폼 개발&#10;# [S07P12B102-0] feat : 몰라&#10;# [S07P12B102-0] feat : 메뉴 리스트 몰라&#10;# [S07P12B102-0] feat : Resize minimize/delete handle icons so they take up the entire topbar&#10;# [S07P12B102-0] fix : Fix typo in cleanup.sh file&#10;&#10;################&#10;# 4. Body&#10;# - 선택사항이기 때문에 모든 커밋에 본문내용을 작성할 필요는 없습니다.&#10;# - 부연설명이 필요하거나 커밋의 이유를 설명할 경우 작성합니다.&#10;# - 제목과 구분되기 위해 한칸을 띄워 작성합니다.&#10;# - 각 줄은 72자를 넘기지 않습니다.&#10;# - **본문은 꼭 영어로 작성할 필요는 없습니다.**" />
+  </component>
+</project>
