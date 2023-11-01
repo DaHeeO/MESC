@@ -3,7 +3,6 @@ package com.ksol.mes.domain.user.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksol.mes.domain.user.dto.FindUserRes;
-import com.ksol.mes.domain.user.dto.LoginReq;
-import com.ksol.mes.domain.user.dto.SignUpReq;
+import com.ksol.mes.domain.user.dto.request.LoginReq;
+import com.ksol.mes.domain.user.dto.request.SignUpReq;
+import com.ksol.mes.domain.user.dto.request.UserReq;
 import com.ksol.mes.domain.user.dto.response.GroupMemberResponse;
-import com.ksol.mes.domain.user.entity.User;
+import com.ksol.mes.domain.user.dto.response.UserResponse;
 import com.ksol.mes.domain.user.service.UserService;
 import com.ksol.mes.global.config.jwt.TokenInfo;
-import com.ksol.mes.domain.user.dto.request.UserReq;
-import com.ksol.mes.domain.user.dto.response.UserResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -57,8 +54,8 @@ public class UserController {
 	@Operation(summary = "이메일로 유저 찾기 API", description = "email로 사용자 정보를 찾아온다.")
 	@GetMapping("/findByEmail")
 	public ResponseEntity<?> findByEmail(@RequestParam String email) {
-		FindUserRes findUserRes = userService.findByEmail(email);
-		return ResponseEntity.ok(findUserRes);
+		UserResponse findUser = userService.findByEmail(email);
+		return ResponseEntity.ok(findUser);
 	}
 
 	@Operation(summary = "토큰 재발급 API", description = "입력된 refreshToken을 검증한 뒤 accessToken, refreshToken을 재발급해서 전달한다.")
@@ -73,7 +70,8 @@ public class UserController {
 
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹에 있는 멤버 정보를 조회 후, 전달한다.")
 	@PostMapping
-	public ResponseEntity<?> getGroupMembers (@Parameter(description = "그룹 멤버 id 리스트", required = true) @RequestBody @Validated UserReq userReq) {
+	public ResponseEntity<?> getGroupMembers(
+		@Parameter(description = "그룹 멤버 id 리스트", required = true) @RequestBody @Validated UserReq userReq) {
 		//유저 정보 확인
 
 		List<UserResponse> userList = null;
@@ -85,15 +83,15 @@ public class UserController {
 		}
 
 		GroupMemberResponse groupMemberResponse = GroupMemberResponse.builder()
-			.userList(userList)
-			.build();
+																	 .userList(userList)
+																	 .build();
 
 		return new ResponseEntity<>(groupMemberResponse, HttpStatus.OK);
 	}
 
 	@Operation(summary = "멤버 전체 조회 API", description = "모든 멤버 정보를 조회 후, 전달한다.")
 	@GetMapping("/members")
-	public ResponseEntity<?> getUsers () {
+	public ResponseEntity<?> getUsers() {
 		//유저 정보 확인
 
 		List<UserResponse> userList = null;
@@ -105,8 +103,8 @@ public class UserController {
 		}
 
 		GroupMemberResponse groupMemberResponse = GroupMemberResponse.builder()
-			.userList(userList)
-			.build();
+																	 .userList(userList)
+																	 .build();
 
 		return new ResponseEntity<>(groupMemberResponse, HttpStatus.OK);
 	}

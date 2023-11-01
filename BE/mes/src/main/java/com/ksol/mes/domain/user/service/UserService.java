@@ -18,7 +18,7 @@ public interface UserService {
 
 	TokenInfo recreateToken(HttpServletRequest request);
 
-	FindUserRes findByEmail(String email);
+	UserResponse findByEmail(String email);
 
 	List<UserResponse> getGroupMembers(UserReq userReq) throws Exception;
 

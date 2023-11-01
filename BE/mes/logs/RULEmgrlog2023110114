@@ -712,3 +712,11 @@ com.ksol.mes.global.config.jwt.exception.TokenNotSameException: Token Not Same
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:833)
+2023/11/01 23:58:12.320 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 24392 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/11/01 23:58:12.321 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 23:58:12.322 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 23:58:51.331 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 20544 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/11/01 23:58:51.332 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 23:58:51.332 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 23:58:54.457 DEBUG [restartedMain] JwtAuthenticationFilter[init : 240] - Filter 'jwtAuthenticationFilter' configured for use 
+2023/11/01 23:58:54.457 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 

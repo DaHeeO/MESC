@@ -1,21 +1,18 @@
 package com.ksol.mes.domain.user.service;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ksol.mes.domain.user.UserRole;
-import com.ksol.mes.domain.user.dto.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.LoginReq;
 import com.ksol.mes.domain.user.dto.request.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.UserReq;
@@ -26,10 +23,10 @@ import com.ksol.mes.domain.user.repository.UserRepository;
 import com.ksol.mes.global.config.jwt.CustomUserDetailsService;
 import com.ksol.mes.global.config.jwt.JwtTokenProvider;
 import com.ksol.mes.global.config.jwt.TokenInfo;
-import com.ksol.mes.global.util.jdbc.JdbcUtil;
 import com.ksol.mes.global.config.jwt.exception.InvalidTokenException;
 import com.ksol.mes.global.config.jwt.exception.TokenNotFoundException;
 import com.ksol.mes.global.config.jwt.exception.TokenNotSameException;
+import com.ksol.mes.global.util.jdbc.JdbcUtil;
 import com.ksol.mes.global.util.redis.RedisService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -111,15 +108,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public FindUserRes findByEmail(String email) {
+	public UserResponse findByEmail(String email) {
 		User findUser = userRepository.findByEmail(email)
 									  .orElseThrow(() -> new UserNotFoundException("User Not Found"));
-		FindUserRes findUserRes = FindUserRes.builder()
-											 .id(findUser.getId())
-											 .email(findUser.getEmail())
-											 .name(findUser.getName())
-											 .phoneNumber(findUser.getPhoneNumber())
-											 .build();
+		UserResponse findUserRes = UserResponse.builder()
+											   .userId(findUser.getId())
+											   .email(findUser.getEmail())
+											   .userName(findUser.getName())
+											   .phoneNumber(findUser.getPhoneNumber())
+											   .build();
 		return findUserRes;
 	}
 
@@ -130,13 +127,13 @@ public class UserServiceImpl implements UserService {
 		List<User> userList = userRepository.getUserById(integerArray);
 		List<UserResponse> userResponseList = new ArrayList<>();
 
-		for(User user : userList){
+		for (User user : userList) {
 			UserResponse userResponse = UserResponse.builder()
-				.userId(user.getId())
-				.userName(user.getName())
-				.email(user.getEmail())
-				.phoneNumber(user.getPhoneNumber())
-				.build();
+													.userId(user.getId())
+													.userName(user.getName())
+													.email(user.getEmail())
+													.phoneNumber(user.getPhoneNumber())
+													.build();
 
 			userResponseList.add(userResponse);
 		}
@@ -170,13 +167,13 @@ public class UserServiceImpl implements UserService {
 
 		List<UserResponse> userResponseList = new ArrayList<>();
 
-		for(User user : userList){
+		for (User user : userList) {
 			UserResponse userResponse = UserResponse.builder()
-				.userId(user.getId())
-				.userName(user.getName())
-				.email(user.getEmail())
-				.phoneNumber(user.getPhoneNumber())
-				.build();
+													.userId(user.getId())
+													.userName(user.getName())
+													.email(user.getEmail())
+													.phoneNumber(user.getPhoneNumber())
+													.build();
 
 			userResponseList.add(userResponse);
 		}
