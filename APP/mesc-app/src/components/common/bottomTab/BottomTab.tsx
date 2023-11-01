@@ -111,7 +111,7 @@ function BottompTab() {
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Contact" />
           ),
-          tabBarLabel: () => <S.Text>Contact</S.Text>,
+          tabBarLabel: () => <S.Text>연락처</S.Text>,
         }}
       />
       <Tab.Screen
@@ -121,7 +121,7 @@ function BottompTab() {
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Main" />
           ),
-          tabBarLabel: () => <S.Text>Home</S.Text>,
+          tabBarLabel: () => <S.Text>홈</S.Text>,
         }}
       />
       <Tab.Screen
@@ -131,7 +131,7 @@ function BottompTab() {
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Message" />
           ),
-          tabBarLabel: () => <S.Text>Message</S.Text>,
+          tabBarLabel: () => <S.Text>채팅</S.Text>,
         }}
       />
       <Tab.Screen
@@ -141,7 +141,7 @@ function BottompTab() {
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Setting" />
           ),
-          tabBarLabel: () => <S.Text>Setting</S.Text>,
+          tabBarLabel: () => <S.Text>설정</S.Text>,
         }}
       />
     </Tab.Navigator>
@@ -153,7 +153,7 @@ const animationStyles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    height: 84,
+    height: '9%',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',

@@ -15,17 +15,17 @@ function ContactsStack() {
         <Stack.Screen
           name="Contacts"
           component={Contacts}
-          options={{headerShown: true}}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Detail"
           component={Detail}
-          options={{headerShown: true}}
+          options={{headerShown: false}}
         />
         <Stack.Screen
           name="Group"
           component={Group}
-          options={{headerShown: true}}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

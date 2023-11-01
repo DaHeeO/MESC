@@ -5,8 +5,9 @@ export const colors = {
   tertiary: '#949BA5',
   quaternary: '#D9D9D9',
   iris: '#5D5FEF',
-  red: '#FF0000',
   lightiris: '#7879F1',
+  icy: '#F5F8FC',
+  red: '#FF0000',
   backgroundGray: '#EBECEF',
   backgroundIris: '#F2F2FE',
 };
