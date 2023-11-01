@@ -2,6 +2,7 @@ package com.ksol.mesc.domain.user.service;
 
 import org.springframework.http.ResponseEntity;
 
+import com.ksol.mesc.domain.group.dto.response.GroupMemberResponse;
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
 import com.ksol.mesc.domain.user.entity.User;
@@ -17,4 +18,6 @@ public interface UserService {
 	void sendEmail(SendEmailReq sendEmailReq);
 
 	TokenInfo recreateToken(HttpServletRequest request);
+
+	ResponseEntity<GroupMemberResponse> selectAllUser();
 }

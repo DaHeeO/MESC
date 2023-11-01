@@ -1,5 +1,6 @@
 package com.ksol.mesc.global.config;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.springframework.context.annotation.Bean;
@@ -85,8 +86,10 @@ public class WebSecurityConfig {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 
 		corsConfiguration.addAllowedOriginPattern("*");
-		corsConfiguration.addAllowedHeader("*");
+		corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+		// corsConfiguration.addAllowedHeader("*");
 		corsConfiguration.addAllowedMethod("*");
+		// corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
 		corsConfiguration.setAllowCredentials(true);
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return source;
