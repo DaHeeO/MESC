@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import Back from '../../../assets/icons/back.svg';
+import Back from '../../../assets/icons/chatbotback.svg';
 import Dots from '../../../assets/icons/dots.svg';
 import styled from 'styled-components/native';
 
