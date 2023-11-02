@@ -138,27 +138,6 @@ public class UserServiceImpl implements UserService {
 			userResponseList.add(userResponse);
 		}
 
-		// //userId List
-		// String strIds = userList.stream()
-		// 	.map(String::valueOf)
-		// 	.collect(Collectors.joining(", "));
-		// String query = "select * from Users where USER_ID in ("+strIds+")";
-		//
-		// ResultSet resultSet = jdbcUtil.select(query);
-		// List<UserResponse> resultUserList = new ArrayList<>();
-		//
-		// while (resultSet.next()) {
-		// 	UserResponse user = UserResponse.builder()
-		// 		.userId(resultSet.getInt("user_id"))
-		// 		.userName(resultSet.getString("user_name"))
-		// 		.role(resultSet.getString("user_role"))
-		// 		.email(resultSet.getString("email"))
-		// 		.profile(resultSet.getString("profile"))
-		// 		.build();
-		//
-		// 	resultUserList.add(user);
-		// }
-
 		return userResponseList;
 	}
 
