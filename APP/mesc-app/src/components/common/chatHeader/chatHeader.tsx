@@ -10,7 +10,7 @@ export const HeaderBody = styled.View`
   top: 0;
   height: 7%;
   display: flex;
-  //   border: 1px solid red;
+  //border: 1px solid red;
   flex-direction: row;
 `;
 
@@ -19,10 +19,10 @@ export const Text = styled.Text`
   font-weight: bold;
   color: white;
   text-align: center;
-  // top: 25%;
+  //top: 25%;
   justify-content: center;
   align-items: center;
-  // border: 1px solid white;
+  //border: 1px solid white;
 `;
 
 function Header() {
