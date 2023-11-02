@@ -13,7 +13,7 @@ export const Container = styled.View`
 export const Div = styled.View`
   width: 90%;
   height: 100%;
-  //   background-color: green;
+  // background-color: blue;
 `;
 
 export const Top = styled.View`
@@ -81,5 +81,26 @@ export const SearchText = styled.TextInput`
   color: ${colors.tertiary};
   padding-left: 12px;
   width: 95%;
-  // background-color: red;
+`;
+
+export const Body = styled.View`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 67%;
+  // background-color: green;
+`;
+
+export const FilterDiv = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 4px;
+`;
+
+export const FilterText = styled.Text`
+  font-size: 16px;
+  color: ${colors.primary};
+  font-weight: bold;
 `;

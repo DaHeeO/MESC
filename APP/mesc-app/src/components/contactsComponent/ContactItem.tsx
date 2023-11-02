@@ -1,19 +1,40 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
+import {colors} from '../common/theme';
+import * as S from './ContactItem.styles';
 
 interface IContactItem {
   item: {
     userId: number;
-    ImageUrl: string;
+    // ImageUrl: string;
+    ImageUrl: any;
     userName: string;
     userEmail: string;
+    userRank: string;
   };
 }
 
-export default function OnBoardingItem({item}: IContactItem) {
+export default function ContactItem({item}: IContactItem) {
   return (
-    <View>
-      <Text>{item.userId}</Text>
-    </View>
+    <S.Container>
+      <S.Box>
+        <S.ImageBox>
+          <S.Img source={item.ImageUrl} />
+        </S.ImageBox>
+        <S.InfoBox>
+          <S.BoldText size={17} color={colors.primary}>
+            {item.userName}
+          </S.BoldText>
+          <S.BoldText size={14} color={colors.tertiary}>
+            {item.userEmail}
+          </S.BoldText>
+        </S.InfoBox>
+      </S.Box>
+      <S.RankBox>
+        <S.BoldText size={14} color={colors.tertiary}>
+          {item.userRank}
+        </S.BoldText>
+      </S.RankBox>
+    </S.Container>
   );
 }
