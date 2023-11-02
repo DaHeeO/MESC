@@ -35,23 +35,23 @@ public class UserServiceImpl implements UserService {
 
 	public TokenInfo forwardLoginRequest(LoginReq loginReq) {
 		return webClient.post()
-						.uri("/user/login")
-						.contentType(MediaType.APPLICATION_JSON)
-						.bodyValue(loginReq)
-						.retrieve()
-						.toEntity(TokenInfo.class)
-						.block()
-						.getBody();
+			.uri("/user/login")
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue(loginReq)
+			.retrieve()
+			.toEntity(TokenInfo.class)
+			.block()
+			.getBody();
 	}
 
 	@Override
 	public User findByEmail(String email) {
 		return webClient.get()
-						.uri("/user/findByEmail?email=" + email)
-						.retrieve()
-						.toEntity(User.class)
-						.block()
-						.getBody();
+			.uri("/user/findByEmail?email=" + email)
+			.retrieve()
+			.toEntity(User.class)
+			.block()
+			.getBody();
 	}
 
 	@Override
@@ -61,12 +61,12 @@ public class UserServiceImpl implements UserService {
 		if (refreshToken == null || !(jwtTokenProvider.validateToken(refreshToken)))
 			throw new InvalidTokenException("Invalid Token");
 		return webClient.post()
-						.uri("/user/reissue")
-						.header("Authorization", "Bearer " + refreshToken)
-						.retrieve()
-						.toEntity(TokenInfo.class)
-						.block()
-						.getBody();
+			.uri("/user/reissue")
+			.header("Authorization", "Bearer " + refreshToken)
+			.retrieve()
+			.toEntity(TokenInfo.class)
+			.block()
+			.getBody();
 
 	}
 
@@ -82,13 +82,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseEntity<GroupMemberResponse> selectAllUser() {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
+		log.info("access token : {}", accessToken);
 
 		//2. 멤버 정보 mes 서버에 API 요청
 		return webClient.get()
-						.uri("/user/members")
-						.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-						.retrieve()
-						.toEntity(GroupMemberResponse.class)
-						.block();
+			.uri("/user/members")
+			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+			.retrieve()
+			.toEntity(GroupMemberResponse.class)
+			.block();
 	}
 }

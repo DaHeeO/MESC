@@ -29,11 +29,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		// Request Header 에서 JWT 토큰 추출 - token null => 로그아웃
 		String token = jwtTokenProvider.resolveToken(request);
+
 		if (token == null) {
 			chain.doFilter(request, response);
 			return;
 		}
 
+		accessTokenThreadLocal.set(token);
 		// 토큰 검증 -> 유효한 경우 : Authentication 객체 SecurityContext 에 저장
 		if (jwtTokenProvider.validateToken(token)) {
 			// 토큰 재발급 요청 path인 경우 예외 처리
@@ -41,6 +43,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				setSecurityContextHolder(token);
 		}
 		chain.doFilter(request, response);
+
+		// 필터 또는 요청 처리 이후에 AccessToken 제거
+		// accessTokenThreadLocal.remove();
 	}
 
 	private void setSecurityContextHolder(String token) {
