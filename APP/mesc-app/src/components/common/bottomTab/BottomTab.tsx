@@ -3,52 +3,165 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-// navigation
-import {NavigationContainer} from '@react-navigation/native';
-import React, {useEffect, useReducer, useRef, useState} from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  View,
-  Text,
-  LayoutChangeEvent,
-} from 'react-native';
-import Svg, {Defs, Mask, Rect, Path, G} from 'react-native-svg';
-
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import React, {useReducer} from 'react';
+import {StyleSheet, View, Text, LayoutChangeEvent} from 'react-native';
+import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated';
+import * as S from './BottomTab.styles';
 
 // components
 import Main from '../../../screens/main/Main';
-import Contacts from '../../../screens/contacts/Contacts';
-import Messages from '../../../screens/messages/Messages';
-import Settings from '../../../screens/settings/Settings';
+import ContactStack from '../../../screens/contacts/Stack';
+import Message from '../../../screens/messages/Messages';
+import Setting from '../../../screens/settings/Settings';
 
 // icon
-import BottomTabIcon from './BottomTabIcon';
+import BottomTabIcon from './NavIcon';
 
 const Tab = createBottomTabNavigator();
 
-const styles = StyleSheet.create({
-  tabBar: {},
-  activeBackground: {
-    position: 'absolute',
-  },
+const AnimatedTabBar = ({
+  state: {index: activeIndex, routes},
+  navigation,
+  descriptors,
+}: BottomTabBarProps) => {
+  const reducer = (state: any, action: {x: number; index: number}) => {
+    return [...state, {x: action.x, index: action.index}];
+  };
+
+  const [layout, dispatch] = useReducer(reducer, []);
+
+  const handleLayout = (event: LayoutChangeEvent, index: number) => {
+    dispatch({x: event.nativeEvent.layout.x, index});
+  };
+
+  return (
+    <View style={animationStyles.tabBarContainer}>
+      {routes.map((route, index) => {
+        const active = index === activeIndex;
+        const {options} = descriptors[route.key];
+
+        return (
+          <TabBarComponent
+            key={route.key}
+            active={active}
+            options={options}
+            onLayout={e => handleLayout(e, index)}
+            onPress={() => navigation.navigate(route.name)}
+          />
+        );
+      })}
+    </View>
+  );
+};
+
+type TabBarComponentProps = {
+  active?: boolean;
+  options: BottomTabNavigationOptions;
+  onLayout: (e: LayoutChangeEvent) => void;
+  onPress: () => void;
+};
+
+const TabBarComponent = ({active, options, onPress}: TabBarComponentProps) => {
+  const animatedIconContainerStyles = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(active ? 1 : 0.5, {duration: 200}),
+    };
+  });
+
+  return (
+    <S.Container>
+      <S.PressableContainer onPress={onPress}>
+        <Animated.View
+          style={[animationStyles.iconContainer, animatedIconContainerStyles]}>
+          {options.tabBarIcon && typeof options.tabBarIcon === 'function' ? (
+            options.tabBarIcon({
+              focused: active ? active : false,
+              color: '#000',
+              size: 24,
+            })
+          ) : (
+            <Text>No Icon</Text>
+          )}
+          {options.tabBarLabel && typeof options.tabBarLabel === 'function' ? (
+            options.tabBarLabel({
+              focused: active ? active : false,
+              color: '#000',
+              position: 'below-icon',
+              children: 'Home',
+            })
+          ) : (
+            <Text>No Icon</Text>
+          )}
+        </Animated.View>
+      </S.PressableContainer>
+    </S.Container>
+  );
+};
+
+function BottompTab() {
+  return (
+    <Tab.Navigator
+      tabBar={props => <AnimatedTabBar {...props} />}
+      screenOptions={{headerShown: false}}
+      initialRouteName="Main">
+      <Tab.Screen
+        name="Contact"
+        component={ContactStack}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <BottomTabIcon focused={focused} type="Contact" />
+          ),
+          tabBarLabel: () => <S.Text>연락처</S.Text>,
+        }}
+      />
+      <Tab.Screen
+        name="Main"
+        component={Main}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <BottomTabIcon focused={focused} type="Main" />
+          ),
+          tabBarLabel: () => <S.Text>홈</S.Text>,
+        }}
+      />
+      <Tab.Screen
+        name="Message"
+        component={Message}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <BottomTabIcon focused={focused} type="Message" />
+          ),
+          tabBarLabel: () => <S.Text>채팅</S.Text>,
+        }}
+      />
+      <Tab.Screen
+        name="Setting"
+        component={Setting}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <BottomTabIcon focused={focused} type="Setting" />
+          ),
+          tabBarLabel: () => <S.Text>설정</S.Text>,
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+const animationStyles = StyleSheet.create({
   tabBarContainer: {
+    display: 'flex',
     flexDirection: 'row',
+    width: '100%',
+    height: '9%',
     justifyContent: 'space-evenly',
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    zIndex: 2,
+    position: 'absolute',
+    bottom: 0,
   },
-  component: {
-    height: 60,
-    width: 60,
-    marginTop: -5,
-  },
-  componentCircle: {
-    flex: 1,
-    borderRadius: 30,
-    backgroundColor: 'black',
-  },
+
   iconContainer: {
     position: 'absolute',
     top: 0,
@@ -58,70 +171,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  icon: {
-    height: 36,
-    width: 36,
-  },
 });
-
-function BottompTab() {
-  const [darkMode, setDarkMode] = useState(false);
-  return (
-    // 이걸 넣으면 Login으로 안가요
-    // 부모의 컨텍스트 영향을 받지 않고 독립적으로 작동한대요
-    // <NavigationContainer independent={true}>
-    <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName="Main">
-      <Tab.Screen
-        name="Contacts"
-        component={Contacts}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <BottomTabIcon
-              darkMode={darkMode}
-              focused={focused}
-              type="contacts"
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Main"
-        component={Main}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <BottomTabIcon darkMode={darkMode} focused={focused} type="main" />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Messages"
-        component={Messages}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <BottomTabIcon
-              darkMode={darkMode}
-              focused={focused}
-              type="messages"
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="settings"
-        component={Settings}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <BottomTabIcon
-              darkMode={darkMode}
-              focused={focused}
-              type="settings"
-            />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-    // </NavigationContainer>
-  );
-}
 
 export default BottompTab;
