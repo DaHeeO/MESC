@@ -11,7 +11,7 @@ import * as S from './BottomTab.styles';
 // components
 import Main from '../../../screens/main/Main';
 import ContactStack from '../../../screens/contacts/Stack';
-import Message from '../../../screens/messages/Messages';
+import MessageStack from '../../../screens/messages/Stack';
 import Setting from '../../../screens/settings/Settings';
 
 // icon
@@ -86,6 +86,7 @@ const TabBarComponent = ({active, options, onPress}: TabBarComponentProps) => {
             options.tabBarLabel({
               focused: active ? active : false,
               color: '#000',
+
               position: 'below-icon',
               children: 'Home',
             })
@@ -126,7 +127,7 @@ function BottompTab() {
       />
       <Tab.Screen
         name="Message"
-        component={Message}
+        component={MessageStack}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Message" />

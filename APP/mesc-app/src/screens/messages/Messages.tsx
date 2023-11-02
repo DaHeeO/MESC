@@ -1,16 +1,23 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {Button} from '../intro/Intro.styles';
+// import {NavigationContainer} from '@react-navigation/native';
 
-function Messages({navigation}: any) {
+interface MessagesProps {
+  navigation: any;
+}
+
+const Messages = ({navigation}: MessagesProps) => {
   return (
     <View>
       <Text>Messages</Text>
       <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
         <Text>Go to Chat</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push('Log')}>
+        <Text>Go to Log</Text>
+      </TouchableOpacity>
     </View>
   );
-}
+};
 
 export default Messages;
