@@ -6,21 +6,27 @@ import chatBot from '../../assets/images/chatBot.png';
 import {AboutContainer} from '../common/About/AboutContainer';
 
 const ProfileImageBackground = styled(ImageBackground)`
-  height: 100%;
-  width: 100%;
+  height: 80%;
+  width: 80%;
   /* 배경 이미지 설정 */
   background-image: url(${chatBot}); // 이미지 리소스 경로 사용
   background-size: cover;
   background-repeat: no-repeat;
-  //   background-color: blue;
+  background-color: blue;
 `;
 
 const NameContainer = styled.View`
   height: 100%;
   width: 55%;
-  //   background-color: white;
+  background-color: white;
   display: flex;
   justify-content: center;
+  align-items: center;
+`;
+
+const TextContainer = styled.View`
+  display: flex;
+  justify-content: flex-start; // 왼쪽으로 텍스트를 붙입니다.
   align-items: center;
 `;
 
@@ -32,13 +38,14 @@ function ChatbotProfile() {
       flexDirection="row"
       justifyContent="center"
       alignItems="center"
+      backgroundColor="yellow"
       //   margin 조절하기
       style={{marginTop: '5%', marginLeft: '3%'}}>
       <AboutContainer height="100%" width="40%">
         <ProfileImageBackground source={chatBot} />
       </AboutContainer>
       <NameContainer>
-        <TextBox fontSize="15px" fontWeight="bold">
+        <TextBox fontSize="13px" fontWeight="bold" textAlign="right">
           MESC
         </TextBox>
       </NameContainer>
