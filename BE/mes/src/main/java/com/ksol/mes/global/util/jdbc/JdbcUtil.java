@@ -9,7 +9,7 @@ import java.sql.*;
 @Slf4j
 public class JdbcUtil {
 
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true";
+    private static final String URL = "jdbc:mysql://localhost:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
     private static final String catalog = "mes";
