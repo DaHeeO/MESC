@@ -7,6 +7,7 @@
 
 sed -i 's/localhost:3306/mysql:3306/g' ./BE/mes/src/main/resources/application.yml
 sed -i 's/host: localhost/host: local-redis/g' ./BE/mes/src/main/resources/application.yml
+sed -i 's/localhost:3306/mysql:3306/g' ./BE/mes/src/main/java/com/ksol/mes/global/util/jdbc/JdbcUtil.java
 
 docker-compose -f docker-compose-mes-be.yml pull //현재 프로젝트에있는 docker-compose
 
