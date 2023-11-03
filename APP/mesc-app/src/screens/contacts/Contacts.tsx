@@ -3,101 +3,102 @@ import {TouchableOpacity} from 'react-native';
 import * as S from './Conatcts.styles';
 import {colors} from '../../components/common/theme';
 
-import Back from '../../assets/icons/back.svg';
+import Left from '../../assets/icons/left.svg';
 import Search from '../../assets/icons/search.svg';
 import Filter from '../../assets/icons/filter.svg';
 import ContactList from '../../components/contactsComponent/ContactList';
 
-import Image1 from '../../assets/images/test/용명킴.jpg';
-import Image2 from '../../assets/images/test/민겸킴.jpg';
-import Image3 from '../../assets/images/test/왁ㅋ.png';
-import Image4 from '../../assets/images/test/진영팍.jpg';
-import Image5 from '../../assets/images/test/문상훈.jpg';
-import Image6 from '../../assets/images/test/침착맨.png';
-import Image7 from '../../assets/images/test/전현무.jpg';
-import Image8 from '../../assets/images/test/나무니.jpg';
-import Image9 from '../../assets/images/test/왕뚜껑.png';
-import Image10 from '../../assets/images/test/행벅.jpg';
+import image1 from '../../assets/images/test/용명킴.jpg';
+import image2 from '../../assets/images/test/민겸킴.jpg';
+import image3 from '../../assets/images/test/왁ㅋ.png';
+import image4 from '../../assets/images/test/진영팍.jpg';
+import image5 from '../../assets/images/test/문상훈.jpg';
+import image6 from '../../assets/images/test/침착맨.png';
+import image7 from '../../assets/images/test/전현무.jpg';
+import image8 from '../../assets/images/test/나무니.jpg';
+import image9 from '../../assets/images/test/왕뚜껑.png';
+import image10 from '../../assets/images/test/행벅.jpg';
 
 interface ContactsProps {
   navigation: any;
 }
 
-interface Contact {
+interface userInfoList {
   userId: number;
-  ImageUrl: string;
+  imageUrl: string;
   userName: string;
   userEmail: string;
+  userRank: string;
 }
 
 // API 연결 안됨아직
 const Test = [
   {
     userId: 1,
-    ImageUrl: Image1,
+    imageUrl: image1,
     userName: '오다희',
     userEmail: 'test@samsung.com',
     userRank: '사원',
   },
   {
     userId: 2,
-    ImageUrl: Image2,
+    imageUrl: image2,
     userName: '내남친',
     userEmail: 'test@samsung.com',
     userRank: '대리',
   },
   {
     userId: 3,
-    ImageUrl: Image3,
+    imageUrl: image3,
     userName: '왁',
     userEmail: 'test@samsung.com',
     userRank: '과장',
   },
   {
     userId: 4,
-    ImageUrl: Image4,
+    imageUrl: image4,
     userName: '자기야 왜 칭얼대',
     userEmail: 'test@samsung.com',
     userRank: '대리',
   },
   {
     userId: 5,
-    ImageUrl: Image5,
+    imageUrl: image5,
     userName: '당후니',
     userEmail: 'test@samsung.com',
     userRank: '사원',
   },
   {
     userId: 6,
-    ImageUrl: Image6,
+    imageUrl: image6,
     userName: '말년이 무섭다',
     userEmail: 'test@samsung.com',
     userRank: '사장',
   },
   {
     userId: 7,
-    ImageUrl: Image7,
+    imageUrl: image7,
     userName: '무무렐라',
     userEmail: 'test@samsung.com',
     userRank: '사장',
   },
   {
     userId: 8,
-    ImageUrl: Image8,
+    imageUrl: image8,
     userName: '무니는 포도가 먹고시푼데',
     userEmail: 'test@samsung.com',
     userRank: '사장',
   },
   {
     userId: 9,
-    ImageUrl: Image9,
+    imageUrl: image9,
     userName: '타당타당',
     userEmail: 'test@samsung.com',
     userRank: '왕뚜껑',
   },
   {
     userId: 10,
-    ImageUrl: Image10,
+    imageUrl: image10,
     userName: '행버억',
     userEmail: 'test@samsung.com',
     userRank: '광렬',
@@ -105,7 +106,7 @@ const Test = [
 ];
 
 const Contacts = ({navigation}: ContactsProps) => {
-  const [data, setData] = useState<Contact[]>([]);
+  const [data, setData] = useState<userInfoList[]>([]);
 
   // useEffect(() => {
   //   // Make a GET request here
@@ -129,8 +130,8 @@ const Contacts = ({navigation}: ContactsProps) => {
       <S.Div>
         <S.Top>
           <S.Navigation>
-            <S.Back>
-              <Back />
+            <S.Back onPress={() => navigation.navigate('Group')}>
+              <Left />
               <S.Text size={15} color={colors.primary}>
                 그룹
               </S.Text>
