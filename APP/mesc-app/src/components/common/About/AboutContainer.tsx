@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import {ViewStyle} from 'react-native';
 
 // 어디에서나 사용할 수 있게 만든 Container
 
