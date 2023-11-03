@@ -1,0 +1,21 @@
+version: "3" #Compose 파일의 버전
+services: # 서비스 정의를 시작합니다. 각 서비스는 별도의 컨테이너로 실행
+  server:
+    image: chatbot_be:latest # 이미지 이름
+    container_name: chatbot_be # 컨테이너 이름
+    build:
+      context: ./BE/mesc # 컨테이너와 호스트 간의 포트 매핑을 설정합니다. 
+
+      args:
+        SERVER_MODE: prod
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Asia/Seoul
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: chatbot_net
