@@ -7,12 +7,22 @@ import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
 
 function ChatInput() {
+  const [value, onChangeText] = useState('');
+
   return (
     <S.ChatInput>
       <S.PlusBox>
         <Plus />
       </S.PlusBox>
-      <S.InputBox placeholder="입력해주세요"></S.InputBox>
+      <S.InputBox>
+        <TextInput
+          placeholder="내용을 입력해주세요."
+          onChangeText={text => onChangeText(text)}
+          value={value}
+          multiline={true}
+          returnKeyType="go"
+        />
+      </S.InputBox>
       <S.SendBox>
         <Send />
       </S.SendBox>

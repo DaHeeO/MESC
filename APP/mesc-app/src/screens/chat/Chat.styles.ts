@@ -4,7 +4,7 @@ import {colors} from '../../components/common/theme';
 
 // 채팅화면
 export const Container = styled.View`
-  background-color: #5a5a5a;
+  background-color: ${colors.secondary};
   display: flex;
   flex: 1;
 `;
@@ -15,14 +15,30 @@ export const Container = styled.View`
 export const ChatLayout = styled.View`
   display: flex;
   flex: 1;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  background-color: aqua;
+  margin-left: 12px;
+  margin-right: 12px;
+  //margin-bottom: 10px;
   border-radius: 10px;
+  //background-color: aqua;
 `;
 
 export const // mesc 말하는 텍스트 창
   MescContainer = styled.View`
     background-color: ${colors.icy};
+    border-radius: 10px;
+    width: 65%;
+    height: auto;
+    margin-top: -8px;
   `;
+
+export const TextBox = styled.View`
+  display: flex;
+  margin-left: 77%;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  height: 34px;
+  width: 88px;
+  background-color: ${colors.iris};
+`;

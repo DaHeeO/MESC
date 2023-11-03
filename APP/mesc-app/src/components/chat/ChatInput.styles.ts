@@ -5,7 +5,9 @@ import {colors} from '../../components/common/theme';
 // input 구역
 export const ChatInput = styled.View`
   width: 100%;
-  height: 60px;
+  min-height: 7%;
+  height: auto;
+  max-height: 18%;
   display: flex;
   background-color: ${colors.icy};
   //border: 1px solid yellow;
@@ -20,13 +22,13 @@ export const PlusBox = styled.View`
   margin-left: 10px;
 `;
 
-export const InputBox = styled.TextInput`
-  width: 80%;
-  height: 40ㄹㄹpx;
+export const InputBox = styled.View`
+  flex: 1;
+  height: auto;
   margin-left: 8px;
   display: flex;
   background-color: #ebecef;
-  align-items: center;
+  align-items: left;
   border-radius: 20px;
 `;
 

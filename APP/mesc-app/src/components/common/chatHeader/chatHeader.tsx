@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import Back from '../../../assets/icons/chatbotback.svg';
+import Back from '../../../assets/icons/chatbotback2.svg';
 import Dots from '../../../assets/icons/dots.svg';
 import styled from 'styled-components/native';
 
@@ -12,6 +12,8 @@ export const HeaderBody = styled.View`
   display: flex;
   //border: 1px solid red;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Text = styled.Text`
@@ -34,7 +36,7 @@ function Header() {
           display: 'flex',
           justifyContent: 'center',
         }}>
-        <Back fill="white" width={24} height={24} />
+        <Back style={{marginLeft: 20, justifyContent: 'center'}} />
       </View>
       <View style={{width: '80%', display: 'flex', justifyContent: 'center'}}>
         <Text>MESC</Text>
@@ -44,7 +46,7 @@ function Header() {
           width: '10%',
           justifyContent: 'center',
         }}>
-        <Dots fill="white" width={24} height={24} />
+        <Dots fill="white" width={24} height={24} style={{marginRight: 30}} />
       </View>
     </HeaderBody>
   );
