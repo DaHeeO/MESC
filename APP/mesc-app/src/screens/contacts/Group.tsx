@@ -1,11 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {ScrollView} from 'react-native';
+import React, {useState, useEffect, useMemo} from 'react';
+import {ScrollView, TextInput, FlatList} from 'react-native';
 import * as S from './Group.styles';
 import {colors} from '../../components/common/theme';
+import axios from 'axios';
 
 import Right from '../../assets/icons/right.svg';
-import Contact from '../../assets/icons/contacts.svg';
-import GroupIcon from '../../assets/icons/group.svg';
+import Contacts from '../../assets/icons/contacts.svg';
+import ContactIris from '../../assets/icons/contactsIris.svg';
+import GroupIcon from '../../assets/icons/groupIris.svg';
+import Minus from '../../assets/icons/minus.svg';
 
 interface ContactsProps {
   navigation: any;
@@ -23,37 +26,36 @@ interface Group {
   memberCnt: number;
 }
 
-const Test = {
-  contactNum: 10,
-  groupList: [
-    {
-      groupId: 1,
-      groupName: '그룹1',
-      sequence: 1,
-      memberCnt: 5,
-    },
-    {
-      groupId: 2,
-      groupName: '그룹2',
-      sequence: 2,
-      memberCnt: 7,
-    },
-    {
-      groupId: 3,
-      groupName: '그룹3',
-      sequence: 3,
-      memberCnt: 3,
-    },
-    {
-      groupId: 4,
-      groupName: '그룹4',
-      sequence: 4,
-      memberCnt: 2,
-    },
-  ],
-};
-
 const Group = ({navigation}: ContactsProps) => {
+  const [Test, setTest] = useState({
+    contactNum: 10,
+    groupList: [
+      {
+        groupId: 1,
+        groupName: '그룹1',
+        sequence: 1,
+        memberCnt: 5,
+      },
+      {
+        groupId: 2,
+        groupName: '그룹2',
+        sequence: 2,
+        memberCnt: 7,
+      },
+      {
+        groupId: 3,
+        groupName: '그룹3',
+        sequence: 3,
+        memberCnt: 3,
+      },
+      {
+        groupId: 4,
+        groupName: '그룹4',
+        sequence: 4,
+        memberCnt: 2,
+      },
+    ],
+  });
   // const [groupData, setGroupData] = useState<groupInfo | null>(null);
 
   // useEffect(() => {
@@ -69,14 +71,60 @@ const Group = ({navigation}: ContactsProps) => {
   //     });
   // }, []);
 
+  const [editMode, setEditMode] = useState(false);
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
+  const memoizedGroupList = useMemo(() => {
+    return Test.groupList;
+  }, []);
+
+  const handleNameChange = (index: number) => (text: string) => {
+    const newData = [...Test.groupList];
+    newData[index - 1].groupName = text;
+    setTest({...Test, groupList: [...newData]});
+  };
+
+  function renderItem({item}: any) {
+    return (
+      <S.GroupDiv
+        key={item.groupId}
+        onPress={() => !editMode && navigation.navigate('Detail')}>
+        <S.GroupBox>
+          {editMode ? (
+            <S.DeleteBox>
+              <Minus />
+            </S.DeleteBox>
+          ) : null}
+          <GroupIcon />
+          {editMode ? (
+            <S.ContactInput
+              value={item.groupName}
+              onChangeText={handleNameChange(item.groupId)}
+              placeholder={item.groupName}
+            />
+          ) : (
+            <S.ContactText>{item.groupName}</S.ContactText>
+          )}
+        </S.GroupBox>
+        <S.NavigateToContact style={{opacity: editMode ? 0.5 : 1}}>
+          <S.GroupText>{item.memberCnt}</S.GroupText>
+          <Right />
+        </S.NavigateToContact>
+      </S.GroupDiv>
+    );
+  }
+
   return (
     <S.Container>
       <S.Div>
         <S.Top>
           <S.Navigation>
-            <S.Func>
+            <S.Func onPress={toggleEditMode}>
               <S.Text size={15} color={colors.primary}>
-                편집
+                {editMode ? '완료' : '편집'}
               </S.Text>
             </S.Func>
             <S.TitleBox>
@@ -90,9 +138,11 @@ const Group = ({navigation}: ContactsProps) => {
           </S.Navigation>
         </S.Top>
         <S.Body>
-          <S.ContactDiv onPress={() => navigation.navigate('Contacts')}>
+          <S.ContactDiv
+            style={{opacity: editMode ? 0.5 : 1}}
+            onPress={() => !editMode && navigation.navigate('Contacts')}>
             <S.ContactBox>
-              <Contact />
+              {editMode ? <Contacts /> : <ContactIris />}
               <S.ContactText>연락처</S.ContactText>
             </S.ContactBox>
             <S.NavigateToContact>
@@ -100,25 +150,14 @@ const Group = ({navigation}: ContactsProps) => {
               <Right />
             </S.NavigateToContact>
           </S.ContactDiv>
-          <ScrollView
+          <FlatList
+            data={memoizedGroupList}
+            renderItem={renderItem}
             contentContainerStyle={{
               display: 'flex',
               alignItems: 'center',
               width: '100%',
-            }}>
-            {Test?.groupList.map(group => (
-              <S.GroupDiv key={group.groupId}>
-                <S.GroupBox>
-                  <GroupIcon />
-                  <S.ContactText>{group.groupName}</S.ContactText>
-                </S.GroupBox>
-                <S.NavigateToContact>
-                  <S.GroupText>{group.memberCnt}</S.GroupText>
-                  <Right />
-                </S.NavigateToContact>
-              </S.GroupDiv>
-            ))}
-          </ScrollView>
+            }}></FlatList>
         </S.Body>
       </S.Div>
     </S.Container>
