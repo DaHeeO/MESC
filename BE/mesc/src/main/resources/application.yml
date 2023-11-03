@@ -73,7 +73,7 @@ jwt:
 
 server:
   port: 8080
-  ec2-url: https://
+  ec2-url: https://www.mesc.kr
 
 ## jwt
 #jwt:
