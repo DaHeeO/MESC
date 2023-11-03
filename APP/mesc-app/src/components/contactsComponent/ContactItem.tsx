@@ -7,7 +7,7 @@ interface IContactItem {
   item: {
     userId: number;
     // ImageUrl: string;
-    ImageUrl: any;
+    imageUrl: any;
     userName: string;
     userEmail: string;
     userRank: string;
@@ -19,7 +19,7 @@ export default function ContactItem({item}: IContactItem) {
     <S.Container>
       <S.Box>
         <S.ImageBox>
-          <S.Img source={item.ImageUrl} />
+          <S.Img source={item.imageUrl} />
         </S.ImageBox>
         <S.InfoBox>
           <S.BoldText size={17} color={colors.primary}>
