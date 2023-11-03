@@ -68,7 +68,6 @@ export const Body = styled.View`
   align-items: center;
   width: 100%;
   height: 80%;
-  // background-color: blue;
 `;
 
 export const ContactDiv = styled.TouchableOpacity`

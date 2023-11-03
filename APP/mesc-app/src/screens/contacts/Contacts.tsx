@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, ScrollView} from 'react-native';
 import * as S from './Conatcts.styles';
 import {colors} from '../../components/common/theme';
 
 import Left from '../../assets/icons/left.svg';
 import Search from '../../assets/icons/search.svg';
 import Filter from '../../assets/icons/filter.svg';
-import ContactList from '../../components/contactsComponent/ContactList';
 
 import image1 from '../../assets/images/test/용명킴.jpg';
 import image2 from '../../assets/images/test/민겸킴.jpg';
@@ -85,7 +84,7 @@ const Test = [
   {
     userId: 8,
     imageUrl: image8,
-    userName: '무니는 포도가 먹고시푼데',
+    userName: '무니는 포도가 먹고 시푼데',
     userEmail: 'test@samsung.com',
     userRank: '사장',
   },
@@ -153,7 +152,36 @@ const Contacts = ({navigation}: ContactsProps) => {
               <Filter />
             </TouchableOpacity>
           </S.FilterDiv>
-          <ContactList contactList={Test} />
+          <ScrollView
+            contentContainerStyle={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+            }}>
+            {Test?.map(item => (
+              <S.ContactDiv key={item.userId}>
+                <S.ContactBox>
+                  <S.ImageBox>
+                    <S.Img source={item.imageUrl} />
+                  </S.ImageBox>
+                  <S.InfoBox>
+                    <S.BoldText size={17} color={colors.primary}>
+                      {item.userName}
+                    </S.BoldText>
+                    <S.BoldText size={14} color={colors.tertiary}>
+                      {item.userEmail}
+                    </S.BoldText>
+                  </S.InfoBox>
+                </S.ContactBox>
+                <S.RankBox>
+                  <S.BoldText size={14} color={colors.tertiary}>
+                    {item.userRank}
+                  </S.BoldText>
+                </S.RankBox>
+              </S.ContactDiv>
+            ))}
+          </ScrollView>
+          {/* <ContactList contactList={Test} /> */}
         </S.Body>
       </S.Div>
     </S.Container>

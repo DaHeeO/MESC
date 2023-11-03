@@ -87,8 +87,7 @@ export const Body = styled.View`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 67%;
-  // background-color: green;
+  height: 75%;
 `;
 
 export const FilterDiv = styled.View`
@@ -96,11 +95,56 @@ export const FilterDiv = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 20px 4px;
+  padding: 20px 8px;
 `;
 
 export const FilterText = styled.Text`
   font-size: 16px;
   color: ${colors.primary};
   font-weight: bold;
+`;
+
+export const ContactDiv = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+  margin-bottom: 16px;
+`;
+
+export const ContactBox = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+`;
+
+export const ImageBox = styled.View`
+  height: 50px;
+  width: 50px;
+  border-radius: 100px;
+  overflow: hidden;
+`;
+
+export const Img = styled(Image)`
+  width: 100%;
+  height: 100%;
+`;
+
+export const InfoBox = styled.View`
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+`;
+
+export const RankBox = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  padding: 6px;
+  background-color: ${colors.icy};
+  border-radius: 100px;
 `;
