@@ -6,7 +6,7 @@
             stage('Prepare') {
                 steps {
                     sh 'echo "Clonning Repository"'
-                    git branch: 'develop-BE',
+                    git branch: 'chatbot_cicd_test',
                         url: 'https://lab.ssafy.com/s09-final/S09P31S105.git',
                         credentialsId: 'ldy'
                 }
