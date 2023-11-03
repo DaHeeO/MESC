@@ -75,7 +75,7 @@ const Detail = ({navigation}: ContactsProps) => {
             <S.TitleBox>
               <S.Title>연락처</S.Title>
             </S.TitleBox>
-            <S.Right onPress={() => navigation.navigate('Group')}>
+            <S.Right>
               <Plus />
             </S.Right>
           </S.Navigation>

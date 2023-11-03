@@ -1,5 +1,10 @@
 import React, {useState, useEffect, useMemo} from 'react';
-import {ScrollView, TextInput, FlatList} from 'react-native';
+import {
+  ScrollView,
+  TextInput,
+  FlatList,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import * as S from './Group.styles';
 import {colors} from '../../components/common/theme';
 import axios from 'axios';
@@ -72,39 +77,133 @@ const Group = ({navigation}: ContactsProps) => {
   // }, []);
 
   const [editMode, setEditMode] = useState(false);
+  const [addMode, setAddMode] = useState(false);
+  const [addTextChanged, setAddTextChanged] = useState(false);
+  const [originalNames, setOriginalNames] = useState<string[]>([]);
 
   const toggleEditMode = () => {
+    if (editMode) {
+      // Edit 모드 해제 시, 빈 칸인 그룹의 이름을 이전 값으로 복원
+      Test.groupList.forEach((group, index) => {
+        if (!group.groupName && originalNames[index]) {
+          Test.groupList[index].groupName = originalNames[index];
+        }
+      });
+    } else {
+      // Edit 모드로 전환 시, 현재 그룹 이름을 저장
+      const names = Test.groupList.map(group => group.groupName);
+      setOriginalNames(names);
+    }
+
     setEditMode(!editMode);
   };
 
-  const memoizedGroupList = useMemo(() => {
-    return Test.groupList;
-  }, []);
+  // const memoizedGroupList = useMemo(() => {
+  //   return Test.groupList;
+  // }, []);
 
   const handleNameChange = (index: number) => (text: string) => {
     const newData = [...Test.groupList];
-    newData[index - 1].groupName = text;
+    newData[index].groupName = text;
     setTest({...Test, groupList: [...newData]});
+
+    if (index + 1 === Test.groupList.length) {
+      if (text.length > 0) {
+        setAddTextChanged(true);
+      } else {
+        setAddTextChanged(false);
+      }
+    }
   };
 
-  function renderItem({item}: any) {
+  const handleAddGroup = () => {
+    if (!addMode) {
+      const newGroup = {
+        groupId: Test.groupList.length + 1, // ID를 유니크하게 생성
+        groupName: '', // 빈 그룹명으로 초기화
+        sequence: Test.groupList.length + 1, // 순서를 현재 그룹 개수 + 1로 설정
+        memberCnt: 0, // 초기 멤버 수
+      };
+
+      // Test state를 업데이트하여 새로운 그룹을 추가합니다.
+      setTest({
+        ...Test,
+        groupList: [...Test.groupList, newGroup],
+      });
+
+      // 그룹 추가 모드를 활성화합니다.
+      setAddMode(true);
+      setAddTextChanged(false);
+    }
+  };
+
+  const handleAddMode = () => {
+    // 사용자가 추가 모드에서 그룹명을 입력하고 확인 또는 바깥을 클릭하면
+    // addMode를 비활성화하고, 추가된 빈 그룹을 제거합니다.
+    if (addMode) {
+      if (!addTextChanged) {
+        // 사용자가 추가된 그룹의 그룹명을 입력하지 않았을 경우, 그룹을 제거
+        const updatedGroupList = Test.groupList.slice(0, -1);
+        setTest({...Test, groupList: updatedGroupList});
+      }
+
+      setAddMode(false);
+    }
+  };
+
+  const handleDeleteGroup = (indexToDelete: number) => {
+    const updatedGroupList = [...Test.groupList];
+    updatedGroupList.splice(indexToDelete, 1);
+    setTest({...Test, groupList: updatedGroupList});
+  };
+
+  function renderItem({item, index}: {item: any; index: number}) {
     return (
       <S.GroupDiv
-        key={item.groupId}
-        onPress={() => !editMode && navigation.navigate('Detail')}>
+        key={index}
+        onPress={() => {
+          handleAddMode();
+          !editMode && navigation.navigate('Detail');
+        }}>
         <S.GroupBox>
           {editMode ? (
-            <S.DeleteBox>
+            <S.DeleteBox onPress={() => handleDeleteGroup(index)}>
               <Minus />
             </S.DeleteBox>
           ) : null}
           <GroupIcon />
           {editMode ? (
-            <S.ContactInput
-              value={item.groupName}
-              onChangeText={handleNameChange(item.groupId)}
-              placeholder={item.groupName}
-            />
+            addMode ? (
+              <S.ContactInput
+                value={item.groupName}
+                onChangeText={handleNameChange(index)}
+                placeholder={
+                  index + 1 === Test.groupList.length
+                    ? '그룹명'
+                    : item.groupName
+                }
+              />
+            ) : (
+              <S.ContactInput
+                value={item.groupName}
+                onChangeText={handleNameChange(index)}
+                placeholder={item.groupName}
+              />
+            )
+          ) : addMode ? (
+            index + 1 === Test.groupList.length ? (
+              <S.ContactInput
+                value={item.groupName}
+                onChangeText={handleNameChange(index)}
+                placeholder={
+                  index + 1 === Test.groupList.length
+                    ? '그룹명'
+                    : item.groupName
+                }
+              />
+            ) : (
+              <S.ContactText>{item.groupName}</S.ContactText>
+            )
           ) : (
             <S.ContactText>{item.groupName}</S.ContactText>
           )}
@@ -123,42 +222,48 @@ const Group = ({navigation}: ContactsProps) => {
         <S.Top>
           <S.Navigation>
             <S.Func onPress={toggleEditMode}>
-              <S.Text size={15} color={colors.primary}>
+              <S.BoldText size={15} color={colors.primary}>
                 {editMode ? '완료' : '편집'}
-              </S.Text>
+              </S.BoldText>
             </S.Func>
             <S.TitleBox>
               <S.Title>그룹</S.Title>
             </S.TitleBox>
-            <S.Func>
-              <S.Text size={15} color={colors.primary}>
+            <S.Func onPress={handleAddGroup}>
+              <S.BoldText size={15} color={colors.primary}>
                 추가
-              </S.Text>
+              </S.BoldText>
             </S.Func>
           </S.Navigation>
         </S.Top>
-        <S.Body>
-          <S.ContactDiv
-            style={{opacity: editMode ? 0.5 : 1}}
-            onPress={() => !editMode && navigation.navigate('Contacts')}>
-            <S.ContactBox>
-              {editMode ? <Contacts /> : <ContactIris />}
-              <S.ContactText>연락처</S.ContactText>
-            </S.ContactBox>
-            <S.NavigateToContact>
-              <S.ContactText>{Test.contactNum}</S.ContactText>
-              <Right />
-            </S.NavigateToContact>
-          </S.ContactDiv>
-          <FlatList
-            data={memoizedGroupList}
-            renderItem={renderItem}
-            contentContainerStyle={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-            }}></FlatList>
-        </S.Body>
+        <TouchableWithoutFeedback onPress={handleAddMode}>
+          <S.Body>
+            <S.ContactDiv
+              style={{opacity: editMode ? 0.5 : 1}}
+              onPress={() => {
+                !editMode && navigation.navigate('Contacts');
+              }}>
+              <S.ContactBox>
+                {editMode ? <Contacts /> : <ContactIris />}
+                <S.ContactText>연락처</S.ContactText>
+              </S.ContactBox>
+              <S.NavigateToContact>
+                <S.GroupText>{Test.contactNum}</S.GroupText>
+                <Right />
+              </S.NavigateToContact>
+            </S.ContactDiv>
+            <TouchableWithoutFeedback onPress={handleAddMode}>
+              <FlatList
+                data={Test.groupList}
+                renderItem={renderItem}
+                contentContainerStyle={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                }}></FlatList>
+            </TouchableWithoutFeedback>
+          </S.Body>
+        </TouchableWithoutFeedback>
       </S.Div>
     </S.Container>
   );

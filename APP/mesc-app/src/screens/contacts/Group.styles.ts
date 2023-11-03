@@ -140,4 +140,5 @@ export const ContactInput = styled.TextInput`
   height: 100%;
   color: ${colors.primary};
   font-weight: bold;
+  margin: 0px 6px;
 `;

@@ -131,9 +131,9 @@ const Contacts = ({navigation}: ContactsProps) => {
           <S.Navigation>
             <S.Back onPress={() => navigation.navigate('Group')}>
               <Left />
-              <S.Text size={15} color={colors.primary}>
+              <S.BoldText size={15} color={colors.primary}>
                 그룹
-              </S.Text>
+              </S.BoldText>
             </S.Back>
             <S.TitleBox>
               <S.Title>연락처</S.Title>
