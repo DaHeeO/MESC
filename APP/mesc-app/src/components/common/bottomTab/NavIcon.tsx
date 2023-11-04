@@ -8,7 +8,7 @@ import Message from '../../../assets/icons/messages.svg';
 import Setting from '../../../assets/icons/setting.svg';
 
 // styles
-import * as varStyles from '../theme';
+import * as varStyles from '../Theme';
 
 interface NavIconProps {
   focused: boolean;
