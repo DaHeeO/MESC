@@ -1,8 +1,17 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {ScrollView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import axios from 'axios';
 import _ from 'lodash';
 import * as S from './ChatInput.styles';
+import Header from '../common/chatHeader/ChatHeader';
+import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
 
@@ -121,7 +130,9 @@ function ChatInput() {
           onChangeText={handleInputChange}
           onBlur={handleInputBlur}
           onFocus={handleInputFocus}
-          placeholder="ex) SELECT * FROM "></S.InputBox>
+          placeholder="검색어를 입력해주세요."
+          multiline={true}
+          returnKeyType="go"></S.InputBox>
         <S.SendBox>
           <Send />
         </S.SendBox>

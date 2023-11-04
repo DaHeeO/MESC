@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import {Image} from 'react-native';
 import {colors} from '../../components/common/Theme';
 
 export const Container = styled.View`
@@ -18,7 +17,7 @@ export const Div = styled.View`
 
 export const Top = styled.View`
   width: 100%;
-  height: 16%;
+  height: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,12 +29,12 @@ export const Navigation = styled.View`
   flex-direction: row;
   width: 100%;
   align-items: center;
+  justify-content: space-between;
   margin-top: 25px;
-  // background-color: red;
+  //   background-color: red;
 `;
 
-export const Back = styled.TouchableOpacity`
-  width: 20%;
+export const Func = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   //   background-color: yellow;
@@ -62,45 +61,71 @@ export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
   color: ${colors.primary};
-  padding-bottom: 4px;
-`;
-
-export const Search = styled.View`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: ${colors.icy};
-  border-radius: 10px;
-  height: 48px;
-  width: 100%;
-  padding: 0 16px;
-`;
-
-export const SearchText = styled.TextInput`
-  font-size: 16px;
-  color: ${colors.tertiary};
-  padding-left: 12px;
-  width: 95%;
 `;
 
 export const Body = styled.View`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 67%;
-  // background-color: green;
+  height: 80%;
+  // background-color: blue;
 `;
 
-export const FilterDiv = styled.View`
+export const ContactDiv = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  padding: 20px 4px;
+  width: 90%;
+  padding-top: 15%;
+  // background-color: red;
+`;
+
+export const ContactBox = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const ContactText = styled.Text`
+  font-size: 16px;
+  color: ${colors.primary};
+  font-weight: bold;
+  margin: 0px 10px;
+`;
+
+export const NavigateToContact = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const FilterText = styled.Text`
   font-size: 16px;
   color: ${colors.primary};
   font-weight: bold;
+`;
+
+export const GroupDiv = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
+  // background-color: green;
+`;
+
+export const GroupBox = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const GroupText = styled.Text`
+  font-size: 16px;
+  color: ${colors.primary};
+  font-weight: bold;
+  margin: 0px 10px;
 `;

@@ -4,29 +4,41 @@ import {colors} from '../../components/common/Theme';
 
 // 채팅화면
 export const Container = styled.View`
-  background-color: #5a5a5a;
-  disaply: flex;
+  background-color: ${colors.secondary};
+  display: flex;
   flex: 1;
 `;
 
-// 맨 위 mesc
-// export const Header = styled.View`
-//   position: 'fixed';
-//   background: #242529;
-//   top: 0;
-//   height: 7%;
-//   display: flex;
-//   border: 1px solid red;
-//   flex-direction: row;
-// `;
+// 채팅화면 레이아웃
+// 왼쪽 오르쪽 양옆 10만큼 띄어놓아서
+// 여기서 챗봇 다 보여주면 됨
+export const ChatLayout = styled.View`
+  display: flex;
+  flex: 1;
+  margin-left: 12px;
+  margin-right: 12px;
+  //margin-bottom: 10px;
+  border-radius: 10px;
+  //background-color: aqua;
+`;
 
-export const Text = styled.Text`
-  font-size: 25px;
-  font-weight: bold;
-  color: white;
-  text-align: center;
-  // top: 25%;
-  justify-content: center;
+export const // mesc 말하는 텍스트 창
+  MescContainer = styled.View`
+    background-color: ${colors.icy};
+    border-radius: 10px;
+    width: 65%;
+    height: auto;
+    margin-top: -8px;
+  `;
+
+export const TextBox = styled.View`
+  display: flex;
+  margin-left: 77%;
+  margin-top: 20px;
   align-items: center;
-  // border: 1px solid white;
+  justify-content: center;
+  border-radius: 10px;
+  height: 34px;
+  width: 88px;
+  background-color: ${colors.iris};
 `;

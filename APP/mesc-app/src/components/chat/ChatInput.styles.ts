@@ -2,20 +2,15 @@ import styled from 'styled-components/native';
 import {Image} from 'react-native';
 import {colors} from '../../components/common/Theme';
 
-// // props로 넘기기 위해서는 interface를 만들어야 함
-// interface ChooseBtnProps {
-//   // ?의 의미는 꼭 props를 사용하지 않아도 된다.
-//   width?: string;
-//   // width: string; 이렇게하면 BtnBody에 width를 꼭 넘겨주어야함!
-// }
-
 // input 구역
 export const ChatInput = styled.View`
   width: 100%;
-  height: 60px;
+  min-height: 60px;
+  height: auto;
+  // max-height: 18%;
   display: flex;
   background-color: ${colors.icy};
-  // border: 1px solid green;
+  //border: 1px solid yellow;
   flex-direction: row;
   align-items: center;
 `;
@@ -25,17 +20,21 @@ export const PlusBox = styled.View`
   height: 24px;
   //background-color: gray;
   margin-left: 10px;
+  // border: 1px solid red;
 `;
 
 export const InputBox = styled.TextInput`
   width: 80%;
-  height: 40px;
-  margin-left: 8px;
+  height: auto;
+  // margin-left: 8px;
   padding-left: 15px;
+  margin: 10px
   display: flex;
+  flex: 1;
   background-color: #ebecef;
-  align-items: center;
   border-radius: 20px;
+  // border: 1px solid red;
+  lineHeight: 20;
 `;
 
 // export const Sentence = styled.View`
@@ -49,7 +48,8 @@ export const SendBox = styled.View`
   width: 24px;
   height: 24px;
   margin-right: 10px;
-  margin-left: 8px;
+  // margin-left: 8px;
+  // border: 1px solid red;
   //background-color: gray;
 `;
 

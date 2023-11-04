@@ -5,7 +5,7 @@ import {colors} from '../../components/common/Theme';
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 12px;
   margin-bottom: 10px;
   //background-color: yellow;
 `;
