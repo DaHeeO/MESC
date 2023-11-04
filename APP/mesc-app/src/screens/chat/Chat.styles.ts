@@ -7,6 +7,8 @@ export const Container = styled.View`
   background-color: ${colors.secondary};
   display: flex;
   flex: 1;
+  // border: 1px solid red;
+  // height: 91%;
 `;
 
 // 채팅화면 레이아웃

@@ -7,6 +7,7 @@ export const Container = styled.View`
   background-color: #5a5a5a;
   disaply: flex;
   flex: 1;
+  border: 1px solid red;
 `;
 
 // 맨 위 mesc

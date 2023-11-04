@@ -22,7 +22,7 @@ function MessageStack() {
           component={Log}
           options={{headerShown: false}}
         />
-          <Stack.Screen
+        <Stack.Screen
           name="Chat"
           component={Chat}
           options={{headerShown: false}}
