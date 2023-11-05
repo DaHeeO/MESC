@@ -43,8 +43,6 @@ export const AddPersonBtn = styled.TouchableOpacity`
 `;
 
 export const ReportText = styled.Text`
-  // border: 1px solid black;
-  box-sizing: border-box;
   font-weight: bold;
   font-size: 20px;
   padding: 10px;

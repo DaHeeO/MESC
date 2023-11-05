@@ -14,7 +14,7 @@ import {
 } from '@gorhom/bottom-sheet';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import * as S from './Detail.styles';
-import {colors} from '../../components/common/theme';
+import {colors} from '../../components/common/Theme';
 
 import Left from '../../assets/icons/left.svg';
 import Plus from '../../assets/icons/NavigationPlus.svg';
