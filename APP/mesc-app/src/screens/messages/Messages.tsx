@@ -13,10 +13,10 @@ const Messages = ({navigation}: MessagesProps) => {
       <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
         <Text>Go to Chat</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Log')}>
-        <Text>Go to Log</Text>
+
+      <TouchableOpacity>
+        <Report />
       </TouchableOpacity>
-      <Report />
     </View>
   );
 };

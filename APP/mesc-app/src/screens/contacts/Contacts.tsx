@@ -1,55 +1,112 @@
 import React, {useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
-  Dimensions,
-} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import * as S from './Conatcts.styles';
 import {colors} from '../../components/common/Theme';
 
-import Back from '../../assets/icons/back.svg';
+import Left from '../../assets/icons/left.svg';
 import Search from '../../assets/icons/search.svg';
+import Filter from '../../assets/icons/filter.svg';
 import ContactList from '../../components/contactsComponent/ContactList';
+
+import image1 from '../../assets/images/test/용명킴.jpg';
+import image2 from '../../assets/images/test/민겸킴.jpg';
+import image3 from '../../assets/images/test/왁ㅋ.png';
+import image4 from '../../assets/images/test/진영팍.jpg';
+import image5 from '../../assets/images/test/문상훈.jpg';
+import image6 from '../../assets/images/test/침착맨.png';
+import image7 from '../../assets/images/test/전현무.jpg';
+import image8 from '../../assets/images/test/나무니.jpg';
+import image9 from '../../assets/images/test/왕뚜껑.png';
+import image10 from '../../assets/images/test/행벅.jpg';
 
 interface ContactsProps {
   navigation: any;
 }
 
-interface Contact {
+interface userInfoList {
   userId: number;
-  ImageUrl: string;
+  imageUrl: string;
   userName: string;
   userEmail: string;
+  userRank: string;
 }
 
 // API 연결 안됨아직
 const Test = [
   {
     userId: 1,
-    ImageUrl: '',
+    imageUrl: image1,
     userName: '오다희',
     userEmail: 'test@samsung.com',
+    userRank: '사원',
   },
   {
     userId: 2,
-    ImageUrl: '',
-    userName: '오다희',
+    imageUrl: image2,
+    userName: '내남친',
     userEmail: 'test@samsung.com',
+    userRank: '대리',
   },
   {
     userId: 3,
-    ImageUrl: '',
-    userName: '오다희',
+    imageUrl: image3,
+    userName: '왁',
     userEmail: 'test@samsung.com',
+    userRank: '과장',
+  },
+  {
+    userId: 4,
+    imageUrl: image4,
+    userName: '자기야 왜 칭얼대',
+    userEmail: 'test@samsung.com',
+    userRank: '대리',
+  },
+  {
+    userId: 5,
+    imageUrl: image5,
+    userName: '당후니',
+    userEmail: 'test@samsung.com',
+    userRank: '사원',
+  },
+  {
+    userId: 6,
+    imageUrl: image6,
+    userName: '말년이 무섭다',
+    userEmail: 'test@samsung.com',
+    userRank: '사장',
+  },
+  {
+    userId: 7,
+    imageUrl: image7,
+    userName: '무무렐라',
+    userEmail: 'test@samsung.com',
+    userRank: '사장',
+  },
+  {
+    userId: 8,
+    imageUrl: image8,
+    userName: '무니는 포도가 먹고시푼데',
+    userEmail: 'test@samsung.com',
+    userRank: '사장',
+  },
+  {
+    userId: 9,
+    imageUrl: image9,
+    userName: '타당타당',
+    userEmail: 'test@samsung.com',
+    userRank: '왕뚜껑',
+  },
+  {
+    userId: 10,
+    imageUrl: image10,
+    userName: '행버억',
+    userEmail: 'test@samsung.com',
+    userRank: '광렬',
   },
 ];
 
 const Contacts = ({navigation}: ContactsProps) => {
-  const windowHeight = Dimensions.get('window').height;
-
-  const [data, setData] = useState<Contact[]>([]);
+  const [data, setData] = useState<userInfoList[]>([]);
 
   // useEffect(() => {
   //   // Make a GET request here
@@ -73,8 +130,8 @@ const Contacts = ({navigation}: ContactsProps) => {
       <S.Div>
         <S.Top>
           <S.Navigation>
-            <S.Back>
-              <Back />
+            <S.Back onPress={() => navigation.navigate('Group')}>
+              <Left />
               <S.Text size={15} color={colors.primary}>
                 그룹
               </S.Text>
@@ -85,17 +142,19 @@ const Contacts = ({navigation}: ContactsProps) => {
           </S.Navigation>
           <S.Search>
             <Search />
-            <S.SearchText>검색</S.SearchText>
+            <S.SearchText placeholder="검색" />
           </S.Search>
         </S.Top>
         {/* 연락처 리스트 */}
-        <View
-          style={{
-            height: windowHeight * 0.72,
-            backgroundColor: 'red',
-          }}>
+        <S.Body>
+          <S.FilterDiv>
+            <S.FilterText>멤버 총 {Test.length}명</S.FilterText>
+            <TouchableOpacity>
+              <Filter />
+            </TouchableOpacity>
+          </S.FilterDiv>
           <ContactList contactList={Test} />
-        </View>
+        </S.Body>
       </S.Div>
     </S.Container>
   );

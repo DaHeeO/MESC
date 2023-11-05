@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   display: flex;
-  width: 100%;
   align-items: center;
-  background-color: green;
+  // background-color: green;
 `;

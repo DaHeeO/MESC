@@ -7,8 +7,7 @@ import {
   SheetContainer,
   SheetFncBtn,
   SheetHeader,
-} from './bottomSheetStyle';
-
+} from './BottomSheetStyle';
 interface BottomSheetProps {
   btnTitle: string;
   sheetTitle: string;
