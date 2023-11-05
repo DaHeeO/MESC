@@ -19,7 +19,6 @@ export const BottomSheetComponent = (props: BottomSheetProps) => {
   const bottomSheetRef = React.useRef<BottomSheet>(null);
   const handlePress = () => {
     bottomSheetRef.current?.close();
-    // 다른 작업을 수행할 수 있습니다.
   };
   return (
     <>
