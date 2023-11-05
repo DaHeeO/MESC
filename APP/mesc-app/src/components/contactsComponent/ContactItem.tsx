@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
-import {colors} from '../common/theme';
+import {colors} from '../common/Theme';
 import * as S from './ContactItem.styles';
 
 interface IContactItem {

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView} from 'react-native';
 import * as S from './Group.styles';
-import {colors} from '../../components/common/theme';
+import {colors} from '../../components/common/Theme';
 
 import Right from '../../assets/icons/right.svg';
 import Contact from '../../assets/icons/contacts.svg';

@@ -1,12 +1,14 @@
 import styled from 'styled-components/native';
 import {Image} from 'react-native';
-import {colors} from '../../components/common/theme';
+import {colors} from '../../components/common/Theme';
 
 // 채팅화면
 export const Container = styled.View`
   background-color: ${colors.secondary};
   display: flex;
   flex: 1;
+  // border: 1px solid red;
+  // height: 91%;
 `;
 
 // 채팅화면 레이아웃
