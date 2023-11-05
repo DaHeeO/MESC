@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import {Image} from 'react-native';
-import {colors} from '../../components/common/Theme';
+import {Image, Animated} from 'react-native';
+import {colors} from '../../components/common/theme';
 
 export const Container = styled.View`
   width: 100%;
@@ -34,11 +34,10 @@ export const Navigation = styled.View`
   // background-color: red;
 `;
 
-export const Back = styled.TouchableOpacity`
+export const Left = styled.TouchableOpacity`
   width: 20%;
   display: flex;
   flex-direction: row;
-  //   background-color: yellow;
 `;
 
 export const Text = styled.Text<{size: number; color: string}>`
@@ -63,6 +62,13 @@ export const Title = styled.Text`
   font-weight: bold;
   color: ${colors.primary};
   padding-bottom: 4px;
+`;
+
+export const Right = styled.TouchableOpacity`
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
 `;
 
 export const Search = styled.View`
@@ -110,8 +116,8 @@ export const ContactDiv = styled.TouchableOpacity`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 16px;
-  margin-bottom: 16px;
+  padding: 8px 16px;
+  // background-color: green;
 `;
 
 export const ContactBox = styled.View`
@@ -147,4 +153,41 @@ export const RankBox = styled.View`
   padding: 6px;
   background-color: ${colors.icy};
   border-radius: 100px;
+`;
+
+export const DeleteContainer = styled(Animated.View)`
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteBox = styled.TouchableOpacity`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  padding: 0px 16px
+  background-color: ${colors.red};';
+`;
+
+export const MContactDiv = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 16px;
+  margin-bottom: 16px;
+`;
+
+export const CheckBox = styled.TouchableOpacity`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 6px;
+  border-radius: 12px;
+  border: 1.5px solid ${colors.quaternary};
 `;
