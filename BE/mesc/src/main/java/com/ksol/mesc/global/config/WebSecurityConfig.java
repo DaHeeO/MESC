@@ -35,7 +35,7 @@ public class WebSecurityConfig {
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
 
 	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**", "/api/mesc/user/signup",
-		"/api/mesc/user/login", "/api/mesc/user/reissue"};
+		"/api/mesc/user/login", "/api/mesc/user/reissue", "/api/mesc/autocomplete", "/**"};
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
