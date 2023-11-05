@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {Image} from 'react-native';
-import {colors} from '../../components/common/theme';
+import {colors} from '../common/Theme';
 
 // input 구역
 export const ChatInput = styled.View`

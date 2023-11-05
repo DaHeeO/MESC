@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {TouchableOpacity} from 'react-native';
 import * as S from './Conatcts.styles';
-import {colors} from '../../components/common/theme';
+import {colors} from '../../components/common/Theme';
 
 import Left from '../../assets/icons/left.svg';
 import Search from '../../assets/icons/search.svg';

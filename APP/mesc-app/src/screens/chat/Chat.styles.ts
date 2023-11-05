@@ -1,12 +1,13 @@
 import styled from 'styled-components/native';
 import {Image} from 'react-native';
-import {colors} from '../../components/common/theme';
+import {colors} from '../../components/common/Theme';
 
 // 채팅화면
 export const Container = styled.View`
   background-color: ${colors.secondary};
   display: flex;
-  flex: 1;
+  // flex: 1;
+  height: 90%;
 `;
 
 // 채팅화면 레이아웃
@@ -38,7 +39,7 @@ export const TextBox = styled.View`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  height: 34px;
+  height: auto;
   width: 88px;
   background-color: ${colors.iris};
 `;

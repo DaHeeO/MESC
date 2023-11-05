@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native';
 import * as S from './Chat.styles';
-import Header from '../../components/common/chatHeader/chatHeader';
-import ChatbotProfile from '../../components/chat/chatbotProfileComponent';
+import Header from '../../components/common/chatHeader/ChatHeader';
+import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import ChatInput from '../../components/chat/ChatInput';
 import ChatbotStartBox from '../../components/chat/ChatbotStartBox';
 
@@ -60,15 +60,33 @@ function Chat() {
             handleLogBoxPress={handleLogBoxPress}
           />
           {chatMessages.map((message, index) => (
-            <S.TextBox key={index}>
-              <Text style={{fontSize: 14, textAlign: 'left', color: 'white'}}>
-                {message.text}
-              </Text>
-            </S.TextBox>
+            <View key={index}>
+              <S.TextBox>
+                <Text style={{fontSize: 14, textAlign: 'left', color: 'white'}}>
+                  {message.text}
+                </Text>
+              </S.TextBox>
+              <ChatbotProfile />
+              {message.text === '데이터 조회' && (
+                <S.MescContainer>
+                  <View style={{marginLeft: 10, marginTop: 5, marginBottom: 5}}>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        textAlign: 'left',
+                        fontWeight: 'bold',
+                      }}>
+                      아래의 <Text>[입력창]</Text>을 통해{'\n'}원하는 [쿼리문]을
+                      작성해주세요.
+                    </Text>
+                  </View>
+                </S.MescContainer>
+              )}
+            </View>
           ))}
         </ScrollView>
       </S.ChatLayout>
-      <ChatInput />
+      <ChatInput onSendMessage={addChatMessage} contextWidth={14} />
     </S.Container>
   );
 }
