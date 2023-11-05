@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {Image} from 'react-native';
-import {colors} from '../../components/common/theme';
+import {colors} from '../../components/common/Theme';
 
 // 채팅화면
 export const Container = styled.View`

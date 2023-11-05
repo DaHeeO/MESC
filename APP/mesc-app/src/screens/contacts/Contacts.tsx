@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import * as S from './Conatcts.styles';
-import {colors} from '../../components/common/theme';
+import {colors} from '../../components/common/Theme';
 
 import Back from '../../assets/icons/back.svg';
 import Search from '../../assets/icons/search.svg';

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './Chat.styles';
-import Header from '../../components/common/chatHeader/chatHeader';
-import ChatbotProfile from '../../components/chat/chatbotProfileComponent';
+import Header from '../../components/common/chatHeader/ChatHeader';
+import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 
 function Chat() {
   return (

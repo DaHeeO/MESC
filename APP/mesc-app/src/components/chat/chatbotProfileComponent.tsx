@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import {ImageBackground} from 'react-native';
-import {TextBox} from '../common/About/AboutText';
+import {TextBox} from '../common/about/AboutText';
 import chatBot from '../../assets/images/chatBot.png';
-import {AboutContainer} from '../common/About/AboutContainer';
+import {AboutContainer} from '../common/about/AboutContainer';
 
 const ProfileImageBackground = styled(ImageBackground)`
   height: 80%;

@@ -71,7 +71,7 @@ export const CustomTextArea = styled.TextInput`
   border-color: #000;
   width: 390px;
   height: 65%;
-  flex-shrink: 0;
+  flex-shrink: 1;
   border-radius: 12px;
   background-color: #fff;
   margin-top: 25px;

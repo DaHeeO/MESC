@@ -10,55 +10,58 @@ import Success from './src/screens/login/Success';
 import Intro from './src/screens/intro/Intro';
 import BottomTab from './src/components/common/bottomTab/BottomTab';
 import Chat from './src/screens/chat/Chat';
+import {RecoilRoot} from 'recoil';
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="FindId"
-          component={FindId}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="FindPassword"
-          component={FindPassword}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="ChangePassword"
-          component={ChangePassword}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Success"
-          component={Success}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Intro"
-          component={Intro}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="BottomTab"
-          component={BottomTab}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Chat"
-          component={Chat}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <RecoilRoot>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="FindId"
+            component={FindId}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="FindPassword"
+            component={FindPassword}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={ChangePassword}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Success"
+            component={Success}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Intro"
+            component={Intro}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="BottomTab"
+            component={BottomTab}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Chat"
+            component={Chat}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </RecoilRoot>
   );
 }
 

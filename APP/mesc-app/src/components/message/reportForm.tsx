@@ -6,13 +6,14 @@ import {
   ReportFormContainer,
   ReportText,
   ReportTextInput,
-} from './reportFormStyle';
+} from './ReportFormStyle';
 import {Text} from 'react-native';
 
 export const ReportForm = () => {
+  const UserName = '송소연';
   const emailExample = `
   공장 이슈 발생 안내 \n
-  안녕하세요 송소연입니다.\n
+  안녕하세요 '${UserName}'입니다.\n
   현재 공장에 이슈가 발생했습니다.\n\n
   - 이슈 상황 :\n 
   - 요청 내용 :\n\n
@@ -57,7 +58,7 @@ export const ReportForm = () => {
         justifyContent="flex-start"
         // style={{backgroundColor: 'green'}}
       >
-        <CustomTextArea defaultValue={emailExample} />
+        <CustomTextArea defaultValue={emailExample} multiline />
       </ReportContainer>
     </ReportFormContainer>
   );
