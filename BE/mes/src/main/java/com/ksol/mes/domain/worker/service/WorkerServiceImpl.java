@@ -23,8 +23,7 @@ public class WorkerServiceImpl implements WorkerService{
     public String getQuery(Integer actionId, String conditions) {
         String query = null;
         try {
-            ResultSet resultSet = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId);
-            Table selectResult = new Table(resultSet);
+            Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId);
             query = selectResult.getRows().get(0).getDataList().get(0) + ' ' + conditions;
         } catch (SQLException e) {
             log.info(e.getMessage());
@@ -37,6 +36,6 @@ public class WorkerServiceImpl implements WorkerService{
     @Override
     public Table getTable(Integer actionId, String conditions) throws Exception {
         String query = Optional.ofNullable(this.getQuery(actionId, conditions)).orElseThrow(() -> new Exception());
-        return new Table(jdbcUtil.select(query));
+        return jdbcUtil.select(query);
     }
 }
