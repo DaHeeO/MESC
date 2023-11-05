@@ -11,7 +11,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import * as S from './ChatInput.styles';
 import Header from '../common/chatHeader/ChatHeader';
-import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
+import ChatbotProfile from './ChatbotProfileComponent';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
 
@@ -91,7 +91,7 @@ function ChatInput() {
   const handleInputChange = (text: string) => {
     setInput(text);
     const lastWord = text.split(' ').pop() || '';
-    console.log(lastWord);
+    // console.log(lastWord);
     if (lastWord.trim() !== '') {
       setKeyword(lastWord);
       setIsWordSelected(false);

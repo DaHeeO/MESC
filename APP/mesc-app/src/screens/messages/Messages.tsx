@@ -14,9 +14,9 @@ const Messages = ({navigation}: MessagesProps) => {
       <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
         <Text>Go to Chat</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Log')}>
+      {/* <TouchableOpacity onPress={() => navigation.navigate('Log')}>
         <Text>Go to Log</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {Image} from 'react-native';
-import {colors} from '../../components/common/Theme';
+import {colors} from '../common/Theme';
 
 export const ChatbotBox = styled.View`
   width: 65%;

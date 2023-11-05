@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {Image} from 'react-native';
-import {colors} from '../../components/common/Theme';
+import {colors} from '../common/Theme';
 
 // input 구역
 export const ChatInput = styled.View`
@@ -26,15 +26,13 @@ export const PlusBox = styled.View`
 export const InputBox = styled.TextInput`
   width: 80%;
   height: auto;
-  // margin-left: 8px;
   padding-left: 15px;
   margin: 10px
   display: flex;
   flex: 1;
   background-color: #ebecef;
   border-radius: 20px;
-  // border: 1px solid red;
-  lineHeight: 20;
+  lineHeight: 20px;
 `;
 
 // export const Sentence = styled.View`
