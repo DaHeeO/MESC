@@ -1,17 +1,8 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import _ from 'lodash';
 import * as S from './ChatInput.styles';
-import Header from '../common/chatHeader/ChatHeader';
-import ChatbotProfile from './ChatbotProfileComponent';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
 

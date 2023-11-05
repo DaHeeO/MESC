@@ -11,14 +11,11 @@ import * as S from './BottomTab.styles';
 // components
 import Main from '../../../screens/main/Main';
 import ContactStack from '../../../screens/contacts/Stack';
-import MessageStack from '../../../screens/messages/Stack';
 import Setting from '../../../screens/settings/Settings';
-import Chat from '../../../screens/chat/Chat';
 import Message from '../../../screens/messages/Messages';
 
 // icon
 import BottomTabIcon from './NavIcon';
-import CustomBottomTab from './CustomBottomTab';
 
 const Tab = createBottomTabNavigator();
 

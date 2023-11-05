@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import {TextBox} from '../common/About/AboutText';
+import {TextBox} from '../common/about/AboutText';
 import RobotIcon from '../../assets/images/RobotIcon.png';
 import * as S from './ChatbotProfileComponent.styles';
 

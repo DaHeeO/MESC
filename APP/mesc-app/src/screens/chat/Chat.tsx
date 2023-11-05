@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import * as S from './Chat.styles';
-import Header from '../../components/common/chatHeader/ChatHeader';
+import Header from '../../components/common/chatHeader/chatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import ChatInput from '../../components/chat/ChatInput';
 import ChatbotStartBox from '../../components/chat/ChatbotStartBox';
+import Report from '../messages/Report';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -85,8 +86,10 @@ function Chat() {
             </View>
           ))}
         </ScrollView>
+        <Report />
       </S.ChatLayout>
       <ChatInput onSendMessage={addChatMessage} />
+      {/* 모달 삽입 위치 */}
     </S.Container>
   );
 }

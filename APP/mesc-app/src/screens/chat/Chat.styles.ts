@@ -15,13 +15,13 @@ export const Container = styled.View`
 // 왼쪽 오르쪽 양옆 10만큼 띄어놓아서
 // 여기서 챗봇 다 보여주면 됨
 export const ChatLayout = styled.View`
+  background-color: aqua;
   display: flex;
   flex: 1;
   margin-left: 12px;
   margin-right: 12px;
   //margin-bottom: 10px;
   border-radius: 10px;
-  //background-color: aqua;
 `;
 
 export const // mesc 말하는 텍스트 창
