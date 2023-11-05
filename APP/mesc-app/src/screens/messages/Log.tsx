@@ -8,7 +8,7 @@ import {Text, View} from 'react-native';
 const Log = () => {
   return (
     <View>
-      <Text>Log</Text>
+      <Text>Logdd</Text>
     </View>
   );
 };
