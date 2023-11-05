@@ -154,3 +154,14 @@ export const RankBox = styled.View`
   background-color: ${colors.icy};
   border-radius: 100px;
 `;
+
+export const CheckBox = styled.TouchableOpacity`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 6px;
+  border-radius: 12px;
+  border: 1.5px solid ${colors.quaternary};
+`;
