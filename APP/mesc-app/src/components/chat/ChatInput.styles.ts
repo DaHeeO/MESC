@@ -5,7 +5,7 @@ import {colors} from '../common/Theme';
 // input 구역
 export const ChatInput = styled.View`
   width: 100%;
-  min-height: 60px;
+  min-height: 70px;
   height: auto;
   // max-height: 18%;
   display: flex;
@@ -26,21 +26,15 @@ export const PlusBox = styled.View`
 export const InputBox = styled.TextInput`
   width: 80%;
   height: auto;
+  max-height: 100px;
   padding-left: 15px;
   margin: 10px
   display: flex;
   flex: 1;
   background-color: #ebecef;
   border-radius: 20px;
-  lineHeight: 20px;
+  lineHeight: 18px;
 `;
-
-// export const Sentence = styled.View`
-//   width: 80%;
-//   height: 36px;
-//   background-color: #ebecef;
-//   border-radius: 20px;
-// `;
 
 export const SendBox = styled.View`
   width: 24px;
@@ -55,7 +49,7 @@ export const SendBox = styled.View`
 export const Input = styled.View`
   width: 100%;
   display: flex;
-  height: 120px;
+  // height: 120px;
   // background-color: ${colors.icy};
   // border: 1px solid yellow;
   flex-direction: column;

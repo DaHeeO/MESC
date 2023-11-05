@@ -5,6 +5,7 @@ import Header from '../../components/common/chatHeader/ChatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import ChatInput from '../../components/chat/ChatInput';
 import ChatbotStartBox from '../../components/chat/ChatbotStartBox';
+// import AutoCompleteBox from '../../components/chat/SuggestionsBox';
 import Report from '../messages/Report';
 
 // ChatMessage 타입 정의
@@ -44,7 +45,7 @@ function Chat() {
       <Header />
       {/* 챗봇 메세지 보이는 화면 */}
       <S.ChatLayout>
-        <ScrollView ref={chatLayoutRef}>
+        <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
           <ChatbotProfile />
           <S.MescContainer>
             <View style={{marginLeft: 10, marginTop: 5, marginBottom: 5}}>
