@@ -86,7 +86,7 @@ function Chat() {
           ))}
         </ScrollView>
       </S.ChatLayout>
-      <ChatInput onSendMessage={addChatMessage} contextWidth={14} />
+      <ChatInput onSendMessage={addChatMessage} />
     </S.Container>
   );
 }

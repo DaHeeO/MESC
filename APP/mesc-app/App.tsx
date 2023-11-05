@@ -10,6 +10,8 @@ import Success from './src/screens/login/Success';
 import Intro from './src/screens/intro/Intro';
 import BottomTab from './src/components/common/bottomTab/BottomTab';
 import Chat from './src/screens/chat/Chat';
+import Message from './src/screens/messages/Messages';
+import Log from './src/screens/log/Log';
 
 const Stack = createStackNavigator();
 
@@ -48,13 +50,23 @@ function App() {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="BottomTab"
-          component={BottomTab}
+          name="Chat"
+          component={Chat}
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="Chat"
-          component={Chat}
+          name="Message"
+          component={Message}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Log"
+          component={Log}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="BottomTab"
+          component={BottomTab}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

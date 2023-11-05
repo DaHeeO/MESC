@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+
 // import {NavigationContainer} from '@react-navigation/native';
 
 interface MessagesProps {
@@ -13,9 +14,9 @@ const Messages = ({navigation}: MessagesProps) => {
       <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
         <Text>Go to Chat</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.push('Log')}>
+      {/* <TouchableOpacity onPress={() => navigation.navigate('Log')}>
         <Text>Go to Log</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
