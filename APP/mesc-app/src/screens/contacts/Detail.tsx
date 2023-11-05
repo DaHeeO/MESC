@@ -2,16 +2,17 @@ import React, {useState, useCallback, useRef, useMemo} from 'react';
 import {
   TouchableOpacity,
   ScrollView,
-  StyleSheet,
+  Pressable,
+  Animated,
   View,
   Text,
-  Button,
 } from 'react-native';
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
+import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import * as S from './Detail.styles';
 import {colors} from '../../components/common/theme';
 
@@ -45,22 +46,6 @@ interface userInfoList {
 }
 
 // API 연결 안됨아직
-const Test = [
-  {
-    userId: 4,
-    imageUrl: image4,
-    userName: '자기야 왜 칭얼대',
-    userEmail: 'test@samsung.com',
-    userRank: '대리',
-  },
-  {
-    userId: 5,
-    imageUrl: image5,
-    userName: '당후니',
-    userEmail: 'test@samsung.com',
-    userRank: '사원',
-  },
-];
 
 const Detail = ({navigation}: ContactsProps) => {
   // const [data, setData] = useState<userInfoList[]>([]);
@@ -81,6 +66,51 @@ const Detail = ({navigation}: ContactsProps) => {
   //       console.error('Error fetching data:', error);
   //     });
   // }, []);
+
+  const [Test, setTest] = useState([
+    {
+      userId: 1,
+      imageUrl: image1,
+      userName: '오다희',
+      userEmail: 'test@samsung.com',
+      userRank: '사원',
+    },
+    {
+      userId: 2,
+      imageUrl: image2,
+      userName: '내남친',
+      userEmail: 'test@samsung.com',
+      userRank: '대리',
+    },
+    {
+      userId: 3,
+      imageUrl: image3,
+      userName: '왁',
+      userEmail: 'test@samsung.com',
+      userRank: '과장',
+    },
+    {
+      userId: 4,
+      imageUrl: image4,
+      userName: '자기야 왜 칭얼대',
+      userEmail: 'test@samsung.com',
+      userRank: '대리',
+    },
+    {
+      userId: 5,
+      imageUrl: image5,
+      userName: '당후니',
+      userEmail: 'test@samsung.com',
+      userRank: '사원',
+    },
+    {
+      userId: 6,
+      imageUrl: image6,
+      userName: '말년이 무섭다',
+      userEmail: 'test@samsung.com',
+      userRank: '사장',
+    },
+  ]);
 
   // BottomSheet
   // hooks
@@ -188,6 +218,16 @@ const Detail = ({navigation}: ContactsProps) => {
       [userId]: !prevCheckedItems[userId],
     }));
   }, []);
+  const [dragState, setDragState] = useState({});
+
+  const handleDeleteGroup = (userIdToDelete: number) => {
+    const updatedTest = Test.filter(item => item.userId !== userIdToDelete);
+    setTest(updatedTest);
+
+    // 나머지 로직을 수행할 수 있도록 dragState를 업데이트합니다.
+    setDragState({...dragState, [userIdToDelete]: false});
+  };
+
   // renders
   const renderItem = useCallback(
     (item: any) => {
@@ -220,6 +260,30 @@ const Detail = ({navigation}: ContactsProps) => {
     },
     [checkedItems, handleCheckBoxClick],
   );
+
+  const renderRightActions = (dragX: any, index: number) => {
+    const trans = dragX.interpolate({
+      inputRange: [0, 50, 100, 101],
+      outputRange: [0, -10, -10, 1],
+    });
+
+    return (
+      <Pressable onPress={() => console.log(index)}>
+        <S.DeleteContainer
+          style={[
+            {
+              transform: [{translateX: trans}],
+            },
+          ]}>
+          <S.DeleteBox onPress={() => handleDeleteGroup(index)}>
+            <S.BoldText size={12} color="#ffffff">
+              삭제
+            </S.BoldText>
+          </S.DeleteBox>
+        </S.DeleteContainer>
+      </Pressable>
+    );
+  };
 
   return (
     <S.Container>
@@ -259,29 +323,37 @@ const Detail = ({navigation}: ContactsProps) => {
               width: '100%',
             }}>
             {Test?.map(item => (
-              <S.ContactDiv key={item.userId}>
-                <S.ContactBox>
-                  <S.ImageBox>
-                    <S.Img source={item.imageUrl} />
-                  </S.ImageBox>
-                  <S.InfoBox>
-                    <S.BoldText size={17} color={colors.primary}>
-                      {item.userName}
-                    </S.BoldText>
-                    <S.BoldText size={14} color={colors.tertiary}>
-                      {item.userEmail}
-                    </S.BoldText>
-                  </S.InfoBox>
-                </S.ContactBox>
-                <S.RankBox>
-                  <S.BoldText size={14} color={colors.tertiary}>
-                    {item.userRank}
-                  </S.BoldText>
-                </S.RankBox>
-              </S.ContactDiv>
+              <GestureHandlerRootView key={item.userId}>
+                <Swipeable
+                  renderRightActions={dragX =>
+                    renderRightActions(dragX, item.userId)
+                  }
+                  friction={3} // 마찰력을 1보다 작은 값으로 조정
+                >
+                  <S.ContactDiv key={item.userId}>
+                    <S.ContactBox>
+                      <S.ImageBox>
+                        <S.Img source={item.imageUrl} />
+                      </S.ImageBox>
+                      <S.InfoBox>
+                        <S.BoldText size={17} color={colors.primary}>
+                          {item.userName}
+                        </S.BoldText>
+                        <S.BoldText size={14} color={colors.tertiary}>
+                          {item.userEmail}
+                        </S.BoldText>
+                      </S.InfoBox>
+                    </S.ContactBox>
+                    <S.RankBox>
+                      <S.BoldText size={14} color={colors.tertiary}>
+                        {item.userRank}
+                      </S.BoldText>
+                    </S.RankBox>
+                  </S.ContactDiv>
+                </Swipeable>
+              </GestureHandlerRootView>
             ))}
           </ScrollView>
-          {/* <ContactList contactList={Test} /> */}
         </S.Body>
       </S.Div>
       <BottomSheetModalProvider>

@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import {
-  ScrollView,
-  TextInput,
+  Pressable,
   FlatList,
   TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
+import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import * as S from './Group.styles';
 import {colors} from '../../components/common/theme';
 import axios from 'axios';
@@ -80,6 +81,7 @@ const Group = ({navigation}: ContactsProps) => {
   const [addMode, setAddMode] = useState(false);
   const [addTextChanged, setAddTextChanged] = useState(false);
   const [originalNames, setOriginalNames] = useState<string[]>([]);
+  const [dragState, setDragState] = useState({});
 
   const toggleEditMode = () => {
     if (editMode) {
@@ -155,66 +157,33 @@ const Group = ({navigation}: ContactsProps) => {
     const updatedGroupList = [...Test.groupList];
     updatedGroupList.splice(indexToDelete, 1);
     setTest({...Test, groupList: updatedGroupList});
+
+    setDragState({...dragState, [indexToDelete]: false});
   };
 
-  function renderItem({item, index}: {item: any; index: number}) {
+  const renderRightActions = (dragX: any, index: number) => {
+    const trans = dragX.interpolate({
+      inputRange: [0, 50, 100, 101],
+      outputRange: [0, -10, -10, 1],
+    });
+
     return (
-      <S.GroupDiv
-        key={index}
-        onPress={() => {
-          handleAddMode();
-          !editMode && navigation.navigate('Detail');
-        }}>
-        <S.GroupBox>
-          {editMode ? (
-            <S.DeleteBox onPress={() => handleDeleteGroup(index)}>
-              <Minus />
-            </S.DeleteBox>
-          ) : null}
-          <GroupIcon />
-          {editMode ? (
-            addMode ? (
-              <S.ContactInput
-                value={item.groupName}
-                onChangeText={handleNameChange(index)}
-                placeholder={
-                  index + 1 === Test.groupList.length
-                    ? '그룹명'
-                    : item.groupName
-                }
-              />
-            ) : (
-              <S.ContactInput
-                value={item.groupName}
-                onChangeText={handleNameChange(index)}
-                placeholder={item.groupName}
-              />
-            )
-          ) : addMode ? (
-            index + 1 === Test.groupList.length ? (
-              <S.ContactInput
-                value={item.groupName}
-                onChangeText={handleNameChange(index)}
-                placeholder={
-                  index + 1 === Test.groupList.length
-                    ? '그룹명'
-                    : item.groupName
-                }
-              />
-            ) : (
-              <S.ContactText>{item.groupName}</S.ContactText>
-            )
-          ) : (
-            <S.ContactText>{item.groupName}</S.ContactText>
-          )}
-        </S.GroupBox>
-        <S.NavigateToContact style={{opacity: editMode ? 0.5 : 1}}>
-          <S.GroupText>{item.memberCnt}</S.GroupText>
-          <Right />
-        </S.NavigateToContact>
-      </S.GroupDiv>
+      <Pressable onPress={() => console.log(index)}>
+        <S.DeleteContainer
+          style={[
+            {
+              transform: [{translateX: trans}],
+            },
+          ]}>
+          <S.DeleteBox onPress={() => handleDeleteGroup(index)}>
+            <S.BoldText size={12} color="#ffffff">
+              삭제
+            </S.BoldText>
+          </S.DeleteBox>
+        </S.DeleteContainer>
+      </Pressable>
     );
-  }
+  };
 
   return (
     <S.Container>
@@ -253,14 +222,81 @@ const Group = ({navigation}: ContactsProps) => {
               </S.NavigateToContact>
             </S.ContactDiv>
             <TouchableWithoutFeedback onPress={handleAddMode}>
-              <FlatList
-                data={Test.groupList}
-                renderItem={renderItem}
+              <ScrollView
                 contentContainerStyle={{
                   display: 'flex',
                   alignItems: 'center',
-                  width: '100%',
-                }}></FlatList>
+                  width: '90%',
+                }}>
+                {Test.groupList?.map((item, index) => (
+                  <GestureHandlerRootView key={item.groupId}>
+                    {Test.groupList[index] && (
+                      <Swipeable
+                        renderRightActions={dragX =>
+                          renderRightActions(dragX, index)
+                        }
+                        friction={3}>
+                        <S.GroupDiv
+                          key={item.groupId}
+                          onPress={() => {
+                            handleAddMode();
+                            !editMode && navigation.navigate('Detail');
+                          }}>
+                          <S.GroupBox>
+                            {editMode ? (
+                              <S.DeleteCircle
+                                onPress={() => handleDeleteGroup(index)}>
+                                <Minus />
+                              </S.DeleteCircle>
+                            ) : null}
+                            <GroupIcon />
+                            {editMode ? (
+                              addMode ? (
+                                <S.ContactInput
+                                  value={item.groupName}
+                                  onChangeText={handleNameChange(index)}
+                                  placeholder={
+                                    index + 1 === Test.groupList.length
+                                      ? '그룹명'
+                                      : item.groupName
+                                  }
+                                />
+                              ) : (
+                                <S.ContactInput
+                                  value={item.groupName}
+                                  onChangeText={handleNameChange(index)}
+                                  placeholder={item.groupName}
+                                />
+                              )
+                            ) : addMode ? (
+                              index + 1 === Test.groupList.length ? (
+                                <S.ContactInput
+                                  value={item.groupName}
+                                  onChangeText={handleNameChange(index)}
+                                  placeholder={
+                                    index + 1 === Test.groupList.length
+                                      ? '그룹명'
+                                      : item.groupName
+                                  }
+                                />
+                              ) : (
+                                <S.ContactText>{item.groupName}</S.ContactText>
+                              )
+                            ) : (
+                              <S.ContactText>{item.groupName}</S.ContactText>
+                            )}
+                          </S.GroupBox>
+                          <S.NavigateToContact
+                            style={{opacity: editMode ? 0.5 : 1}}>
+                            <S.GroupText>{item.memberCnt}</S.GroupText>
+                            <Right />
+                          </S.NavigateToContact>
+                        </S.GroupDiv>
+                      </Swipeable>
+                    )}
+                  </GestureHandlerRootView>
+                ))}
+              </ScrollView>
             </TouchableWithoutFeedback>
           </S.Body>
         </TouchableWithoutFeedback>

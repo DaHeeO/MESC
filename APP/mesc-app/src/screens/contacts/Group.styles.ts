@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {TouchableWithoutFeedback} from 'react-native';
+import {Animated} from 'react-native';
 import {colors} from '../../components/common/theme';
 
 export const Container = styled.View`
@@ -67,15 +67,17 @@ export const Body = styled.View`
   align-items: center;
   width: 100%;
   height: 80%;
+  // background-color: red;
 `;
 
 export const ContactDiv = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 90%;
+  width: 94%;
   height: 55px
   margin-top: 5%;
+  // background-color: green;
 `;
 
 export const ContactBox = styled.View`
@@ -103,9 +105,7 @@ export const GroupDiv = styled.TouchableOpacity`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 55px
-  padding-left: 5%;
-  padding-right: 5%;
+  height: 55px;
   // background-color: green;
 `;
 
@@ -116,7 +116,7 @@ export const GroupBox = styled.View`
   width: 80%;
 `;
 
-export const DeleteBox = styled.TouchableOpacity`
+export const DeleteCircle = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,4 +141,20 @@ export const ContactInput = styled.TextInput`
   color: ${colors.primary};
   font-weight: bold;
   margin: 0px 6px;
+`;
+
+export const DeleteContainer = styled(Animated.View)`
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteBox = styled.TouchableOpacity`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+  padding: 0px 16px
+  background-color: ${colors.red};';
 `;
