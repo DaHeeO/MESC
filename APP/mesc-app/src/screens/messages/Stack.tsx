@@ -4,7 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import Messages from './Messages';
 import Log from '../log/Log';
-import Chat from '../chat/Chat';
+import Chat from '../../screens/chat/Chat';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +15,11 @@ function MessageStack() {
         <Stack.Screen
           name="Messages"
           component={Messages}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Chat"
+          component={Chat}
           options={{headerShown: false}}
         />
         <Stack.Screen

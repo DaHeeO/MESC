@@ -15,7 +15,13 @@ import ChatbotProfile from './ChatbotProfileComponent';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
 
-function ChatInput() {
+interface ChatInputProps {
+  onSendMessage: (message: string) => void;
+}
+
+function ChatInput({onSendMessage}: ChatInputProps) {
+  const [value, setValue] = useState('');
+
   const [input, setInput] = useState('');
   const [keyword, setKeyword] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -31,7 +37,7 @@ function ChatInput() {
     setLoading(true);
     try {
       const response = await axios.get(
-        'http://10.0.2.2:8080/mes/autocomplete',
+        'https://www.mesc.kr/api/api/mesc/autocomplete',
         {params: {prefix: kw}},
       );
       setSuggestions(response.data);
@@ -100,6 +106,17 @@ function ChatInput() {
       setIsWordSelected(true);
     }
   };
+  console.log(input);
+
+  const handleSendButtonPress = () => {
+    if (input.trim() !== '') {
+      onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
+      console.log(value);
+      setValue(''); // 입력 필드 지우기
+    } else {
+      console.log('공백입니다요');
+    }
+  };
 
   return (
     <S.Input>
@@ -132,9 +149,10 @@ function ChatInput() {
           onFocus={handleInputFocus}
           placeholder="검색어를 입력해주세요."
           multiline={true}
-          returnKeyType="go"></S.InputBox>
+          returnKeyType="go"
+        />
         <S.SendBox>
-          <Send />
+          <Send onPress={handleSendButtonPress} />
         </S.SendBox>
       </S.ChatInput>
     </S.Input>

@@ -40,7 +40,7 @@ export const TextBox = styled.View`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  height: 34px;
+  height: auto;
   width: 88px;
   background-color: ${colors.iris};
 `;
