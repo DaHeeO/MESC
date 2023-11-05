@@ -24,7 +24,7 @@ export const SheetContainer = styled.View<SheetContainerProps>`
 `;
 
 export const SheetHeader = styled.View`
-  background-color: gold;
+  // background-color: gold;
   height: 10%;
   width: 100%;
   align-items: center;

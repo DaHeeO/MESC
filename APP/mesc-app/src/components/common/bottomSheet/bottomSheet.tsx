@@ -1,6 +1,6 @@
 import React from 'react';
 import BottomSheet from '@gorhom/bottom-sheet';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import {
   BtnBody,
   SheetBtn,
