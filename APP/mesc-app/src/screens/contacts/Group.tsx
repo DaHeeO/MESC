@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import * as S from './Group.styles';
-import {colors} from '../../components/common/theme';
+import {colors} from '../../components/common/Theme';
 import axios from 'axios';
 
 import Right from '../../assets/icons/right.svg';

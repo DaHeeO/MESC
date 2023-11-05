@@ -21,10 +21,8 @@ export const Text = styled.Text`
   font-weight: bold;
   color: white;
   text-align: center;
-  //top: 25%;
   justify-content: center;
   align-items: center;
-  //border: 1px solid white;
 `;
 
 function Header() {
