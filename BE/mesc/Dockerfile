@@ -7,7 +7,7 @@ COPY settings.gradle .
 COPY src src
 
 RUN chmod +x ./gradlew
-RUN ./gradlew bootJar
+RUN ./gradlew -Xlint:unchecked bootJar
 
 FROM openjdk:17-jdk-slim
 COPY --from=builder build/libs/*.jar app.jar
