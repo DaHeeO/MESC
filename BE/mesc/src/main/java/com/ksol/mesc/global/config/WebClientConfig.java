@@ -1,4 +1,4 @@
-	package com.ksol.mesc.global.config;
+package com.ksol.mesc.global.config;
 
 import java.time.Duration;
 
@@ -17,26 +17,25 @@ import reactor.netty.resources.ConnectionProvider;
 public class WebClientConfig {
 
 	HttpClient httpClient = HttpClient.create()
-									  .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
+		.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
 
 	@Bean
 	public WebClient webClient() {
 		return WebClient.builder()
 			.baseUrl("http://localhost:8081/mes")
-			// .baseUrl("https://www.mescadmin.kr/api/mes")
-						.codecs(
-							configurer -> configurer.defaultCodecs().maxInMemorySize(100 * 1024 * 1024))
-						.clientConnector(new ReactorClientHttpConnector(httpClient))
-						.build();
+			.codecs(
+				configurer -> configurer.defaultCodecs().maxInMemorySize(2 * 1024 * 1024))
+			.clientConnector(new ReactorClientHttpConnector(httpClient))
+			.build();
 	}
 
 	@Bean
 	public ConnectionProvider connectionProvider() {
 		return ConnectionProvider.builder("http-pool")
-								 .maxConnections(100)
-								 .pendingAcquireTimeout(Duration.ofMillis(5000))
-								 .pendingAcquireMaxCount(-1)
-								 .maxIdleTime(Duration.ofMillis(5000L))
-								 .build();
+			.maxConnections(100)
+			.pendingAcquireTimeout(Duration.ofMillis(5000))
+			.pendingAcquireMaxCount(-1)
+			.maxIdleTime(Duration.ofMillis(5000L))
+			.build();
 	}
 }
