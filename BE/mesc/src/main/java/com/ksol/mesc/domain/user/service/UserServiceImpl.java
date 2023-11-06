@@ -94,7 +94,6 @@ public class UserServiceImpl implements UserService {
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.retrieve()
 			.toEntity(GroupMemberResponse.class)
-				.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block();
 	}
 
