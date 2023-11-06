@@ -22,7 +22,8 @@ public class WebClientConfig {
 	@Bean
 	public WebClient webClient() {
 		return WebClient.builder()
-			.baseUrl("http://localhost:8081/api/mes")
+			.baseUrl("http://localhost:8081/mes")
+//			.baseUrl("https://www.mescadmin.kr/api/mes")
 						.codecs(
 							configurer -> configurer.defaultCodecs().maxInMemorySize(2 * 1024 * 1024))
 						.clientConnector(new ReactorClientHttpConnector(httpClient))

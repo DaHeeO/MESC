@@ -20,4 +20,6 @@ public interface UserService {
 	TokenInfo recreateToken(HttpServletRequest request);
 
 	ResponseEntity<GroupMemberResponse> selectAllUser();
+
+	User findById(Integer userId);
 }

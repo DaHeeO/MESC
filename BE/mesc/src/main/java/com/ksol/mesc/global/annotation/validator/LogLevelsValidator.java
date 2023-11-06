@@ -24,7 +24,7 @@ public class LogLevelsValidator implements ConstraintValidator<LogLevels, List<S
             return false;
         }
         for (String level : value) {
-            level.toLowerCase();
+            level = level.toLowerCase();
             if (!levels.contains(level)) {
                 System.out.println("잘못된 level = " + level);
                 return false;
