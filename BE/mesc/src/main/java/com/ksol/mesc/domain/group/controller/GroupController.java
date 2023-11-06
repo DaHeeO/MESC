@@ -19,7 +19,6 @@ import com.ksol.mesc.domain.common.CommonResponseDto;
 import com.ksol.mesc.domain.group.dto.request.GroupListReq;
 import com.ksol.mesc.domain.group.dto.request.GroupMemberReq;
 import com.ksol.mesc.domain.group.dto.request.GroupReq;
-import com.ksol.mesc.domain.group.dto.response.GroupMemberResponse;
 import com.ksol.mesc.domain.group.dto.response.GroupResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
@@ -188,7 +187,7 @@ public class GroupController {
 			return ResponseEntity.badRequest()
 				.body(CommonResponseDto.error(400, "Do not be same User and Group User"));
 
-		GroupMemberResponse groupMemberResponse = groupService.selectGroupMember(groupId).getBody();
+		Object groupMemberResponse = groupService.selectGroupMember(groupId);
 		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
 	}
 }

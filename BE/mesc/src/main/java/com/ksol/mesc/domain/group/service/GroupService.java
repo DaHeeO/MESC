@@ -8,12 +8,11 @@ import java.util.Optional;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ksol.mesc.domain.group.dto.response.GroupMemberResponse;
+import com.ksol.mesc.domain.common.JsonResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
 import com.ksol.mesc.domain.group.repository.GroupMemberRepository;
@@ -104,7 +103,7 @@ public class GroupService {
 	}
 
 	//그룹 멤버 조회
-	public ResponseEntity<GroupMemberResponse> selectGroupMember(Integer groupId) {
+	public Object selectGroupMember(Integer groupId) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 
 		//1. 그룹에 있는 멤버 조회
@@ -119,7 +118,11 @@ public class GroupService {
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(BodyInserters.fromValue(reqMap))
 			.retrieve()
-			.toEntity(GroupMemberResponse.class)
-			.block();
+			.toEntity(JsonResponse.class)
+			.block()
+			.getBody()
+			.getData();
+		// .toEntity(GroupMemberResponse.class)
+		// .block();
 	}
 }

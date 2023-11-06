@@ -2,12 +2,11 @@ package com.ksol.mesc.domain.user.service;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ksol.mesc.domain.group.dto.response.GroupMemberResponse;
+import com.ksol.mesc.domain.common.JsonResponse;
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
 import com.ksol.mesc.domain.user.entity.User;
@@ -80,7 +79,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResponseEntity<GroupMemberResponse> selectAllUser() {
+	// public ResponseEntity<GroupMemberResponse> selectAllUser() {
+	public Object selectAllUser() {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 		log.info("access token : {}", accessToken);
 
@@ -89,7 +89,10 @@ public class UserServiceImpl implements UserService {
 			.uri("/user/members")
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.retrieve()
-			.toEntity(GroupMemberResponse.class)
-			.block();
+			// .toEntity(GroupMemberResponse.class)
+			.toEntity(JsonResponse.class)
+			.block()
+			.getBody()
+			.getData();
 	}
 }

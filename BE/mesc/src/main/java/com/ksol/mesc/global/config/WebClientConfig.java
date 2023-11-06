@@ -17,25 +17,25 @@ import reactor.netty.resources.ConnectionProvider;
 public class WebClientConfig {
 
 	HttpClient httpClient = HttpClient.create()
-									  .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
+		.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 10000);
 
 	@Bean
 	public WebClient webClient() {
 		return WebClient.builder()
-			.baseUrl("http://localhost:8081/api/mes")
-						.codecs(
-							configurer -> configurer.defaultCodecs().maxInMemorySize(2 * 1024 * 1024))
-						.clientConnector(new ReactorClientHttpConnector(httpClient))
-						.build();
+			.baseUrl("http://localhost:8081/mes")
+			.codecs(
+				configurer -> configurer.defaultCodecs().maxInMemorySize(2 * 1024 * 1024))
+			.clientConnector(new ReactorClientHttpConnector(httpClient))
+			.build();
 	}
 
 	@Bean
 	public ConnectionProvider connectionProvider() {
 		return ConnectionProvider.builder("http-pool")
-								 .maxConnections(100)
-								 .pendingAcquireTimeout(Duration.ofMillis(0))
-								 .pendingAcquireMaxCount(-1)
-								 .maxIdleTime(Duration.ofMillis(1000L))
-								 .build();
+			.maxConnections(100)
+			.pendingAcquireTimeout(Duration.ofMillis(0))
+			.pendingAcquireMaxCount(-1)
+			.maxIdleTime(Duration.ofMillis(1000L))
+			.build();
 	}
 }

@@ -1,7 +1,5 @@
 package com.ksol.mesc.domain.user.controller;
 
-import java.security.Principal;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.common.CommonResponseDto;
-import com.ksol.mesc.domain.group.dto.response.GroupMemberResponse;
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
 import com.ksol.mesc.domain.user.service.UserService;
@@ -27,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/mesc/user")
+@RequestMapping("/mesc/user")
 @Tag(name = "user", description = "회원 API")
 @RequiredArgsConstructor
 public class UserController {
@@ -65,7 +62,8 @@ public class UserController {
 	@Operation(summary = "이메일 발송 API", description = "해당 이메일로 메일을 발송한다.")
 	@PostMapping("/email")
 	public ResponseEntity<?> sendEmail(
-		@Parameter(description = "회원 이메일", required = true) @RequestBody @Validated SendEmailReq sendEmailReq, Authentication authentication) {
+		@Parameter(description = "회원 이메일", required = true) @RequestBody @Validated SendEmailReq sendEmailReq,
+		Authentication authentication) {
 		log.info("authentication={}", authentication);
 		log.info("authentication.getAuthorities={}", authentication.getAuthorities());
 		// int id = Integer.parseInt(authentication.getPrincipal().);
@@ -79,7 +77,9 @@ public class UserController {
 	@Operation(summary = "전체 멤버 연락처 조회 API", description = "전체 멤버 연락처 정보를 DB에서 조회한다.")
 	@GetMapping("/members")
 	public ResponseEntity<CommonResponseDto<?>> selectAllUser() {
-		GroupMemberResponse groupMemberResponse = userService.selectAllUser().getBody();
-		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
+		// GroupMemberResponse groupMemberResponse = userService.selectAllUser().getBody();
+		// return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
+		Object object = userService.selectAllUser();
+		return ResponseEntity.ok(CommonResponseDto.success(object));
 	}
 }
