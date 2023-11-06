@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/mes/user")
+@RequestMapping("/mes/user")
 @Tag(name = "user", description = "회원 API")
 @RequiredArgsConstructor
 public class UserController {

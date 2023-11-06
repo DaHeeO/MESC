@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+
 public class Table {
     private List<ColumnData> columns;
     private List<Row> rows;

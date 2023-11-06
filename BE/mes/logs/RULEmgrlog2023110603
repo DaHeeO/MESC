@@ -1,0 +1,6 @@
+2023/11/06 12:01:42.721 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 484 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/06 12:01:42.722 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/06 12:01:42.722 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/06 12:01:45.428 DEBUG [restartedMain] JwtAuthenticationFilter[init : 240] - Filter 'jwtAuthenticationFilter' configured for use 
+2023/11/06 12:01:45.439 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/06 12:01:46.478 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.125 seconds (process running for 4.573) 

@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/worker")
+@RequestMapping("/mes/worker")
 @RequiredArgsConstructor
 @Slf4j
 public class WorkerController {
@@ -40,7 +40,9 @@ public class WorkerController {
         WorkerDataResponseDto workerDataResponseDto = null;
         try {
             Table table = workerService.getTable(actionId, workerDataRequestDto.getConditions());
+            log.info("table : {}", table);
             workerDataResponseDto = new WorkerDataResponseDto(table);
+            log.info("workerDataResponseDto : {}", workerDataResponseDto);
         } catch (Exception e) {
             log.debug(e.getMessage());
             return new ResponseEntity<>(workerDataResponseDto, HttpStatus.BAD_REQUEST);
