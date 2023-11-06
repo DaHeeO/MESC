@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ksol.mes.domain.common.CommonResponseDto;
 import com.ksol.mes.domain.user.dto.request.LoginReq;
 import com.ksol.mes.domain.user.dto.request.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.UserReq;
@@ -70,7 +71,7 @@ public class UserController {
 
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹에 있는 멤버 정보를 조회 후, 전달한다.")
 	@PostMapping
-	public ResponseEntity<?> getGroupMembers(
+	public ResponseEntity<CommonResponseDto<?>> getGroupMembers(
 		@Parameter(description = "그룹 멤버 id 리스트", required = true) @RequestBody @Validated UserReq userReq) {
 		//유저 정보 확인
 
@@ -86,12 +87,12 @@ public class UserController {
 																	 .userList(userList)
 																	 .build();
 
-		return new ResponseEntity<>(groupMemberResponse, HttpStatus.OK);
+		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
 	}
 
 	@Operation(summary = "멤버 전체 조회 API", description = "모든 멤버 정보를 조회 후, 전달한다.")
 	@GetMapping("/members")
-	public ResponseEntity<?> getUsers() {
+	public ResponseEntity<CommonResponseDto<?>> getUsers() {
 		//유저 정보 확인
 
 		List<UserResponse> userList = null;
@@ -106,6 +107,7 @@ public class UserController {
 																	 .userList(userList)
 																	 .build();
 
-		return new ResponseEntity<>(groupMemberResponse, HttpStatus.OK);
+		// return new ResponseEntity<>(groupMemberResponse, HttpStatus.OK);
+		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
 	}
 }

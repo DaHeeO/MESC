@@ -5,6 +5,7 @@ import java.util.List;
 
 import lombok.ToString;
 
+@ToString
 public class Row {
     private List<String> dataList = new ArrayList<>();
 
