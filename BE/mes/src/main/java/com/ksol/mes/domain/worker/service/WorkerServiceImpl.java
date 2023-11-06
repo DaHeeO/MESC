@@ -24,7 +24,7 @@ public class WorkerServiceImpl implements WorkerService{
         String query = null;
         try {
             Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId);
-            query = selectResult.getRows().get(0).getDataList().get(0) + ' ' + getOnlyOneQuery(conditions);
+            query = selectResult.getRows().get(0).get(0) + ' ' + getOnlyOneQuery(conditions);
         } catch (IndexOutOfBoundsException e) {
             log.info("해당 actionId와 일치하는 쿼리가 존재하지 않습니다.");
         }
