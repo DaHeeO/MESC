@@ -5,12 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ksol.mes.domain.common.CommonResponseDto;
 import com.ksol.mes.domain.user.dto.request.LoginReq;
@@ -56,6 +51,14 @@ public class UserController {
 	@GetMapping("/findByEmail")
 	public ResponseEntity<?> findByEmail(@RequestParam String email) {
 		UserResponse findUser = userService.findByEmail(email);
+		return ResponseEntity.ok(findUser);
+	}
+
+	@Operation(summary = "User ID로 유저 찾기 API", description = "USER ID로 사용자 정보를 찾아온다.")
+	@GetMapping("/findById/{userId}")
+	public ResponseEntity<?> findById(@PathVariable Integer userId) {
+		System.out.println("userId = " + userId);
+		UserResponse findUser = userService.findById(userId);
 		return ResponseEntity.ok(findUser);
 	}
 

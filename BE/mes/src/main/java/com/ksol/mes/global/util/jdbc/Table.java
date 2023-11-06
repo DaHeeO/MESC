@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 public class Table {
     private List<ColumnData> columns;
-    private List<Row> rows;
+    private List<List<String>> rows;
 
     public Table(ResultSet resultSet) throws SQLException {
         ResultSetMetaData metaData = resultSet.getMetaData();
@@ -22,10 +22,9 @@ public class Table {
         }
         this.rows = new ArrayList<>();
         while (resultSet.next()) {
-            Row row = new Row();
-            List<String> dataList = row.getDataList();
+            List<String> row = new ArrayList<>();
             for(int i = 0; i < columnCount; i++) {
-                dataList.add("" + resultSet.getObject(i + 1));
+                row.add("" + resultSet.getObject(i + 1));
             }
             this.rows.add(row);
         }
@@ -44,7 +43,7 @@ public class Table {
                 System.out.print(' ');
             }
             System.out.print(i + 1);
-            rows.get(i).getDataList().stream().forEach(data -> {
+            rows.get(i).stream().forEach(data -> {
                 System.out.print('|' + data);
                 for (int k = 0; k < 13 - data.length(); k++) {
                     System.out.print(' ');
@@ -101,7 +100,7 @@ public class Table {
         return columns;
     }
 
-    public List<Row> getRows() {
+    public List<List<String>> getRows() {
         return rows;
     }
 }
