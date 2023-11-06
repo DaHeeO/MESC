@@ -1,16 +1,20 @@
 package com.ksol.mes.domain.developer.controller;
 
+import com.ksol.mes.domain.common.CommonResponseDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperDataRequestDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperQueryRequestDto;
 import com.ksol.mes.domain.developer.dto.response.DeveloperDataResponseDto;
 import com.ksol.mes.domain.developer.dto.response.DeveloperQueryResponseDto;
 import com.ksol.mes.domain.developer.service.DeveloperService;
+import com.ksol.mes.global.error.ErrorCode;
+import com.ksol.mes.global.error.exception.InvalidValueException;
 import com.ksol.mes.global.util.jdbc.Table;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,34 +29,38 @@ public class DeveloperController {
 
     private final DeveloperService developerService;
 
-    private final static String SUCCESS = "SUCCESS";
-    private final static String FAIL = "FAIL";
-
     @PostMapping("/data")
-    public ResponseEntity<DeveloperDataResponseDto> getData (@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto, Principal principal) {
-        log.debug("principal={}", principal);
-        DeveloperDataResponseDto developerDataResponseDto = null;
+    public ResponseEntity<CommonResponseDto<DeveloperDataResponseDto>> getData (@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto, BindingResult bindingResult) {
+        checkValidates(bindingResult);
+        DeveloperDataResponseDto developerDataResponseDto;
 
         try {
             Table table = developerService.getTable(developerDataRequestDto.getQuery());
             developerDataResponseDto = new DeveloperDataResponseDto(table);
-        } catch (Exception e) {
-            log.debug(e.getMessage());
-            return new ResponseEntity<>(developerDataResponseDto, HttpStatus.BAD_REQUEST);
+        } catch (SQLException e) {
+            log.info(e.getMessage());
+            return new ResponseEntity<>(CommonResponseDto.error(ErrorCode.SQL_QUERY_ERROR.getStatus(), e.getMessage()), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(developerDataResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(CommonResponseDto.success(developerDataResponseDto), HttpStatus.OK);
     }
 
     @PostMapping("/query")
-    public ResponseEntity<DeveloperQueryResponseDto> executeQuery (@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto) {
+    public ResponseEntity<CommonResponseDto<DeveloperQueryResponseDto>> executeQuery (@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
+        checkValidates(bindingResult);
         DeveloperQueryResponseDto developerUpdateResponseDto = new DeveloperQueryResponseDto();
         try {
             Integer modifiedCount = developerService.executeQuery(developerQueryRequestDto.getQuery());
             developerUpdateResponseDto.setModifiedCount(modifiedCount);
         } catch (SQLException e) {
-            log.debug(e.getMessage());
-            return new ResponseEntity<>(developerUpdateResponseDto, HttpStatus.BAD_REQUEST);
+            log.info(e.getMessage());
+            return new ResponseEntity<>(CommonResponseDto.error(ErrorCode.SQL_QUERY_ERROR.getStatus(), e.getMessage()), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(developerUpdateResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(CommonResponseDto.success(developerUpdateResponseDto), HttpStatus.OK);
+    }
+
+    private static void checkValidates(BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new InvalidValueException(bindingResult.getFieldError().getDefaultMessage());
+        }
     }
 }

@@ -20,14 +20,11 @@ public class WorkerServiceImpl implements WorkerService{
     private final JdbcUtil jdbcUtil;
 
     @Override
-    public String getQuery(Integer actionId, String conditions) {
+    public String getQuery(Integer actionId, String conditions) throws SQLException {
         String query = null;
         try {
-            ResultSet resultSet = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId);
-            Table selectResult = new Table(resultSet);
-            query = selectResult.getRows().get(0).getDataList().get(0) + ' ' + conditions;
-        } catch (SQLException e) {
-            log.info(e.getMessage());
+            Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId);
+            query = selectResult.getRows().get(0).getDataList().get(0) + ' ' + getOnlyOneQuery(conditions);
         } catch (IndexOutOfBoundsException e) {
             log.info("해당 actionId와 일치하는 쿼리가 존재하지 않습니다.");
         }
@@ -35,8 +32,17 @@ public class WorkerServiceImpl implements WorkerService{
     }
 
     @Override
-    public Table getTable(Integer actionId, String conditions) throws Exception {
-        String query = Optional.ofNullable(this.getQuery(actionId, conditions)).orElseThrow(() -> new Exception());
-        return new Table(jdbcUtil.select(query));
+    public Table getTable(Integer actionId, String conditions) throws SQLException {
+        String query = null;
+        try {
+            query = Optional.ofNullable(this.getQuery(actionId, conditions)).orElseThrow(() -> new Exception());
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+        return jdbcUtil.select(query);
+    }
+
+    private static String getOnlyOneQuery(String query) {
+        return query.split(";")[0];
     }
 }

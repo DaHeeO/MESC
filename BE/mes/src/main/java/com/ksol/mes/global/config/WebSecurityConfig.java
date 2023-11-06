@@ -33,7 +33,6 @@ import lombok.extern.slf4j.Slf4j;
 public class WebSecurityConfig {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
-
 	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**", "/mes/user/signup",
 		"/mes/user/login", "/mes/user/reissue", "/mes/user/findByEmail/**"};
 

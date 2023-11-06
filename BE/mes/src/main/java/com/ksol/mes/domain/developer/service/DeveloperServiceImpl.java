@@ -18,12 +18,17 @@ public class DeveloperServiceImpl implements DeveloperService {
     private final JdbcUtil jdbcUtil;
 
     @Override
-    public Table getTable(String query) throws Exception {
-        return new Table(jdbcUtil.select(query));
+    public Table getTable(String query) throws SQLException {
+        System.out.println("query = " + getOnlyOneQuery(query));
+        return jdbcUtil.select(getOnlyOneQuery(query));
+    }
+
+    private static String getOnlyOneQuery(String query) {
+        return query.split(";")[0];
     }
 
     @Override
     public Integer executeQuery(String query) throws SQLException {
-        return jdbcUtil.execute(query);
+        return jdbcUtil.execute(getOnlyOneQuery(query));
     }
 }
