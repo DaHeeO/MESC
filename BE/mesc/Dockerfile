@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim as builder
+FROM openjdk:17 as builder
 
 COPY gradlew .
 COPY gradle gradle
@@ -9,7 +9,7 @@ COPY src src
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
-FROM openjdk:17-jdk-slim
+FROM openjdk:17
 COPY --from=builder build/libs/*.jar app.jar
 EXPOSE 8080
 
