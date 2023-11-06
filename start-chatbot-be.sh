@@ -7,9 +7,8 @@
 
 sed -i 's/localhost:3306/mysql:3306/g' ./BE/mesc/src/main/resources/application.yml
 sed -i 's/host: localhost/host: local-redis/g' ./BE/mesc/src/main/resources/application.yml
-sed -i 's/http:\/\/localhost:8081\/mes/https:\/\/www.mescadmin.kr\/api\/mes/g' ./BE/mesc/src/main/java/com/ksol/mesc/
+sed -i 's/http:\/\/localhost:8081\/mes/https:\/\/www.mescadmin.kr\/api\/mes/g' ./BE/mesc/src/main/java/com/ksol/mesc/global/config/WebClientConfig.java
 rm -rf ./BE/mesc/src/main/generated
-global/config/WebClientConfig.java
 
 docker-compose -f docker-compose-chatbot-be.yml pull //현재 프로젝트에있는 docker-compose
 
