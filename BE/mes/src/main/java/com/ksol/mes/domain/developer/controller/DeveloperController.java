@@ -22,7 +22,7 @@ import java.security.Principal;
 import java.sql.SQLException;
 
 @RestController
-@RequestMapping("/api/mes/developer")
+@RequestMapping("/mes/developer")
 @RequiredArgsConstructor
 @Slf4j
 public class DeveloperController {
