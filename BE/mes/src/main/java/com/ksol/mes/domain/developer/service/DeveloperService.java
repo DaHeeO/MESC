@@ -5,6 +5,6 @@ import com.ksol.mes.global.util.jdbc.Table;
 import java.sql.SQLException;
 
 public interface DeveloperService {
-    public Table getTable(String query) throws Exception;
+    public Table getTable(String query) throws SQLException;
     public Integer executeQuery(String query) throws SQLException;
 }
