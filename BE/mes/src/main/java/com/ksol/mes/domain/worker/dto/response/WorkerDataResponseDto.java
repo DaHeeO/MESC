@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Data
 public class WorkerDataResponseDto {
-    private List<String> columnNameList;
+    private List<String> columnNameList = new ArrayList<>();
     private List<String> columnTypeList = new ArrayList<>();
     private List<Row> rowList;
 
