@@ -18,15 +18,26 @@ export const FormContainer = styled.View`
 export const TextBtn = styled.TouchableOpacity`
   height: 100%;
   width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
-export const ConditionBtnContainer = styled.TouchableOpacity`
-  width: 51;
-  height: 30;
-  padding: 8px 12px;
-  justifycontent: center;
-  alignitems: center;
-  flexdirection: row;
-  borderradius: 8;
-  backgroundcolor: #5d5fef;
+interface TextBoxProps {
+  color?: string;
+}
+export const TextBox = styled.Text`
+  // background-color: red;
+  font-weight: bold;
+  font-size: 20;
+  color: ${(props: TextBoxProps) => props.color || 'black'};
+`;
+
+// 버튼 Style
+export const ButtonContainer = styled.TouchableOpacity`
+  background-color: #5d5fef;
+  width: 50%;
+  height: 80%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
 `;

@@ -1,15 +1,10 @@
 import React from 'react';
-import {Text} from 'react-native';
-import { ConditionBtnContainer } from './ConditionFormStyle';
+import {ButtonContainer, TextBox} from './ConditionFormStyle';
 
-export const CustomButton = () => {
+export const OkayBtn = () => {
   return (
-    <ConditionBtnContainer>
-      <Text style={{color:'#ffffff'}}>버튼</Text>
-    </ConditionBtnContainer>
+    <ButtonContainer>
+      <TextBox color="#ffffff">적용</TextBox>
+    </ButtonContainer>
   );
 };
-
-
-
-export default CustomButton;
