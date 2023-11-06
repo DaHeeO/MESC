@@ -6,7 +6,7 @@ import {
   ReportFormContainer,
   ReportText,
   ReportTextInput,
-} from './ReportFormStyle';
+} from './ReportForm.styles';
 import {Text} from 'react-native';
 
 export const ReportForm = () => {

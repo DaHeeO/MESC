@@ -4,12 +4,14 @@ import * as S from './Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import ChatInput from '../../components/chat/ChatInput';
+import ChatbotStartBox from '../../components/chat/ChatbotStartBoxOne';
 import ChatbotStartBoxTwo from '../../components/chat/ChatbotStartBoxTwo';
 import ChatbotMessage from '../../components/chat/ChatbotMessage';
 import UserMessage from '../../components/chat/UserMessage';
 import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
+import LogLevelForm from '../../components/chat/log/LogLevelForm';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -19,6 +21,17 @@ interface ChatMessage {
 function Chat() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]); // State to store chat messages
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
+  const [isModalVisible, setIsModalVisible] = useState(false); // 모달 상태 추가
+
+  // 모달을 여는 함수
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  // 모달을 닫는 함수
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
 
   const addChatMessage = (message: string) => {
     setChatMessages(prevMessages => [...prevMessages, {text: message}]);
@@ -74,14 +87,24 @@ function Chat() {
             </View>
           ))}
         </ScrollView>
-        <AboutBottomSheetModal
-          btnTitle={'bottomSheet예시'}
-          modalHeight={'70%'}
-          modalBreakPoint={'25%'}
-          component={<ConditionForm />}
-        />
       </S.ChatLayout>
-      <ChatInput onSendMessage={addChatMessage} />
+      <AboutBottomSheetModal
+        btnTitle={'bottomSheet예시'}
+        modalHeight={'70%'}
+        modalBreakPoint={'25%'}
+        component={<ConditionForm />}
+        onModalShow={showModal}
+        onModalHide={hideModal}
+      />
+      <AboutBottomSheetModal
+        btnTitle={'로그레벨'}
+        modalHeight={'60%'}
+        modalBreakPoint={'30%'}
+        component={<LogLevelForm />}
+        onModalShow={showModal}
+        onModalHide={hideModal}
+      />
+      {isModalVisible ? null : <ChatInput onSendMessage={addChatMessage} />}
       {/* 모달 삽입 위치 */}
     </S.Container>
   );
