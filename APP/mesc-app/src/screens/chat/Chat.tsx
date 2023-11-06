@@ -5,8 +5,8 @@ import Header from '../../components/common/chatHeader/ChatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import ChatInput from '../../components/chat/ChatInput';
 import ChatbotStartBox from '../../components/chat/ChatbotStartBox';
-// import AutoCompleteBox from '../../components/chat/SuggestionsBox';
 import Report from '../messages/Report';
+import LogLevelComponent from '../../components/chat/log/LogLevelComponent';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
