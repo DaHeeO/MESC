@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.card.repository;
+package com.ksol.mesc.domain.card.repository;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ksol.mesc.domain.component.type.card.Card;
+import com.ksol.mesc.domain.card.Card;
 
 public interface CardRepository extends JpaRepository<Card, Integer> {
 	//blockid와 연결된 카드 조회

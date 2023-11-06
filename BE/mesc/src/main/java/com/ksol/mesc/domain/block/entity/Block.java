@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.block;
+package com.ksol.mesc.domain.block.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

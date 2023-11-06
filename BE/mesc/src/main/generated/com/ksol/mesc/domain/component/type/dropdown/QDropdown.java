@@ -24,7 +24,7 @@ public class QDropdown extends EntityPathBase<Dropdown> {
 
     public final StringPath columnName = createString("columnName");
 
-    public final com.ksol.mesc.domain.component.QComponent component;
+    public final com.ksol.mesc.domain.component.entity.QComponent component;
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
@@ -50,7 +50,7 @@ public class QDropdown extends EntityPathBase<Dropdown> {
 
     public QDropdown(Class<? extends Dropdown> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.component = inits.isInitialized("component") ? new com.ksol.mesc.domain.component.QComponent(forProperty("component"), inits.get("component")) : null;
+        this.component = inits.isInitialized("component") ? new com.ksol.mesc.domain.component.entity.QComponent(forProperty("component"), inits.get("component")) : null;
     }
 
 }

@@ -1,8 +1,8 @@
-package com.ksol.mesc.domain.component.type.block.dto.request;
+package com.ksol.mesc.domain.block.dto.request;
 
 import java.util.List;
 
-import com.ksol.mesc.domain.component.type.card.dto.request.CardReq;
+import com.ksol.mesc.domain.card.dto.request.CardReq;
 
 import lombok.Data;
 

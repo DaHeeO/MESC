@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.block.service;
+package com.ksol.mesc.domain.block.service;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -11,19 +11,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
+import com.ksol.mesc.domain.block.entity.Block;
+import com.ksol.mesc.domain.block.repository.BlockRepository;
+import com.ksol.mesc.domain.card.Card;
+import com.ksol.mesc.domain.card.CardType;
+import com.ksol.mesc.domain.card.repository.CardRepository;
 import com.ksol.mesc.domain.common.JsonResponse;
-import com.ksol.mesc.domain.component.Component;
-import com.ksol.mesc.domain.component.ComponentType;
+import com.ksol.mesc.domain.component.entity.Component;
+import com.ksol.mesc.domain.component.entity.ComponentType;
 import com.ksol.mesc.domain.component.repository.ComponentRepository;
-import com.ksol.mesc.domain.component.type.block.Block;
-import com.ksol.mesc.domain.component.type.block.dto.request.BlockReqDto;
-import com.ksol.mesc.domain.component.type.block.repository.BlockRepository;
 import com.ksol.mesc.domain.component.type.button.Button;
 import com.ksol.mesc.domain.component.type.button.ButtonRepository;
 import com.ksol.mesc.domain.component.type.button.dto.ButtonRes;
-import com.ksol.mesc.domain.component.type.card.Card;
-import com.ksol.mesc.domain.component.type.card.CardType;
-import com.ksol.mesc.domain.component.type.card.repository.CardRepository;
 import com.ksol.mesc.domain.component.type.checkbox.Checkbox;
 import com.ksol.mesc.domain.component.type.checkbox.CheckboxRepository;
 import com.ksol.mesc.domain.component.type.checkbox.dto.CheckboxRes;

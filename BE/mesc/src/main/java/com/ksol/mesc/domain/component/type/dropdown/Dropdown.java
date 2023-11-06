@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.component.type.dropdown;
 
-import com.ksol.mesc.domain.component.Component;
+import com.ksol.mesc.domain.component.entity.Component;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

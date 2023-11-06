@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.block.dto.request;
+package com.ksol.mesc.domain.block.dto.request;
 
 import lombok.Data;
 

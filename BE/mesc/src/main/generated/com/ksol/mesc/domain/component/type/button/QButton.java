@@ -22,7 +22,7 @@ public class QButton extends EntityPathBase<Button> {
 
     public static final QButton button = new QButton("button");
 
-    public final com.ksol.mesc.domain.component.QComponent component;
+    public final com.ksol.mesc.domain.component.entity.QComponent component;
 
     public final StringPath icon = createString("icon");
 
@@ -56,7 +56,7 @@ public class QButton extends EntityPathBase<Button> {
 
     public QButton(Class<? extends Button> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.component = inits.isInitialized("component") ? new com.ksol.mesc.domain.component.QComponent(forProperty("component"), inits.get("component")) : null;
+        this.component = inits.isInitialized("component") ? new com.ksol.mesc.domain.component.entity.QComponent(forProperty("component"), inits.get("component")) : null;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.card;
+package com.ksol.mesc.domain.card;
 
 public enum CardType {
 	//Text

@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.block.controller;
+package com.ksol.mesc.domain.block.controller;
 
 import java.util.LinkedHashMap;
 
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
+import com.ksol.mesc.domain.block.service.BlockService;
 import com.ksol.mesc.domain.common.CommonResponseDto;
-import com.ksol.mesc.domain.component.type.block.dto.request.BlockReqDto;
-import com.ksol.mesc.domain.component.type.block.service.BlockService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -45,7 +45,6 @@ public class BlockController {
 	// @PatchMapping
 	// public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
 	// @RequestBody BlockReqDto blockReqDto, Authentication authentication) {
-	// 	Integer userId = Integer.parseInt(authentication.getName());
 	// 	Block newBlock = Block.builder()
 	// 		.name(blockReqDto.getName())
 	// 		.userId(userId)

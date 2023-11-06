@@ -1,7 +1,7 @@
-package com.ksol.mesc.domain.component.type.card.dto.request;
+package com.ksol.mesc.domain.card.dto.request;
 
-import com.ksol.mesc.domain.component.type.card.Card;
-import com.ksol.mesc.domain.component.type.card.CardType;
+import com.ksol.mesc.domain.card.Card;
+import com.ksol.mesc.domain.card.CardType;
 
 import lombok.Builder;
 import lombok.Data;

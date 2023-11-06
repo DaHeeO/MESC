@@ -1,6 +1,6 @@
-package com.ksol.mesc.domain.component.type.block.dto.request;
+package com.ksol.mesc.domain.block.dto.request;
 
-import com.ksol.mesc.domain.component.type.block.Block;
+import com.ksol.mesc.domain.block.entity.Block;
 
 import lombok.Builder;
 import lombok.Data;

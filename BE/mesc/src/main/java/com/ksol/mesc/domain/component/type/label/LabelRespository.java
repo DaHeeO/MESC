@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ksol.mesc.domain.component.Component;
+import com.ksol.mesc.domain.component.entity.Component;
 
 public interface LabelRespository extends JpaRepository<Label, Integer> {
 	@Query("select l from Label l where l.component=:component")

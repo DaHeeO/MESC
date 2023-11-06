@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component;
+package com.ksol.mesc.domain.component.entity;
 
 public enum ComponentType {
 	//Button
