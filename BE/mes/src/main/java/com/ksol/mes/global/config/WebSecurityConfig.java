@@ -35,7 +35,7 @@ public class WebSecurityConfig {
 	private final TokenAccessDeniedHandler tokenAccessDeniedHandler;
 
 	private static final String[] WHITE_LIST = {"/v3/**", "/swagger-ui/**", "/api/mes/user/signup",
-		"/api/mes/user/login", "/api/mes/user/reissue", "/api/mes/user/findByEmail/**", "/developer/**"};
+		"/api/mes/user/login", "/api/mes/user/reissue", "/api/mes/user/findByEmail/**", "/developer/**", "/api/mes/user/findById/**"};
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -55,9 +55,9 @@ public class WebSecurityConfig {
 													   .requestMatchers(
 														   AntPathRequestMatcher.antMatcher("/api/mes/developer/**"))
 													   .hasAuthority("DEVELOPER")
-													   .requestMatchers(
-														   AntPathRequestMatcher.antMatcher("/api/mes/worker/**"))
-													   .hasAuthority("WORKER")
+//													   .requestMatchers(
+//														   AntPathRequestMatcher.antMatcher("/api/mes/worker/**"))
+//													   .hasAuthority("WORKER")
 													   // .requestMatchers(
 													   //    AntPathRequestMatcher.antMatcher("/api/mes/user/findByEmail/**"))
 													   // .hasAuthority("ADMIN")

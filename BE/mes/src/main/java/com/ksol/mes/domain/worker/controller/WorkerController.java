@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 
 @RestController
-@RequestMapping("/worker")
+@RequestMapping("/api/mes/worker")
 @RequiredArgsConstructor
 @Slf4j
 public class WorkerController {

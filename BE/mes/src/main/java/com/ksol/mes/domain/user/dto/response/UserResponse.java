@@ -15,7 +15,7 @@ public class UserResponse {
 	private Integer userId;
 
 	@Schema(description = "사용자 이름", example = "김싸피")
-	private String userName;
+	private String name;
 
 	@Schema(description = "사용자 이메일", example = "ssafy@gmail.com")
 	private String email;

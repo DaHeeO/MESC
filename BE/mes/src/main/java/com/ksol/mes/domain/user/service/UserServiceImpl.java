@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
 		UserResponse findUserRes = UserResponse.builder()
 											   .userId(findUser.getId())
 											   .email(findUser.getEmail())
-											   .userName(findUser.getName())
+											   .name(findUser.getName())
 											   .phoneNumber(findUser.getPhoneNumber())
 											   .build();
 		return findUserRes;
@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
 		for (User user : userList) {
 			UserResponse userResponse = UserResponse.builder()
 													.userId(user.getId())
-													.userName(user.getName())
+													.name(user.getName())
 													.email(user.getEmail())
 													.phoneNumber(user.getPhoneNumber())
 													.build();
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
 		for (User user : userList) {
 			UserResponse userResponse = UserResponse.builder()
 													.userId(user.getId())
-													.userName(user.getName())
+													.name(user.getName())
 													.email(user.getEmail())
 													.phoneNumber(user.getPhoneNumber())
 													.build();
@@ -158,6 +158,19 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return userResponseList;
+	}
+
+	@Override
+	public UserResponse findById(Integer userId) {
+		User findUser = userRepository.findById(userId)
+				.orElseThrow(() -> new UserNotFoundException("User Not Found"));
+		UserResponse findUserRes = UserResponse.builder()
+				.userId(findUser.getId())
+				.email(findUser.getEmail())
+				.name(findUser.getName())
+				.phoneNumber(findUser.getPhoneNumber())
+				.build();
+		return findUserRes;
 	}
 
 }
