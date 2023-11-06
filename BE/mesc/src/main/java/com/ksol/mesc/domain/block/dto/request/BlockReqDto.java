@@ -9,6 +9,6 @@ public class BlockReqDto {
 	private String conditions;  // 나중에 where 절이거나 비어있거나를 검사해야함
 
 	//카드 정보
-	//컴포넌트 정보
+	//컴포넌트(버튼, 라벨, 체크박스, 드롭다운, 다이렉트 버튼) 정보
 	//
 }

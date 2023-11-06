@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api/mesc/group")
+@RequestMapping("/mesc/group")
 @Tag(name = "group", description = "회원 API")
 @RequiredArgsConstructor
 @Slf4j

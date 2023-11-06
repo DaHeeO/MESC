@@ -63,6 +63,7 @@ public class BlockService {
 
 	//블록 수정
 	public void updateBlock() {
+		//블록
 		return;
 	}
 
@@ -92,11 +93,11 @@ public class BlockService {
 			cardMap.put("content", card.getContent());
 
 			if (cardType == CardType.QU) {    //query text
-				Object obj = requestPostToMes("/worker/query/", blockReqDto);
-				log.info("type : {}", requestPostToMes("/worker/query/", blockReqDto).getClass());
 				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", blockReqDto));
 			} else if (cardType == CardType.TA) {    //table 조회
 				cardMap.put("table", requestPostToMes("/worker/data/", blockReqDto));
+			} else if (cardType == CardType.STA) {    //single table 조회
+				cardMap.put("singleTable", requestPostToMes("/worker/data/", blockReqDto));
 			}
 
 			//component 조회
@@ -162,9 +163,11 @@ public class BlockService {
 	//mes에 post api 요청
 	public Object requestPostToMes(String url, BlockReqDto blockReqDto) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
+		if (blockReqDto.getActionId() != null)
+			url += blockReqDto.getActionId();
 
 		return webClient.post()
-			.uri(url + blockReqDto.getActionId())
+			.uri(url)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(BodyInserters.fromValue(blockReqDto))

@@ -9,6 +9,8 @@ public enum CardType {
 	TB,
 	//Table
 	TA,
+	//Single Table
+	STA,
 	//Query
 	QU,
 	//Direct Button
