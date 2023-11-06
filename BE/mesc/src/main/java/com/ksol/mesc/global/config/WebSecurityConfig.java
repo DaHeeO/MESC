@@ -52,11 +52,11 @@ public class WebSecurityConfig {
 					AntPathRequestMatcher.antMatcher("/api/mesc/admin/**"))
 				.hasAuthority("ADMIN")
 				.requestMatchers(
-					AntPathRequestMatcher.antMatcher("/api/mesc/developer/**"))
+					AntPathRequestMatcher.antMatcher("/api/developer/**"))
 				.hasAuthority("DEVELOPER")
-				.requestMatchers(
-					AntPathRequestMatcher.antMatcher("/api/mesc/worker/**"))
-				.hasAuthority("WORKER")
+//				.requestMatchers(
+//					AntPathRequestMatcher.antMatcher("/api/mesc/worker/**"))
+//				.hasAuthority("WORKER")
 				// .requestMatchers(
 				//    AntPathRequestMatcher.antMatcher("/api/mesc/user/email"))
 				// .hasAuthority("ADMIN")
