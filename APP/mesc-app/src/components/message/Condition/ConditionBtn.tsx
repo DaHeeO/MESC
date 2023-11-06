@@ -1,10 +1,21 @@
 import React from 'react';
 import {ButtonContainer, TextBox} from './ConditionFormStyle';
 
-export const OkayBtn = () => {
+interface OkayBtnProps {
+  backgroundColor?: string;
+  color?: string;
+  content: string;
+  height?: string;
+  onPress?: () => void;
+}
+
+export const OkayBtn = (props: OkayBtnProps) => {
   return (
-    <ButtonContainer>
-      <TextBox color="#ffffff">적용</TextBox>
+    <ButtonContainer
+      onPress={props.onPress}
+      backgroundColor={props.backgroundColor}
+      height={props.height}>
+      <TextBox color={props.color}>{props.content}</TextBox>
     </ButtonContainer>
   );
 };
