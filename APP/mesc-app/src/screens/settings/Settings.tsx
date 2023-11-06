@@ -5,9 +5,9 @@ import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import * as S from './Settings.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
 import Log from '../../components/chat/log/Log';
-
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
+import DataComponent from '../../components/chat/data/DataComponent';
 
 function Settings() {
   return (
@@ -15,13 +15,14 @@ function Settings() {
       <Header />
       {/* 챗봇 메세지 보이는 화면 */}
       <S.ChatLayout>
-        <AboutBottomSheetModal
+        <DataComponent />
+        {/* <Log /> */}
+        {/* <AboutBottomSheetModal
           btnTitle={'로그레벨'}
           modalHeight={'55%'}
           modalBreakPoint={'20%'}
           component={<LogLevelForm />}
-        />
-        <Log />
+        /> */}
       </S.ChatLayout>
       {/* 모달 삽입 위치 */}
     </S.Container>
