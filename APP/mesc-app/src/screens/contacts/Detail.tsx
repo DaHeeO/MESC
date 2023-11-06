@@ -17,7 +17,7 @@ import * as S from './Detail.styles';
 import {colors} from '../../components/common/Theme';
 
 import Left from '../../assets/icons/left.svg';
-import Plus from '../../assets/icons/NavigationPlus.svg';
+import Plus from '../../assets/icons/navigationPlus.svg';
 import Search from '../../assets/icons/search.svg';
 import Filter from '../../assets/icons/filter.svg';
 import CheckBoxIcon from '../../assets/icons/checkbox.svg';
