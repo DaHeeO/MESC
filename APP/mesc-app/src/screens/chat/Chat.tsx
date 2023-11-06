@@ -18,6 +18,17 @@ interface ChatMessage {
 function Chat() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]); // State to store chat messages
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
+  const [isModalVisible, setIsModalVisible] = useState(false); // 모달 상태 추가
+
+  // 모달을 여는 함수
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  // 모달을 닫는 함수
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
 
   const addChatMessage = (message: string) => {
     setChatMessages(prevMessages => [...prevMessages, {text: message}]);
@@ -95,14 +106,18 @@ function Chat() {
         modalHeight={'70%'}
         modalBreakPoint={'25%'}
         component={<ConditionForm />}
+        onModalShow={showModal}
+        onModalHide={hideModal}
       />
       <AboutBottomSheetModal
         btnTitle={'로그레벨'}
         modalHeight={'60%'}
-        modalBreakPoint={'10%'}
+        modalBreakPoint={'30%'}
         component={<LogLevelForm />}
+        onModalShow={showModal}
+        onModalHide={hideModal}
       />
-      <ChatInput onSendMessage={addChatMessage} />
+      {isModalVisible ? null : <ChatInput onSendMessage={addChatMessage} />}
       {/* 모달 삽입 위치 */}
     </S.Container>
   );
