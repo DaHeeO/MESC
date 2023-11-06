@@ -1,7 +1,6 @@
 package com.ksol.mesc.domain.api.dto.response;
 
 import com.ksol.mesc.domain.api.classes.ColumnData;
-import com.ksol.mesc.domain.api.classes.Row;
 import com.ksol.mesc.domain.api.classes.Table;
 import lombok.Data;
 
@@ -12,7 +11,7 @@ import java.util.List;
 public class DeveloperDataResponseDto {
     private List<String> columnNameList = new ArrayList<>();
     private List<String> columnTypeList = new ArrayList<>();
-    private List<Row> rowList;
+    private List<List<String>> rowList;
 
     public DeveloperDataResponseDto(Table table) {
         for (ColumnData column : table.getColumns()) {
