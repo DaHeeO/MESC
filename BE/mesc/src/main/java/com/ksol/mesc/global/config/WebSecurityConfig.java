@@ -49,14 +49,14 @@ public class WebSecurityConfig {
 					.toArray(AntPathRequestMatcher[]::new))
 				.permitAll()
 				.requestMatchers(
-					AntPathRequestMatcher.antMatcher("/api/mesc/admin/**"))
+					AntPathRequestMatcher.antMatcher("/mesc/admin/**"))
 				.hasAuthority("ADMIN")
 				.requestMatchers(
-					AntPathRequestMatcher.antMatcher("/api/developer/**"))
+					AntPathRequestMatcher.antMatcher("/developer/**"))
 				.hasAuthority("DEVELOPER")
-//				.requestMatchers(
-//					AntPathRequestMatcher.antMatcher("/api/mesc/worker/**"))
-//				.hasAuthority("WORKER")
+				//				.requestMatchers(
+				//					AntPathRequestMatcher.antMatcher("/api/mesc/worker/**"))
+				//				.hasAuthority("WORKER")
 				// .requestMatchers(
 				//    AntPathRequestMatcher.antMatcher("/api/mesc/user/email"))
 				// .hasAuthority("ADMIN")

@@ -5,7 +5,7 @@ spring:
     #    url: jdbc:mysql://localhost:3306/mescdb?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     #    username: ksol
     #    password: ksol1117
-    url: jdbc:mysql://k9b201a.p.ssafy.io/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://k9b201.p.ssafy.io/mesc?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: ksol
     password: ksol1117
 

@@ -155,7 +155,6 @@ public class GroupController {
 		Integer userId = Integer.parseInt(authentication.getName());
 
 		//유저 아이디가 존재하지 않으면 error
-
 		List<Group> groupList = groupService.selectGroup(userId);
 		List<GroupResponse> groupResponseList = new ArrayList<>();
 
@@ -168,8 +167,9 @@ public class GroupController {
 
 			groupResponseList.add(groupResponse);
 		}
+		log.info("groupList : {}", groupList);
 
-		return ResponseEntity.ok(CommonResponseDto.success(groupList));
+		return ResponseEntity.ok(CommonResponseDto.success(groupResponseList));
 	}
 
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹 멤버를 조회한다.")
