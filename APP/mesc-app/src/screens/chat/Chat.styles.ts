@@ -22,24 +22,3 @@ export const ChatLayout = styled.View`
   //margin-bottom: 10px;
   border-radius: 10px;
 `;
-
-export const // mesc 말하는 텍스트 창
-  MescContainer = styled.View`
-    background-color: ${colors.icy};
-    border-radius: 10px;
-    width: 65%;
-    height: auto;
-    margin-top: -8px;
-  `;
-
-export const TextBox = styled.View`
-  display: flex;
-  margin-left: 77%;
-  margin-top: 20px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  height: auto;
-  width: 88px;
-  background-color: ${colors.iris};
-`;

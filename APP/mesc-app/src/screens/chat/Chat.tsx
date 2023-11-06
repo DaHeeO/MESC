@@ -4,8 +4,9 @@ import * as S from './Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import ChatInput from '../../components/chat/ChatInput';
-import ChatbotStartBox from '../../components/chat/ChatbotStartBox';
-// import AutoCompleteBox from '../../components/chat/SuggestionsBox';
+import ChatbotStartBoxTwo from '../../components/chat/ChatbotStartBoxTwo';
+import ChatbotMessage from '../../components/chat/ChatbotMessage';
+import UserMessage from '../../components/chat/UserMessage';
 import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
@@ -49,42 +50,26 @@ function Chat() {
       <S.ChatLayout>
         <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
           <ChatbotProfile />
-          <S.MescContainer>
-            <View style={{marginLeft: 10, marginTop: 5, marginBottom: 5}}>
-              <Text
-                style={{fontSize: 14, textAlign: 'left', fontWeight: 'bold'}}>
-                안녕하세요! 000님{'\n'}무엇을 도와드릴까요?? 아래 버튼을 눌러
-                {'\n'}원하시는 작업을 선택하세요!!
-              </Text>
-            </View>
-          </S.MescContainer>
+          <ChatbotMessage
+            context={`안녕하세요! HIHI님\n무엇을 도와드릴까요?\n아래 버튼\n작업을 선택해주세요!`}
+          />
           {/* 챗봇 시작하기 박스 컴포넌트 */}
-          <ChatbotStartBox
+          <ChatbotStartBoxTwo
             handleDataBoxPress={handleDataBoxPress}
             handleLogBoxPress={handleLogBoxPress}
+            title="시작하기"
+            middleText="아래 버튼을 선택하세요"
+            optionText1="데이터 조회"
+            optionText2="로그 보기"
           />
           {chatMessages.map((message, index) => (
             <View key={index}>
-              <S.TextBox>
-                <Text style={{fontSize: 14, textAlign: 'left', color: 'white'}}>
-                  {message.text}
-                </Text>
-              </S.TextBox>
+              <UserMessage message={message.text} />
               <ChatbotProfile />
               {message.text === '데이터 조회' && (
-                <S.MescContainer>
-                  <View style={{marginLeft: 10, marginTop: 5, marginBottom: 5}}>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        textAlign: 'left',
-                        fontWeight: 'bold',
-                      }}>
-                      아래의 <Text>[입력창]</Text>을 통해{'\n'}원하는 [쿼리문]을
-                      작성해주세요.
-                    </Text>
-                  </View>
-                </S.MescContainer>
+                <ChatbotMessage
+                  context={`아래의 [입력창]을 통해\n원하는 [쿼리문]을 작성해주세요.`}
+                />
               )}
             </View>
           ))}
