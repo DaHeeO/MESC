@@ -7,8 +7,8 @@ spring:
 #    username: ksol
 #    password: ksol1117
     url: jdbc:mysql://localhost:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
-    username: root
-    password: root
+    username: ksol
+    password: ksol1117
 
   jpa:
     hibernate:
