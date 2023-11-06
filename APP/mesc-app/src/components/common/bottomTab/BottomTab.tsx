@@ -12,7 +12,7 @@ import * as S from './BottomTab.styles';
 import Main from '../../../screens/main/Main';
 import ContactStack from '../../../screens/contacts/Stack';
 import Setting from '../../../screens/settings/Settings';
-import Message from '../../../screens/messages/Messages';
+import Chat from '../../../screens/chat/Chat';
 
 // icon
 import BottomTabIcon from './NavIcon';
@@ -23,7 +23,8 @@ const AnimatedTabBar = ({
   state: {index: activeIndex, routes},
   navigation,
   descriptors,
-}: BottomTabBarProps) => {
+  style,
+}: BottomTabBarProps & {style?: any}) => {
   const reducer = (state: any, action: {x: number; index: number}) => {
     return [...state, {x: action.x, index: action.index}];
   };
@@ -35,7 +36,7 @@ const AnimatedTabBar = ({
   };
 
   return (
-    <View style={animationStyles.tabBarContainer}>
+    <View style={[animationStyles.tabBarContainer, style]}>
       {routes.map((route, index) => {
         const active = index === activeIndex;
         const {options} = descriptors[route.key];
@@ -102,19 +103,18 @@ const TabBarComponent = ({active, options, onPress}: TabBarComponentProps) => {
 function BottompTab() {
   return (
     <Tab.Navigator
-      tabBar={props => <AnimatedTabBar {...props} />}
+      tabBar={props => {
+        // 현재 state에서 active route의 이름을 찾습니다.
+        const activeRouteName = props.state.routes[props.state.index].name;
+
+        // Chat 탭이 active일 때 tabBarStyle을 조건부로 설정합니다.
+        const tabBarStyle = activeRouteName === 'Chat' ? {display: 'none'} : {};
+
+        // 나머지 tabBarProps를 함께 AnimatedTabBar에 전달합니다.
+        return <AnimatedTabBar {...props} style={tabBarStyle} />;
+      }}
       screenOptions={{headerShown: false}}
       initialRouteName="Main">
-      <Tab.Screen
-        name="Contact"
-        component={ContactStack}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <BottomTabIcon focused={focused} type="Contact" />
-          ),
-          tabBarLabel: () => <S.Text>연락처</S.Text>,
-        }}
-      />
       <Tab.Screen
         name="Main"
         component={Main}
@@ -126,8 +126,18 @@ function BottompTab() {
         }}
       />
       <Tab.Screen
-        name="Message"
-        component={Message}
+        name="Contact"
+        component={ContactStack}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <BottomTabIcon focused={focused} type="Contact" />
+          ),
+          tabBarLabel: () => <S.Text>연락처</S.Text>,
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={Chat}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Message" />
@@ -155,7 +165,7 @@ const animationStyles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    height: '9%',
+    height: 70,
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',

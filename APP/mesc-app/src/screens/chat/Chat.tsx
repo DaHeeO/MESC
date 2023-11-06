@@ -8,6 +8,8 @@ import ChatbotStartBoxTwo from '../../components/chat/ChatbotStartBoxTwo';
 import ChatbotMessage from '../../components/chat/ChatbotMessage';
 import UserMessage from '../../components/chat/UserMessage';
 import Report from '../messages/Report';
+import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
+import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -46,7 +48,7 @@ function Chat() {
       <Header />
       {/* 챗봇 메세지 보이는 화면 */}
       <S.ChatLayout>
-        <ScrollView ref={chatLayoutRef}>
+        <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
           <ChatbotProfile />
           <ChatbotMessage
             context={`안녕하세요! HIHI님\n무엇을 도와드릴까요?\n아래 버튼\n작업을 선택해주세요!`}
@@ -72,7 +74,12 @@ function Chat() {
             </View>
           ))}
         </ScrollView>
-        <Report />
+        <AboutBottomSheetModal
+          btnTitle={'bottomSheet예시'}
+          modalHeight={'70%'}
+          modalBreakPoint={'25%'}
+          component={<ConditionForm />}
+        />
       </S.ChatLayout>
       <ChatInput onSendMessage={addChatMessage} />
       {/* 모달 삽입 위치 */}
