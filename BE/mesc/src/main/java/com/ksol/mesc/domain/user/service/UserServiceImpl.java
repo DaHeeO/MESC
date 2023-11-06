@@ -1,5 +1,6 @@
 package com.ksol.mesc.domain.user.service;
 
+import com.ksol.mesc.global.error.exception.MesServerException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
 			.bodyValue(loginReq)
 			.retrieve()
 			.toEntity(TokenInfo.class)
+				.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()
 			.getBody();
 	}
@@ -50,6 +52,7 @@ public class UserServiceImpl implements UserService {
 			.uri("/user/findByEmail?email=" + email)
 			.retrieve()
 			.toEntity(User.class)
+				.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()
 			.getBody();
 	}
@@ -65,6 +68,7 @@ public class UserServiceImpl implements UserService {
 			.header("Authorization", "Bearer " + refreshToken)
 			.retrieve()
 			.toEntity(TokenInfo.class)
+				.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()
 			.getBody();
 
@@ -90,6 +94,19 @@ public class UserServiceImpl implements UserService {
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.retrieve()
 			.toEntity(GroupMemberResponse.class)
+				.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block();
+	}
+
+	@Override
+	public User findById(Integer userId) {
+		System.out.println("userId = " + userId);
+		return webClient.get()
+				.uri("/user/findById/" + userId)
+				.retrieve()
+				.toEntity(User.class)
+				.onErrorMap(e -> new MesServerException(e.getMessage()))
+				.block()
+				.getBody();
 	}
 }
