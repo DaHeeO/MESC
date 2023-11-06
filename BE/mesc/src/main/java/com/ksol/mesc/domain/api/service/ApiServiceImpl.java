@@ -13,12 +13,15 @@ import com.ksol.mesc.global.error.exception.MesServerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.reactive.ClientHttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
@@ -42,7 +45,6 @@ public class ApiServiceImpl implements ApiService {
                 .bodyValue(new DeveloperDataRequestDto(query))
                 .retrieve()
                 .toEntity(CommonResponseDto.class)
-                .onErrorMap(e -> new MesServerException(e.getMessage()))
                 .block();
     }
 
@@ -55,7 +57,6 @@ public class ApiServiceImpl implements ApiService {
                 .bodyValue(new DeveloperQueryRequestDto(query))
                 .retrieve()
                 .toEntity(CommonResponseDto.class)
-                .onErrorMap(e -> new MesServerException(e.getMessage()))
                 .block();
     }
 
@@ -65,10 +66,9 @@ public class ApiServiceImpl implements ApiService {
         return webClient.post()
                 .uri("/worker/data/" + actionId)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-                .bodyValue(new WorkerDataRequestDto(conditions))
+                .body(Mono.just(new WorkerDataRequestDto(conditions)), WorkerDataRequestDto.class)
                 .retrieve()
                 .toEntity(CommonResponseDto.class)
-                .onErrorMap(e -> new MesServerException(e.getMessage()))
                 .block();
     }
 
@@ -81,7 +81,6 @@ public class ApiServiceImpl implements ApiService {
                 .bodyValue(new WorkerQueryRequestDto(conditions))
                 .retrieve()
                 .toEntity(CommonResponseDto.class)
-                .onErrorMap(e -> new MesServerException(e.getMessage()))
                 .block();
     }
 }
