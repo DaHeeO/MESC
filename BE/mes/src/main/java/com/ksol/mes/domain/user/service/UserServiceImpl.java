@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 		User newUser = User.builder()
 						   .email(signUpReq.getEmail())
 						   .password(passwordEncoder.encode(signUpReq.getPassword()))
-						   .roles(Collections.singletonList(UserRole.WORKER.name()))
+						   .roles(Collections.singletonList(UserRole.DEVELOPER.name()))
 						   .build();
 
 		userRepository.save(newUser);
