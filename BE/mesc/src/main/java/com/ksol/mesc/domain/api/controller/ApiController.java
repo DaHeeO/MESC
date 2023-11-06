@@ -63,7 +63,9 @@ public class ApiController {
                                                             BindingResult bindingResult) {
         checkValidates(bindingResult);
         String conditions = workerDataRequestDto.getConditions();
-        return apiService.getTableByActionId(actionId, conditions);
+        ResponseEntity<CommonResponseDto> tableByActionId = apiService.getTableByActionId(actionId, conditions);
+        System.out.println("tableByActionId = " + tableByActionId);
+        return tableByActionId;
     }
 
     @PostMapping("/worker/query/{actionId}")
