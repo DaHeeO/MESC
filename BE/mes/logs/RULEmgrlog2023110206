@@ -1,0 +1,15 @@
+2023/11/02 15:57:06.670 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 3108 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/02 15:57:06.671 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/02 15:57:06.671 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/02 15:57:09.524 DEBUG [restartedMain] JwtAuthenticationFilter[init : 240] - Filter 'jwtAuthenticationFilter' configured for use 
+2023/11/02 15:57:09.536 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/02 15:57:10.603 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.324 seconds (process running for 5.375) 
+2023/11/02 15:59:45.544 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 24908 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/02 15:59:45.545 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/02 15:59:45.546 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/02 15:59:48.614 DEBUG [restartedMain] JwtAuthenticationFilter[init : 240] - Filter 'jwtAuthenticationFilter' configured for use 
+2023/11/02 15:59:48.614 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/02 15:59:49.873 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.709 seconds (process running for 5.173) 
+2023/11/02 15:59:51.521 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/02 15:59:51.693 DEBUG [http-nio-8081-exec-1] UserServiceImpl[login : 67] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=kim1234@naver.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/02 15:59:52.222 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 

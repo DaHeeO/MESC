@@ -56,7 +56,9 @@ public class WorkerController {
         WorkerDataResponseDto workerDataResponseDto = null;
         try {
             Table table = workerService.getTable(actionId, workerDataRequestDto.getConditions());
+            log.info("table : {}", table);
             workerDataResponseDto = new WorkerDataResponseDto(table);
+            log.info("workerDataResponseDto : {}", workerDataResponseDto);
         } catch (SQLException e) {
             log.debug(e.getMessage());
             return new ResponseEntity<>(CommonResponseDto.error(ErrorCode.SQL_QUERY_ERROR.getStatus(), e.getMessage()), HttpStatus.BAD_REQUEST);

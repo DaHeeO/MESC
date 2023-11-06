@@ -688,3 +688,63 @@ Caused by: java.net.ConnectException: Connection refused: no further information
 	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
 	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
 	at java.base/java.lang.Thread.run(Thread.java:840)
+2023/11/02 09:20:16.390 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 20060 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/02 09:20:16.390 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/02 09:20:16.391 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/02 09:20:19.114 DEBUG [restartedMain] JwtAuthenticationFilter[init : 240] - Filter 'jwtAuthenticationFilter' configured for use 
+2023/11/02 09:20:19.115 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/02 09:20:20.151 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.123 seconds (process running for 4.566) 
+2023/11/02 09:20:25.325 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/02 09:20:25.538 DEBUG [http-nio-8081-exec-2] UserServiceImpl[login : 67] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=kim1234@naver.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/02 09:20:26.066 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/02 09:20:30.219 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/02 09:20:30.223 DEBUG [http-nio-8081-exec-3] UserServiceImpl[login : 67] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=kim1234@naver.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/02 09:20:30.298 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/02 09:20:46.023 INFO  [http-nio-8081-exec-4] JwtTokenProvider[validateToken : 135] - MalformedJwtException 
+2023/11/02 09:20:46.024 INFO  [http-nio-8081-exec-4] JwtExceptionFilter[doFilterInternal : 29] - ex.getMessage()=null 
+2023/11/02 09:20:46.024 INFO  [http-nio-8081-exec-4] JwtExceptionFilter[doFilterInternal : 30] - ex.getErrorCode()=INVALID_TOKEN 
+2023/11/02 09:23:03.580 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/02 09:23:03.584 DEBUG [http-nio-8081-exec-7] UserServiceImpl[login : 67] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=kim1234@naver.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/02 09:23:03.662 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/02 09:23:14.604 INFO  [http-nio-8081-exec-10] JwtTokenProvider[validateToken : 135] - MalformedJwtException 
+2023/11/02 09:23:14.604 INFO  [http-nio-8081-exec-10] JwtExceptionFilter[doFilterInternal : 29] - ex.getMessage()=null 
+2023/11/02 09:23:14.604 INFO  [http-nio-8081-exec-10] JwtExceptionFilter[doFilterInternal : 30] - ex.getErrorCode()=INVALID_TOKEN 
+2023/11/02 09:23:30.537 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/02 09:23:30.541 DEBUG [http-nio-8081-exec-8] UserServiceImpl[login : 67] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=kim1234@naver.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/02 09:23:30.616 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/02 09:23:43.931 INFO  [http-nio-8081-exec-9] JwtTokenProvider[validateToken : 135] - MalformedJwtException 
+2023/11/02 09:23:43.931 INFO  [http-nio-8081-exec-9] JwtExceptionFilter[doFilterInternal : 29] - ex.getMessage()=null 
+2023/11/02 09:23:43.931 INFO  [http-nio-8081-exec-9] JwtExceptionFilter[doFilterInternal : 30] - ex.getErrorCode()=INVALID_TOKEN 
+2023/11/02 09:26:14.388 INFO  [http-nio-8081-exec-6] JwtTokenProvider[validateToken : 135] - MalformedJwtException 
+2023/11/02 09:26:14.389 INFO  [http-nio-8081-exec-6] JwtExceptionFilter[doFilterInternal : 29] - ex.getMessage()=null 
+2023/11/02 09:26:14.389 INFO  [http-nio-8081-exec-6] JwtExceptionFilter[doFilterInternal : 30] - ex.getErrorCode()=INVALID_TOKEN 
+2023/11/02 09:30:17.649 DEBUG [http-nio-8081-exec-1] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:30:17.652 DEBUG [http-nio-8081-exec-1] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:30:17.653 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mes/user/members request start 
+2023/11/02 09:30:17.667 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mes/user/members request done 
+2023/11/02 09:30:33.745 DEBUG [http-nio-8081-exec-3] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:30:33.748 DEBUG [http-nio-8081-exec-3] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:30:33.751 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mesc/group request start 
+2023/11/02 09:30:33.753 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mesc/group request done 
+2023/11/02 09:30:44.013 DEBUG [http-nio-8081-exec-4] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:30:44.015 DEBUG [http-nio-8081-exec-4] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:30:44.016 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mesc/group request start 
+2023/11/02 09:30:44.018 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mesc/group request done 
+2023/11/02 09:34:29.094 DEBUG [http-nio-8081-exec-8] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:34:29.096 DEBUG [http-nio-8081-exec-8] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:34:29.096 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mesc/group request start 
+2023/11/02 09:34:29.098 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mesc/group request done 
+2023/11/02 09:34:42.745 DEBUG [http-nio-8081-exec-9] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:34:42.746 DEBUG [http-nio-8081-exec-9] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:34:42.747 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /api/mes/user/members request start 
+2023/11/02 09:34:42.753 INFO  [http-nio-8081-exec-9] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /api/mes/user/members request done 
+2023/11/02 09:35:09.719 DEBUG [http-nio-8081-exec-6] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:35:09.722 DEBUG [http-nio-8081-exec-6] JwtTokenProvider[getAuthentication : 102] - claims={sub=kim1234@naver.com, Auth=DEVELOPER, userId=2, exp=1698886410} 
+2023/11/02 09:35:09.722 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/11/02 09:35:09.735 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/11/02 09:36:28.642 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 5752 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/02 09:36:28.643 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/02 09:36:28.644 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/02 09:36:31.664 DEBUG [restartedMain] JwtAuthenticationFilter[init : 240] - Filter 'jwtAuthenticationFilter' configured for use 
+2023/11/02 09:36:31.664 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/02 09:36:32.711 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.449 seconds (process running for 4.969) 

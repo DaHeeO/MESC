@@ -16,4 +16,5 @@ public class WorkerDataResponseDto {
         this.columnNameList = table.getColumns().stream().map(c -> c.getColumnLabel()).collect(Collectors.toList());
         this.rowList = table.getRows();
     }
+
 }
