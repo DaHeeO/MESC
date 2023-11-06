@@ -17,4 +17,6 @@ public interface UserService {
 	TokenInfo recreateToken(HttpServletRequest request);
 
 	Object selectAllUser();
+
+	User findById(Integer userId);
 }
