@@ -7,6 +7,8 @@ import ChatInput from '../../components/chat/ChatInput';
 import ChatbotStartBox from '../../components/chat/ChatbotStartBox';
 // import AutoCompleteBox from '../../components/chat/SuggestionsBox';
 import Report from '../messages/Report';
+import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
+import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -87,7 +89,12 @@ function Chat() {
             </View>
           ))}
         </ScrollView>
-        <Report />
+        <AboutBottomSheetModal
+          btnTitle={'bottomSheet예시'}
+          modalHeight={'70%'}
+          modalBreakPoint={'25%'}
+          component={<ConditionForm />}
+        />
       </S.ChatLayout>
       <ChatInput onSendMessage={addChatMessage} />
       {/* 모달 삽입 위치 */}
