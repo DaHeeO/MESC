@@ -8,6 +8,7 @@ import ChatbotStartBox from '../../components/chat/ChatbotStartBox';
 import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
+import LogLevelForm from '../../components/chat/log/LogLevelForm';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -93,6 +94,12 @@ function Chat() {
           modalHeight={'70%'}
           modalBreakPoint={'25%'}
           component={<ConditionForm />}
+        />
+        <AboutBottomSheetModal
+          btnTitle={'로그레벨'}
+          modalHeight={'60%'}
+          modalBreakPoint={'10%'}
+          component={<LogLevelForm />}
         />
       </S.ChatLayout>
       <ChatInput onSendMessage={addChatMessage} />

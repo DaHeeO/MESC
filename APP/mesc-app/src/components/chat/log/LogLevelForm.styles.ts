@@ -7,20 +7,53 @@ type CheckboxProps = {
 
 export const LogLevelFormContainer = styled.View`
   flex: 1;
-  border: 1px solid red;
+  // border: 1px solid red;
+  width: 100%;
 `;
+
+export const Title = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  // height: 30px;
+  border-bottom-width: 1px;
+  border-bottom-color: black;
+  padding-bottom: 10px;
+`;
+
+export const ButtonBox = styled.View`
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 20px;
+  // background-color: red;
+`;
+
+export const Button = styled.View`
+  background-color: #5d5fef;
+  height: 30px;
+  width: 60px;
+  border-radius: 14px; // 라운드 모양을 주기 위해 border-radius 추가
+  align-self: flex-end; // 부모 컨테이너의 오른쪽에 붙이기 위해 align-self 추가
+  justify-content: center; // 버튼 안의 내용물을 중앙 정렬하기 위해 justify-content 추가
+  align-items: center; // 버튼 안의 내용물을 중앙 정렬하기 위해 align-items 추가
+  margin-right: 10px;
+`;
+
 export const LogLevelItem = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  // margin: 15px;
-  padding-top: 18px;
-  padding-bottom: 18px;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
   border-bottom-width: 1px;
   border-color: ${colors.quaternary};
   // border: 1px solid green;
+  margin-left: 20px;
+  margin-right: 20px;
 `;
 
 export const LogLevelText = styled.Text`
