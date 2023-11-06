@@ -27,6 +27,9 @@ import com.ksol.mesc.domain.component.type.button.dto.ButtonRes;
 import com.ksol.mesc.domain.component.type.checkbox.Checkbox;
 import com.ksol.mesc.domain.component.type.checkbox.CheckboxRepository;
 import com.ksol.mesc.domain.component.type.checkbox.dto.CheckboxRes;
+import com.ksol.mesc.domain.component.type.directbutton.DirectButton;
+import com.ksol.mesc.domain.component.type.directbutton.DirectButtonRepository;
+import com.ksol.mesc.domain.component.type.directbutton.DirectButtonRes;
 import com.ksol.mesc.domain.component.type.dropdown.Dropdown;
 import com.ksol.mesc.domain.component.type.dropdown.DropdownRepository;
 import com.ksol.mesc.domain.component.type.dropdown.dto.DropdownRes;
@@ -51,10 +54,16 @@ public class BlockService {
 	private final LabelRespository labelRespository;
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
+	private final DirectButtonRepository directButtonRepository;
 
 	//블록 추가
 	public void addBlock(Block block) {
 		blockRepository.save(block);
+	}
+
+	//블록 수정
+	public void updateBlock() {
+		return;
 	}
 
 	//블록 조회
@@ -83,6 +92,8 @@ public class BlockService {
 			cardMap.put("content", card.getContent());
 
 			if (cardType == CardType.QU) {    //query text
+				Object obj = requestPostToMes("/worker/query/", blockReqDto);
+				log.info("type : {}", requestPostToMes("/worker/query/", blockReqDto).getClass());
 				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", blockReqDto));
 			} else if (cardType == CardType.TA) {    //table 조회
 				cardMap.put("table", requestPostToMes("/worker/data/", blockReqDto));
@@ -105,20 +116,34 @@ public class BlockService {
 		List<CheckboxRes> checkboxList = new ArrayList<>();
 		List<LabelRes> labelList = new ArrayList<>();
 		List<DropdownRes> dropdownList = new ArrayList<>();
+		List<DirectButtonRes> directButtonList = new ArrayList<>();
 
 		for (Component component : componentList) {
 			if (component.getComponentType() == ComponentType.BU) {    //Button
-				Button button = buttonRepository.findByComponent(component);
-				buttonList.add(ButtonRes.toResponse(button));
-			} else if (component.getComponentType() == ComponentType.La) {    //Label
-				Label label = labelRespository.findByComponent(component);
-				labelList.add(LabelRes.toResponse(label));
-			} else if (component.getComponentType() == ComponentType.CB) {
-				Checkbox checkbox = checkboxRepository.findByComponent(component);
-				checkboxList.add(CheckboxRes.toResponse(checkbox));
-			} else if (component.getComponentType() == ComponentType.DD) {
-				Dropdown dropdown = dropdownRepository.findByComponent(component);
-				dropdownList.add(DropdownRes.toResponse(dropdown));
+				Optional<Button> button = buttonRepository.findById(component.getLinkId());
+				if (button.isEmpty())
+					continue;
+				buttonList.add(ButtonRes.toResponse(button.get()));
+			} else if (component.getComponentType() == ComponentType.LA) {    //Label
+				Optional<Label> label = labelRespository.findById(component.getLinkId());
+				if (label.isEmpty())
+					continue;
+				labelList.add(LabelRes.toResponse(label.get()));
+			} else if (component.getComponentType() == ComponentType.CB) {    //Checkbox
+				Optional<Checkbox> checkbox = checkboxRepository.findById(component.getLinkId());
+				if (checkbox.isEmpty())
+					continue;
+				checkboxList.add(CheckboxRes.toResponse(checkbox.get()));
+			} else if (component.getComponentType() == ComponentType.DD) {    //Dropdown
+				Optional<Dropdown> dropdown = dropdownRepository.findById(component.getLinkId());
+				if (dropdown.isEmpty())
+					continue;
+				dropdownList.add(DropdownRes.toResponse(dropdown.get()));
+			} else if (component.getComponentType() == ComponentType.DB) {    //DirectButton
+				Optional<DirectButton> directButton = directButtonRepository.findById(component.getLinkId());
+				if (directButton.isEmpty())
+					continue;
+				directButtonList.add(DirectButtonRes.toResponse(directButton.get()));
 			}
 		}
 

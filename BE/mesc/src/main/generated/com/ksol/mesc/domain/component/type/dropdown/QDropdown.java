@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -18,13 +17,9 @@ public class QDropdown extends EntityPathBase<Dropdown> {
 
     private static final long serialVersionUID = 1209104523L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QDropdown dropdown = new QDropdown("dropdown");
 
     public final StringPath columnName = createString("columnName");
-
-    public final com.ksol.mesc.domain.component.entity.QComponent component;
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
@@ -33,24 +28,15 @@ public class QDropdown extends EntityPathBase<Dropdown> {
     public final EnumPath<DropdownType> type = createEnum("type", DropdownType.class);
 
     public QDropdown(String variable) {
-        this(Dropdown.class, forVariable(variable), INITS);
+        super(Dropdown.class, forVariable(variable));
     }
 
     public QDropdown(Path<? extends Dropdown> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QDropdown(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QDropdown(PathMetadata metadata, PathInits inits) {
-        this(Dropdown.class, metadata, inits);
-    }
-
-    public QDropdown(Class<? extends Dropdown> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.component = inits.isInitialized("component") ? new com.ksol.mesc.domain.component.entity.QComponent(forProperty("component"), inits.get("component")) : null;
+        super(Dropdown.class, metadata);
     }
 
 }

@@ -3,6 +3,7 @@ package com.ksol.mesc.domain.block.controller;
 import java.util.LinkedHashMap;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,19 +42,15 @@ public class BlockController {
 	// 	return ResponseEntity.ok(CommonResponseDto.success(null));
 	// }
 	//
-	// @Operation(summary = "블록 수정 API", description = "수정된 블록과 엮여 있는 정보를 DB에 저장한다.")
-	// @PatchMapping
-	// public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
-	// @RequestBody BlockReqDto blockReqDto, Authentication authentication) {
-	// 	Block newBlock = Block.builder()
-	// 		.name(blockReqDto.getName())
-	// 		.userId(userId)
-	// 		.build();
-	//
-	// 	blockService.addBlock(newBlock);
-	//
-	// 	return ResponseEntity.ok(CommonResponseDto.success(null));
-	// }
+	@Operation(summary = "블록 수정 API", description = "수정된 블록과 엮여 있는 정보를 DB에 저장한다.")
+	@PatchMapping("/admin/{blockId}")
+	public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
+	@PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
+	@RequestBody @Valid BlockReqDto blockReqDto) {
+		blockService.updateBlock();
+
+		return ResponseEntity.ok(CommonResponseDto.success(null));
+	}
 
 	@Operation(summary = "블록 조회 API", description = "요청한 블록과 엮여 있는 정보를 조회한다.")
 	@PostMapping("/{blockId}")
