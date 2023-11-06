@@ -14,7 +14,7 @@ export const Container = styled.View`
 // 왼쪽 오르쪽 양옆 10만큼 띄어놓아서
 // 여기서 챗봇 다 보여주면 됨
 export const ChatLayout = styled.View`
-  background-color: aqua;
+  // background-color: aqua;
   display: flex;
   flex: 1;
   margin-left: 12px;

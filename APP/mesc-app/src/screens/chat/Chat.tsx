@@ -89,19 +89,19 @@ function Chat() {
             </View>
           ))}
         </ScrollView>
-        <AboutBottomSheetModal
-          btnTitle={'bottomSheet예시'}
-          modalHeight={'70%'}
-          modalBreakPoint={'25%'}
-          component={<ConditionForm />}
-        />
-        <AboutBottomSheetModal
-          btnTitle={'로그레벨'}
-          modalHeight={'60%'}
-          modalBreakPoint={'10%'}
-          component={<LogLevelForm />}
-        />
       </S.ChatLayout>
+      <AboutBottomSheetModal
+        btnTitle={'bottomSheet예시'}
+        modalHeight={'70%'}
+        modalBreakPoint={'25%'}
+        component={<ConditionForm />}
+      />
+      <AboutBottomSheetModal
+        btnTitle={'로그레벨'}
+        modalHeight={'60%'}
+        modalBreakPoint={'10%'}
+        component={<LogLevelForm />}
+      />
       <ChatInput onSendMessage={addChatMessage} />
       {/* 모달 삽입 위치 */}
     </S.Container>

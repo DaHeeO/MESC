@@ -64,6 +64,7 @@ export const LogLevelText = styled.Text`
 export const CheckboxContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
+  // border-color: red;
 `;
 
 export const CheckboxLabel = styled.Text`
@@ -78,14 +79,6 @@ export const Checkbox = styled.View<CheckboxProps>`
   border-radius: 12px;
   border-width: 2px;
   border-color: ${colors.iris}; // 직접 colors 객체에서 icy 색상 사용
-  background-color: ${props => (props.checked ? colors.iris : colors.iris)};
   align-items: center;
   justify-content: center;
-`;
-
-export const CheckboxInner = styled.View`
-  height: 24px;
-  width: 24px;
-  border-radius: 12px;
-  background-color: ${colors.iris};
 `;
