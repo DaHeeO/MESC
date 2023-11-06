@@ -32,11 +32,17 @@ export const TextBox = styled.Text`
   color: ${(props: TextBoxProps) => props.color || 'black'};
 `;
 
+interface SelectBoxProps {
+  backgroundColor?: string;
+  height?: string;
+}
+
 // 버튼 Style
-export const ButtonContainer = styled.TouchableOpacity`
-  background-color: #5d5fef;
+export const ButtonContainer = styled.TouchableOpacity<SelectBoxProps>`
+  background-color: ${(props: SelectBoxProps) =>
+    props.backgroundColor || '#7879f1'};
   width: 50%;
-  height: 80%;
+  height: ${(props: SelectBoxProps) => props.height || '80%'};
   justify-content: center;
   align-items: center;
   border-radius: 12px;

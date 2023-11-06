@@ -44,7 +44,7 @@ export const AddPersonBtn = styled.TouchableOpacity`
 
 export const ReportText = styled.Text`
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   padding: 10px;
   height: 100%;
   width: 100%;
@@ -68,7 +68,7 @@ export const CustomTextArea = styled.TextInput`
   border-width: 1px;
   border-color: #000;
   width: 390px;
-  height: 65%;
+  height: 85%;
   flex-shrink: 1;
   border-radius: 12px;
   background-color: #fff;

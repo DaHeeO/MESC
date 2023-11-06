@@ -40,7 +40,7 @@ export const ConditionForm = () => {
           height="100%"
           // style={{backgroundColor: 'blue'}}
         >
-          <OkayBtn />
+          <OkayBtn content={'적용'} />
         </FormContainer>
       </FormContainer>
 

@@ -12,6 +12,7 @@ import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
+import {ReportForm} from '../../components/message/ReportForm';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -92,7 +93,7 @@ function Chat() {
         btnTitle={'bottomSheet예시'}
         modalHeight={'70%'}
         modalBreakPoint={'25%'}
-        component={<ConditionForm />}
+        component={<ReportForm />}
         onModalShow={showModal}
         onModalHide={hideModal}
       />
