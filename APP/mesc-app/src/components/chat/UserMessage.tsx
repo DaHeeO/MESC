@@ -29,7 +29,13 @@ function UserMessage({message}: UserMessageProps) {
   return (
     <S.UserMessage style={{width: dynamicWidth + 30}}>
       <S.TextBox>
-        <Text style={{fontSize: 14, textAlign: 'left', color: 'white'}}>
+        <Text
+          style={{
+            fontSize: 16,
+            textAlign: 'left',
+            color: 'white',
+            letterSpacing: 1,
+          }}>
           {message}
         </Text>
       </S.TextBox>

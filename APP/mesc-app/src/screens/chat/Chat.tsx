@@ -10,6 +10,7 @@ import UserMessage from '../../components/chat/UserMessage';
 import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
+import FingerPrint from '../../components/figerprint/FingerPrint';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -21,7 +22,10 @@ function Chat() {
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
   const addChatMessage = (message: string) => {
-    setChatMessages(prevMessages => [...prevMessages, {text: message}]);
+    setChatMessages(prevMessages => [
+      ...prevMessages,
+      {text: message.toUpperCase()},
+    ]);
   };
 
   const scrollToBottom = () => {
@@ -70,6 +74,9 @@ function Chat() {
                 <ChatbotMessage
                   context={`아래의 [입력창]을 통해\n원하는 [쿼리문]을 작성해주세요.`}
                 />
+              )}
+              {message.text.startsWith('SELECT') && (
+                <ChatbotMessage context={`아래는 selet문입니다`} />
               )}
             </View>
           ))}

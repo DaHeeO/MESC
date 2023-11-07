@@ -15,8 +15,9 @@ export const UserMessage = styled.View`
 
 export const TextBox = styled.View`
   border-radius: 10px;
-  width: 90%;
+  width: 100%;
   height: auto;
   align-items: center;
   justify-content: center;
+  //background-color: ${colors.icy};
 `;
