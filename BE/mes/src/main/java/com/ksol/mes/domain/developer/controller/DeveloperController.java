@@ -48,11 +48,18 @@ public class DeveloperController {
         checkValidates(bindingResult);
         DeveloperQueryResponseDto developerUpdateResponseDto = new DeveloperQueryResponseDto();
         try {
-            Integer modifiedCount = developerService.executeQuery(developerQueryRequestDto.getQuery());
-            developerUpdateResponseDto.setModifiedCount(modifiedCount);
+            String query = developerQueryRequestDto.getQuery();
+            Integer modifiedCount = developerService.executeQuery(query);
+            String method = "추가";
+            if(query.startsWith("update")) {
+                method = "수정";
+            } else if(query.startsWith("delete")) {
+                method = "삭제";
+            }
+            developerUpdateResponseDto.setMessage(modifiedCount + "개의 행이 " + method + "되었습니다.");
         } catch (SQLException e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())), HttpStatus.ACCEPTED);
+            developerUpdateResponseDto.setMessage(e.getMessage());
         }
         return new ResponseEntity<>(CommonResponseDto.success(developerUpdateResponseDto), HttpStatus.OK);
     }

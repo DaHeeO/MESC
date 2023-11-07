@@ -12,6 +12,9 @@ public class WhereQueryValidator implements ConstraintValidator<WhereQuery, Stri
         if (value == null) {
             return false;
         }
+        if (value.equals("")) {
+            return true;
+        }
         value = value.toLowerCase();
         return value.startsWith("where ");
     }
