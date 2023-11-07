@@ -29,6 +29,8 @@ public class QButton extends EntityPathBase<Button> {
 
     public final StringPath name = createString("name");
 
+    public final StringPath response = createString("response");
+
     public final NumberPath<Integer> sequence = createNumber("sequence", Integer.class);
 
     public final StringPath type = createString("type");

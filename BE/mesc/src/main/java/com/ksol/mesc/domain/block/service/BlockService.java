@@ -37,6 +37,8 @@ import com.ksol.mesc.domain.component.type.dropdown.dto.DropdownRes;
 import com.ksol.mesc.domain.component.type.label.Label;
 import com.ksol.mesc.domain.component.type.label.LabelRespository;
 import com.ksol.mesc.domain.component.type.label.dto.LabelRes;
+import com.ksol.mesc.domain.log.service.LogSerivce;
+import com.ksol.mesc.domain.user.service.UserServiceImpl;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
@@ -49,13 +51,17 @@ public class BlockService {
 	private final BlockRepository blockRepository;
 	private final CardRepository cardRepository;
 	private final ComponentRepository componentRepository;
-	private final JwtAuthenticationFilter jwtAuthenticationFilter;
-	private final WebClient webClient;
 	private final ButtonRepository buttonRepository;
 	private final LabelRespository labelRespository;
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
 	private final DirectButtonRepository directButtonRepository;
+
+	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final WebClient webClient;
+
+	private final UserServiceImpl userService;
+	private final LogSerivce logSerivce;
 
 	//블록 추가
 	public void addBlock(Block block) {
@@ -89,7 +95,6 @@ public class BlockService {
 		if (blockOpt.isEmpty())
 			return null;
 
-		// objMap.put("block", BlockInfoDto.toResponse(blockOpt.get()));
 		objMap.put("blockId", blockOpt.get().getId());
 
 		//블록과 연결된 카드 조회
@@ -99,29 +104,39 @@ public class BlockService {
 
 		//카드 조회
 		for (Card card : cardList) {
-			LinkedHashMap<String, Object> cardMap = new LinkedHashMap<>();
-			CardType cardType = card.getCardType();
-
-			cardMap.put("cardId", card.getId());
-			cardMap.put("cardType", card.getCardType());
-			cardMap.put("content", card.getContent());
-
-			if (cardType == CardType.QU) {    //query text
-				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", blockReqDto));
-			} else if (cardType == CardType.TA) {    //table 조회
-				cardMap.put("table", requestPostToMes("/worker/data/", blockReqDto));
-			} else if (cardType == CardType.STA) {    //single table 조회
-				cardMap.put("singleTable", requestPostToMes("/worker/data/", blockReqDto));
-			}
-
-			//component 조회
-			List<Component> componentList = componentRepository.findByCard(card);
-			cardMap.putAll(selectComponentByType(componentList));
-			cardMapList.add(cardMap);
+			cardMapList.add(selectCardByType(card, blockReqDto));
 		}
 
 		objMap.put("cardList", cardMapList);
 		return objMap;
+	}
+
+	//card type에 따른 조회
+	public LinkedHashMap<String, Object> selectCardByType(Card card, BlockReqDto blockReqDto) {
+		//카드 정보 저장
+		LinkedHashMap<String, Object> cardMap = new LinkedHashMap<>();
+		CardType cardType = card.getCardType();
+
+		cardMap.put("cardId", card.getId());
+		cardMap.put("cardType", card.getCardType());
+		cardMap.put("content", card.getContent());
+
+		if (cardType == CardType.QU) {    //query text
+			cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", blockReqDto));
+		} else if (cardType == CardType.TA) {    //table 조회
+			cardMap.put("table", requestPostToMes("/worker/data/", blockReqDto));
+		} else if (cardType == CardType.STA) {    //single table 조회
+			cardMap.put("singleTable", requestPostToMes("/worker/data/", blockReqDto));
+		} else if (cardType == CardType.RE) {    //보고
+			cardMap.putAll((LinkedHashMap<String, Object>)userService.selectAllUser());
+		} else if (cardType == CardType.LO) {    //로그
+
+		}
+
+		//component 조회
+		List<Component> componentList = componentRepository.findByCard(card);
+		cardMap.putAll(selectComponentByType(componentList));
+		return cardMap;
 	}
 
 	//component type에 따른 조회

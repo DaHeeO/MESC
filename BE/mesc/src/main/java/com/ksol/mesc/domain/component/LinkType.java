@@ -2,9 +2,7 @@ package com.ksol.mesc.domain.component;
 
 public enum LinkType {
 	//BLOCK
-	BL,
+	B,
 	//CARD
-	CA,
-	//DROPDOWN
-	DR
+	C
 }

@@ -25,10 +25,11 @@ public class Button {
 	private String name;
 	private Integer sequence;
 	private String type;
+	private String icon;
 	@Column(name = "LINK_TYPE")
 	@Enumerated(EnumType.STRING)
 	private LinkType linkType;
 	private String link;
-	private String icon;
+	private String response;
 
 }

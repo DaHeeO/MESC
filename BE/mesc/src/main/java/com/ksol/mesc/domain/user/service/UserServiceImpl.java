@@ -1,6 +1,5 @@
 package com.ksol.mesc.domain.user.service;
 
-import com.ksol.mesc.global.error.exception.MesServerException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,7 @@ import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 import com.ksol.mesc.global.config.jwt.JwtTokenProvider;
 import com.ksol.mesc.global.config.jwt.TokenInfo;
 import com.ksol.mesc.global.config.jwt.exception.InvalidTokenException;
+import com.ksol.mesc.global.error.exception.MesServerException;
 
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 			.bodyValue(loginReq)
 			.retrieve()
 			.toEntity(TokenInfo.class)
-				.onErrorMap(e -> new MesServerException(e.getMessage()))
+			.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()
 			.getBody();
 	}
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 			.uri("/user/findByEmail?email=" + email)
 			.retrieve()
 			.toEntity(User.class)
-				.onErrorMap(e -> new MesServerException(e.getMessage()))
+			.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()
 			.getBody();
 	}
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 			.header("Authorization", "Bearer " + refreshToken)
 			.retrieve()
 			.toEntity(TokenInfo.class)
-				.onErrorMap(e -> new MesServerException(e.getMessage()))
+			.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()
 			.getBody();
 
@@ -83,10 +83,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	// public ResponseEntity<GroupMemberResponse> selectAllUser() {
 	public Object selectAllUser() {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
-		log.info("access token : {}", accessToken);
 
 		//2. 멤버 정보 mes 서버에 API 요청
 		return webClient.get()
@@ -104,11 +102,11 @@ public class UserServiceImpl implements UserService {
 	public User findById(Integer userId) {
 		System.out.println("userId = " + userId);
 		return webClient.get()
-				.uri("/user/findById/" + userId)
-				.retrieve()
-				.toEntity(User.class)
-				.onErrorMap(e -> new MesServerException(e.getMessage()))
-				.block()
-				.getBody();
+			.uri("/user/findById/" + userId)
+			.retrieve()
+			.toEntity(User.class)
+			.onErrorMap(e -> new MesServerException(e.getMessage()))
+			.block()
+			.getBody();
 	}
 }
