@@ -134,12 +134,11 @@ public class BlockService {
 			cardMap.putAll((LinkedHashMap<String, Object>)userService.selectAllUser());
 		} else if (cardType == CardType.LO) {    //로그
 
-		} else if (cardType == CardType.DTX) {    // 동적 테스트
+		} else if (cardType == CardType.DTX) {    // 동적 텍스트
 			String content = card.getContent();
 			cardMap.put("content", getDynamicString(content, card.getContentKey()));
-			cardMap.put("cardType", "TX");
-		} else if (cardType == CardType.CH) {    // 동적 테스트
-			String content = card.getContent();
+			cardMap.put("cardType", CardType.TX);
+		} else if (cardType.toString().startsWith(CardType.CH.toString())) {    // 일반 챗봇
 			cardMap.put("title", card.getName());
 		}
 

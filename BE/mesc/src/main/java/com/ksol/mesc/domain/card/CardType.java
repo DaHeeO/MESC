@@ -28,5 +28,7 @@ public enum CardType {
 	// Dynamic Text
 	DTX,
 	// Chat
-	CH
+	CH,
+	CH1,
+	CH2
 }
