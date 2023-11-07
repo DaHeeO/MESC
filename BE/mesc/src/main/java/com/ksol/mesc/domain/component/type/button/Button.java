@@ -15,6 +15,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "BUTTON")
+// @DiscriminatorValue("BU")
 @Getter
 @ToString
 public class Button {

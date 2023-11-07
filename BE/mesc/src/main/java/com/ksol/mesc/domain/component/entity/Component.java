@@ -18,6 +18,8 @@ import lombok.ToString;
 @Entity
 @Getter
 @Table(name = "COMPONENT")
+// @Inheritance(strategy = InheritanceType.JOINED)
+// @DiscriminatorColumn(name = "DTYPE")
 @ToString
 public class Component {
 	@Id

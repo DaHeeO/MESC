@@ -22,6 +22,7 @@ import com.ksol.mesc.domain.card.dto.request.CardReq;
 import com.ksol.mesc.domain.card.repository.CardRepository;
 import com.ksol.mesc.domain.common.CommonResponseDto;
 import com.ksol.mesc.domain.common.JsonResponse;
+import com.ksol.mesc.domain.component.dto.request.ComponentReq;
 import com.ksol.mesc.domain.component.entity.Component;
 import com.ksol.mesc.domain.component.entity.ComponentType;
 import com.ksol.mesc.domain.component.repository.ComponentRepository;
@@ -31,15 +32,15 @@ import com.ksol.mesc.domain.component.type.button.dto.ButtonRes;
 import com.ksol.mesc.domain.component.type.checkbox.Checkbox;
 import com.ksol.mesc.domain.component.type.checkbox.CheckboxRepository;
 import com.ksol.mesc.domain.component.type.checkbox.dto.CheckboxRes;
-import com.ksol.mesc.domain.component.type.directbutton.DirectButton;
-import com.ksol.mesc.domain.component.type.directbutton.DirectButtonRepository;
-import com.ksol.mesc.domain.component.type.directbutton.DirectButtonRes;
 import com.ksol.mesc.domain.component.type.dropdown.Dropdown;
 import com.ksol.mesc.domain.component.type.dropdown.DropdownRepository;
 import com.ksol.mesc.domain.component.type.dropdown.dto.DropdownRes;
 import com.ksol.mesc.domain.component.type.label.Label;
 import com.ksol.mesc.domain.component.type.label.LabelRespository;
 import com.ksol.mesc.domain.component.type.label.dto.LabelRes;
+import com.ksol.mesc.domain.component.values.CValues;
+import com.ksol.mesc.domain.component.values.ValuesRepository;
+import com.ksol.mesc.domain.component.values.dto.ValuesRes;
 import com.ksol.mesc.domain.log.service.LogSerivce;
 import com.ksol.mesc.domain.user.service.UserServiceImpl;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
@@ -58,7 +59,7 @@ public class BlockService {
 	private final LabelRespository labelRespository;
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
-	private final DirectButtonRepository directButtonRepository;
+	private final ValuesRepository valuesRepository;
 
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final WebClient webClient;
@@ -75,16 +76,21 @@ public class BlockService {
 	public void updateBlock(List<CardReq> cardReqList) {
 		for (CardReq cardReq : cardReqList) {
 			//카드가 존재하지 않으면 추가, 존재하면 카드 수정
-			Optional<Card> cardOpt = cardRepository.findById(cardReq.getId());
 			Card card = Card.toEntity(cardReq);
 			Card newCard = cardRepository.save(card);
 			log.info("newCard : {}", newCard);
 
-			//컴포넌트 추가 혹은 수정
-			// List<Component> componentList = cardReq.getComponentTypeReq().getComponentList();
-			// List<Object> objectList = cardReq.getComponentTypeReq().getObjectList();
-			//
-			// Optional<Component> component = componentRepository.fi
+			//컴포넌트 x -> 추가
+			//컴포넌트 O -> 수정
+			List<ComponentReq> componentList = cardReq.getComponentTypeReq().getComponentList();
+			for (ComponentReq componentReq : componentList) {
+				if (componentReq.getId() == null) {
+
+				}
+			}
+
+			List<Object> objectList = cardReq.getComponentTypeReq().getObjectList();
+
 		}
 
 		return;
@@ -125,20 +131,25 @@ public class BlockService {
 		cardMap.put("content", card.getContent());
 
 		if (cardType == CardType.QT) {    //query text
-			cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", cardReqDto));
+			if (cardReqDto.getActionId() != null)
+				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", cardReqDto));
+			else
+				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/data", cardReqDto));
 		} else if (cardType == CardType.TA) {    //table 조회
 			cardMap.put("table", requestPostToMes("/worker/data/", cardReqDto));
 		} else if (cardType == CardType.STA) {    //single table 조회
+			cardReqDto.setConditions(null);
 			cardMap.put("singleTable", requestPostToMes("/worker/data/", cardReqDto));
 		} else if (cardType == CardType.RE) {    //보고
 			cardMap.putAll((LinkedHashMap<String, Object>)userService.selectAllUser());
 		} else if (cardType == CardType.QU) {    //query 실행
-			
+
 		} else if (cardType == CardType.LO) {    //로그
 		}
 
 		//component 조회
 		List<Component> componentList = componentRepository.findByCard(card);
+		log.info("cardType : {}, componentList : {}", cardType, componentList);
 		cardMap.putAll(selectComponentByType(componentList));
 		return cardMap;
 	}
@@ -150,15 +161,16 @@ public class BlockService {
 		List<CheckboxRes> checkboxList = new ArrayList<>();
 		List<LabelRes> labelList = new ArrayList<>();
 		List<DropdownRes> dropdownList = new ArrayList<>();
-		List<DirectButtonRes> directButtonList = new ArrayList<>();
 
 		for (Component component : componentList) {
 			if (component.getComponentType() == ComponentType.BU) {    //Button
+				log.info("Button");
 				Optional<Button> button = buttonRepository.findById(component.getLinkId());
 				if (button.isEmpty())
 					continue;
 				buttonList.add(ButtonRes.toResponse(button.get()));
 			} else if (component.getComponentType() == ComponentType.LA) {    //Label
+				log.info("Label");
 				Optional<Label> label = labelRespository.findById(component.getLinkId());
 				if (label.isEmpty())
 					continue;
@@ -169,18 +181,20 @@ public class BlockService {
 					continue;
 				checkboxList.add(CheckboxRes.toResponse(checkbox.get()));
 			} else if (component.getComponentType() == ComponentType.DD) {    //Dropdown
-				Optional<Dropdown> dropdown = dropdownRepository.findById(component.getLinkId());
-				if (dropdown.isEmpty())
+				Optional<Dropdown> dropdownOpt = dropdownRepository.findById(component.getLinkId());
+				if (dropdownOpt.isEmpty())
 					continue;
-				dropdownList.add(DropdownRes.toResponse(dropdown.get()));
-			} else if (component.getComponentType() == ComponentType.DB) {    //DirectButton
-				Optional<DirectButton> directButton = directButtonRepository.findById(component.getLinkId());
-				if (directButton.isEmpty())
-					continue;
-				directButtonList.add(DirectButtonRes.toResponse(directButton.get()));
+				Dropdown dropdown = dropdownOpt.get();
+				List<CValues> valuesList = valuesRepository.findByDropdown(dropdown);
+				List<ValuesRes> valuesResList = new ArrayList<>();
+				for (CValues cValues : valuesList) {
+					valuesResList.add(ValuesRes.toResponse(cValues));
+				}
+				dropdownList.add(DropdownRes.toResponse(dropdown, valuesResList));
 			}
 		}
 
+		log.info("end");
 		if (!buttonList.isEmpty())
 			map.put("button", buttonList);
 		if (!checkboxList.isEmpty())
@@ -189,8 +203,6 @@ public class BlockService {
 			map.put("label", labelList);
 		if (!dropdownList.isEmpty())
 			map.put("dropdown", dropdownList);
-		if (!directButtonList.isEmpty())
-			map.put("directButton", directButtonList);
 
 		return map;
 	}
@@ -208,7 +220,6 @@ public class BlockService {
 			.body(BodyInserters.fromValue(cardReqDto))
 			.retrieve()
 			.toEntity(JsonResponse.class)
-			// .toEntity(WorkerDataResponseDto.class)
 			.block()
 			.getBody()
 			.getData();

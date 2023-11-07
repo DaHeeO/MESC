@@ -7,5 +7,5 @@ public class ComponentReq {
 	private Integer id;
 	private String type;
 	private Integer sequence;
-	private Integer typeId;
+	// private Integer typeId;
 }
