@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.ksol.mesc.domain.api.service.ApiService;
 import com.ksol.mesc.domain.dcb.DCB;
 import com.ksol.mesc.domain.dcb.repository.DCBRepository;
 import com.ksol.mesc.global.error.ErrorCode;
@@ -77,6 +78,7 @@ public class BlockService {
 	private final UserServiceImpl userService;
 	private final GroupService groupService;
 	private final LogSerivce logSerivce;
+	private final ApiService apiService;
 
 	//블록 추가
 	public void addBlock(Block block) {
@@ -218,13 +220,16 @@ public class BlockService {
 		} else if (cardType == CardType.QU) {    //query 실행
 
 		} else if (cardType == CardType.LO) {    //로그
-
+			
 		} else if (cardType == CardType.DTX) {    // 동적 텍스트
 			String content = card.getContent();
 			cardMap.put("content", getDynamicString(content, card.getContentKey()));
 			cardMap.put("cardType", CardType.TX);
 		} else if (cardType.toString().startsWith(CardType.CH.toString())) {    // 일반 챗봇
 			cardMap.put("title", card.getName());
+		} else if (cardType == CardType.QTX) {    // insert,update,delete 결과
+			cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
+			cardMap.put("cardType", CardType.TX);
 		}
 
 		//component 조회

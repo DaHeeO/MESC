@@ -34,5 +34,7 @@ public enum CardType {
 	CH1,
 	CH2,
 	//Label
-	LA
+	LA,
+	// update/insert/delete result
+	QTX
 }
