@@ -1,7 +1,5 @@
 package com.ksol.mesc.domain.component.type.directbutton;
 
-import com.ksol.mesc.domain.component.LinkType;
-
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,16 +8,16 @@ import lombok.Data;
 public class DirectButtonRes {
 	private Integer id;
 	private String name;
-	private LinkType linkType;
-	private Integer linkId;
+	private String linkType;
+	private String link;
 	private Integer sequence;
 
 	public static DirectButtonRes toResponse(DirectButton directButton) {
 		DirectButtonRes directButtonRes = DirectButtonRes.builder()
 			.id(directButton.getId())
 			.name(directButton.getName())
-			.linkType(directButton.getLinkType())
-			.linkId(directButton.getLinkId())
+			.linkType(directButton.getLinkType().toString())
+			.link(directButton.getLink())
 			.sequence(directButton.getSequence())
 			.build();
 		return directButtonRes;

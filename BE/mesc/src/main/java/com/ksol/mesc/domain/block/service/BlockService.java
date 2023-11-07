@@ -16,6 +16,7 @@ import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.block.repository.BlockRepository;
 import com.ksol.mesc.domain.card.Card;
 import com.ksol.mesc.domain.card.CardType;
+import com.ksol.mesc.domain.card.dto.request.CardReq;
 import com.ksol.mesc.domain.card.repository.CardRepository;
 import com.ksol.mesc.domain.common.JsonResponse;
 import com.ksol.mesc.domain.component.entity.Component;
@@ -62,8 +63,21 @@ public class BlockService {
 	}
 
 	//블록 수정
-	public void updateBlock() {
-		//블록
+	public void updateBlock(List<CardReq> cardReqList) {
+		for (CardReq cardReq : cardReqList) {
+			//카드가 존재하지 않으면 추가, 존재하면 카드 수정
+			Optional<Card> cardOpt = cardRepository.findById(cardReq.getId());
+			Card card = Card.toEntity(cardReq);
+			Card newCard = cardRepository.save(card);
+			log.info("newCard : {}", newCard);
+
+			//컴포넌트 추가 혹은 수정
+			// List<Component> componentList = cardReq.getComponentTypeReq().getComponentList();
+			// List<Object> objectList = cardReq.getComponentTypeReq().getObjectList();
+			//
+			// Optional<Component> component = componentRepository.fi
+		}
+
 		return;
 	}
 
@@ -156,6 +170,8 @@ public class BlockService {
 			map.put("label", labelList);
 		if (!dropdownList.isEmpty())
 			map.put("dropdown", dropdownList);
+		if (!directButtonList.isEmpty())
+			map.put("directButton", directButtonList);
 
 		return map;
 	}

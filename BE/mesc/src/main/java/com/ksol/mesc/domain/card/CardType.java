@@ -21,6 +21,8 @@ public enum CardType {
 	MC,
 	//Log
 	LO,
+	//Report
+	RE,
 	//Mail
 	MA
 }

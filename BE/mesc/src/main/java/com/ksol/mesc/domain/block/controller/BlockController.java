@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
+import com.ksol.mesc.domain.block.dto.request.BlockUpdateReqDto;
 import com.ksol.mesc.domain.block.service.BlockService;
 import com.ksol.mesc.domain.common.CommonResponseDto;
 
@@ -46,8 +47,8 @@ public class BlockController {
 	@PatchMapping("/admin/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
 	@PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
-	@RequestBody @Valid BlockReqDto blockReqDto) {
-		blockService.updateBlock();
+	@RequestBody @Valid BlockUpdateReqDto blockUpdateReqDto) {
+		blockService.updateBlock(blockUpdateReqDto.getCardReqList());
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}

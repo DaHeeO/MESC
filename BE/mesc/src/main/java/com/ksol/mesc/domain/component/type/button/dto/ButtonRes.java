@@ -11,8 +11,8 @@ public class ButtonRes {
 	private Integer id;
 	private String name;
 	private Integer sequence;
-	private Character type;
-	private Character linkType;
+	private String type;
+	private String linkType;
 	private String link;
 	private String icon;
 
@@ -22,7 +22,7 @@ public class ButtonRes {
 			.name(button.getName())
 			.sequence(button.getSequence())
 			.type(button.getType())
-			.linkType(button.getLinkType())
+			.linkType(button.getLinkType().toString())
 			.link(button.getLink())
 			.icon(button.getIcon())
 			.build();

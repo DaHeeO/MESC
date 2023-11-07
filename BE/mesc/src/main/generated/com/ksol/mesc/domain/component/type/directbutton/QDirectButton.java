@@ -21,11 +21,15 @@ public class QDirectButton extends EntityPathBase<DirectButton> {
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
-    public final NumberPath<Integer> linkId = createNumber("linkId", Integer.class);
+    public final StringPath link = createString("link");
 
     public final EnumPath<com.ksol.mesc.domain.component.LinkType> linkType = createEnum("linkType", com.ksol.mesc.domain.component.LinkType.class);
 
     public final StringPath name = createString("name");
+
+    public final StringPath response = createString("response");
+
+    public final StringPath responseType = createString("responseType");
 
     public final NumberPath<Integer> sequence = createNumber("sequence", Integer.class);
 
