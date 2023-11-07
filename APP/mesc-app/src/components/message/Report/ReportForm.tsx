@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   AddPersonBtn,
   CustomTextArea,
@@ -9,8 +9,27 @@ import {
 } from './ReportForm.styles';
 import {Text} from 'react-native';
 import {OkayBtn} from '../Btn/SaveBtn';
+//interface
+interface BottomSheetProps {
+  //   모달 전체 높이
+  modalHeight: string;
+  // 모달 닫힐 때 한번
+  modalBreakPoint: string;
+  component: React.ReactNode;
+  onModalShow?: () => void;
+  onModalHide?: () => void;
+  // 모달 아이디
+}
 
-export const ReportForm = () => {
+export const ReportForm = (props: BottomSheetProps) => {
+  const [index, setIndex] = useState(1); // 모달이 닫힐 때 한번 호출
+
+  const handleheetChanges = () => {
+    console.log(index);
+    setIndex(-1);
+    if (index < 0) props.onModalHide?.();
+  };
+
   const UserName = '송소연';
   const emailExample = `
   공장 이슈 발생 안내 \n
@@ -70,7 +89,12 @@ export const ReportForm = () => {
           <OkayBtn content={'전송'} height="50%" />
         </ReportContainer>
         <ReportContainer width="55%" height="100%" justifyContent="flex-start">
-          <OkayBtn content={'취소'} height="50%" backgroundColor="#ebecef" />
+          <OkayBtn
+            content={'취소'}
+            height="50%"
+            backgroundColor="#ebecef"
+            onPress={handleheetChanges}
+          />
         </ReportContainer>
       </ReportContainer>
     </ReportFormContainer>
