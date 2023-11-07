@@ -8,7 +8,7 @@ import {
   ReportTextInput,
 } from './ReportForm.styles';
 import {Text} from 'react-native';
-import {OkayBtn} from './Condition/ConditionBtn';
+import {OkayBtn} from '../Btn/SaveBtn';
 
 export const ReportForm = () => {
   const UserName = '송소연';

@@ -14,6 +14,7 @@ interface BottomSheetProps {
   component: React.ReactNode;
   onModalShow?: () => void;
   onModalHide?: () => void;
+  // 모달 아이디
 }
 
 export const AboutBottomSheetModal = (props: BottomSheetProps) => {

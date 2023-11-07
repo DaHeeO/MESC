@@ -10,7 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@gorhom/bottom-sheet": "^4.5.1",
+    "@mui/icons-material": "^5.14.16",
+    "@mui/material": "^5.14.17",
     "@react-native-async-storage/async-storage": "^1.19.4",
     "@react-native-community/checkbox": "^0.5.16",
     "@react-native-community/datetimepicker": "^7.6.1",

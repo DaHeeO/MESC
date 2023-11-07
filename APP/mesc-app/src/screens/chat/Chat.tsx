@@ -8,11 +8,11 @@ import ChatbotStartBox from '../../components/chat/ChatbotStartBoxOne';
 import ChatbotStartBoxTwo from '../../components/chat/ChatbotStartBoxTwo';
 import ChatbotMessage from '../../components/chat/ChatbotMessage';
 import UserMessage from '../../components/chat/UserMessage';
-import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
-import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
-import {ReportForm} from '../../components/message/ReportForm';
+import {ModalIdSwitch} from '../../components/common/ModalId';
+import {AboutChatBtn} from '../../components/message/Btn/ChatChooseBtn';
+import {IconSwitch} from '../../assets/icons/ChatIcon';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -41,6 +41,11 @@ function Chat() {
   const scrollToBottom = () => {
     chatLayoutRef.current?.scrollToEnd({animated: true});
   };
+
+  // 모달을 결정하는 함수
+  const ModalForm = ModalIdSwitch({modalId: 'RF'});
+  // 아이콘을 결정하는 함수
+  const IconForm = IconSwitch({iconId: 1});
 
   useEffect(() => {
     // Whenever chatMessages change, scroll to the bottom
@@ -89,11 +94,12 @@ function Chat() {
           ))}
         </ScrollView>
       </S.ChatLayout>
+      <AboutChatBtn btnTitle={'아이콘 보기'} icon={IconForm} />
       <AboutBottomSheetModal
         btnTitle={'bottomSheet예시'}
         modalHeight={'70%'}
         modalBreakPoint={'25%'}
-        component={<ReportForm />}
+        component={ModalForm}
         onModalShow={showModal}
         onModalHide={hideModal}
       />
