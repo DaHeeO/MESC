@@ -6,8 +6,9 @@ import {
   ReportFormContainer,
   ReportText,
   ReportTextInput,
-} from './ReportFormStyle';
+} from './ReportForm.styles';
 import {Text} from 'react-native';
+import {OkayBtn} from './Condition/ConditionBtn';
 
 export const ReportForm = () => {
   const UserName = '송소연';
@@ -24,7 +25,7 @@ export const ReportForm = () => {
   return (
     <ReportFormContainer>
       {/* 보내는 사람 Container */}
-      <ReportContainer height="17%">
+      <ReportContainer height="15%">
         {/* 보내는 사람 titleContainer */}
         <ReportContainer height="50%" style={{flexDirection: 'row'}}>
           <ReportContainer height="100%" width="50%" alignItems="flex-start">
@@ -41,7 +42,7 @@ export const ReportForm = () => {
       </ReportContainer>
 
       {/* 이메일 제목 Container */}
-      <ReportContainer height="17%" direction="column">
+      <ReportContainer height="15%" direction="column">
         {/* 이메일 title */}
         <ReportContainer height="50%" width="100%" alignItems="flex-start">
           <ReportText>제목</ReportText>
@@ -54,11 +55,23 @@ export const ReportForm = () => {
 
       {/* 이메일 form Container */}
       <ReportContainer
-        height="66%"
+        height="50%"
         justifyContent="flex-start"
         // style={{backgroundColor: 'green'}}
       >
         <CustomTextArea defaultValue={emailExample} multiline />
+      </ReportContainer>
+      <ReportContainer
+        height="20%"
+        direction="row"
+        // style={{backgroundColor: 'pink'}}
+      >
+        <ReportContainer width="55%" height="100%" justifyContent="flex-start">
+          <OkayBtn content={'전송'} height="50%" />
+        </ReportContainer>
+        <ReportContainer width="55%" height="100%" justifyContent="flex-start">
+          <OkayBtn content={'취소'} height="50%" backgroundColor="#ebecef" />
+        </ReportContainer>
       </ReportContainer>
     </ReportFormContainer>
   );

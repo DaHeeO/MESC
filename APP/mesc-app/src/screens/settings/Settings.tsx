@@ -1,3 +1,4 @@
+<<<<<<< APP/mesc-app/src/screens/settings/Settings.tsx
 import React from 'react';
 import {View, Text} from 'react-native';
 import * as S from './Setting.styles';
@@ -14,6 +15,7 @@ import Alert from '../../assets/icons/alert.svg';
 function Settings() {
   return (
     <S.Container>
+
       <S.BackgroundImg source={BackgroundIntro} />
       <S.Div>
         <S.Top>

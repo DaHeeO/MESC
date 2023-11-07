@@ -55,28 +55,3 @@ export const BottomBox = styled.View`
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 `;
-
-export const OptionBox = styled.View`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const DataBox = styled.TouchableOpacity`
-  width: 95%;
-  height: 80%;
-  background-color: ${colors.backgroundGray};
-  border-radius: 5px;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const LogBox = styled.TouchableOpacity`
-  width: 95%;
-  height: 80%;
-  background-color: ${colors.backgroundGray};
-  border-radius: 5px;
-  justify-content: center;
-  align-items: center;
-`;

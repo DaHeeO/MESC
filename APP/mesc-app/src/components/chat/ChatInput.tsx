@@ -97,13 +97,12 @@ function ChatInput({onSendMessage}: ChatInputProps) {
       setIsWordSelected(true);
     }
   };
-  console.log(input);
 
+  // 전송 버튼을 눌렀을 때 처리하는 함수
   const handleSendButtonPress = () => {
     if (input.trim() !== '') {
       onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
-      console.log(value);
-      setValue(''); // 입력 필드 지우기
+      setInput(''); // 입력 필드 지우기
     } else {
       console.log('공백입니다요');
     }

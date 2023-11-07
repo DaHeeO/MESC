@@ -9,7 +9,7 @@ function ChatbotProfile() {
       <S.ImgBox>
         <S.Img source={RobotIcon}></S.Img>
       </S.ImgBox>
-      <S.NameBox>
+      <S.NameBox style={{pointerEvents: 'none'}}>
         <TextBox
           fontSize="13px"
           fontWeight="bold"

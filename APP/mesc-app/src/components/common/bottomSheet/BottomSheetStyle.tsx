@@ -7,7 +7,7 @@ interface ChooseBtnProps {
   // width: string; 이렇게하면 BtnBody에 width를 꼭 넘겨주어야함!
 }
 
-export const BtnBody = styled.View<ChooseBtnProps>`
+export const BtnBody = styled.TouchableOpacity<ChooseBtnProps>`
   width: ${props => props.width || '100%'};
   height: 4%;
   align-items: center;
