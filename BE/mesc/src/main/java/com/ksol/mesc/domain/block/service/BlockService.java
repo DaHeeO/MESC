@@ -218,9 +218,17 @@ public class BlockService {
 
 			cardMap.put("label", labelResList);
 		} else if (cardType == CardType.QU) {    //query 실행
-
+//			LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery());
+////			tableByQuery.entrySet().forEach(key -> {
+////				System.out.println("key = " + key);
+////				System.out.println("tableByQuery = " + tableByQuery.get(key));
+////			});
+			cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 		} else if (cardType == CardType.LO) {    //로그
-			
+			String keyword = cardReqDto.getKeyword();
+			String date = cardReqDto.getDate();
+			List<String> levelList = cardReqDto.getLevelList();
+			cardMap.put("logs", logSerivce.getLogs(keyword, date, levelList));
 		} else if (cardType == CardType.DTX) {    // 동적 텍스트
 			String content = card.getContent();
 			cardMap.put("content", getDynamicString(content, card.getContentKey()));
