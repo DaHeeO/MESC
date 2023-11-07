@@ -3,6 +3,9 @@ package com.ksol.mes.global.util.jdbc;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import lombok.ToString;
+
+@ToString
 public class ColumnData {
     String table;
     String columnName;

@@ -6,12 +6,14 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class WorkerDataResponseDto {
     private List<String> columnNameList = new ArrayList<>();
     private List<String> columnTypeList = new ArrayList<>();
     private List<List<String>> rowList;
+    private Set<String> tableList;
 
     public WorkerDataResponseDto(Table table) {
         for (ColumnData column : table.getColumns()) {
@@ -24,6 +26,7 @@ public class WorkerDataResponseDto {
             this.columnTypeList.add(columnType);
         }
         this.rowList = table.getRows();
+        this.tableList = table.getTableList();
     }
 
 }

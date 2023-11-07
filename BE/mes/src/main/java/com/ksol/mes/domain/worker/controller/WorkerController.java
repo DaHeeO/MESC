@@ -53,6 +53,7 @@ public class WorkerController {
             @PathVariable(required = true) Integer actionId,
             @RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
             BindingResult bindingResult) {
+        log.info(workerDataRequestDto.getConditions());
         checkValidates(bindingResult);
         WorkerDataResponseDto workerDataResponseDto = null;
         try {

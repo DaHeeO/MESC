@@ -4,20 +4,27 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+@ToString
+@Slf4j
 public class Table {
     private List<ColumnData> columns;
     private List<List<String>> rows;
+    private Set<String> tableList;
 
     public Table(ResultSet resultSet) throws SQLException {
         ResultSetMetaData metaData = resultSet.getMetaData();
+        this.tableList = new HashSet<>();
         int columnCount = metaData.getColumnCount();
         this.columns = new ArrayList<>();
         for(int i = 1; i <= columnCount; i++) {
+            this.tableList.add(metaData.getTableName(i));
             this.columns.add(new ColumnData(metaData, i));
         }
         this.rows = new ArrayList<>();
@@ -102,5 +109,9 @@ public class Table {
 
     public List<List<String>> getRows() {
         return rows;
+    }
+
+    public Set<String> getTableList(){
+        return tableList;
     }
 }
