@@ -63,7 +63,7 @@ function Main({navigation}: any) {
             {item.count} 명
           </S.Text>
         </S.ItemBody>
-        <S.Bottom>
+        <S.Bottom onPress={() => navigation.navigate('Contact')}>
           <S.BoldText size={15} color={C.colors.primary}>
             그룹 편집
           </S.BoldText>
@@ -112,7 +112,7 @@ function Main({navigation}: any) {
               <S.BoldText size={17} color={C.colors.primary}>
                 그룹 관리
               </S.BoldText>
-              <S.SeeMore>
+              <S.SeeMore onPress={() => navigation.navigate('Contact')}>
                 <Plus width={20} height={20} />
                 <S.Text size={16} color={C.colors.primary}>
                   더보기
