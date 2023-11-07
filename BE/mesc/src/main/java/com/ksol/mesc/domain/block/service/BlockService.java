@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.ksol.mesc.domain.dcb.DCB;
+import com.ksol.mesc.domain.dcb.repository.DCBRepository;
 import com.ksol.mesc.global.error.ErrorCode;
 import com.ksol.mesc.global.error.exception.BusinessException;
 import com.ksol.mesc.global.error.exception.MesServerException;
@@ -67,6 +69,7 @@ public class BlockService {
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
 	private final ValuesRepository valuesRepository;
+	private final DCBRepository dcbRepository;
 
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final WebClient webClient;
@@ -145,11 +148,11 @@ public class BlockService {
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
 
 		objMap.put("blockId", block.getId());
-		log.info("block={}", block);
+//		log.info("block={}", block);
 
 		//블록과 연결된 카드 조회
 		List<Card> cardList = cardRepository.findByBlockId(blockId);
-		cardList.stream().forEach(c -> log.info("card={}", c));
+//		cardList.stream().forEach(c -> log.info("card={}", c));
 		//카드 정보 저장
 		List<LinkedHashMap<String, Object>> cardMapList = new ArrayList<>();
 
@@ -159,6 +162,12 @@ public class BlockService {
 		}
 
 		objMap.put("cardList", cardMapList);
+
+		// 바로가기 버튼 조회
+		List<DCB> byBlockId = dcbRepository.findByBlockId(blockId);
+		List<Integer> dcbList = new ArrayList<>();
+		byBlockId.stream().forEach(dcb -> dcbList.add(dcb.getDcbId()));
+		objMap.put("dcbList", dcbList);
 		return objMap;
 	}
 
