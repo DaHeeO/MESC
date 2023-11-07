@@ -24,4 +24,13 @@ public class Block {
 	private String name;
 	@Column(name = "USER_ID")
 	private Integer userId;
+
+	@Override
+	public String toString() {
+		return "Block{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", userId=" + userId +
+				'}';
+	}
 }

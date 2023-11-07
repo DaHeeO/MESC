@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.ksol.mesc.global.error.ErrorCode;
+import com.ksol.mesc.global.error.exception.BusinessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -90,15 +92,14 @@ public class BlockService {
 	//블록 조회
 	public LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, BlockReqDto blockReqDto) {
 		//블록 조회
-		Optional<Block> blockOpt = blockRepository.findById(blockId);
+		Block block = blockRepository.findById(blockId).orElseThrow(() -> new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
-		if (blockOpt.isEmpty())
-			return null;
 
-		objMap.put("blockId", blockOpt.get().getId());
+		objMap.put("blockId", block.getId());
 
 		//블록과 연결된 카드 조회
 		List<Card> cardList = cardRepository.findByBlockId(blockId);
+		cardList.stream().forEach(c -> log.info("card={}", c));
 		//카드 정보 저장
 		List<LinkedHashMap<String, Object>> cardMapList = new ArrayList<>();
 
