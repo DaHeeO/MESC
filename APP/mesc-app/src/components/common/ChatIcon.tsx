@@ -1,7 +1,7 @@
-import Home from '../icons/homeIcon.svg';
-import Report from '../icons/reportIcon.svg';
-import DataControll from '../icons/dbIcon.svg';
-import Filter from '../icons/filterIcon.svg';
+import Home from '../../assets/icons/homeIcon.svg';
+import Report from '../../assets/icons/reportIcon.svg';
+import DataControll from '../../assets/icons/dbIcon.svg';
+import Filter from '../../assets/icons/filterIcon.svg';
 
 interface IconsProps {
   iconId: number;

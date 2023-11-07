@@ -5,12 +5,12 @@ interface ChooseBtnProps {
 }
 
 export const ChooseBtnBody = styled.TouchableOpacity<ChooseBtnProps>`
-  width: 120px;
+  width: 130px;
   height: 40px;
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
-  border-radius: 12px;
+  border-radius: 10px;
   flex-direction: row;
 `;
 

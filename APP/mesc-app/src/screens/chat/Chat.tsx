@@ -11,8 +11,13 @@ import UserMessage from '../../components/chat/UserMessage';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
 import {ModalIdSwitch} from '../../components/common/ModalId';
-import {AboutChatBtn} from '../../components/message/Btn/ChatChooseBtn';
-import {IconSwitch} from '../../assets/icons/ChatIcon';
+import {IconSwitch} from '../../components/common/ChatIcon';
+import {
+  ConditionModify,
+  GoDataControll,
+  GoReport,
+  GoStartChat,
+} from '../../components/common/ChatChooseId';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -94,7 +99,10 @@ function Chat() {
           ))}
         </ScrollView>
       </S.ChatLayout>
-      <AboutChatBtn btnTitle={'아이콘 보기'} icon={IconForm} />
+      <GoStartChat />
+      <GoReport />
+      <GoDataControll />
+      <ConditionModify />
       <AboutBottomSheetModal
         btnTitle={'bottomSheet예시'}
         modalHeight={'70%'}
