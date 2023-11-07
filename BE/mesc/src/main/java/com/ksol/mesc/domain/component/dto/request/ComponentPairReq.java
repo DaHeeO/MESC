@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Data
 @Getter
-public class ComponentTypeReq {
+public class ComponentPairReq {
 	private List<ComponentReq> componentList;
 	private List<Object> objectList;
 }

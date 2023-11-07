@@ -18,7 +18,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Table(name = "COMPONENT")
-// @Inheritance(strategy = InheritanceType.JOINED)
+// @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 // @DiscriminatorColumn(name = "DTYPE")
 @ToString
 public class Component {
@@ -27,7 +27,7 @@ public class Component {
 	@Column(name = "COMPONENT_ID")
 	private Integer id;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "TYPE")
+	@Column(name = "CTYPE")
 	private ComponentType componentType;
 	@Column(name = "SEQUENCE")
 	private Integer sequence;

@@ -37,7 +37,8 @@ public class Card {
 			.id(cardReq.getId())
 			.name(cardReq.getName())
 			.sequence(cardReq.getSequence())
-			.cardType(cardReq.getCardType())
+			// .cardType(cardReq.getCardType())
+			.cardType(CardType.valueOf(cardReq.getCardType()))
 			.content(cardReq.getContent())
 			.block(Block.builder().id(cardReq.getBlockId()).build())
 			.build();

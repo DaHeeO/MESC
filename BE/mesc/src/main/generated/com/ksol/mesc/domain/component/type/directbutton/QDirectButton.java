@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,7 +18,13 @@ public class QDirectButton extends EntityPathBase<DirectButton> {
 
     private static final long serialVersionUID = -1971861141L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QDirectButton directButton = new QDirectButton("directButton");
+
+    public final com.ksol.mesc.domain.block.entity.QBlock block;
+
+    public final NumberPath<Integer> iconId = createNumber("iconId", Integer.class);
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
@@ -34,15 +41,24 @@ public class QDirectButton extends EntityPathBase<DirectButton> {
     public final NumberPath<Integer> sequence = createNumber("sequence", Integer.class);
 
     public QDirectButton(String variable) {
-        super(DirectButton.class, forVariable(variable));
+        this(DirectButton.class, forVariable(variable), INITS);
     }
 
     public QDirectButton(Path<? extends DirectButton> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QDirectButton(PathMetadata metadata) {
-        super(DirectButton.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QDirectButton(PathMetadata metadata, PathInits inits) {
+        this(DirectButton.class, metadata, inits);
+    }
+
+    public QDirectButton(Class<? extends DirectButton> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.block = inits.isInitialized("block") ? new com.ksol.mesc.domain.block.entity.QBlock(forProperty("block")) : null;
     }
 
 }

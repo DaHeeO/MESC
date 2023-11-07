@@ -32,5 +32,7 @@ public enum CardType {
 	// Chat
 	CH,
 	CH1,
-	CH2
+	CH2,
+	//Label
+	LA
 }
