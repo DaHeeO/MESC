@@ -8,7 +8,5 @@ public enum ComponentType {
 	//CheckBox
 	CB,
 	//Label
-	LA,
-	//DirectButton
-	DB
+	LA
 }

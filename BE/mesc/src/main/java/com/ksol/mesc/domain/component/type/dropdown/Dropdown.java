@@ -13,6 +13,7 @@ import lombok.Getter;
 @Entity
 @Getter
 @Table(name = "DROPDOWN")
+// @DiscriminatorValue("DD")
 public class Dropdown {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

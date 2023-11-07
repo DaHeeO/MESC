@@ -23,8 +23,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -44,37 +46,52 @@ public class ApiController {
     }
 
     @PostMapping("/developer/data")
-    public ResponseEntity<CommonResponseDto> getDeveloperData (@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto, BindingResult bindingResult) {
+    public ResponseEntity<?> getDeveloperData (@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto, BindingResult bindingResult) {
         checkValidates(bindingResult);
         String query = developerDataRequestDto.getQuery();
-        return apiService.getTableByQuery(query);
+        LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query);
+        System.out.println(tableByQuery.keySet().stream().collect(Collectors.toList()));
+        if(tableByQuery.containsKey("message")) {
+            return new ResponseEntity<>(CommonResponseDto.error(HttpStatus.NOT_ACCEPTABLE.value(), (String)tableByQuery.get("message")), HttpStatus.NOT_ACCEPTABLE);
+        }
+        return ResponseEntity.ok(CommonResponseDto.success(tableByQuery));
     }
 
     @PostMapping("/developer/query")
     public ResponseEntity<CommonResponseDto> getDeveloperQuery (@RequestBody @Validated DeveloperQueryRequestDto DeveloperQueryRequestDto, BindingResult bindingResult) {
         checkValidates(bindingResult);
         String query = DeveloperQueryRequestDto.getQuery();
-        return apiService.getCountsByQuery(query);
+        LinkedHashMap<String, Object> countsByQuery = apiService.getCountsByQuery(query);
+        if(countsByQuery.containsKey("message")) {
+            return new ResponseEntity<>(CommonResponseDto.error(HttpStatus.NOT_ACCEPTABLE.value(), (String)countsByQuery.get("message")), HttpStatus.NOT_ACCEPTABLE);
+        }
+        return ResponseEntity.ok(CommonResponseDto.success(countsByQuery));
     }
 
     @PostMapping("/worker/data/{actionId}")
-    public ResponseEntity<CommonResponseDto> getWorkerData (@PathVariable(required = true) Integer actionId,
-                                                            @RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
-                                                            BindingResult bindingResult) {
+    public ResponseEntity<?> getWorkerData (@PathVariable(required = true) Integer actionId,
+                                                                                                 @RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
+                                                                                                 BindingResult bindingResult) {
         checkValidates(bindingResult);
         String conditions = workerDataRequestDto.getConditions();
-        ResponseEntity<CommonResponseDto> tableByActionId = apiService.getTableByActionId(actionId, conditions);
-        System.out.println("tableByActionId = " + tableByActionId);
-        return tableByActionId;
+        LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions);
+        if(tableByActionId.containsKey("message")) {
+            return new ResponseEntity<>(CommonResponseDto.error(HttpStatus.NOT_ACCEPTABLE.value(), (String)tableByActionId.get("message")), HttpStatus.NOT_ACCEPTABLE);
+        }
+        return ResponseEntity.ok(CommonResponseDto.success(tableByActionId));
     }
 
     @PostMapping("/worker/query/{actionId}")
-    public ResponseEntity<CommonResponseDto> getWorkerQuery (@PathVariable(required = true) Integer actionId,
+    public ResponseEntity<?> getWorkerQuery (@PathVariable(required = true) Integer actionId,
                                                              @RequestBody @Validated WorkerQueryRequestDto workerQueryRequestDto,
                                                              BindingResult bindingResult) {
         checkValidates(bindingResult);
         String conditions = workerQueryRequestDto.getConditions();
-        return apiService.getCountsByActionId(actionId, conditions);
+        LinkedHashMap<String, Object> countsByActionId = apiService.getCountsByActionId(actionId, conditions);
+        if(countsByActionId.containsKey("message")) {
+            return new ResponseEntity<>(CommonResponseDto.error(HttpStatus.NOT_ACCEPTABLE.value(), (String)countsByActionId.get("message")), HttpStatus.NOT_ACCEPTABLE);
+        }
+        return ResponseEntity.ok(CommonResponseDto.success(countsByActionId));
     }
 
     private static void checkValidates(BindingResult bindingResult) {

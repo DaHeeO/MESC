@@ -9,6 +9,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
+// @DiscriminatorValue("LA")
 public class Label {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,10 +13,7 @@ import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 import com.ksol.mesc.global.error.exception.MesServerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.reactive.ClientHttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,51 +37,73 @@ public class ApiServiceImpl implements ApiService {
     }
 
     @Override
-    public ResponseEntity<CommonResponseDto> getTableByQuery(String query) {
+    public LinkedHashMap<String, Object> getTableByQuery(String query) {
         String accessToken = jwtAuthenticationFilter.getAccessToken();
-        return webClient.post()
+        Object data = webClient.post()
                 .uri("/developer/data")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new DeveloperDataRequestDto(query))
                 .retrieve()
-                .toEntity(CommonResponseDto.class)
-                .block();
+                .toEntity(JsonResponse.class)
+                .onErrorMap(e -> new MesServerException(e.getMessage()))
+                .block()
+                .getBody()
+                .getData();
+        return (LinkedHashMap<String, Object>)data;
     }
 
     @Override
-    public ResponseEntity<CommonResponseDto> getCountsByQuery(String query) {
+    public LinkedHashMap<String, Object> getCountsByQuery(String query) {
         String accessToken = jwtAuthenticationFilter.getAccessToken();
-        return webClient.post()
+        Object data = webClient.post()
                 .uri("/developer/query")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new DeveloperQueryRequestDto(query))
                 .retrieve()
-                .toEntity(CommonResponseDto.class)
-                .block();
+                .toEntity(JsonResponse.class)
+                .onErrorMap(e -> {
+                    log.error(e.getMessage() + "d");
+                    return new MesServerException(e.getMessage());})
+                .block()
+                .getBody()
+                .getData();
+        return (LinkedHashMap<String, Object>)data;
     }
 
     @Override
-    public ResponseEntity<CommonResponseDto> getTableByActionId(Integer actionId, String conditions) {
+    public LinkedHashMap<String, Object> getTableByActionId(Integer actionId, String conditions) {
         String accessToken = jwtAuthenticationFilter.getAccessToken();
-        return webClient.post()
+        Object data = webClient.post()
                 .uri("/worker/data/" + actionId)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(new WorkerDataRequestDto(conditions)), WorkerDataRequestDto.class)
                 .retrieve()
-                .toEntity(CommonResponseDto.class)
-                .block();
+                .toEntity(JsonResponse.class)
+                .onErrorMap(e -> new MesServerException(e.getMessage()))
+                .block()
+                .getBody()
+                .getData();
+        return (LinkedHashMap<String, Object>)data;
     }
 
     @Override
-    public ResponseEntity<CommonResponseDto> getCountsByActionId(Integer actionId, String conditions) {
+    public LinkedHashMap<String, Object> getCountsByActionId(Integer actionId, String conditions) {
         String accessToken = jwtAuthenticationFilter.getAccessToken();
-        return webClient.post()
+        Object data = webClient.post()
                 .uri("/worker/query/" + actionId)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(new WorkerQueryRequestDto(conditions))
                 .retrieve()
-                .toEntity(CommonResponseDto.class)
-                .block();
+                .toEntity(JsonResponse.class)
+                .onErrorMap(e -> new MesServerException(e.getMessage()))
+                .block()
+                .getBody()
+                .getData();
+        return (LinkedHashMap<String, Object>)data;
     }
 
 }
