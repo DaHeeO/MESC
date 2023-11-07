@@ -22,15 +22,12 @@ public class Block {
 	private Integer id;
 	@Column(name = "BLOCK_NAME")
 	private String name;
-	@Column(name = "USER_ID")
-	private Integer userId;
 
 	@Override
 	public String toString() {
 		return "Block{" +
 				"id=" + id +
 				", name='" + name + '\'' +
-				", userId=" + userId +
 				'}';
 	}
 }
