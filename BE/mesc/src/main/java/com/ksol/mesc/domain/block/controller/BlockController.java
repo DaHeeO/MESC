@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
-import com.ksol.mesc.domain.block.dto.request.BlockUpdateReqDto;
+import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.service.BlockService;
 import com.ksol.mesc.domain.common.CommonResponseDto;
 
@@ -47,7 +47,7 @@ public class BlockController {
 	@PatchMapping("/admin/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
 	@PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
-	@RequestBody @Valid BlockUpdateReqDto blockUpdateReqDto) {
+	@RequestBody @Valid BlockReqDto blockUpdateReqDto) {
 		blockService.updateBlock(blockUpdateReqDto.getCardReqList());
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
@@ -57,9 +57,9 @@ public class BlockController {
 	@PostMapping("/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> selectBlock(@Parameter(description = "블록 id", required = true)
 	@PathVariable @Valid Integer blockId,
-		@Parameter(description = "블록 정보")
-		@RequestBody @Valid BlockReqDto blockReqDto) {
-		LinkedHashMap<String, Object> responseMap = blockService.selectBlockInfo(blockId, blockReqDto);
+		@Parameter(description = "카드 정보")
+		@RequestBody @Valid CardReqDto cardReqDto) {
+		LinkedHashMap<String, Object> responseMap = blockService.selectBlockInfo(blockId, cardReqDto);
 
 		return ResponseEntity.ok(CommonResponseDto.success(responseMap));
 	}

@@ -7,17 +7,20 @@ import java.util.Optional;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
+import com.ksol.mesc.domain.api.dto.request.DeveloperDataRequestDto;
+import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.block.repository.BlockRepository;
 import com.ksol.mesc.domain.card.Card;
 import com.ksol.mesc.domain.card.CardType;
 import com.ksol.mesc.domain.card.dto.request.CardReq;
 import com.ksol.mesc.domain.card.repository.CardRepository;
+import com.ksol.mesc.domain.common.CommonResponseDto;
 import com.ksol.mesc.domain.common.JsonResponse;
 import com.ksol.mesc.domain.component.entity.Component;
 import com.ksol.mesc.domain.component.entity.ComponentType;
@@ -88,7 +91,7 @@ public class BlockService {
 	}
 
 	//블록 조회
-	public LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, BlockReqDto blockReqDto) {
+	public LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, CardReqDto cardReqDto) {
 		//블록 조회
 		Optional<Block> blockOpt = blockRepository.findById(blockId);
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
@@ -104,7 +107,7 @@ public class BlockService {
 
 		//카드 조회
 		for (Card card : cardList) {
-			cardMapList.add(selectCardByType(card, blockReqDto));
+			cardMapList.add(selectCardByType(card, cardReqDto));
 		}
 
 		objMap.put("cardList", cardMapList);
@@ -112,7 +115,7 @@ public class BlockService {
 	}
 
 	//card type에 따른 조회
-	public LinkedHashMap<String, Object> selectCardByType(Card card, BlockReqDto blockReqDto) {
+	public LinkedHashMap<String, Object> selectCardByType(Card card, CardReqDto cardReqDto) {
 		//카드 정보 저장
 		LinkedHashMap<String, Object> cardMap = new LinkedHashMap<>();
 		CardType cardType = card.getCardType();
@@ -121,16 +124,17 @@ public class BlockService {
 		cardMap.put("cardType", card.getCardType());
 		cardMap.put("content", card.getContent());
 
-		if (cardType == CardType.QU) {    //query text
-			cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", blockReqDto));
+		if (cardType == CardType.QT) {    //query text
+			cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", cardReqDto));
 		} else if (cardType == CardType.TA) {    //table 조회
-			cardMap.put("table", requestPostToMes("/worker/data/", blockReqDto));
+			cardMap.put("table", requestPostToMes("/worker/data/", cardReqDto));
 		} else if (cardType == CardType.STA) {    //single table 조회
-			cardMap.put("singleTable", requestPostToMes("/worker/data/", blockReqDto));
+			cardMap.put("singleTable", requestPostToMes("/worker/data/", cardReqDto));
 		} else if (cardType == CardType.RE) {    //보고
 			cardMap.putAll((LinkedHashMap<String, Object>)userService.selectAllUser());
+		} else if (cardType == CardType.QU) {    //query 실행
+			
 		} else if (cardType == CardType.LO) {    //로그
-
 		}
 
 		//component 조회
@@ -192,21 +196,33 @@ public class BlockService {
 	}
 
 	//mes에 post api 요청
-	public Object requestPostToMes(String url, BlockReqDto blockReqDto) {
+	public Object requestPostToMes(String url, CardReqDto cardReqDto) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
-		if (blockReqDto.getActionId() != null)
-			url += blockReqDto.getActionId();
+		if (cardReqDto.getActionId() != null)
+			url += cardReqDto.getActionId();
 
 		return webClient.post()
 			.uri(url)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
-			.body(BodyInserters.fromValue(blockReqDto))
+			.body(BodyInserters.fromValue(cardReqDto))
 			.retrieve()
 			.toEntity(JsonResponse.class)
 			// .toEntity(WorkerDataResponseDto.class)
 			.block()
 			.getBody()
 			.getData();
+	}
+
+	//쿼리 실행
+	public ResponseEntity<CommonResponseDto> getTableByQuery(String query) {
+		String accessToken = jwtAuthenticationFilter.getAccessToken();
+		return webClient.post()
+			.uri("/developer/data")
+			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+			.bodyValue(new DeveloperDataRequestDto(query))
+			.retrieve()
+			.toEntity(CommonResponseDto.class)
+			.block();
 	}
 }

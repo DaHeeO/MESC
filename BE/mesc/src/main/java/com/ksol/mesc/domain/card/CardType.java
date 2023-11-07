@@ -11,6 +11,8 @@ public enum CardType {
 	TA,
 	//Single Table
 	STA,
+	//Query Text
+	QT,
 	//Query
 	QU,
 	//Direct Button
