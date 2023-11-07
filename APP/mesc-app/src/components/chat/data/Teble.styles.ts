@@ -3,17 +3,15 @@ import {colors} from '../../common/Theme';
 
 export const Container = styled.View`
   flex-direction: column;
-  width: auto;
-  height: 190px;
+  flex: 1;
   border: 1px solid green;
-  align-items: center;
-  // justify-content: center;
+  // overflow: hidden;
 `;
 
 export const Header = styled.View`
   width: 100%;
   height: 30px;
-  border: 1px solid red;
+  // border: 1px solid red;
 `;
 
 export const Title = styled.Text``;
@@ -21,32 +19,34 @@ export const Title = styled.Text``;
 export const Button = styled.View``;
 
 export const Body = styled.View`
-  height: 160px;
-  border: 1px solid black;
+  // overflow: hidden;
+  width: 100%;
+  flex: 1;
+  border: 1px solid ${colors.secondary};
 `;
 
 export const ColumnName = styled.Text`
-  background-color: #f0f0f0;
-  padding: 5px;
-  border: 1px solid #ddd;
-  width: 80px;
+  background-color: ${colors.quaternary};
+  padding: 3px;
+  border: 0.7px solid ${colors.secondary};
   height: 30px;
-  /* 추가적인 스타일링 */
+  text-align: center;
+  justify-content: center;
 `;
 
 export const ColumnType = styled.Text`
-  background-color: #e7e7e7;
-  padding: 5px;
-  border: 1px solid #d0d0d0;
-  width: 80px;
+  background-color: ${colors.quaternary};
+  padding: 3px;
+  border: 0.7px solid ${colors.secondary};
   height: 30px;
-  /* 추가적인 스타일링 */
+  text-align: center;
+  justify-content: center;
 `;
 
 export const Cell = styled.Text`
-  padding: 5px;
-  border: 1px solid #ddd;
-  width: 80px;
-  height: 30px;
-  /* 추가적인 스타일링 */
+  padding: 3px;
+  border: 0.7px solid ${colors.secondary};
+  height: auto;
+  text-align: center;
+  justify-content: center;
 `;

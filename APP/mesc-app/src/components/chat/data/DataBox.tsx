@@ -5,7 +5,7 @@ import Table from './Table';
 import Query from './Query';
 
 type DataBoxProps = {
-  key: React.Key;
+  // key: React.Key;
   table?: {
     columnNameList: string[];
     columnTypeList: string[];
@@ -15,16 +15,15 @@ type DataBoxProps = {
   // 여기에 DataBox 컴포넌트에 사용할 다른 props들을 정의합니다.
 };
 
-const DataBox: React.FC<DataBoxProps> = ({key, table, query}) => {
-  // table이 주어진 경우 header와 typeHeader를 설정합니다.
-  const header = table?.columnNameList ?? [];
-  const typeHeader = table?.columnTypeList ?? [];
-  const body = table?.rowList ?? [];
-
+const DataBox: React.FC<DataBoxProps> = ({table, query}) => {
   return (
     <S.DataContainer>
       {table ? (
-        <Table header={header} typeHeader={typeHeader} body={body} />
+        <Table
+          header={table.columnNameList}
+          typeHeader={table.columnTypeList}
+          body={table.rowList}
+        />
       ) : query ? (
         <Query query={query} />
       ) : null}
