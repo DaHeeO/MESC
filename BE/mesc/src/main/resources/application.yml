@@ -58,17 +58,17 @@ spring:
       max-request-size: 50MB
 
 # JPA log
-logging:
-  level:
-    com.ksol.mesc: debug
-    org.springframework.security: debug
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+#logging:
+#  level:
+#    com.ksol.mesc: debug
+#    org.springframework.security: debug
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
 
 # jwt secret key 설정
 jwt:

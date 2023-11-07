@@ -22,14 +22,18 @@ public class Button {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "BUTTON_ID")
 	private Integer id;
+	@Column(name = "NAME")
 	private String name;
-	private Integer sequence;
-	private String type;
-	private String icon;
 	@Column(name = "LINK_TYPE")
 	@Enumerated(EnumType.STRING)
 	private LinkType linkType;
+	@Column(name = "LINK")
 	private String link;
+	@Column(name = "ICON_ID")
+	private Integer iconId;
+	@Column(name = "RESPONSE")
 	private String response;
+	@Column(name = "RESPONSE_TYPE")
+	private String responseType;
 
 }

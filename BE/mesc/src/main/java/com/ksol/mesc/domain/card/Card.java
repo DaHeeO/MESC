@@ -29,6 +29,8 @@ public class Card {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BLOCK_ID")
 	private Block block;
+	@Column(name = "CONTENT_KEY")
+	private String contentKey;
 
 	public static Card toEntity(CardReq cardReq) {
 		Card card = Card.builder()

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.ksol.mesc.global.error.ErrorCode;
 import com.ksol.mesc.global.error.exception.BusinessException;
+import com.ksol.mesc.global.error.exception.MesServerException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -96,6 +97,7 @@ public class BlockService {
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
 
 		objMap.put("blockId", block.getId());
+		log.info("block={}", block);
 
 		//블록과 연결된 카드 조회
 		List<Card> cardList = cardRepository.findByBlockId(blockId);
@@ -132,6 +134,13 @@ public class BlockService {
 			cardMap.putAll((LinkedHashMap<String, Object>)userService.selectAllUser());
 		} else if (cardType == CardType.LO) {    //로그
 
+		} else if (cardType == CardType.DTX) {    // 동적 테스트
+			String content = card.getContent();
+			cardMap.put("content", getDynamicString(content, card.getContentKey()));
+			cardMap.put("cardType", "TX");
+		} else if (cardType == CardType.CH) {    // 동적 테스트
+			String content = card.getContent();
+			cardMap.put("title", card.getName());
 		}
 
 		//component 조회
@@ -209,5 +218,23 @@ public class BlockService {
 			.block()
 			.getBody()
 			.getData();
+	}
+
+	private String getDynamicString(String url, String key) {
+		String accessToken = jwtAuthenticationFilter.getAccessToken();
+		Object data = webClient
+				.mutate()
+				.baseUrl(url)
+				.build()
+				.get()
+				.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+				.retrieve()
+				.toEntity(JsonResponse.class)
+				.onErrorMap(e -> new MesServerException(e.getMessage()))
+				.block()
+				.getBody()
+				.getData();
+		LinkedHashMap<String, Object> hashMap = (LinkedHashMap<String, Object>) data;
+		return (String) hashMap.get(key);
 	}
 }
