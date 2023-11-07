@@ -21,7 +21,7 @@ public class ButtonRes {
 			.id(button.getId())
 			.name(button.getName())
 			.sequence(button.getSequence())
-			.type(button.getType())
+			.type(button.getBType())
 			.linkType(button.getLinkType().toString())
 			.link(button.getLink())
 			.icon(button.getIcon())

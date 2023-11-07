@@ -10,13 +10,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Table(name = "BUTTON")
 // @DiscriminatorValue("BU")
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @ToString
 public class Button {
 	@Id
@@ -25,7 +31,8 @@ public class Button {
 	private Integer id;
 	private String name;
 	private Integer sequence;
-	private String type;
+	@Column(name = "TYPE")
+	private String bType;
 	private String icon;
 	@Column(name = "LINK_TYPE")
 	@Enumerated(EnumType.STRING)

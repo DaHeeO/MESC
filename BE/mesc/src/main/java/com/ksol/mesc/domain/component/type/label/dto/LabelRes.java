@@ -11,12 +11,14 @@ public class LabelRes {
 	private Integer id;
 	private String name;
 	private Integer sequence;
+	private Character labelType;
 
 	public static LabelRes toResponse(Label label) {
 		LabelRes checkboxRes = LabelRes.builder()
 			.id(label.getId())
 			.name(label.getName())
 			.sequence(label.getSequence())
+			.labelType(label.getLabelType())
 			.build();
 		return checkboxRes;
 	}

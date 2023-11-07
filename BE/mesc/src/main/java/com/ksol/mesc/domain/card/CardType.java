@@ -26,5 +26,7 @@ public enum CardType {
 	//Report
 	RE,
 	//Mail
-	MA
+	MA,
+	//Label
+	LA
 }

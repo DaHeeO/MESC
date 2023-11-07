@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ksol.mesc.domain.api.dto.request.DeveloperDataRequestDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.entity.Block;
@@ -36,11 +39,12 @@ import com.ksol.mesc.domain.component.type.dropdown.Dropdown;
 import com.ksol.mesc.domain.component.type.dropdown.DropdownRepository;
 import com.ksol.mesc.domain.component.type.dropdown.dto.DropdownRes;
 import com.ksol.mesc.domain.component.type.label.Label;
-import com.ksol.mesc.domain.component.type.label.LabelRespository;
+import com.ksol.mesc.domain.component.type.label.LabelRepository;
 import com.ksol.mesc.domain.component.type.label.dto.LabelRes;
 import com.ksol.mesc.domain.component.values.CValues;
 import com.ksol.mesc.domain.component.values.ValuesRepository;
 import com.ksol.mesc.domain.component.values.dto.ValuesRes;
+import com.ksol.mesc.domain.group.service.GroupService;
 import com.ksol.mesc.domain.log.service.LogSerivce;
 import com.ksol.mesc.domain.user.service.UserServiceImpl;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
@@ -56,7 +60,7 @@ public class BlockService {
 	private final CardRepository cardRepository;
 	private final ComponentRepository componentRepository;
 	private final ButtonRepository buttonRepository;
-	private final LabelRespository labelRespository;
+	private final LabelRepository labelRepository;
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
 	private final ValuesRepository valuesRepository;
@@ -65,6 +69,7 @@ public class BlockService {
 	private final WebClient webClient;
 
 	private final UserServiceImpl userService;
+	private final GroupService groupService;
 	private final LogSerivce logSerivce;
 
 	//블록 추가
@@ -78,22 +83,56 @@ public class BlockService {
 			//카드가 존재하지 않으면 추가, 존재하면 카드 수정
 			Card card = Card.toEntity(cardReq);
 			Card newCard = cardRepository.save(card);
-			log.info("newCard : {}", newCard);
 
-			//컴포넌트 x -> 추가
-			//컴포넌트 O -> 수정
-			List<ComponentReq> componentList = cardReq.getComponentTypeReq().getComponentList();
-			for (ComponentReq componentReq : componentList) {
-				if (componentReq.getId() == null) {
-
-				}
+			// 컴포넌트 x -> 추가
+			// 컴포넌트 O -> 수정
+			List<ComponentReq> componentList = cardReq.getComponentPairReq().getComponentList();
+			List<Object> objectList = cardReq.getComponentPairReq().getObjectList();
+			for (int i = 0; i < componentList.size(); i++) {
+				ComponentReq componentReq = componentList.get(i);
+				Object object = objectList.get(i);
+				ComponentType componentType = componentReq.getType();
+				saveComponent(componentType, object);
 			}
-
-			List<Object> objectList = cardReq.getComponentTypeReq().getObjectList();
-
 		}
+	}
 
-		return;
+	//type 별 객체 수정
+	public void saveComponent(ComponentType componentType, Object object) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			String json = objectMapper.writeValueAsString(object);
+
+			switch (componentType) {
+				case BU:
+					saveEntity(json, Button.class, buttonRepository);
+					break;
+				case CB:
+					saveEntity(json, Checkbox.class, checkboxRepository);
+					break;
+				case DD:
+					saveEntity(json, Dropdown.class, dropdownRepository);
+					break;
+				case LA:
+					saveEntity(json, Label.class, labelRepository);
+					break;
+				default:
+					throw new IllegalArgumentException("Invalid ComponentType");
+			}
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private <T> void saveEntity(String json, Class<T> entityClass, JpaRepository<T, Integer> repository) {
+		T entity;
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			entity = objectMapper.readValue(json, entityClass);
+			repository.save(entity);
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	//블록 조회
@@ -142,6 +181,15 @@ public class BlockService {
 			cardMap.put("singleTable", requestPostToMes("/worker/data/", cardReqDto));
 		} else if (cardType == CardType.RE) {    //보고
 			cardMap.putAll((LinkedHashMap<String, Object>)userService.selectAllUser());
+		} else if (cardType == CardType.LA) {    //label 조회
+			List<Label> labelList = labelRepository.findByCard(card);
+			List<LabelRes> labelResList = new ArrayList<>();
+
+			for (Label label : labelList) {
+				labelResList.add(LabelRes.toResponse(label));
+			}
+
+			cardMap.put("label", labelResList);
 		} else if (cardType == CardType.QU) {    //query 실행
 
 		} else if (cardType == CardType.LO) {    //로그
@@ -163,24 +211,27 @@ public class BlockService {
 		List<DropdownRes> dropdownList = new ArrayList<>();
 
 		for (Component component : componentList) {
-			if (component.getComponentType() == ComponentType.BU) {    //Button
-				log.info("Button");
+			ComponentType componentType = component.getComponentType();
+			if (componentType == ComponentType.BU) {    //Button
+				// if (component instanceof Button) {    //Button
 				Optional<Button> button = buttonRepository.findById(component.getLinkId());
 				if (button.isEmpty())
 					continue;
 				buttonList.add(ButtonRes.toResponse(button.get()));
-			} else if (component.getComponentType() == ComponentType.LA) {    //Label
-				log.info("Label");
-				Optional<Label> label = labelRespository.findById(component.getLinkId());
+			} else if (componentType == ComponentType.LA) {    //Label
+				// } else if (component instanceof Label) {    //Label
+				Optional<Label> label = labelRepository.findById(component.getLinkId());
 				if (label.isEmpty())
 					continue;
 				labelList.add(LabelRes.toResponse(label.get()));
-			} else if (component.getComponentType() == ComponentType.CB) {    //Checkbox
+			} else if (componentType == ComponentType.CB) {    //Checkbox
+				// } else if (component instanceof Checkbox) {    //checkbox
 				Optional<Checkbox> checkbox = checkboxRepository.findById(component.getLinkId());
 				if (checkbox.isEmpty())
 					continue;
 				checkboxList.add(CheckboxRes.toResponse(checkbox.get()));
-			} else if (component.getComponentType() == ComponentType.DD) {    //Dropdown
+			} else if (componentType == ComponentType.DD) {    //Dropdown
+				// } else if (component instanceof Dropdown) {    //Dropdown
 				Optional<Dropdown> dropdownOpt = dropdownRepository.findById(component.getLinkId());
 				if (dropdownOpt.isEmpty())
 					continue;
@@ -194,13 +245,12 @@ public class BlockService {
 			}
 		}
 
-		log.info("end");
 		if (!buttonList.isEmpty())
 			map.put("button", buttonList);
 		if (!checkboxList.isEmpty())
 			map.put("checkbox", checkboxList);
 		if (!labelList.isEmpty())
-			map.put("label", labelList);
+			map.put("cLabel", labelList);
 		if (!dropdownList.isEmpty())
 			map.put("dropdown", dropdownList);
 
