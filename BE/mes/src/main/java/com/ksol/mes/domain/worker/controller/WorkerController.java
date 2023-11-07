@@ -3,6 +3,7 @@ package com.ksol.mes.domain.worker.controller;
 import com.ksol.mes.domain.common.CommonResponseDto;
 import com.ksol.mes.global.error.ErrorCode;
 import com.ksol.mes.global.error.exception.InvalidValueException;
+import com.ksol.mes.global.util.jdbc.SQLErrorResponseDto;
 import com.ksol.mes.global.util.jdbc.Table;
 import com.ksol.mes.domain.worker.dto.request.WorkerDataRequestDto;
 import com.ksol.mes.domain.worker.dto.request.WorkerQueryRequestDto;
@@ -28,7 +29,7 @@ public class WorkerController {
     private final WorkerService workerService;
 
     @PostMapping("/query/{actionId}")
-    public ResponseEntity<CommonResponseDto<WorkerQueryResponseDto>> getQuery(
+    public ResponseEntity<CommonResponseDto<?>> getQuery(
             @PathVariable(required = true) Integer actionId,
             @RequestBody @Validated WorkerQueryRequestDto workerQueryRequestDto,
             BindingResult bindingResult) {
@@ -38,17 +39,17 @@ public class WorkerController {
             query = workerService.getQuery(actionId, workerQueryRequestDto.getConditions());
         } catch (SQLException e) {
             log.info(e.getMessage());
-            return new ResponseEntity<>(CommonResponseDto.error(ErrorCode.SQL_QUERY_ERROR.getStatus(), e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())), HttpStatus.ACCEPTED);
         }
         WorkerQueryResponseDto responseDto = new WorkerQueryResponseDto(query);
         if (query != null) {
             return new ResponseEntity<>(CommonResponseDto.success(responseDto), HttpStatus.OK);
         }
-        return new ResponseEntity<>(CommonResponseDto.success(responseDto), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(CommonResponseDto.success(responseDto), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/data/{actionId}")
-    public ResponseEntity<CommonResponseDto<WorkerDataResponseDto>> getData(
+    public ResponseEntity<CommonResponseDto<?>> getData(
             @PathVariable(required = true) Integer actionId,
             @RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
             BindingResult bindingResult) {
@@ -61,7 +62,7 @@ public class WorkerController {
             log.info("workerDataResponseDto : {}", workerDataResponseDto);
         } catch (SQLException e) {
             log.debug(e.getMessage());
-            return new ResponseEntity<>(CommonResponseDto.error(ErrorCode.SQL_QUERY_ERROR.getStatus(), e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())), HttpStatus.ACCEPTED);
         }
         return new ResponseEntity<>(CommonResponseDto.success(workerDataResponseDto), HttpStatus.OK);
     }
