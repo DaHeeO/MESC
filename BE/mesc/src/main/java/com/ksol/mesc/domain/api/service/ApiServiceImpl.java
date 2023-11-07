@@ -13,10 +13,7 @@ import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 import com.ksol.mesc.global.error.exception.MesServerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.reactive.ClientHttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,7 +63,9 @@ public class ApiServiceImpl implements ApiService {
                 .bodyValue(new DeveloperQueryRequestDto(query))
                 .retrieve()
                 .toEntity(JsonResponse.class)
-                .onErrorMap(e -> new MesServerException(e.getMessage()))
+                .onErrorMap(e -> {
+                    log.error(e.getMessage() + "d");
+                    return new MesServerException(e.getMessage());})
                 .block()
                 .getBody()
                 .getData();
