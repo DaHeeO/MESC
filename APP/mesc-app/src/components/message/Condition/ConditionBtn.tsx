@@ -1,15 +1,21 @@
 import React from 'react';
-import {Text} from 'react-native';
-import { ConditionBtnContainer } from './ConditionFormStyle';
+import {ButtonContainer, TextBox} from './ConditionFormStyle';
 
-export const CustomButton = () => {
+interface OkayBtnProps {
+  backgroundColor?: string;
+  color?: string;
+  content: string;
+  height?: string;
+  onPress?: () => void;
+}
+
+export const OkayBtn = (props: OkayBtnProps) => {
   return (
-    <ConditionBtnContainer>
-      <Text style={{color:'#ffffff'}}>버튼</Text>
-    </ConditionBtnContainer>
+    <ButtonContainer
+      onPress={props.onPress}
+      backgroundColor={props.backgroundColor}
+      height={props.height}>
+      <TextBox color={props.color}>{props.content}</TextBox>
+    </ButtonContainer>
   );
 };
-
-
-
-export default CustomButton;
