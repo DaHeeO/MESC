@@ -52,7 +52,7 @@ export const AboutBottomSheetModal = (props: BottomSheetProps) => {
   return (
     <BottomSheetModalProvider>
       <>
-        <BtnBody width="auto" onPress={handlePresentModalPress}>
+        <BtnBody width="130px" onPress={handlePresentModalPress}>
           <Text>{props.btnTitle}</Text>
         </BtnBody>
         <BottomSheetModal
