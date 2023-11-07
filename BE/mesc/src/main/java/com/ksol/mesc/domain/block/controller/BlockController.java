@@ -64,9 +64,6 @@ public class BlockController {
 			Principal principal) {
 		Integer userId = Integer.parseInt(principal.getName());
 		LinkedHashMap<String, Object> responseMap = blockService.selectBlockInfo(blockId, cardReqDto, userId);
-		if (responseMap.containsKey("isPossible")) {
-			responseMap.put("isPossible", 'f');
-		}
 
 		return ResponseEntity.ok(CommonResponseDto.success(responseMap));
 	}

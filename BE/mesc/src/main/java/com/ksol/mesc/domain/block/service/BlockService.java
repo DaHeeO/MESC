@@ -148,6 +148,7 @@ public class BlockService {
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
 
 		objMap.put("blockId", block.getId());
+		objMap.put("isPossible", block.getIsPossible()?'t':'f');
 //		log.info("block={}", block);
 
 		//블록과 연결된 카드 조회
