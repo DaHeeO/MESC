@@ -1,4 +1,4 @@
-<<<<<<< APP/mesc-app/src/screens/settings/Settings.tsx
+
 import React from 'react';
 import {View, Text} from 'react-native';
 import * as S from './Setting.styles';
