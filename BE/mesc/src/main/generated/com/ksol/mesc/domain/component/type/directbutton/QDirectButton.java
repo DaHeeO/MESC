@@ -2,6 +2,7 @@ package com.ksol.mesc.domain.component.type.directbutton;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.ksol.mesc.domain.directbutton.entity.DirectButton;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

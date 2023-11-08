@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.dropdown;
+package com.ksol.mesc.domain.component.type.dropdown.entity;
 
 public enum DropdownType {
 	//Normal

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ksol.mesc.domain.common.JsonResponse;
+import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
 import com.ksol.mesc.domain.user.entity.User;

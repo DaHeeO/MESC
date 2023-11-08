@@ -2,6 +2,8 @@ package com.ksol.mesc.domain.component.type.dropdown;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
+import com.ksol.mesc.domain.component.type.dropdown.entity.DropdownType;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

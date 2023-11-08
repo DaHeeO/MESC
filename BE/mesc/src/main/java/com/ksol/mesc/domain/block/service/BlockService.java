@@ -9,14 +9,12 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ksol.mesc.domain.api.dto.request.DeveloperDataRequestDto;
 import com.ksol.mesc.domain.api.service.ApiService;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.entity.Block;
@@ -25,30 +23,29 @@ import com.ksol.mesc.domain.card.dto.request.CardReq;
 import com.ksol.mesc.domain.card.entity.Card;
 import com.ksol.mesc.domain.card.entity.CardType;
 import com.ksol.mesc.domain.card.repository.CardRepository;
-import com.ksol.mesc.domain.common.CommonResponseDto;
-import com.ksol.mesc.domain.common.JsonResponse;
+import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.component.dto.request.ComponentReq;
 import com.ksol.mesc.domain.component.entity.Component;
 import com.ksol.mesc.domain.component.entity.ComponentType;
 import com.ksol.mesc.domain.component.repository.ComponentRepository;
-import com.ksol.mesc.domain.component.type.button.Button;
-import com.ksol.mesc.domain.component.type.button.ButtonRepository;
 import com.ksol.mesc.domain.component.type.button.dto.ButtonRes;
-import com.ksol.mesc.domain.component.type.checkbox.Checkbox;
-import com.ksol.mesc.domain.component.type.checkbox.CheckboxRepository;
+import com.ksol.mesc.domain.component.type.button.entity.Button;
+import com.ksol.mesc.domain.component.type.button.repository.ButtonRepository;
 import com.ksol.mesc.domain.component.type.checkbox.dto.CheckboxRes;
-import com.ksol.mesc.domain.component.type.dropdown.Dropdown;
-import com.ksol.mesc.domain.component.type.dropdown.DropdownRepository;
+import com.ksol.mesc.domain.component.type.checkbox.entity.Checkbox;
+import com.ksol.mesc.domain.component.type.checkbox.repository.CheckboxRepository;
 import com.ksol.mesc.domain.component.type.dropdown.dto.DropdownRes;
+import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
+import com.ksol.mesc.domain.component.type.dropdown.repository.DropdownRepository;
 import com.ksol.mesc.domain.component.type.label.Label;
 import com.ksol.mesc.domain.component.type.label.LabelRepository;
 import com.ksol.mesc.domain.component.type.label.dto.LabelRes;
-import com.ksol.mesc.domain.component.values.CValues;
-import com.ksol.mesc.domain.component.values.ValuesRepository;
 import com.ksol.mesc.domain.component.values.dto.ValuesRes;
-import com.ksol.mesc.domain.dcb.DCB;
+import com.ksol.mesc.domain.component.values.entity.CValues;
+import com.ksol.mesc.domain.component.values.repository.ValuesRepository;
+import com.ksol.mesc.domain.dcb.entity.DCB;
 import com.ksol.mesc.domain.dcb.repository.DCBRepository;
-import com.ksol.mesc.domain.group.service.GroupService;
+import com.ksol.mesc.domain.directbutton.repository.DirectButtonRepository;
 import com.ksol.mesc.domain.log.service.LogSerivce;
 import com.ksol.mesc.domain.user.service.UserServiceImpl;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
@@ -63,6 +60,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class BlockService {
+	//component repository
 	private final BlockRepository blockRepository;
 	private final CardRepository cardRepository;
 	private final ComponentRepository componentRepository;
@@ -71,13 +69,14 @@ public class BlockService {
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
 	private final ValuesRepository valuesRepository;
+	private final DirectButtonRepository directButtonRepository;
 	private final DCBRepository dcbRepository;
 
+	//export lib
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final WebClient webClient;
 
 	private final UserServiceImpl userService;
-	private final GroupService groupService;
 	private final LogSerivce logSerivce;
 	private final ApiService apiService;
 
@@ -157,7 +156,7 @@ public class BlockService {
 
 		//블록과 연결된 카드 조회
 		List<Card> cardList = cardRepository.findByBlockId(blockId);
-		//		cardList.stream().forEach(c -> log.info("card={}", c));
+
 		//카드 정보 저장
 		List<LinkedHashMap<String, Object>> cardMapList = new ArrayList<>();
 
@@ -187,6 +186,7 @@ public class BlockService {
 		cardMap.put("cardName", card.getName());
 		cardMap.put("content", card.getContent());
 
+		//card Typee에 따른 조회
 		if (cardType == CardType.DT) {        //dynamic Text
 			String content = card.getContent();
 			Map<String, String> map = cardReqDto.getVariables();
@@ -253,8 +253,6 @@ public class BlockService {
 		List<Component> componentList = componentRepository.findByCard(card);
 		log.info("cardType : {}, componentList : {}", cardType, componentList);
 		cardMap.putAll(selectComponentByType(componentList));
-
-		//direct button 조회
 
 		return cardMap;
 	}
@@ -329,18 +327,6 @@ public class BlockService {
 			.block()
 			.getBody()
 			.getData();
-	}
-
-	//쿼리 실행
-	public ResponseEntity<CommonResponseDto> getTableByQuery(String query) {
-		String accessToken = jwtAuthenticationFilter.getAccessToken();
-		return webClient.post()
-			.uri("/developer/data")
-			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-			.bodyValue(new DeveloperDataRequestDto(query))
-			.retrieve()
-			.toEntity(CommonResponseDto.class)
-			.block();
 	}
 
 	private String getDynamicString(String url, String key) {

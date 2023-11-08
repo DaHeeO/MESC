@@ -1,11 +1,9 @@
-package com.ksol.mesc.domain.dcb;
+package com.ksol.mesc.domain.dcb.entity;
 
-import com.ksol.mesc.domain.block.entity.Block;
-
-import com.ksol.mesc.domain.card.dto.request.CardReq;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,9 +23,9 @@ public class DCB {
 	@Override
 	public String toString() {
 		return "DCB{" +
-				"dcbMapId=" + dcbMapId +
-				", blockId=" + blockId +
-				", dcbId=" + dcbId +
-				'}';
+			"dcbMapId=" + dcbMapId +
+			", blockId=" + blockId +
+			", dcbId=" + dcbId +
+			'}';
 	}
 }

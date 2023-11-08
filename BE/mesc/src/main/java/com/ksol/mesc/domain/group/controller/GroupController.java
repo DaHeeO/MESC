@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksol.mesc.domain.common.CommonResponseDto;
+import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mesc.domain.group.dto.request.GroupListReq;
 import com.ksol.mesc.domain.group.dto.request.GroupMemberReq;
 import com.ksol.mesc.domain.group.dto.request.GroupReq;

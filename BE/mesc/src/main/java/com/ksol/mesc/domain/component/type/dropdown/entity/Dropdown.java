@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.dropdown;
+package com.ksol.mesc.domain.component.type.dropdown.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

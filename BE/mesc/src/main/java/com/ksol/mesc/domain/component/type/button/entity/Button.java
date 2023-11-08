@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.button;
+package com.ksol.mesc.domain.component.type.button.entity;
 
 import com.ksol.mesc.domain.component.entity.LinkType;
 

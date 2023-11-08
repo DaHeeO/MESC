@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.component.values.dto;
 
-import com.ksol.mesc.domain.component.values.CValues;
+import com.ksol.mesc.domain.component.values.entity.CValues;
 
 import lombok.Builder;
 import lombok.Data;

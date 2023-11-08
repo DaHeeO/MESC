@@ -1,6 +1,6 @@
-package com.ksol.mesc.domain.component.values;
+package com.ksol.mesc.domain.component.values.entity;
 
-import com.ksol.mesc.domain.component.type.dropdown.Dropdown;
+import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

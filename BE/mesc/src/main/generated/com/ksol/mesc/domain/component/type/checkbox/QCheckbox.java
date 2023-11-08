@@ -2,6 +2,7 @@ package com.ksol.mesc.domain.component.type.checkbox;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.ksol.mesc.domain.component.type.checkbox.entity.Checkbox;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;

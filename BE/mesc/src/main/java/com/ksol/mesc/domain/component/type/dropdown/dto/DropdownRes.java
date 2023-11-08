@@ -2,7 +2,7 @@ package com.ksol.mesc.domain.component.type.dropdown.dto;
 
 import java.util.List;
 
-import com.ksol.mesc.domain.component.type.dropdown.Dropdown;
+import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
 import com.ksol.mesc.domain.component.values.dto.ValuesRes;
 
 import lombok.Builder;
