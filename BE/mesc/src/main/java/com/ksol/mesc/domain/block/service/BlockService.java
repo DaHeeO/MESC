@@ -197,9 +197,12 @@ public class BlockService {
 		if (cardType == CardType.DT) {        //dynamic Text
 			String content = card.getContent();
 			Map<String, String> map = cardReqDto.getVariables();
-			for (String key : map.keySet()) {
-				content = content.replace("{" + key + "}", map.get(key));
+			if (map != null) {
+				for (String key : map.keySet()) {
+					content = content.replace("{" + key + "}", map.get(key));
+				}
 			}
+			
 			cardMap.put("cardType", CardType.TX);
 			cardMap.put("content", content);
 		} else if (cardType == CardType.QT) {    //query text
