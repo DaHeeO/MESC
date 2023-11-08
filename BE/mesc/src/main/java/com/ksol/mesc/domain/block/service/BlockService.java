@@ -187,12 +187,13 @@ public class BlockService {
 		cardMap.put("cardName", card.getName());
 		cardMap.put("content", card.getContent());
 
-		if (cardType == CardType.DT) {
+		if (cardType == CardType.DT) {        //dynamic Text
 			String content = card.getContent();
 			Map<String, String> map = cardReqDto.getVariables();
 			for (String key : map.keySet()) {
 				content = content.replace("{" + key + "}", map.get(key));
 			}
+			cardMap.put("cardType", CardType.TX);
 			cardMap.put("content", content);
 		} else if (cardType == CardType.QT) {    //query text
 			if (cardReqDto.getActionId() != null)
@@ -202,7 +203,6 @@ public class BlockService {
 		} else if (cardType == CardType.TA) {    //table 조회
 			LinkedHashMap<String, Object> tableInfo = (LinkedHashMap<String, Object>)requestPostToMes("/worker/data/",
 				cardReqDto, cardType);
-			//label 빼기
 			cardMap.put("label", tableInfo.get("label"));
 			tableInfo.remove("label");
 			cardMap.put("table", tableInfo);
@@ -222,15 +222,6 @@ public class BlockService {
 				});
 			}
 			cardMap.put("userList", userListWithoutMe);
-		} else if (cardType == CardType.LA) {    //label 조회
-			List<Label> labelList = labelRepository.findByCard(card);
-			List<LabelRes> labelResList = new ArrayList<>();
-
-			for (Label label : labelList) {
-				labelResList.add(LabelRes.toResponse(label));
-			}
-
-			cardMap.put("label", labelResList);
 		} else if (cardType == CardType.QU) {    //query 실행
 			//			LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery());
 			////			tableByQuery.entrySet().forEach(key -> {
