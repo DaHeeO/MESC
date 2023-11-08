@@ -81,7 +81,7 @@ export const ContactListForm = () => {
 
   const handleClosePress = () => {
     setComplite(!complite);
-    console.log('완료 버튼 눌림');
+    // console.log('완료 버튼 눌림');
   };
 
   interface CheckContactProps {

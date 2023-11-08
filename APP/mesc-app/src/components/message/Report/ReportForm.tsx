@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
   AddPersonBtn,
   CustomTextArea,
@@ -6,9 +6,13 @@ import {
   ReportFormContainer,
   ReportText,
   ReportTextInput,
+  ReportTouchContainer,
+  UserTag,
 } from './ReportForm.styles';
-import {Text} from 'react-native';
+import {ScrollView, Text} from 'react-native';
 import {OkayBtn} from '../Btn/SaveBtn';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {checkContactState} from '../../../states/CheckContact';
 //interface
 interface BottomSheetProps {
   //   모달 전체 높이
@@ -22,6 +26,40 @@ interface BottomSheetProps {
 }
 
 export const ReportForm = (props: BottomSheetProps) => {
+  const checkContact = useRecoilValue(checkContactState);
+  const [user, setUser] = useRecoilState(checkContactState);
+  console.log(checkContact);
+
+  const renderName = useCallback(
+    (item: any) => {
+      console.log(item);
+      if (item.name === '') return null;
+      return (
+        <UserTag>
+          <ReportContainer width="70%">
+            <Text>{item.name}</Text>
+          </ReportContainer>
+          <ReportTouchContainer
+            width="30%"
+            onPress={() => {
+              console.log(item.userId);
+              const array = checkContact.users.filter(user => {
+                console.log(user.userId !== item.userId);
+                return user.userId !== item.userId;
+              });
+
+              setUser({users: array});
+            }}>
+            <Text style={{color: 'black', fontWeight: 'bold'}}>X</Text>
+          </ReportTouchContainer>
+        </UserTag>
+      );
+    },
+    [checkContact.users],
+  );
+
+  useEffect(() => {}, []);
+
   const UserName = '송소연';
   const emailExample = `
   공장 이슈 발생 안내 \n
@@ -69,7 +107,21 @@ export const ReportForm = (props: BottomSheetProps) => {
             </AddPersonBtn>
           </ReportContainer>
         </ReportContainer>
-        <ReportContainer height="50%">{/* 보내는 사람 Tag */}</ReportContainer>
+        <ScrollView horizontal={true} style={{flex: 1, width: '100%'}}>
+          <ReportContainer
+            width="100%"
+            height="100%"
+            direction="row"
+            style={{
+              marginLeft: 5,
+              // backgroundColor: 'gold',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            {/* 보내는 사람 Tag */}
+            {checkContact.users.map(renderName)}
+          </ReportContainer>
+        </ScrollView>
       </ReportContainer>
 
       {/* 이메일 제목 Container */}
