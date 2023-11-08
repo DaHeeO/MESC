@@ -179,7 +179,12 @@ public class BlockService {
 
 		//카드 조회
 		for (Card card : cardList) {
-			cardMapList.add(selectCardByType(card, cardReqDto, userId));
+			LinkedHashMap<String, Object> cardMap = selectCardByType(card, cardReqDto, userId);
+			if(cardMap.get("result") != null) {
+				objMap.put("isPossible", !(Boolean) cardMap.get("result"));
+				cardMap.remove("result");
+			}
+			cardMapList.add(cardMap);
 		}
 
 		objMap.put("cardList", cardMapList);
@@ -211,9 +216,12 @@ public class BlockService {
 		if (cardType == CardType.DT) {        //dynamic Text
 			String content = card.getContent();
 			Map<String, String> map = cardReqDto.getVariables();
-			for (String key : map.keySet()) {
-				content = content.replace("{" + key + "}", map.get(key));
+			if (map != null) {
+				for (String key : map.keySet()) {
+					content = content.replace("{" + key + "}", map.get(key));
+				}
 			}
+			
 			cardMap.put("cardType", CardType.TX);
 			cardMap.put("content", content);
 		} else if (cardType == CardType.QT) {    //query text
@@ -244,11 +252,6 @@ public class BlockService {
 			}
 			cardMap.put("userList", userListWithoutMe);
 		} else if (cardType == CardType.QU) {    //query 실행
-			//			LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery());
-			////			tableByQuery.entrySet().forEach(key -> {
-			////				System.out.println("key = " + key);
-			////				System.out.println("tableByQuery = " + tableByQuery.get(key));
-			////			});
 			cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 		} else if (cardType == CardType.LO) {    //로그
 			String keyword = cardReqDto.getKeyword();
