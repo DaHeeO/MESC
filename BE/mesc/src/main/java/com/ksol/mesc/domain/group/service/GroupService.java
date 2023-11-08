@@ -2,6 +2,7 @@ package com.ksol.mesc.domain.group.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,8 +14,10 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ksol.mesc.domain.common.dto.response.JsonResponse;
+import com.ksol.mesc.domain.group.dto.request.GroupListReq;
 import com.ksol.mesc.domain.group.dto.request.GroupMemberReq;
 import com.ksol.mesc.domain.group.dto.request.GroupReq;
+import com.ksol.mesc.domain.group.dto.response.GroupResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
 import com.ksol.mesc.domain.group.entity.GroupState;
@@ -36,30 +39,17 @@ public class GroupService {
 	private final WebClient webClient;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-	//그룹 id로 조회
-	// public Group selectGroupById(Integer groupId) {
-	// 	Optional<Group> optionalGroup = groupRepository.findById(groupId);
-	// 	return optionalGroup.orElse(null);
-	// }
-	//
-	// //사용자 id로 조회
-	// public Group selectGroupByUser(Integer groupId, Integer userId) {
-	// 	Optional<Group> optionalGroup = groupRepository.findByUserAndGroup(groupId, userId);
-	// 	if (optionalGroup.isEmpty())
-	// 		return null;
-	// 	return optionalGroup.get();
-	// }
 	//그룹 기능 동작 전 확인
 	public void checkBeforeGroupFunction(Integer userId, Integer groupId) {
 		//1. 그룹 id가 존재하지 않으면 error
 		groupRepository.findById(groupId).orElseThrow(() -> new GroupNotFoundException("Group Not Found"));
-		//2. 로그인한 user가 그룹 생성자가 아니면 error
-		groupRepository.findByUserAndGroup(groupId, userId)
-			.orElseThrow(() -> new GroupAndUserMismatchException("Group And User Mismatch"));
-		//3. 그룹이 delete인 경우 error
+		//2. 그룹이 delete인 경우 error
 		if (groupRepository.findStateById(groupId) == GroupState.DELETE) {
 			throw new GroupNotFoundException("Group Not Found");
 		}
+		//3. 로그인한 user가 그룹 생성자가 아니면 error
+		groupRepository.findByUserAndGroup(groupId, userId, GroupState.ACTIVE)
+			.orElseThrow(() -> new GroupAndUserMismatchException("Group And User Mismatch"));
 	}
 
 	//그룹 추가
@@ -126,13 +116,25 @@ public class GroupService {
 
 	//그룹 순서 수정
 	@Transactional
-	public void updateGroupSequence(List<Group> groupList) {
+	public void updateGroupSequence(Integer userId, GroupListReq groupListReq) {
+		List<GroupReq> groupReqList = groupListReq.getGroupList();
+		List<Group> groupList = new ArrayList<>();
+
+		for (GroupReq groupReq : groupReqList) {
+			Group group = Group.builder()
+				.id(groupReq.getGroupId())
+				.sequence(groupReq.getSequence())
+				.build();
+			groupList.add(group);
+		}
+
 		for (Group group : groupList) {
 			groupRepository.updateGroupSequence(group.getId(), group.getSequence());
 		}
 	}
 
-	public Object getUserCount() {
+	//전체 유저 수 조희
+	public Object getTotalUserCount() {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 
 		return webClient.get()
@@ -146,8 +148,28 @@ public class GroupService {
 	}
 
 	//그룹 조회
-	public List<Group> selectGroup(Integer userId) {
-		return groupRepository.findByUserId(userId);
+	public LinkedHashMap<String, Object> selectGroup(Integer userId) {
+		LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
+		List<Group> groupList = groupRepository.findByUserId(userId, GroupState.ACTIVE);
+		List<GroupResponse> groupResponseList = new ArrayList<>();
+
+		for (Group group : groupList) {
+			Integer memberCnt = selectMemberCntByGroup(group);
+
+			GroupResponse groupResponse = GroupResponse.builder()
+				.groupId(group.getId())
+				.groupName(group.getGroupName())
+				.sequence(group.getSequence())
+				.memberCnt(memberCnt)
+				.build();
+
+			groupResponseList.add(groupResponse);
+		}
+
+		linkedHashMap.putAll((LinkedHashMap<String, Object>)getTotalUserCount()); //전체 유저 수
+		linkedHashMap.put("groupResponseList", groupResponseList); //groupMember List
+
+		return linkedHashMap;
 	}
 
 	//그룹 멤버수 조회
@@ -156,7 +178,8 @@ public class GroupService {
 	}
 
 	//그룹 멤버 조회
-	public Object selectGroupMember(Integer groupId) {
+	public Object selectGroupMember(Integer userId, Integer groupId) {
+		checkBeforeGroupFunction(userId, groupId);
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 
 		//1. 그룹에 있는 멤버 조회

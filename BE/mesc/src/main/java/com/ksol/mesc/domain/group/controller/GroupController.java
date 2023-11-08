@@ -1,9 +1,6 @@
 package com.ksol.mesc.domain.group.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,8 +18,6 @@ import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mesc.domain.group.dto.request.GroupListReq;
 import com.ksol.mesc.domain.group.dto.request.GroupMemberReq;
 import com.ksol.mesc.domain.group.dto.request.GroupReq;
-import com.ksol.mesc.domain.group.dto.response.GroupResponse;
-import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.service.GroupService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -88,18 +83,8 @@ public class GroupController {
 	public ResponseEntity<CommonResponseDto<?>> updateGroupSequence(
 		@Parameter(description = "그룹 id 리스트", required = true)
 		@RequestBody GroupListReq groupListReq, Authentication authentication) {
-
-		List<GroupReq> groupReqList = groupListReq.getGroupList();
-		List<Group> groupList = new ArrayList<>();
-
-		for (GroupReq groupReq : groupReqList) {
-			Group group = Group.builder()
-				.id(groupReq.getGroupId())
-				.sequence(groupReq.getSequence())
-				.build();
-			groupList.add(group);
-		}
-		groupService.updateGroupSequence(groupList);
+		Integer userId = Integer.parseInt(authentication.getName());
+		groupService.updateGroupSequence(userId, groupListReq);
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}
@@ -108,48 +93,18 @@ public class GroupController {
 	@GetMapping
 	public ResponseEntity<CommonResponseDto<?>> selectGroup(Authentication authentication) {
 		Integer userId = Integer.parseInt(authentication.getName());
+		LinkedHashMap<String, Object> responseMap = groupService.selectGroup(userId);
 
-		Map<String, Object> userCnt = (Map<String, Object>)groupService.getUserCount();
-		List<Group> groupList = groupService.selectGroup(userId);
-		Map<String, Object> map = new HashMap<>();
-		List<GroupResponse> groupResponseList = new ArrayList<>();
-
-		for (Group group : groupList) {
-			Integer memberCnt = groupService.selectMemberCntByGroup(group);
-
-			GroupResponse groupResponse = GroupResponse.builder()
-				.groupId(group.getId())
-				.groupName(group.getGroupName())
-				.sequence(group.getSequence())
-				.memberCnt(memberCnt)
-				.build();
-
-			groupResponseList.add(groupResponse);
-		}
-
-		map.putAll(userCnt);
-		map.put("groupResponseList", groupResponseList);
-		log.info("groupList : {}", groupList);
-
-		return ResponseEntity.ok(CommonResponseDto.success(map));
+		return ResponseEntity.ok(CommonResponseDto.success(responseMap));
 	}
 
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹 멤버를 조회한다.")
 	@GetMapping("/member/{groupId}")
 	public ResponseEntity<CommonResponseDto<?>> selectGroupMember(@Parameter(description = "그룹 id", required = true)
-	@PathVariable Integer groupId, Authentication authentication) {
+	@PathVariable @Valid Integer groupId, Authentication authentication) {
 		Integer userId = Integer.parseInt(authentication.getName());
+		Object groupMemberResponse = groupService.selectGroupMember(userId, groupId);
 
-		// //그룹 id가 존재하지 않으면 pass
-		// if (groupService.selectGroupById(groupId) == null)
-		// 	return ResponseEntity.badRequest().body(CommonResponseDto.error(400, "Do not exist Group ID"));
-		//
-		// //유저가 그룹 생성자가 아니면 error
-		// if (groupService.selectGroupByUser(groupId, userId) == null)
-		// 	return ResponseEntity.badRequest()
-		// 		.body(CommonResponseDto.error(400, "Do not be same User and Group User"));
-
-		Object groupMemberResponse = groupService.selectGroupMember(groupId);
 		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
 	}
 }
