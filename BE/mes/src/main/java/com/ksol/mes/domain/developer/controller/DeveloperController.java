@@ -46,7 +46,7 @@ public class DeveloperController {
     @PostMapping("/query")
     public ResponseEntity<CommonResponseDto<?>> executeQuery (@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
         checkValidates(bindingResult);
-        DeveloperQueryResponseDto developerUpdateResponseDto = new DeveloperQueryResponseDto();
+        DeveloperQueryResponseDto developerQueryResponseDto= new DeveloperQueryResponseDto();
         try {
             String query = developerQueryRequestDto.getQuery();
             Integer modifiedCount = developerService.executeQuery(query);
@@ -56,12 +56,14 @@ public class DeveloperController {
             } else if(query.startsWith("delete")) {
                 method = "삭제";
             }
-            developerUpdateResponseDto.setMessage(modifiedCount + "개의 행이 " + method + "되었습니다.");
+            developerQueryResponseDto.setResult(true);
+            developerQueryResponseDto.setContent(modifiedCount + "개의 행이 " + method + "되었습니다.");
         } catch (SQLException e) {
             log.error(e.getMessage());
-            developerUpdateResponseDto.setMessage(e.getMessage());
+            developerQueryResponseDto.setResult(false);
+            developerQueryResponseDto.setContent(e.getMessage());
         }
-        return new ResponseEntity<>(CommonResponseDto.success(developerUpdateResponseDto), HttpStatus.OK);
+        return new ResponseEntity<>(CommonResponseDto.success(developerQueryResponseDto), HttpStatus.OK);
     }
 
     private static void checkValidates(BindingResult bindingResult) {

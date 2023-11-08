@@ -13,6 +13,6 @@ public class InsertUpdateDeleteQueryValidator implements ConstraintValidator<Ins
             return false;
         }
         value = value.toLowerCase();
-        return value.startsWith("update ") | value.startsWith("insert ") | value.startsWith("delete ");
+        return value.startsWith("update") | value.startsWith("insert") | value.startsWith("delete");
     }
 }

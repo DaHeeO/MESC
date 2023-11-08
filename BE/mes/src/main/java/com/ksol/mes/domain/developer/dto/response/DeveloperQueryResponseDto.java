@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class DeveloperQueryResponseDto {
-    private String message;
+    private Boolean result;
+    private String content;
 }
