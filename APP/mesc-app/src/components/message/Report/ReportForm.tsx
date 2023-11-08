@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   AddPersonBtn,
   CustomTextArea,
@@ -8,9 +8,28 @@ import {
   ReportTextInput,
 } from './ReportForm.styles';
 import {Text} from 'react-native';
-import {OkayBtn} from './Condition/ConditionBtn';
+import {OkayBtn} from '../Btn/SaveBtn';
+//interface
+interface BottomSheetProps {
+  //   모달 전체 높이
+  modalHeight: string;
+  // 모달 닫힐 때 한번
+  modalBreakPoint: string;
+  component: React.ReactNode;
+  onModalShow?: () => void;
+  onModalHide?: () => void;
+  // 모달 아이디
+}
 
-export const ReportForm = () => {
+export const ReportForm = (props: BottomSheetProps) => {
+  const [index, setIndex] = useState(1); // 모달이 닫힐 때 한번 호출
+
+  const handleheetChanges = () => {
+    console.log(index);
+    setIndex(-1);
+    if (index < 0) props.onModalHide?.();
+  };
+
   const UserName = '송소연';
   const emailExample = `
   공장 이슈 발생 안내 \n
@@ -24,6 +43,26 @@ export const ReportForm = () => {
 
   return (
     <ReportFormContainer>
+      <ReportContainer
+        height="10%"
+        direction="row"
+        // style={{backgroundColor: 'pink'}}
+      >
+        <ReportContainer
+          width="40%"
+          height="80%"
+          justifyContent="flex-end"
+          alignItems="flex-start"
+          // style={{backgroundColor: 'skyblue'}}
+        >
+          <OkayBtn content={'전송'} height="90%" />
+        </ReportContainer>
+        <ReportContainer
+          width="55%"
+          height="100%"
+          justifyContent="flex-start"
+        />
+      </ReportContainer>
       {/* 보내는 사람 Container */}
       <ReportContainer height="15%">
         {/* 보내는 사람 titleContainer */}
@@ -60,18 +99,6 @@ export const ReportForm = () => {
         // style={{backgroundColor: 'green'}}
       >
         <CustomTextArea defaultValue={emailExample} multiline />
-      </ReportContainer>
-      <ReportContainer
-        height="20%"
-        direction="row"
-        // style={{backgroundColor: 'pink'}}
-      >
-        <ReportContainer width="55%" height="100%" justifyContent="flex-start">
-          <OkayBtn content={'전송'} height="50%" />
-        </ReportContainer>
-        <ReportContainer width="55%" height="100%" justifyContent="flex-start">
-          <OkayBtn content={'취소'} height="50%" backgroundColor="#ebecef" />
-        </ReportContainer>
       </ReportContainer>
     </ReportFormContainer>
   );

@@ -14,6 +14,7 @@ interface BottomSheetProps {
   component: React.ReactNode;
   onModalShow?: () => void;
   onModalHide?: () => void;
+  // 모달 아이디
 }
 
 export const AboutBottomSheetModal = (props: BottomSheetProps) => {
@@ -51,7 +52,7 @@ export const AboutBottomSheetModal = (props: BottomSheetProps) => {
   return (
     <BottomSheetModalProvider>
       <>
-        <BtnBody width="auto" onPress={handlePresentModalPress}>
+        <BtnBody width="130px" onPress={handlePresentModalPress}>
           <Text>{props.btnTitle}</Text>
         </BtnBody>
         <BottomSheetModal

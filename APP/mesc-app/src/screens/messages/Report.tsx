@@ -1,6 +1,6 @@
 import React from 'react';
 import BottomSheetComponent from '../../components/common/bottomSheet/BottomSheet';
-import {ReportForm} from '../../components/message/ReportForm';
+import {ReportForm} from '../../components/message/Report/ReportForm';
 
 export const Report = () => {
   return (
