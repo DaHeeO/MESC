@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.card;
+package com.ksol.mesc.domain.card.entity;
 
 import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.card.dto.request.CardReq;

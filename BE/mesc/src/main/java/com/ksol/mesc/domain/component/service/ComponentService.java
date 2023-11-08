@@ -1,11 +1,11 @@
-package com.ksol.mesc.domain.component;
+package com.ksol.mesc.domain.component.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.ksol.mesc.domain.card.Card;
-import com.ksol.mesc.domain.card.CardType;
+import com.ksol.mesc.domain.card.entity.Card;
+import com.ksol.mesc.domain.card.entity.CardType;
 import com.ksol.mesc.domain.component.entity.Component;
 import com.ksol.mesc.domain.component.repository.ComponentRepository;
 
@@ -22,7 +22,7 @@ public class ComponentService {
 		CardType cardType = card.getCardType();
 
 		if (cardType == CardType.RE) {
-			
+
 		}
 
 		return componentRepository.findByCard(card);

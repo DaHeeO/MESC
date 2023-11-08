@@ -1,9 +1,10 @@
-package com.ksol.mesc.domain.card;
+package com.ksol.mesc.domain.card.service;
 
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.ksol.mesc.domain.card.entity.Card;
 import com.ksol.mesc.domain.card.repository.CardRepository;
 import com.ksol.mesc.domain.component.repository.ComponentRepository;
 

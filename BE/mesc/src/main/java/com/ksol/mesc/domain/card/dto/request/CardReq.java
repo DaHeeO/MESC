@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.card.dto.request;
 
-import com.ksol.mesc.domain.card.Card;
+import com.ksol.mesc.domain.card.entity.Card;
 import com.ksol.mesc.domain.component.dto.request.ComponentPairReq;
 
 import lombok.AllArgsConstructor;

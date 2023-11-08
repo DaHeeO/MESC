@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.user;
+package com.ksol.mesc.domain.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import lombok.ToString;
 @Builder
 @ToString
 @Getter
-public class User {
+public class UserReq {
 	private Integer userId;
 	private String userName;
 	private String role;

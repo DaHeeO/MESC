@@ -10,8 +10,6 @@ import lombok.Data;
 public class ButtonRes {
 	private Integer id;
 	private String name;
-	private Integer sequence;
-	private String type;
 	private String linkType;
 	private String link;
 	private String icon;
@@ -20,8 +18,6 @@ public class ButtonRes {
 		ButtonRes buttonRes = ButtonRes.builder()
 			.id(button.getId())
 			.name(button.getName())
-			.sequence(button.getSequence())
-			.type(button.getBType())
 			.linkType(button.getLinkType().toString())
 			.link(button.getLink())
 			.icon(button.getIcon())

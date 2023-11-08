@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.component.entity;
 
-import com.ksol.mesc.domain.card.Card;
+import com.ksol.mesc.domain.card.entity.Card;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

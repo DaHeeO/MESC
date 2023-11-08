@@ -23,7 +23,7 @@ public class QDirectButton extends EntityPathBase<DirectButton> {
 
     public final StringPath link = createString("link");
 
-    public final EnumPath<com.ksol.mesc.domain.component.LinkType> linkType = createEnum("linkType", com.ksol.mesc.domain.component.LinkType.class);
+    public final EnumPath<com.ksol.mesc.domain.component.entity.LinkType> linkType = createEnum("linkType", com.ksol.mesc.domain.component.entity.LinkType.class);
 
     public final StringPath name = createString("name");
 

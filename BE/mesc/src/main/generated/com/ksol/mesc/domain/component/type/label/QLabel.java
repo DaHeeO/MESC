@@ -22,7 +22,7 @@ public class QLabel extends EntityPathBase<Label> {
 
     public static final QLabel label = new QLabel("label");
 
-    public final com.ksol.mesc.domain.card.QCard card;
+    public final com.ksol.mesc.domain.card.entity.QCard card;
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
@@ -50,7 +50,7 @@ public class QLabel extends EntityPathBase<Label> {
 
     public QLabel(Class<? extends Label> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.card = inits.isInitialized("card") ? new com.ksol.mesc.domain.card.QCard(forProperty("card"), inits.get("card")) : null;
+        this.card = inits.isInitialized("card") ? new com.ksol.mesc.domain.card.entity.QCard(forProperty("card"), inits.get("card")) : null;
     }
 
 }

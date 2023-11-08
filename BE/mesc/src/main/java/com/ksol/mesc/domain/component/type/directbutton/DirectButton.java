@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.component.type.directbutton;
 
-import com.ksol.mesc.domain.component.LinkType;
+import com.ksol.mesc.domain.component.entity.LinkType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

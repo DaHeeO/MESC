@@ -22,6 +22,4 @@ public class Block {
 	private Integer id;
 	@Column(name = "BLOCK_NAME")
 	private String name;
-	@Column(name = "USER_ID")
-	private Integer userId;
 }

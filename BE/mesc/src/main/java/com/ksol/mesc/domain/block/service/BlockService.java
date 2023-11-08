@@ -3,6 +3,7 @@ package com.ksol.mesc.domain.block.service;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,9 +20,9 @@ import com.ksol.mesc.domain.api.dto.request.DeveloperDataRequestDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.block.repository.BlockRepository;
-import com.ksol.mesc.domain.card.Card;
-import com.ksol.mesc.domain.card.CardType;
 import com.ksol.mesc.domain.card.dto.request.CardReq;
+import com.ksol.mesc.domain.card.entity.Card;
+import com.ksol.mesc.domain.card.entity.CardType;
 import com.ksol.mesc.domain.card.repository.CardRepository;
 import com.ksol.mesc.domain.common.CommonResponseDto;
 import com.ksol.mesc.domain.common.JsonResponse;
@@ -167,30 +168,44 @@ public class BlockService {
 
 		cardMap.put("cardId", card.getId());
 		cardMap.put("cardType", card.getCardType());
+		cardMap.put("cardName", card.getName());
 		cardMap.put("content", card.getContent());
 
-		if (cardType == CardType.QT) {    //query text
+		if (cardType == CardType.DT) {
+			String content = card.getContent();
+			Map<String, String> map = cardReqDto.getVariables();
+			for (String key : map.keySet()) {
+				content = content.replace("{" + key + "}", map.get(key));
+			}
+			cardMap.put("content", content);
+		} else if (cardType == CardType.QT) {    //query text
 			if (cardReqDto.getActionId() != null)
-				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", cardReqDto));
-			else
-				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/data", cardReqDto));
+				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", cardReqDto, cardType));
+			else    //single Table --> 수정 필요
+				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/data/", cardReqDto, cardType));
 		} else if (cardType == CardType.TA) {    //table 조회
-			cardMap.put("table", requestPostToMes("/worker/data/", cardReqDto));
+			LinkedHashMap<String, Object> tableInfo = (LinkedHashMap<String, Object>)requestPostToMes("/worker/data/",
+				cardReqDto, cardType);
+			//label 빼기
+			cardMap.put("label", tableInfo.get("label"));
+			tableInfo.remove("label");
+			cardMap.put("table", tableInfo);
 		} else if (cardType == CardType.STA) {    //single table 조회
-			cardReqDto.setConditions(null);
-			cardMap.put("singleTable", requestPostToMes("/worker/data/", cardReqDto));
+			cardMap.put("singleTable", requestPostToMes("/developer/data", cardReqDto, cardType));
 		} else if (cardType == CardType.RE) {    //보고
 			cardMap.putAll((LinkedHashMap<String, Object>)userService.selectAllUser());
-		} else if (cardType == CardType.LA) {    //label 조회
-			List<Label> labelList = labelRepository.findByCard(card);
-			List<LabelRes> labelResList = new ArrayList<>();
-
-			for (Label label : labelList) {
-				labelResList.add(LabelRes.toResponse(label));
-			}
-
-			cardMap.put("label", labelResList);
-		} else if (cardType == CardType.QU) {    //query 실행
+		}
+		// else if (cardType == CardType.LA) {    //label 조회
+		// 	List<Label> labelList = labelRepository.findByCard(card);
+		// 	List<LabelRes> labelResList = new ArrayList<>();
+		//
+		// 	for (Label label : labelList) {
+		// 		labelResList.add(LabelRes.toResponse(label));
+		// 	}
+		//
+		// 	cardMap.put("label", labelResList);
+		// }
+		else if (cardType == CardType.QU) {    //query 실행
 
 		} else if (cardType == CardType.LO) {    //로그
 		}
@@ -199,6 +214,9 @@ public class BlockService {
 		List<Component> componentList = componentRepository.findByCard(card);
 		log.info("cardType : {}, componentList : {}", cardType, componentList);
 		cardMap.putAll(selectComponentByType(componentList));
+
+		//direct button 조회
+
 		return cardMap;
 	}
 
@@ -213,25 +231,21 @@ public class BlockService {
 		for (Component component : componentList) {
 			ComponentType componentType = component.getComponentType();
 			if (componentType == ComponentType.BU) {    //Button
-				// if (component instanceof Button) {    //Button
 				Optional<Button> button = buttonRepository.findById(component.getLinkId());
 				if (button.isEmpty())
 					continue;
 				buttonList.add(ButtonRes.toResponse(button.get()));
 			} else if (componentType == ComponentType.LA) {    //Label
-				// } else if (component instanceof Label) {    //Label
 				Optional<Label> label = labelRepository.findById(component.getLinkId());
 				if (label.isEmpty())
 					continue;
 				labelList.add(LabelRes.toResponse(label.get()));
 			} else if (componentType == ComponentType.CB) {    //Checkbox
-				// } else if (component instanceof Checkbox) {    //checkbox
 				Optional<Checkbox> checkbox = checkboxRepository.findById(component.getLinkId());
 				if (checkbox.isEmpty())
 					continue;
 				checkboxList.add(CheckboxRes.toResponse(checkbox.get()));
 			} else if (componentType == ComponentType.DD) {    //Dropdown
-				// } else if (component instanceof Dropdown) {    //Dropdown
 				Optional<Dropdown> dropdownOpt = dropdownRepository.findById(component.getLinkId());
 				if (dropdownOpt.isEmpty())
 					continue;
@@ -258,8 +272,11 @@ public class BlockService {
 	}
 
 	//mes에 post api 요청
-	public Object requestPostToMes(String url, CardReqDto cardReqDto) {
+	public Object requestPostToMes(String url, CardReqDto cardReqDto, CardType cardType) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
+		if (cardType == CardType.STA) {
+			cardReqDto.setActionId(null);
+		}
 		if (cardReqDto.getActionId() != null)
 			url += cardReqDto.getActionId();
 

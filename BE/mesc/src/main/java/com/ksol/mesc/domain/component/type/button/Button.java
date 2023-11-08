@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.component.type.button;
 
-import com.ksol.mesc.domain.component.LinkType;
+import com.ksol.mesc.domain.component.entity.LinkType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,9 +30,6 @@ public class Button {
 	@Column(name = "BUTTON_ID")
 	private Integer id;
 	private String name;
-	private Integer sequence;
-	@Column(name = "TYPE")
-	private String bType;
 	private String icon;
 	@Column(name = "LINK_TYPE")
 	@Enumerated(EnumType.STRING)

@@ -19,21 +19,17 @@ public class QButton extends EntityPathBase<Button> {
 
     public static final QButton button = new QButton("button");
 
-    public final StringPath bType = createString("bType");
-
     public final StringPath icon = createString("icon");
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
     public final StringPath link = createString("link");
 
-    public final EnumPath<com.ksol.mesc.domain.component.LinkType> linkType = createEnum("linkType", com.ksol.mesc.domain.component.LinkType.class);
+    public final EnumPath<com.ksol.mesc.domain.component.entity.LinkType> linkType = createEnum("linkType", com.ksol.mesc.domain.component.entity.LinkType.class);
 
     public final StringPath name = createString("name");
 
     public final StringPath response = createString("response");
-
-    public final NumberPath<Integer> sequence = createNumber("sequence", Integer.class);
 
     public QButton(String variable) {
         super(Button.class, forVariable(variable));

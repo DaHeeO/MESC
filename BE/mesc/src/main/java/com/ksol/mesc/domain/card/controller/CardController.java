@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.card;
+package com.ksol.mesc.domain.card.controller;
 
 import java.util.LinkedHashMap;
 
@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.service.BlockService;
+import com.ksol.mesc.domain.card.entity.Card;
+import com.ksol.mesc.domain.card.service.CardService;
 import com.ksol.mesc.domain.common.CommonResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;

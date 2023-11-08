@@ -2,7 +2,7 @@ package com.ksol.mesc.domain.group.dto.response;
 
 import java.util.List;
 
-import com.ksol.mesc.domain.user.User;
+import com.ksol.mesc.domain.user.dto.UserReq;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,5 +14,5 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class GroupMemberResponse {
-	private List<User> userList;
+	private List<UserReq> userList;
 }
