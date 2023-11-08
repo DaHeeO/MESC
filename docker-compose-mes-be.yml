@@ -21,3 +21,6 @@ networks:
   default:
     external:
       name: mes_net
+
+volumes:
+  logbackup
