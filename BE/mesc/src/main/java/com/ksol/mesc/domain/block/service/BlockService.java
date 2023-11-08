@@ -43,9 +43,9 @@ import com.ksol.mesc.domain.component.type.label.dto.LabelRes;
 import com.ksol.mesc.domain.component.type.values.dto.ValuesRes;
 import com.ksol.mesc.domain.component.type.values.entity.ComponentValue;
 import com.ksol.mesc.domain.component.type.values.repository.ValuesRepository;
-import com.ksol.mesc.domain.dcb.entity.DCB;
-import com.ksol.mesc.domain.dcb.repository.DCBRepository;
 import com.ksol.mesc.domain.log.service.LogSerivce;
+import com.ksol.mesc.domain.section.Section;
+import com.ksol.mesc.domain.section.repository.SectionRepository;
 import com.ksol.mesc.domain.user.service.UserServiceImpl;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 import com.ksol.mesc.global.error.ErrorCode;
@@ -68,7 +68,7 @@ public class BlockService {
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
 	private final ValuesRepository valuesRepository;
-	private final DCBRepository dcbRepository;
+	private final SectionRepository sectionRepository;
 
 	//export lib
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -165,11 +165,15 @@ public class BlockService {
 
 		objMap.put("cardList", cardMapList);
 
-		// 바로가기 버튼 조회
-		List<DCB> byBlockId = dcbRepository.findByBlockId(blockId);
-		List<Integer> dcbList = new ArrayList<>();
-		byBlockId.stream().forEach(dcb -> dcbList.add(dcb.getDcbId()));
-		objMap.put("dcbList", dcbList);
+		// 바로가기 버튼 섹션 조회
+		List<Section> byBlockId = sectionRepository.findByBlockId(blockId);
+
+		Integer sectionId = 0;
+		if (!byBlockId.isEmpty()) {
+			sectionId = byBlockId.get(0).getSectionType();
+			System.out.println("byBlockId = " + byBlockId.get(0));
+		}
+		objMap.put("section", sectionId);
 		return objMap;
 	}
 
@@ -243,8 +247,6 @@ public class BlockService {
 		} else if (cardType == CardType.QTX) {    // insert,update,delete 결과
 			cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
 			cardMap.put("cardType", CardType.TX);
-		} else if (cardType == CardType.TB) {    // insert,update,delete 결과
-			cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 		}
 
 		//component 조회

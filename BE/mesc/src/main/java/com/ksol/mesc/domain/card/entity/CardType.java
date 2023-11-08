@@ -5,10 +5,6 @@ public enum CardType {
 	TX,
 	//Dynamic Text
 	DT,
-	//One Button
-	OB,
-	//Two Button
-	TB,
 	//Table
 	TA,
 	//Single Table
