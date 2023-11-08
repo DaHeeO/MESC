@@ -21,8 +21,11 @@ public class Label {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "LABEL_ID")
 	private Integer id;
+	@Column(name = "NAME")
 	private String name;
+	@Column(name = "LABEL_TYPE")
 	private Character labelType;
+	@Column(name = "SEQUENCE")
 	private Integer sequence;
 	@ManyToOne
 	@JoinColumn(name = "CARD_ID")

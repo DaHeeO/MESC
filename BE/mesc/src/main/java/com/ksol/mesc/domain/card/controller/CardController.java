@@ -1,5 +1,6 @@
 package com.ksol.mesc.domain.card.controller;
 
+import java.security.Principal;
 import java.util.LinkedHashMap;
 
 import org.springframework.http.ResponseEntity;
@@ -31,14 +32,15 @@ public class CardController {
 	@PostMapping("/{cardId}")
 	public ResponseEntity<CommonResponseDto<?>> selectCard(@Parameter(description = "카드 id", required = true)
 	@PathVariable @Valid Integer cardId, @Parameter(description = "카드 정보")
-	@RequestBody @Valid CardReqDto cardReqDto) {
+	@RequestBody @Valid CardReqDto cardReqDto, Principal principal) {
+		Integer userId = Integer.parseInt(principal.getName());
 		Card card = cardService.selectCard(cardId);
 
 		//카드 번호가 존재하지 않을 때
 		if (card == null)
 			return ResponseEntity.badRequest().body(CommonResponseDto.error(400, "Don't exist cardId"));
 
-		LinkedHashMap<String, Object> responseMap = blockService.selectCardByType(card, cardReqDto);
+		LinkedHashMap<String, Object> responseMap = blockService.selectCardByType(card, cardReqDto, userId);
 
 		return ResponseEntity.ok(CommonResponseDto.success(responseMap));
 	}

@@ -3,15 +3,7 @@ package com.ksol.mesc.domain.card.entity;
 import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.card.dto.request.CardReq;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,9 +26,11 @@ public class Card {
 	@Enumerated(EnumType.STRING)
 	private CardType cardType;
 	private String content;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "BLOCK_ID")
 	private Block block;
+	@Column(name = "CONTENT_KEY")
+	private String contentKey;
 
 	public static Card toEntity(CardReq cardReq) {
 		Card card = Card.builder()
@@ -49,5 +43,17 @@ public class Card {
 			.block(Block.builder().id(cardReq.getBlockId()).build())
 			.build();
 		return card;
+	}
+
+	@Override
+	public String toString() {
+		return "Card{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", sequence=" + sequence +
+				", cardType=" + cardType +
+				", content='" + content + '\'' +
+				", block=" + block.getId() +
+				'}';
 	}
 }

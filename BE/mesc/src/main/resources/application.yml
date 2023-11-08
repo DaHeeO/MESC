@@ -2,7 +2,7 @@ spring:
   # DB 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #    url: jdbc:mysql://localhost:3306/mescdb?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    #    url: jdbc:mysql://localhost:3306/mesc?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
     #    username: ksol
     #    password: ksol1117
     url: jdbc:mysql://k9b201.p.ssafy.io/mesc?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
@@ -12,7 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     database: mysql
     properties:
       hibernate:
@@ -58,17 +58,17 @@ spring:
       max-request-size: 50MB
 
 # JPA log
-logging:
-  level:
-    com.ksol.mesc: debug
-    org.springframework.security: debug
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+#logging:
+#  level:
+#    com.ksol.mesc: debug
+#    org.springframework.security: debug
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
 
 # jwt secret key 설정
 jwt:

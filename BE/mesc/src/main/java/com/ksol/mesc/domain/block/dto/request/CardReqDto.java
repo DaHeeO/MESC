@@ -1,5 +1,6 @@
 package com.ksol.mesc.domain.block.dto.request;
 
+import java.util.List;
 import java.util.Map;
 
 import lombok.Data;
@@ -12,4 +13,7 @@ public class CardReqDto {
 	private String query;
 	private String table;
 	private Map<String, String> variables;
+	private String keyword;
+	private String date;
+	private List<String> levelList;
 }

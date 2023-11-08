@@ -22,4 +22,15 @@ public class Block {
 	private Integer id;
 	@Column(name = "BLOCK_NAME")
 	private String name;
+	@Column(name = "IS_POSSIBLE")
+	private Boolean isPossible;
+
+	@Override
+	public String toString() {
+		return "Block{" +
+			"id=" + id +
+			", name='" + name + '\'' +
+			", isPossible=" + isPossible +
+			'}';
+	}
 }
