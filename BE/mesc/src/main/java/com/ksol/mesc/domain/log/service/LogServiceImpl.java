@@ -29,13 +29,21 @@ public class LogServiceImpl implements LogSerivce {
 
     @Override
     public String getCommand(String keyword, String date, List<String> levelList) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < date.length(); i++) {
+            char ch = date.charAt(i);
+            if(ch == '\n' || ch == '\t' || ch == ' ' || ch == '\f' || ch == '\r') continue;
+            sb.append(ch);
+        }
+        date = sb.toString();
+        System.out.println("date = " + date);
         String level = levelList.isEmpty() ? null : levelList.get(0);
         for (int i = 1; i < levelList.size(); i++) {
             level += "\\|" + levelList.get(i);
         }
-        String command = "grep -n -i \"" + keyword + "\" \"mes_backend_dev/BE/mes/logs/RULEmgrlog" + date + "\"";
+        String command = "grep -i \"" + keyword + "\" _data/RULEmgrlog" + date + '*';
         if (level != null) {
-            command += "| grep -n -i \"" + level + "\"";
+            command += "| grep -i \"" + level + "\"";
         }
         return command;
     }
