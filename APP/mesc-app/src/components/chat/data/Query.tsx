@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {ScrollView} from 'react-native';
 import * as S from './Query.styles';
 
 interface QueryProps {
@@ -7,7 +7,17 @@ interface QueryProps {
 }
 
 const Query: React.FC<QueryProps> = ({query}) => {
-  return <S.QueryBox>{query}</S.QueryBox>;
+  return (
+    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
+        <S.QueryBox>
+          <S.Query>{query}</S.Query>
+        </S.QueryBox>
+      </ScrollView>
+    </ScrollView>
+  );
 };
 
 export default Query;

@@ -12,12 +12,13 @@ type DataBoxProps = {
     rowList: any[][]; // or string[][]
   };
   query?: string;
+  tableQuery?: string;
   // 여기에 DataBox 컴포넌트에 사용할 다른 props들을 정의합니다.
 };
 
-const DataBox: React.FC<DataBoxProps> = ({table, query}) => {
+const DataBox: React.FC<DataBoxProps> = ({table, query, tableQuery}) => {
   return (
-    <S.DataContainer>
+    <S.DataBoxContainer>
       {table ? (
         <Table
           header={table.columnNameList}
@@ -27,7 +28,7 @@ const DataBox: React.FC<DataBoxProps> = ({table, query}) => {
       ) : query ? (
         <Query query={query} />
       ) : null}
-    </S.DataContainer>
+    </S.DataBoxContainer>
   );
 };
 

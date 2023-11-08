@@ -4,7 +4,7 @@ import {colors} from '../../common/Theme';
 export const Container = styled.View`
   flex-direction: column;
   flex: 1;
-  border: 1px solid green;
+  // border: 1px solid green;
   // overflow: hidden;
 `;
 
@@ -25,28 +25,27 @@ export const Body = styled.View`
   border: 1px solid ${colors.secondary};
 `;
 
-export const ColumnName = styled.Text`
+export const ColumnInfoBox = styled.View`
   background-color: ${colors.quaternary};
-  padding: 3px;
+  padding: 2px;
   border: 0.7px solid ${colors.secondary};
-  height: 30px;
-  text-align: center;
+  width: 85px;
+  height: 27px;
+  align-items: center;
   justify-content: center;
 `;
 
-export const ColumnType = styled.Text`
-  background-color: ${colors.quaternary};
-  padding: 3px;
+export const CellBox = styled.View`
+  padding: 2px;
   border: 0.7px solid ${colors.secondary};
-  height: 30px;
-  text-align: center;
+  width: 85px;
+  min-height: 27px;
+  align-items: center;
   justify-content: center;
 `;
 
-export const Cell = styled.Text`
-  padding: 3px;
-  border: 0.7px solid ${colors.secondary};
-  height: auto;
-  text-align: center;
-  justify-content: center;
-`;
+export const ColumnName = styled.Text``;
+
+export const ColumnType = styled.Text``;
+
+export const Cell = styled.Text``;
