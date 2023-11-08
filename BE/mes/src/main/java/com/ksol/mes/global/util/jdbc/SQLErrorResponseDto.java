@@ -6,9 +6,9 @@ import lombok.Data;
 public class SQLErrorResponseDto {
     private Boolean result = false;
 
-    String message;
+    String content;
 
     public SQLErrorResponseDto(String message) {
-        this.message = message;
+        this.content = message;
     }
 }
