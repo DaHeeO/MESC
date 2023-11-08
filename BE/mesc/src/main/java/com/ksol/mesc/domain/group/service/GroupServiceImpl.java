@@ -70,9 +70,14 @@ public class GroupServiceImpl implements GroupService {
 	//그룹 이름 수정
 	@Override
 	@Transactional
-	public void updateGroup(Integer userId, Integer groupId, GroupReq groupReq) {
-		checkBeforeGroupFunction(userId, groupId);
-		groupRepository.updateGroupName(groupId, groupReq.getGroupName());
+	public void updateGroup(Integer userId, GroupListReq groupListReq) {
+		List<GroupReq> groupReqList = groupListReq.getGroupList();
+
+		for (GroupReq groupReq : groupReqList) {
+			Integer groupId = groupReq.getGroupId();
+			checkBeforeGroupFunction(userId, groupId);
+			groupRepository.updateGroupName(groupId, groupReq.getGroupName());
+		}
 	}
 
 	//그룹 멤버 수정
