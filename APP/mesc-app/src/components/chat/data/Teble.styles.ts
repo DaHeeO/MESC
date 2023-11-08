@@ -28,24 +28,26 @@ export const Body = styled.View`
 export const ColumnInfoBox = styled.View`
   background-color: ${colors.quaternary};
   padding: 2px;
-  border: 0.7px solid ${colors.secondary};
-  width: 85px;
-  height: 27px;
+  border: 0.8px solid ${colors.secondary};
+  width: 90px;
+  min-height: 25px;
   align-items: center;
   justify-content: center;
 `;
 
 export const CellBox = styled.View`
-  padding: 2px;
-  border: 0.7px solid ${colors.secondary};
-  width: 85px;
-  min-height: 27px;
+  padding: 1px;
+  border: 0.8px solid ${colors.secondary};
+  width: 90px;
+  min-height: 25px;
   align-items: center;
   justify-content: center;
 `;
 
 export const ColumnName = styled.Text``;
 
-export const ColumnType = styled.Text``;
+export const ColumnType = styled.Text`
+  text-size: 8px;
+`;
 
 export const Cell = styled.Text``;

@@ -4,7 +4,7 @@ import {colors} from '../../common/Theme';
 export const DataBoxContainer = styled.View`
   // border: 3px solid blue;
   // box-sizing: border-box;
-  padding: 7px;
+  padding: 10px;
   border-radius: 6px;
   width: 100%;
   height: 230px;

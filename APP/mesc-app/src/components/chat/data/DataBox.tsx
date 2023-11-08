@@ -5,18 +5,15 @@ import Table from './Table';
 import Query from './Query';
 
 type DataBoxProps = {
-  // key: React.Key;
   table?: {
     columnNameList: string[];
     columnTypeList: string[];
-    rowList: any[][]; // or string[][]
+    rowList: string[][];
   };
   query?: string;
-  tableQuery?: string;
-  // 여기에 DataBox 컴포넌트에 사용할 다른 props들을 정의합니다.
 };
 
-const DataBox: React.FC<DataBoxProps> = ({table, query, tableQuery}) => {
+const DataBox: React.FC<DataBoxProps> = ({table, query}) => {
   return (
     <S.DataBoxContainer>
       {table ? (

@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Messages from './Messages';
-import Log from '../log/Log';
 import Chat from '../../screens/chat/Chat';
 
 const Stack = createStackNavigator();

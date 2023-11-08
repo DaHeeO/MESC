@@ -4,192 +4,238 @@ import axios from 'axios';
 import DataBox from './DataBox';
 import Label from './Label';
 import * as S from './DataComponent.styles';
+import {set} from 'lodash';
 
 type Card = {
   cardId: number;
+  cardName?: string;
+  content: string | null;
   cardType: string;
-  table?: any;
-  query?: string;
-  tableQuery?: string;
-  label?: LabelItem[];
+  labels?: LabelItem[];
+  table?: TableData;
+  button?: ButtonItem[];
 };
 
 type LabelItem = {
-  id: number;
   name: string;
   labelType: string;
-  sequence: number;
+  query: string;
+};
+
+type TableData = {
+  columnNameList: string[];
+  columnTypeList: string[];
+  rowList: string[][];
+};
+
+type ButtonItem = {
+  id: number;
+  name: string;
+  linkType: string;
+  link: string;
+  iconId?: any | null;
+  response: string;
 };
 
 const dummyData = {
   statusCode: 200,
   message: 'Success',
   data: {
-    blockId: 1,
+    blockId: 4,
+    isPossible: false,
     cardList: [
       {
-        cardId: 1,
-        cardType: 'TA',
-        content: null,
-        table: {
-          columnNameList: [
-            '공정대분류',
-            '공정분류',
-            '공정명',
-            '시작 일시',
-            '제품 갯수',
-          ],
-          columnTypeList: [
-            'varchar(15)',
-            'varchar(15)',
-            'varchar(15)',
-            'date',
-            'int',
-          ],
-          rowList: [
-            ['대공정 A', '소fdfdf공', '공정A', '20dfdfdfd0', '15'],
-            ['대공정 A', '소공정A', '공정B', '20231028', '8'],
-            ['대공정 B', '소공정Caaa', '공정D', '20230601', '0'],
-            ['대공정 C', '소공정F', '공정G', '20220805', '1'],
-            ['대공정 A', '소공정A', '공정A', '20231105', '15'],
-            ['대공정 A', '소공정Adddd', '공정B', '20231028', '8'],
-            ['대공정 B', '소공정C', '공정D', '20230601', '0'],
-          ],
-        },
-        checkbox: [
-          {
-            id: 2,
-            name: '2번',
-          },
-        ],
-      },
-      {
-        cardId: 2,
-        cardType: 'QU',
-        content: null,
-        query:
-          'SELECT \nS_ACCTBAL, \nS_NAddddddddddddddddddddddddddddME, \nN_NAME, \n P_PARTKEY,\nP_MFGR,\nS_ADDRESS,\nS_PHONE,\nS_COMMENT\nFROM\nPART,\nSUPPLdddddddddddddddddddddIER,\nWHERE\nP_PARTKEY = PS_PARTKEY\nAND S_SUPPKEY = PS_SUPPKEY\nAND P_SIZE = 15\nSdddddddddddddddELECT\nWHERE\nORDER BY\nS_ACCTBAL DESC,\nN_ddddddddddddddddddddddNAME,\nS_NAME',
-        dropdown: [
-          {
-            id: 1,
-            name: '1번',
-            columnName: 'column',
-            type: 'No',
-          },
-        ],
-      },
-      {
         cardId: 5,
-        cardType: 'LA',
-        content: null,
-        label: [
-          {
-            id: 1,
-            name: '쿼리',
-            sequence: 1,
-            labelType: 'q',
-          },
-          {
-            id: 2,
-            name: 'TABLE 1',
-            sequence: 2,
-            labelType: 't',
-          },
-          {
-            id: 3,
-            name: 'TABLE 2',
-            sequence: 3,
-            labelType: 't',
-          },
-          {
-            id: 4,
-            name: 'TABLE 3',
-            sequence: 4,
-            labelType: 't',
-          },
-          {
-            id: 5,
-            name: '쿼리',
-            sequence: 5,
-            labelType: 'q',
-          },
-          {
-            id: 6,
-            name: 'TABLE 4',
-            sequence: 6,
-            labelType: 't',
-          },
-          {
-            id: 7,
-            name: 'TABLE 5555555555',
-            sequence: 7,
-            labelType: 't',
-          },
-          {
-            id: 8,
-            name: 'TABLE 6',
-            sequence: 4,
-            labelType: 't',
-          },
-        ],
+        cardType: 'TX',
+        cardName: '공정조희텍스트',
+        content:
+          '다음은 전체 공정 조회 [조회], [쿼리문] 결과입니다.\\n추가적으로 메뉴탭에서 [테이블]을 선택하면\\n해당 테이블의 데이터를 확인할 수 있습니다. ',
       },
       {
         cardId: 6,
-        cardType: 'STA',
-        tableQuery: 'SELECT * FROM table1',
-      },
-      {
-        cardId: 7,
-        cardType: 'STA',
-        tableQuery: 'SELECT * FROM table2',
-      },
-      {
-        cardId: 8,
-        cardType: 'STA',
-        tableQuery: 'SELECT * FROM table3',
-      },
-      {
-        cardId: 9,
-        cardType: 'STA',
-        tableQuery: 'SELECT * FROM table4',
+        cardType: 'TA',
+        cardName: '공정테이블',
+        content: null,
+        labels: [
+          {
+            name: '쿼리',
+            labelType: 'q',
+            query:
+              'select * from WO_INFO join PROD_INFO on WO_INFO.PROD_ID=PROD_INFO.PROD_ID where WO_INFO.PROD_ID=1',
+          },
+          {
+            name: 'prod_info',
+            labelType: 't',
+            query: 'SELECT * FROM prod_info',
+          },
+        ],
+        table: {
+          columnNameList: [
+            'WO_ID',
+            'PROD_ID',
+            'LINE_ID',
+            'WORK_ID',
+            'FCT_ID',
+            'SHOP_ID',
+            'WO_STS',
+            'WO_YMD',
+            'MFG_TYPE',
+            'STATUS',
+            'PROD_ID',
+            'PROD_NAME',
+          ],
+          columnTypeList: [
+            'INT',
+            'INT',
+            'INT',
+            'INT',
+            'INT',
+            'INT',
+            'CHAR(4)',
+            'DATETIME',
+            'VARCHAR',
+            'VARCHAR',
+            'INT',
+            'VARCHAR',
+          ],
+          rowList: [
+            [
+              '1dfdfdf',
+              '1ddd',
+              '1ddd',
+              '1dddd',
+              '1dddd',
+              '1ddd',
+              '1ddd',
+              '2011-01-01T00:00',
+              '1',
+              '1',
+              '1',
+              '1번',
+            ],
+            [
+              '1dfdfdf',
+              '1ddd',
+              '1ddd',
+              '1dddd',
+              '1dddd',
+              '1ddd',
+              '1ddd',
+              '2011-01-01T00:00',
+              '1',
+              '1',
+              '1',
+              '1번',
+            ],
+            [
+              '1dfdfdf',
+              '1ddd',
+              '1ddd',
+              '1dddd',
+              '1dddd',
+              '1ddd',
+              '1ddd',
+              '2011-01-01T00:00',
+              '1',
+              '1',
+              '1',
+              '1번',
+            ],
+          ],
+        },
+        button: [
+          {
+            id: 21,
+            name: '조건 변경',
+            linkType: 'C',
+            link: '22',
+            iconId: null,
+            response: '조건 변경',
+          },
+        ],
       },
     ],
+    dcbList: [],
   },
 };
 
 const DataComponent = () => {
-  const [cards, setCards] = useState<Card[]>(dummyData.data.cardList);
-  const [selectedLabel, setSelectedLabel] = useState<LabelItem | null>(null);
-  const [data2, setData2] = useState<Card[]>([]);
+  const [cards, setCards] = useState<Card[] | undefined>(undefined);
+  const [data1, setData1] = useState<TableData>();
+  const [data2, setData2] = useState<String | TableData>();
   const [loading, setLoading] = useState(false);
+  const [labels, setLabels] = useState<LabelItem[]>([]);
+  const [query, setQuery] = useState<string>();
+  const [selectedLabel, setSelectedLabel] = useState<LabelItem>();
+  // useEffect(() => {
 
-  // 'TA' 타입 카드들만 필터링하여 data1에 할당
-  const data1 = cards.filter(
-    card => card.cardType === 'TA' || card.cardType === 'QU',
-  );
+  //   // 함수를 비동기로 선언합니다.
+  //   const fetchCards = async () => {
+  //     const token =
+  //       'deyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvaEBuYXZlci5jb20iLCJBdXRoIjoiREVWRUxPUEVSIiwidXNlcklkIjo0LCJleHAiOjE2OTk1MDg0NTF9.mhX8E7UiKhJ9nImGMmTpiKYGyt5nXz4_vqB7mKQwvXI'; // 여기에 실제 토큰 값을 넣어주세요.
 
-  // 'QU' 타입 카드의 쿼리 데이터만 가져와 query 변수에 할당
-  // const query = cards.find(card => card.cardType === 'QU')?.query;
+  //     try {
+  //       // POST 요청을 보냅니다.
+  //       const response = await axios.post(
+  //         'https://www.mesc.kr/api/mesc/block/6', // 요청할 URL
+  //         {actionId: 23}, // 요청 바디
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`, // 헤더에 토큰을 포함시킵니다.
+  //           },
+  //         },
+  //       );
 
-  // 'STA' 타입 카드들만 필터링하여 data2에 할당
-  // setData2(cards.filter(card => card.cardType === 'STA'));
+  //       // 응답에서 data를 추출하여 cards 상태를 설정합니다.
+  //       setCards(response.data);
+  //     } catch (error) {
+  //       // 오류가 발생한 경우 콘솔에 로그를 남깁니다.
+  //       console.error('There was an error!', error);
+  //     }
+  //   };
+
+  //   // 정의한 함수를 호출합니다.
+  //   fetchCards();
+  // }, []);
+
+  // 'TA' table 데이터 저장하기 위해
+
+  // 'TA' label 데이터 저장하기 위해
+
+  // 'TA' label의 q타입 query 데이터 저장하기 위해
 
   useEffect(() => {
-    setData2(cards.filter(card => card.cardType === 'QU'));
-  }, [cards]);
+    setCards(dummyData.data.cardList);
+  }, []);
 
   useEffect(() => {
-    // 'LA' 타입의 카드 중, labelType이 'q'인 첫 번째 라벨을 찾습니다.
-    const firstLabel = cards
-      .find(
-        card =>
-          card.cardType === 'LA' &&
-          card.label?.some(label => label.labelType === 'q'),
-      )
-      ?.label?.find(label => label.labelType === 'q');
+    if (cards) {
+      // 'TA' table 데이터 저장
+      const data1 = cards.filter(card => card.cardType === 'TA');
+      setData1(data1[0].table);
 
-    if (firstLabel) {
-      setSelectedLabel(firstLabel); // 첫 번째 'q' 타입 라벨 객체로 초기 상태를 설정합니다.
+      // 'TA' labels 데이터 저장
+      const tableLabels = cards.find(card => card.cardType === 'TA')?.labels;
+      if (tableLabels) {
+        setLabels(tableLabels);
+      }
+
+      // 'TA' labels의 labelType이 'q'인 것 선택된 상태로 저장
+      const queryLabel = cards
+        .find(card => card.cardType === 'TA')
+        ?.labels?.find(label => label.labelType === 'q');
+      if (queryLabel && !selectedLabel) {
+        setSelectedLabel(queryLabel);
+      }
+
+      // 'TA' labels의 labelType이 'q'인 것 query 데이터 저장
+      const cardQuery = cards
+        .find(card => card.cardType === 'TA')
+        ?.labels?.find(label => label.labelType === 'q')?.query;
+      if (cardQuery) {
+        setQuery(cardQuery);
+        setData2(cardQuery);
+      }
     }
   }, [cards]);
 
@@ -197,14 +243,14 @@ const DataComponent = () => {
   const handleSelectLabel = (labelItem: LabelItem) => {
     setSelectedLabel(labelItem);
     if (labelItem.labelType === 'q') {
-      setData2(data1.filter(card => card.cardType === 'QU'));
-    } else {
-      fetchData(labelItem.name);
+      setData2(query); // query를 유지합니다.
+    } else if (labelItem.labelType === 't') {
+      fetchData(labelItem.query); // 테이블 데이터를 가져옵니다.
     }
   };
 
-  const fetchData = async (labelName: string) => {
-    if (!labelName) return;
+  const fetchData = async (query: string) => {
+    if (!query) return;
 
     try {
       setLoading(true);
@@ -217,7 +263,7 @@ const DataComponent = () => {
           cardList: [
             {
               cardId: 1,
-              cardType: 'TA',
+              cardType: 'STA',
               content: null,
               table: {
                 columnNameList: [
@@ -260,8 +306,8 @@ const DataComponent = () => {
         },
       };
 
-      // const response = await axios.get(`YOUR_API_ENDPOINT/${labelName}`); // 라벨 이름을 이용해 요청을 보내세요.
-      setData2(response.data.cardList); // 응답 데이터로 data2를 업데이트합니다.
+      // const response = await axios.get(`YOUR_API_ENDPOINT/${query}`); // 라벨 이름을 이용해 요청을 보내세요.
+      setData2(response.data.cardList[0].table); // 응답 데이터로 data2를 업데이트합니다.
     } catch (error) {
       console.error('Fetching data failed: ', error);
     } finally {
@@ -276,33 +322,21 @@ const DataComponent = () => {
           height="45%"
           // style={{backgroundColor: 'red'}}
         >
-          {/* 첫 번째 섹션: 'TA' 타입의 DataBox를 렌더링합니다. */}
-
-          {cards
-            .filter(card => card.cardType === 'TA')
-            .map(card => (
-              <DataBox key={card.cardId} table={card.table} />
-            ))}
+          {/* 첫 번째 섹션: data1 렌더링 */}
+          <DataBox table={data1} />
         </S.DataSection>
         <S.DataSection>
           {/* 두 번째 섹션: Label을 렌더링합니다. */}
-          <ScrollView
-            contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
-            horizontal
-            showsHorizontalScrollIndicator={false}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <S.LabelContainer>
-              {cards
-                .filter(card => card.cardType === 'LA')
-                .flatMap(card => card.label || [])
-                .map(labelItem => (
-                  <Label
-                    key={labelItem.id}
-                    label={labelItem}
-                    isSelected={selectedLabel?.id === labelItem.id}
-                    onSelect={() => handleSelectLabel(labelItem)}
-                    // Style might need to be added here to ensure label width is dynamic
-                  />
-                ))}
+              {labels.map((labelItem, index) => (
+                <Label
+                  isSelected={selectedLabel?.name === labelItem.name}
+                  onSelect={() => handleSelectLabel(labelItem)}
+                  label={labelItem}
+                  // Style might need to be added here to ensure label width is dynamic
+                />
+              ))}
             </S.LabelContainer>
           </ScrollView>
         </S.DataSection>
@@ -311,15 +345,13 @@ const DataComponent = () => {
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
-            <View
-            // style={{backgroundColor: 'yellow'}}
-            >
-              {data2.map(card => (
-                <DataBox
-                  key={card.cardId}
-                  {...(card.query ? {query: card.query} : {table: card.table})}
-                />
-              ))}
+            <View>
+              {/* data2가 string 타입이 아니면 table prop으로 넘기고, string 타입이면 query prop으로 넘깁니다. */}
+              {typeof data2 === 'string' ? (
+                <DataBox query={data2} />
+              ) : (
+                <DataBox table={data2 as TableData} />
+              )}
             </View>
           )}
         </S.DataSection>
