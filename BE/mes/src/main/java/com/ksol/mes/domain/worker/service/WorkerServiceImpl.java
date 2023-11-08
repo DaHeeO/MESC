@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -32,14 +34,18 @@ public class WorkerServiceImpl implements WorkerService{
     }
 
     @Override
-    public Table getTable(Integer actionId, String conditions) throws SQLException {
+    public Map<String, Object> getTable(Integer actionId, String conditions) throws SQLException {
         String query = null;
+        Map<String, Object> map = new HashMap<>();
         try {
             query = Optional.ofNullable(this.getQuery(actionId, conditions)).orElseThrow(() -> new Exception());
         } catch (Exception e) {
             log.info(e.getMessage());
         }
-        return jdbcUtil.select(query);
+
+        map.put("query", query);
+        map.put("table", jdbcUtil.select(query));
+        return map;
     }
 
     private static String getOnlyOneQuery(String query) {

@@ -19,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/mes/worker")
@@ -53,12 +54,12 @@ public class WorkerController {
             @PathVariable(required = true) Integer actionId,
             @RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
             BindingResult bindingResult) {
-        log.info(workerDataRequestDto.getConditions());
         checkValidates(bindingResult);
         WorkerDataResponseDto workerDataResponseDto = null;
         try {
-            Table table = workerService.getTable(actionId, workerDataRequestDto.getConditions());
-            workerDataResponseDto = new WorkerDataResponseDto(table);
+            // Table table = workerService.getTable(actionId, workerDataRequestDto.getConditions());
+            Map<String, Object> tableInfo = workerService.getTable(actionId, workerDataRequestDto.getConditions());
+            workerDataResponseDto = new WorkerDataResponseDto(tableInfo);
         } catch (SQLException e) {
             log.debug(e.getMessage());
             return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())), HttpStatus.ACCEPTED);
