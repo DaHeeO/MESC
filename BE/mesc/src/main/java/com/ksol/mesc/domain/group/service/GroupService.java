@@ -99,6 +99,19 @@ public class GroupService {
 		}
 	}
 
+	public Object getUserCount() {
+		String accessToken = jwtAuthenticationFilter.getAccessToken();
+
+		return webClient.get()
+			.uri("/user/members/count")
+			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+			.retrieve()
+			.toEntity(JsonResponse.class)
+			.block()
+			.getBody()
+			.getData();
+	}
+
 	//그룹 조회
 	public List<Group> selectGroup(Integer userId) {
 		return groupRepository.findByUserId(userId);

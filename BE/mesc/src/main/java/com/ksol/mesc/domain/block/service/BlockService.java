@@ -130,16 +130,16 @@ public class BlockService {
 
 			switch (componentType) {
 				case BU:
-					saveEntity(json, Button.class, buttonRepository);
+					Button button = saveEntity(json, Button.class, buttonRepository);
 					break;
 				case CB:
-					saveEntity(json, Checkbox.class, checkboxRepository);
+					Checkbox checkbox = saveEntity(json, Checkbox.class, checkboxRepository);
 					break;
 				case DD:
-					saveEntity(json, Dropdown.class, dropdownRepository);
+					Dropdown dropdown = saveEntity(json, Dropdown.class, dropdownRepository);
 					break;
 				case LA:
-					saveEntity(json, Label.class, labelRepository);
+					Label label = saveEntity(json, Label.class, labelRepository);
 					break;
 				default:
 					throw new IllegalArgumentException("Invalid ComponentType");

@@ -1,7 +1,9 @@
 package com.ksol.mesc.domain.group.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -155,7 +157,9 @@ public class GroupController {
 		Integer userId = Integer.parseInt(authentication.getName());
 
 		//유저 아이디가 존재하지 않으면 error
+		Map<String, Object> userCnt = (Map<String, Object>)groupService.getUserCount();
 		List<Group> groupList = groupService.selectGroup(userId);
+		Map<String, Object> map = new HashMap<>();
 		List<GroupResponse> groupResponseList = new ArrayList<>();
 
 		for (Group group : groupList) {
@@ -168,9 +172,11 @@ public class GroupController {
 			groupResponseList.add(groupResponse);
 		}
 
+		map.putAll(userCnt);
+		map.put("groupResponseList", groupResponseList);
 		log.info("groupList : {}", groupList);
 
-		return ResponseEntity.ok(CommonResponseDto.success(groupResponseList));
+		return ResponseEntity.ok(CommonResponseDto.success(map));
 	}
 
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹 멤버를 조회한다.")
