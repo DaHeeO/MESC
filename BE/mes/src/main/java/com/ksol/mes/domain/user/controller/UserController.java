@@ -14,6 +14,7 @@ import com.ksol.mes.domain.user.dto.request.LoginReq;
 import com.ksol.mes.domain.user.dto.request.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.UserReq;
 import com.ksol.mes.domain.user.dto.response.GroupMemberResponse;
+import com.ksol.mes.domain.user.dto.response.MemberCntDto;
 import com.ksol.mes.domain.user.dto.response.UserResponse;
 import com.ksol.mes.domain.user.service.UserService;
 import com.ksol.mes.global.config.jwt.TokenInfo;
@@ -77,29 +78,24 @@ public class UserController {
 	@Operation(summary = "전체 멤버수 조회 API", description = "전체 멤버수 조회 후, 전달한다.")
 	@GetMapping("/members/count")
 	public ResponseEntity<CommonResponseDto<?>> getMemberCount() {
-		Integer totalCnt = userService.getUserCount();
-		Map<String, Integer> map = new HashMap<>();
-		map.put("totalCnt", totalCnt);
-		return ResponseEntity.ok(CommonResponseDto.success(map));
+		MemberCntDto memberCntDto = userService.getUserCount();
+		// Integer totalCnt = userService.getUserCount();
+		// Map<String, Integer> map = new HashMap<>();
+		// map.put("totalCnt", totalCnt);
+		return ResponseEntity.ok(CommonResponseDto.success(memberCntDto));
 	}
 
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹에 있는 멤버 정보를 조회 후, 전달한다.")
 	@PostMapping
 	public ResponseEntity<CommonResponseDto<?>> getGroupMembers(
 		@Parameter(description = "그룹 멤버 id 리스트", required = true) @RequestBody @Validated UserReq userReq) {
-		//유저 정보 확인
 
-		List<UserResponse> userList = null;
-
+		GroupMemberResponse groupMemberResponse = null;
 		try {
-			userList = userService.getGroupMembers(userReq);
+			groupMemberResponse = userService.getGroupMembers(userReq);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
-		GroupMemberResponse groupMemberResponse = GroupMemberResponse.builder()
-																	 .userList(userList)
-																	 .build();
 
 		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
 	}
@@ -107,21 +103,14 @@ public class UserController {
 	@Operation(summary = "멤버 전체 조회 API", description = "모든 멤버 정보를 조회 후, 전달한다.")
 	@GetMapping("/members")
 	public ResponseEntity<CommonResponseDto<?>> getUsers() {
-		//유저 정보 확인
 
-		List<UserResponse> userList = null;
-
+		GroupMemberResponse groupMemberResponse = null;
 		try {
-			userList = userService.getUsers();
+			groupMemberResponse = userService.getUsers();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		GroupMemberResponse groupMemberResponse = GroupMemberResponse.builder()
-																	 .userList(userList)
-																	 .build();
-
-		// return new ResponseEntity<>(groupMemberResponse, HttpStatus.OK);
 		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
 	}
 }

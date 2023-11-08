@@ -16,5 +16,4 @@ import lombok.ToString;
 @ToString
 public class GroupMemberResponse {
 	private List<UserResponse> userList;
-	private Integer userCnt;
 }
