@@ -21,11 +21,7 @@ function MessageStack() {
           component={Chat}
           options={{headerShown: false}}
         />
-        <Stack.Screen
-          name="Log"
-          component={Log}
-          options={{headerShown: false}}
-        />
+
         <Stack.Screen
           name="Chat"
           component={Chat}

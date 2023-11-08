@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 interface ChooseBtnProps {
   // ?의 의미는 꼭 props를 사용하지 않아도 된다.
   width?: string;
-  // width: string; 이렇게하면 BtnBody에 width를 꼭 넘겨주어야함!
+  // width: string; 이렇게하면 에 width를 꼭 넘겨주어야함!
 }
 
 export const BtnBody = styled.TouchableOpacity<ChooseBtnProps>`
