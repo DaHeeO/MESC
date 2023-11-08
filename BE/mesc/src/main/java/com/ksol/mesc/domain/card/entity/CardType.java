@@ -3,6 +3,8 @@ package com.ksol.mesc.domain.card;
 public enum CardType {
 	//Text
 	TX,
+	//Dynamic Text
+	DT,
 	//One Button
 	OB,
 	//Two Button
