@@ -112,8 +112,8 @@ public class BlockService {
 					saveComponent(componentReq.getType(), object);
 					//dto에 type ID 추가
 					//
-					Component component = Component.toEntity(componentReq);
-					componentRepository.save();
+					// Component component = Component.toEntity(componentReq);
+					// componentRepository.save();
 				} else {
 					ComponentType componentType = componentReq.getType();
 					saveComponent(componentType, object);
@@ -180,8 +180,8 @@ public class BlockService {
 		//카드 조회
 		for (Card card : cardList) {
 			LinkedHashMap<String, Object> cardMap = selectCardByType(card, cardReqDto, userId);
-			if(cardMap.get("result") != null) {
-				objMap.put("isPossible", !(Boolean) cardMap.get("result"));
+			if (cardMap.get("result") != null) {
+				objMap.put("isPossible", !(Boolean)cardMap.get("result"));
 				cardMap.remove("result");
 			}
 			cardMapList.add(cardMap);
@@ -221,7 +221,7 @@ public class BlockService {
 					content = content.replace("{" + key + "}", map.get(key));
 				}
 			}
-			
+
 			cardMap.put("cardType", CardType.TX);
 			cardMap.put("content", content);
 		} else if (cardType == CardType.QT) {    //query text
