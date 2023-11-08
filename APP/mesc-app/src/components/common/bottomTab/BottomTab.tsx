@@ -12,7 +12,7 @@ import * as S from './BottomTab.styles';
 import Main from '../../../screens/main/Main';
 import ContactStack from '../../../screens/contacts/Stack';
 import Setting from '../../../screens/settings/Settings';
-import Chat from '../../../screens/chat/Chat';
+import Chat from '../../../screens/chat/Chat2';
 
 // icon
 import BottomTabIcon from './NavIcon';

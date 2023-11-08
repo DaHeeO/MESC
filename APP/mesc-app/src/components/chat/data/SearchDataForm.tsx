@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import * as S from './SearchDataForm.styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import SearchBtn from '../../../assets/icons/searchbtn.svg';
+import NextBtn from '../../../assets/icons/nextBtn.svg';
 
 const dummyData = {
   statusCode: 200,
@@ -119,19 +120,21 @@ const SearchDataForm = () => {
   return (
     <S.Container>
       <S.SearchInput>
-        <S.SearchBtn>
+        <S.ImageBox>
           <SearchBtn />
-        </S.SearchBtn>
+        </S.ImageBox>
+        <S.SearchText placeholder="검색어를 입력하세요" />
       </S.SearchInput>
       <S.ButtonContainer>
-        <ScrollView showsVerticalScrollIndicator={true}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           {mlCard &&
             mlCard.button &&
             mlCard.button.map((button: any) => (
               <S.ButtonRow key={button.id}>
                 <S.ButtonName>{button.name}</S.ButtonName>
-
-                {/* 여기에 필요하다면 <S.Button> 컴포넌트를 추가할 수 있습니다 */}
+                <S.ImageBox>
+                  <NextBtn />
+                </S.ImageBox>
               </S.ButtonRow>
             ))}
         </ScrollView>

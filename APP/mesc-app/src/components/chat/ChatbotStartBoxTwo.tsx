@@ -1,33 +1,28 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {Text} from 'react-native';
 import * as S from './ChatbotStartBoxTwo.styles';
 import RobotIcon2 from '../../assets/images/RobotIcon2.png';
 import ChatbotOptionBox from './ChatbotOptionBox';
+import {useRecoilValue} from 'recoil';
+import {cardState} from '../../states/CardState';
 
 interface ChatbotStartBoxTwoProps {
   handleDataBoxPress: () => void;
   handleLogBoxPress: () => void;
-  title: string;
-  middleText: string;
-  optionText1: string;
-  optionText2: string;
 }
 
-function ChatbotStartBoxTwo({
+export const ChatbotStartBoxTwo = ({
   handleDataBoxPress,
   handleLogBoxPress,
-  title,
-  middleText,
-  optionText1,
-  optionText2,
-}: ChatbotStartBoxTwoProps) {
+}: ChatbotStartBoxTwoProps) => {
+  const card = useRecoilValue(cardState);
+  let buttonName0;
+  let buttonName1;
+  if (card.button !== undefined && card.button !== null) {
+    buttonName0 = card.button[0].name;
+    buttonName1 = card.button[1].name;
+  }
+
   return (
     <S.ChatbotBox>
       <S.TopBox>
@@ -41,7 +36,7 @@ function ChatbotStartBoxTwo({
               textAlign: 'center',
               marginTop: 20,
             }}>
-            {title}
+            {card.cardName}
           </Text>
         </S.NameBox>
         <S.ImgBox>
@@ -49,21 +44,21 @@ function ChatbotStartBoxTwo({
         </S.ImgBox>
       </S.TopBox>
       <S.MidBox>
-        <Text style={{fontWeight: 'bold', color: 'black'}}>{middleText}</Text>
+        <Text style={{fontWeight: 'bold', color: 'black'}}>{card.content}</Text>
       </S.MidBox>
       <S.BottomBox>
         {/* 챗봇 시작화면 옵션 선택 */}
         <ChatbotOptionBox
           handleOptionPress={handleDataBoxPress}
-          optionTitle={optionText1}
+          optionTitle={buttonName0}
         />
         <ChatbotOptionBox
           handleOptionPress={handleLogBoxPress}
-          optionTitle={optionText2}
+          optionTitle={buttonName1}
         />
       </S.BottomBox>
     </S.ChatbotBox>
   );
-}
+};
 
 export default ChatbotStartBoxTwo;

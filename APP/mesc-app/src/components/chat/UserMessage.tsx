@@ -31,10 +31,11 @@ function UserMessage({message}: UserMessageProps) {
       <S.TextBox>
         <Text
           style={{
-            fontSize: 16,
+            // fontSize: 15,
             textAlign: 'left',
             color: 'white',
             letterSpacing: 1,
+            margin: 5,
           }}>
           {message}
         </Text>
