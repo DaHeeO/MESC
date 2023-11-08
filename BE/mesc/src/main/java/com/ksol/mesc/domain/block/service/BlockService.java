@@ -249,8 +249,6 @@ public class BlockService {
 		} else if (cardType == CardType.QTX) {    // insert,update,delete 결과
 			cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
 			cardMap.put("cardType", CardType.TX);
-		} else if (cardType == CardType.TB) {    // insert,update,delete 결과
-			cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 		}
 
 		//component 조회
