@@ -5,7 +5,7 @@ interface ChooseBtnProps {
 }
 
 export const ChooseBtnBody = styled.TouchableOpacity<ChooseBtnProps>`
-  width: 130px;
+  width: 110px;
   height: 40px;
   align-items: center;
   justify-content: center;

@@ -14,7 +14,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
     <ChooseBtnBody>
       {/* icon 자리 */}
       <BtnContainer
-        width="30%"
+        width="25%"
         // style={{backgroundColor: 'pink'}}
       >
         {/* ';아이콘 넘기 */}
@@ -22,7 +22,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       </BtnContainer>
       {/* 버튼 내용 자리 */}
       <BtnContainer
-        width="70%"
+        width="65%"
         // style={{backgroundColor: 'skyblue'}}
       >
         <Text>{props.btnTitle}</Text>

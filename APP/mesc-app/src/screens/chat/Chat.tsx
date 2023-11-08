@@ -12,12 +12,8 @@ import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBo
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
 import {ModalIdSwitch} from '../../components/common/ModalId';
 import {IconSwitch} from '../../components/common/ChatIcon';
-import {
-  ConditionModify,
-  GoDataControll,
-  GoReport,
-  GoStartChat,
-} from '../../components/common/ChatChooseId';
+import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
+import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -72,7 +68,11 @@ function Chat() {
       <Header />
       {/* 챗봇 메세지 보이는 화면 */}
       <S.ChatLayout>
-        <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          ref={chatLayoutRef}
+          showsVerticalScrollIndicator={false}
+          // style={{backgroundColor: 'aqua'}}
+        >
           <ChatbotProfile />
           <ChatbotMessage
             context={`안녕하세요! HIHI님\n무엇을 도와드릴까요?\n아래 버튼\n작업을 선택해주세요!`}
@@ -97,12 +97,10 @@ function Chat() {
               )}
             </View>
           ))}
+          {/* <ChatChooseSection1 /> */}
+          <ChatChooseSection2 />
         </ScrollView>
       </S.ChatLayout>
-      <GoStartChat />
-      <GoReport />
-      <GoDataControll />
-      <ConditionModify />
       <AboutBottomSheetModal
         btnTitle={'bottomSheet예시'}
         modalHeight={'70%'}
