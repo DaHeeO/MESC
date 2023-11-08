@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
 
 public interface GroupMemberRepository extends JpaRepository<GroupMember, Integer> {
@@ -17,5 +18,8 @@ public interface GroupMemberRepository extends JpaRepository<GroupMember, Intege
 
 	@Query("select gm.userId from GroupMember gm where gm.group.id=:groupId")
 	List<Integer> findByGroupId(@Param("groupId") Integer groupId);
+
+	@Query("select count(gm) from GroupMember gm where gm.group=:group")
+	Integer findMemberCntByGroup(@Param("group") Group group);
 
 }

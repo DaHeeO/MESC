@@ -117,6 +117,11 @@ public class GroupService {
 		return groupRepository.findByUserId(userId);
 	}
 
+	//그룹 멤버수 조회
+	public Integer selectMemberCntByGroup(Group group) {
+		return groupMemberRepository.findMemberCntByGroup(group);
+	}
+
 	//그룹 멤버 조회
 	public Object selectGroupMember(Integer groupId) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();

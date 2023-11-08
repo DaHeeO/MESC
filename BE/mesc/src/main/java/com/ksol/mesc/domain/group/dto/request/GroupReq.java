@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 @Builder
 public class GroupReq {
 	private Integer groupId;
-	private String name;
+	private String groupName;
 	private Integer userId;
 	private Integer sequence;
 
-	public Group toEntity(GroupReq groupReq){
+	public Group toEntity(GroupReq groupReq) {
 		Group group = Group.builder()
 			.id(groupReq.getGroupId())
-			.groupName(groupReq.getName())
+			.groupName(groupReq.getGroupName())
 			.userId(groupReq.getUserId())
 			.sequence(groupReq.getSequence())
 			.build();

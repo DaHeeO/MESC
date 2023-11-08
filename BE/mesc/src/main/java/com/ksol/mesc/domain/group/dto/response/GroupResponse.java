@@ -9,4 +9,5 @@ public class GroupResponse {
 	private Integer groupId;
 	private String groupName;
 	private Integer sequence;
+	private Integer memberCnt;
 }

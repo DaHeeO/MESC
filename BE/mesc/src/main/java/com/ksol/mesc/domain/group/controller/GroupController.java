@@ -25,6 +25,7 @@ import com.ksol.mesc.domain.group.dto.response.GroupResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
 import com.ksol.mesc.domain.group.service.GroupService;
+import com.ksol.mesc.domain.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -39,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GroupController {
 	private final GroupService groupService;
+	private final UserService userService;
 
 	@Operation(summary = "그룹 추가 API", description = "DB에 그룹을 저장한다.")
 	@PostMapping
@@ -90,7 +92,7 @@ public class GroupController {
 		Group group = Group.builder()
 			.id(groupId)
 			.userId(userId)
-			.groupName(groupReq.getName())
+			.groupName(groupReq.getGroupName())
 			.build();
 		groupService.updateGroup(group);
 
@@ -156,17 +158,19 @@ public class GroupController {
 	public ResponseEntity<CommonResponseDto<?>> selectGroup(Authentication authentication) {
 		Integer userId = Integer.parseInt(authentication.getName());
 
-		//유저 아이디가 존재하지 않으면 error
 		Map<String, Object> userCnt = (Map<String, Object>)groupService.getUserCount();
 		List<Group> groupList = groupService.selectGroup(userId);
 		Map<String, Object> map = new HashMap<>();
 		List<GroupResponse> groupResponseList = new ArrayList<>();
 
 		for (Group group : groupList) {
+			Integer memberCnt = groupService.selectMemberCntByGroup(group);
+
 			GroupResponse groupResponse = GroupResponse.builder()
 				.groupId(group.getId())
 				.groupName(group.getGroupName())
 				.sequence(group.getSequence())
+				.memberCnt(memberCnt)
 				.build();
 
 			groupResponseList.add(groupResponse);
