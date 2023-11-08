@@ -5,6 +5,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.ksol.mesc.domain.api.service.ApiService;
+import com.ksol.mesc.domain.dcb.DCB;
+import com.ksol.mesc.domain.dcb.repository.DCBRepository;
+import com.ksol.mesc.global.error.ErrorCode;
+import com.ksol.mesc.global.error.exception.BusinessException;
+import com.ksol.mesc.global.error.exception.MesServerException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -64,6 +70,7 @@ public class BlockService {
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
 	private final ValuesRepository valuesRepository;
+	private final DCBRepository dcbRepository;
 
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final WebClient webClient;
@@ -71,6 +78,7 @@ public class BlockService {
 	private final UserServiceImpl userService;
 	private final GroupService groupService;
 	private final LogSerivce logSerivce;
+	private final ApiService apiService;
 
 	//블록 추가
 	public void addBlock(Block block) {
@@ -136,31 +144,38 @@ public class BlockService {
 	}
 
 	//블록 조회
-	public LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, CardReqDto cardReqDto) {
+	public LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, CardReqDto cardReqDto, Integer userId) {
 		//블록 조회
-		Optional<Block> blockOpt = blockRepository.findById(blockId);
+		Block block = blockRepository.findById(blockId).orElseThrow(() -> new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
-		if (blockOpt.isEmpty())
-			return null;
 
-		objMap.put("blockId", blockOpt.get().getId());
+		objMap.put("blockId", block.getId());
+		objMap.put("isPossible", block.getIsPossible()?true:false);
+//		log.info("block={}", block);
 
 		//블록과 연결된 카드 조회
 		List<Card> cardList = cardRepository.findByBlockId(blockId);
+//		cardList.stream().forEach(c -> log.info("card={}", c));
 		//카드 정보 저장
 		List<LinkedHashMap<String, Object>> cardMapList = new ArrayList<>();
 
 		//카드 조회
 		for (Card card : cardList) {
-			cardMapList.add(selectCardByType(card, cardReqDto));
+			cardMapList.add(selectCardByType(card, cardReqDto, userId));
 		}
 
 		objMap.put("cardList", cardMapList);
+
+		// 바로가기 버튼 조회
+		List<DCB> byBlockId = dcbRepository.findByBlockId(blockId);
+		List<Integer> dcbList = new ArrayList<>();
+		byBlockId.stream().forEach(dcb -> dcbList.add(dcb.getDcbId()));
+		objMap.put("dcbList", dcbList);
 		return objMap;
 	}
 
 	//card type에 따른 조회
-	public LinkedHashMap<String, Object> selectCardByType(Card card, CardReqDto cardReqDto) {
+	public LinkedHashMap<String, Object> selectCardByType(Card card, CardReqDto cardReqDto, Integer myId) {
 		//카드 정보 저장
 		LinkedHashMap<String, Object> cardMap = new LinkedHashMap<>();
 		CardType cardType = card.getCardType();
@@ -180,7 +195,19 @@ public class BlockService {
 			cardReqDto.setConditions(null);
 			cardMap.put("singleTable", requestPostToMes("/worker/data/", cardReqDto));
 		} else if (cardType == CardType.RE) {    //보고
-			cardMap.putAll((LinkedHashMap<String, Object>)userService.selectAllUser());
+			LinkedHashMap<String, List<LinkedHashMap<String, Object>>> m = (LinkedHashMap<String, List<LinkedHashMap<String, Object>>>) userService.selectAllUser();
+			List<Object> userListWithoutMe = new ArrayList<>();
+			if (m != null) {
+				List<LinkedHashMap<String, Object>> userList = m.get("userList");
+				userList.forEach(user -> {
+					Integer userId = (Integer)user.get("userId");
+
+					if (userId != myId) {
+						userListWithoutMe.add(user);
+					}
+				});
+			}
+			cardMap.put("userList", userListWithoutMe);
 		} else if (cardType == CardType.LA) {    //label 조회
 			List<Label> labelList = labelRepository.findByCard(card);
 			List<LabelRes> labelResList = new ArrayList<>();
@@ -191,8 +218,30 @@ public class BlockService {
 
 			cardMap.put("label", labelResList);
 		} else if (cardType == CardType.QU) {    //query 실행
-
+//			LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery());
+////			tableByQuery.entrySet().forEach(key -> {
+////				System.out.println("key = " + key);
+////				System.out.println("tableByQuery = " + tableByQuery.get(key));
+////			});
+			cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 		} else if (cardType == CardType.LO) {    //로그
+			String keyword = cardReqDto.getKeyword();
+			String date = cardReqDto.getDate();
+			List<String> levelList = cardReqDto.getLevelList();
+			String command = logSerivce.getCommand(keyword, date, levelList);
+			cardMap.put("command", command);
+			cardMap.put("logs", logSerivce.getLogs(command));
+		} else if (cardType == CardType.DTX) {    // 동적 텍스트
+			String content = card.getContent();
+			cardMap.put("content", getDynamicString(content, card.getContentKey()));
+			cardMap.put("cardType", CardType.TX);
+		} else if (cardType.toString().startsWith(CardType.CH.toString())) {    // 일반 챗봇
+			cardMap.put("title", card.getName());
+		} else if (cardType == CardType.QTX) {    // insert,update,delete 결과
+			cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
+			cardMap.put("cardType", CardType.TX);
+		} else if (cardType == CardType.TB) {    // insert,update,delete 결과
+			cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 		}
 
 		//component 조회
@@ -201,6 +250,8 @@ public class BlockService {
 		cardMap.putAll(selectComponentByType(componentList));
 		return cardMap;
 	}
+
+
 
 	//component type에 따른 조회
 	public LinkedHashMap<String, Object> selectComponentByType(List<Component> componentList) {
@@ -285,5 +336,23 @@ public class BlockService {
 			.retrieve()
 			.toEntity(CommonResponseDto.class)
 			.block();
+	}
+
+	private String getDynamicString(String url, String key) {
+		String accessToken = jwtAuthenticationFilter.getAccessToken();
+		Object data = webClient
+				.mutate()
+				.baseUrl(url)
+				.build()
+				.get()
+				.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+				.retrieve()
+				.toEntity(JsonResponse.class)
+				.onErrorMap(e -> new MesServerException(e.getMessage()))
+				.block()
+				.getBody()
+				.getData();
+		LinkedHashMap<String, Object> hashMap = (LinkedHashMap<String, Object>) data;
+		return (String) hashMap.get(key);
 	}
 }

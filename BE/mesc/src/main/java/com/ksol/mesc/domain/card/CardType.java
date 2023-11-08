@@ -27,6 +27,14 @@ public enum CardType {
 	RE,
 	//Mail
 	MA,
+	// Dynamic Text
+	DTX,
+	// Chat
+	CH,
+	CH1,
+	CH2,
 	//Label
-	LA
+	LA,
+	// update/insert/delete result
+	QTX
 }

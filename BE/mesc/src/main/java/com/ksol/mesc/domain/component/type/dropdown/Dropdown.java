@@ -19,6 +19,7 @@ public class Dropdown {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "DROPDOWN_ID")
 	private Integer id;
+	@Column(name = "NAME")
 	private String name;
 	@Column(name = "REAL_COLUMN_NAME")
 	private String columnName;
