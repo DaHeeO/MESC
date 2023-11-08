@@ -13,6 +13,7 @@ import {ScrollView, Text} from 'react-native';
 import {OkayBtn} from '../Btn/SaveBtn';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {checkContactState} from '../../../states/CheckContact';
+import {ContactListForm} from 'src/components/contact/ContactList';
 //interface
 interface BottomSheetProps {
   //   모달 전체 높이
@@ -144,6 +145,7 @@ export const ReportForm = (props: BottomSheetProps) => {
       >
         <CustomTextArea defaultValue={emailExample} multiline />
       </ReportContainer>
+      {/* <ContactListForm/> */}
     </ReportFormContainer>
   );
 };
