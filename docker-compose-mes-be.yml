@@ -23,4 +23,4 @@ networks:
       name: mes_net
 
 volumes:
-  logbackup
+  logbackup:
