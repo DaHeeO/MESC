@@ -16,6 +16,6 @@ public class WhereQueryValidator implements ConstraintValidator<WhereQuery, Stri
             return true;
         }
         value = value.toLowerCase();
-        return value.startsWith("where ");
+        return value.startsWith("where");
     }
 }

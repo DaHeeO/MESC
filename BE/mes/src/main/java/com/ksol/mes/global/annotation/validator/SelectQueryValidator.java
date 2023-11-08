@@ -12,6 +12,6 @@ public class SelectQueryValidator implements ConstraintValidator<SelectQuery, St
             return false;
         }
         value = value.toLowerCase();
-        return value.startsWith("select ");
+        return value.startsWith("select");
     }
 }
