@@ -160,7 +160,12 @@ public class BlockService {
 
 		//카드 조회
 		for (Card card : cardList) {
-			cardMapList.add(selectCardByType(card, cardReqDto, userId));
+			LinkedHashMap<String, Object> cardMap = selectCardByType(card, cardReqDto, userId);
+			if(cardMap.get("result") != null) {
+				objMap.put("isPossible", !(Boolean) cardMap.get("result"));
+				cardMap.remove("result");
+			}
+			cardMapList.add(cardMap);
 		}
 
 		objMap.put("cardList", cardMapList);
@@ -225,11 +230,6 @@ public class BlockService {
 			}
 			cardMap.put("userList", userListWithoutMe);
 		} else if (cardType == CardType.QU) {    //query 실행
-			//			LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery());
-			////			tableByQuery.entrySet().forEach(key -> {
-			////				System.out.println("key = " + key);
-			////				System.out.println("tableByQuery = " + tableByQuery.get(key));
-			////			});
 			cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 		} else if (cardType == CardType.LO) {    //로그
 			String keyword = cardReqDto.getKeyword();
