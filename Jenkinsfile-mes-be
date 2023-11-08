@@ -93,6 +93,7 @@ stage('RM Docker') {
                         steps {
                             // 스크립트 파일에 실행 권한 추가
                             sh 'chmod +x start-mes-be.sh'
+			    sh 'chmod +w ./BE/mes/logs'
                         }
                     }
             stage('Execute start-prod.sh Script') {
