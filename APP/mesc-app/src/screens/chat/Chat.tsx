@@ -17,7 +17,7 @@ import {ModalIdSwitch} from '../../components/common/ModalId';
 import {IconSwitch} from '../../components/common/ChatIcon';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
-
+import SearchDataForm from '../../components/chat/data/SearchDataForm';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -141,7 +141,7 @@ function Chat() {
       <AboutBottomSheetModal
         btnTitle={'bottomSheet예시'}
         modalHeight={'70%'}
-        modalBreakPoint={'25%'}
+        modalBreakPoint={'30%'}
         component={ModalForm}
         onModalShow={showModal}
         onModalHide={hideModal}
@@ -154,7 +154,20 @@ function Chat() {
         onModalShow={showModal}
         onModalHide={hideModal}
       />
-      {isModalVisible ? null : <ChatInput onSendMessage={addChatMessage} onAxiosResult={result => setAxiosResult(result)} />}
+      <AboutBottomSheetModal
+        btnTitle={'데이터조회'}
+        modalHeight={'70%'}
+        modalBreakPoint={'30%'}
+        component={<SearchDataForm />}
+        onModalShow={showModal}
+        onModalHide={hideModal}
+      />
+      {isModalVisible ? null : (
+        <ChatInput
+          onSendMessage={addChatMessage}
+          onAxiosResult={result => setAxiosResult(result)}
+        />
+      )}
       {/* 모달 삽입 위치 */}
     </S.Container>
   );
