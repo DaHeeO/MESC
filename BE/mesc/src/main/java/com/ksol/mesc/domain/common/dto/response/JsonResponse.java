@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.common;
+package com.ksol.mesc.domain.common.dto.response;
 
 import java.util.LinkedHashMap;
 

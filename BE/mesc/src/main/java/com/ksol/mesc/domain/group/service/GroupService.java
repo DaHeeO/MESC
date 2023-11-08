@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ksol.mesc.domain.common.JsonResponse;
+import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
 import com.ksol.mesc.domain.group.repository.GroupMemberRepository;

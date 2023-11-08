@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.component.type.button.dto;
 
-import com.ksol.mesc.domain.component.type.button.Button;
+import com.ksol.mesc.domain.component.type.button.entity.Button;
 
 import lombok.Builder;
 import lombok.Data;

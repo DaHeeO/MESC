@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.checkbox;
+package com.ksol.mesc.domain.component.type.checkbox.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.component.type.checkbox.dto;
 
-import com.ksol.mesc.domain.component.type.checkbox.Checkbox;
+import com.ksol.mesc.domain.component.type.checkbox.entity.Checkbox;
 
 import lombok.Builder;
 import lombok.Data;

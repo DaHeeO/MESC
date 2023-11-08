@@ -2,8 +2,8 @@ package com.ksol.mesc.domain.component.type.dropdown.dto;
 
 import java.util.List;
 
-import com.ksol.mesc.domain.component.type.dropdown.Dropdown;
-import com.ksol.mesc.domain.component.values.dto.ValuesRes;
+import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
+import com.ksol.mesc.domain.component.type.values.dto.ValuesRes;
 
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +14,7 @@ public class DropdownRes {
 	private Integer id;
 	private String name;
 	private String columnName;
+	private String tableName;
 	private String type;
 	private List<ValuesRes> valuesList;
 
@@ -22,6 +23,7 @@ public class DropdownRes {
 			.id(dropdown.getId())
 			.name(dropdown.getName())
 			.columnName(dropdown.getColumnName())
+			.tableName(dropdown.getTableName())
 			.type(dropdown.getType().toString())
 			.valuesList(valuesReqList)
 			.build();

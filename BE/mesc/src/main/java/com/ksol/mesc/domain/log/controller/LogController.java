@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksol.mesc.domain.common.CommonResponseDto;
+import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mesc.domain.log.dto.request.LogRequestDto;
 import com.ksol.mesc.domain.log.dto.response.LogResponseDto;
 import com.ksol.mesc.domain.log.service.LogSerivce;

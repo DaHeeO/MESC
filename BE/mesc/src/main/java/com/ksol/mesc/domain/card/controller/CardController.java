@@ -14,7 +14,7 @@ import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.service.BlockService;
 import com.ksol.mesc.domain.card.entity.Card;
 import com.ksol.mesc.domain.card.service.CardService;
-import com.ksol.mesc.domain.common.CommonResponseDto;
+import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
