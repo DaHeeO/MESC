@@ -150,7 +150,7 @@ public class BlockService {
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
 
 		objMap.put("blockId", block.getId());
-		objMap.put("isPossible", block.getIsPossible()?'t':'f');
+		objMap.put("isPossible", block.getIsPossible()?true:false);
 //		log.info("block={}", block);
 
 		//블록과 연결된 카드 조회
@@ -196,8 +196,8 @@ public class BlockService {
 			cardMap.put("singleTable", requestPostToMes("/worker/data/", cardReqDto));
 		} else if (cardType == CardType.RE) {    //보고
 			LinkedHashMap<String, List<LinkedHashMap<String, Object>>> m = (LinkedHashMap<String, List<LinkedHashMap<String, Object>>>) userService.selectAllUser();
+			List<Object> userListWithoutMe = new ArrayList<>();
 			if (m != null) {
-				List<Object> userListWithoutMe = new ArrayList<>();
 				List<LinkedHashMap<String, Object>> userList = m.get("userList");
 				userList.forEach(user -> {
 					Integer userId = (Integer)user.get("userId");
@@ -206,8 +206,8 @@ public class BlockService {
 						userListWithoutMe.add(user);
 					}
 				});
-				cardMap.put("userList", userListWithoutMe);
 			}
+			cardMap.put("userList", userListWithoutMe);
 		} else if (cardType == CardType.LA) {    //label 조회
 			List<Label> labelList = labelRepository.findByCard(card);
 			List<LabelRes> labelResList = new ArrayList<>();
@@ -228,7 +228,9 @@ public class BlockService {
 			String keyword = cardReqDto.getKeyword();
 			String date = cardReqDto.getDate();
 			List<String> levelList = cardReqDto.getLevelList();
-			cardMap.put("logs", logSerivce.getLogs(keyword, date, levelList));
+			String command = logSerivce.getCommand(keyword, date, levelList);
+			cardMap.put("command", command);
+			cardMap.put("logs", logSerivce.getLogs(command));
 		} else if (cardType == CardType.DTX) {    // 동적 텍스트
 			String content = card.getContent();
 			cardMap.put("content", getDynamicString(content, card.getContentKey()));
@@ -238,6 +240,8 @@ public class BlockService {
 		} else if (cardType == CardType.QTX) {    // insert,update,delete 결과
 			cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
 			cardMap.put("cardType", CardType.TX);
+		} else if (cardType == CardType.TB) {    // insert,update,delete 결과
+			cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 		}
 
 		//component 조회
@@ -246,6 +250,8 @@ public class BlockService {
 		cardMap.putAll(selectComponentByType(componentList));
 		return cardMap;
 	}
+
+
 
 	//component type에 따른 조회
 	public LinkedHashMap<String, Object> selectComponentByType(List<Component> componentList) {

@@ -35,8 +35,9 @@ public class LogController {
 		String keyword = logRequestDto.getKeyword();
 		String date = logRequestDto.getDate();
 		List<String> levelList = logRequestDto.getLevelList();
+		String command = logSerivce.getCommand(keyword, date, levelList);
 
-		LogResponseDto logResponseDto = new LogResponseDto(logSerivce.getLogs(keyword, date, levelList));
+		LogResponseDto logResponseDto = new LogResponseDto(logSerivce.getLogs(command));
 		return new ResponseEntity<>(CommonResponseDto.success(logResponseDto), HttpStatus.OK);
 	}
 
