@@ -15,9 +15,12 @@ services: # 서비스 정의를 시작합니다. 각 서비스는 별도의 컨�
     networks:
       - default
     volumes:
-      - logbackup:./BE/mes/logs
+      - logbackup:/logs
 
 networks:
   default:
     external:
       name: mes_net
+
+volumes:
+  logbackup:
