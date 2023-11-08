@@ -86,8 +86,10 @@ public class UserController {
 			throw new RuntimeException(e);
 		}
 
+		Integer userCnt = userService.getUserCount();
 		GroupMemberResponse groupMemberResponse = GroupMemberResponse.builder()
 																	 .userList(userList)
+			.userCnt(userCnt)
 																	 .build();
 
 		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));

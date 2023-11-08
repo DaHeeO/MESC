@@ -25,4 +25,6 @@ public interface UserService {
 	List<UserResponse> getUsers() throws Exception;
 
 	UserResponse findById(Integer userId);
+
+	Integer getUserCount();
 }
