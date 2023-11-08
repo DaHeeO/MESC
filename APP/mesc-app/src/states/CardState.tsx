@@ -1,6 +1,6 @@
 import {atom} from 'recoil';
 
-interface Card {
+export interface Card {
   cardId: number;
   cardName?: string | null | undefined;
   content?: string | null;

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import * as S from './Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
@@ -22,26 +22,64 @@ import {customAxios} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {cardState} from '../../states/CardState';
 import {ChatComponentIdSwitch} from './ComponentId';
+import {AboutContainer} from '../../components/common/about/AboutContainer';
+import {ChatbotHistoryState} from '../../states/BlockState';
+import {set} from 'lodash';
+import {Card} from '../../states/CardState';
+
+interface BlockProps {
+  cardList: Card[];
+  isPossible: boolean;
+  section: number;
+}
 
 function Chat() {
-  const cardInfo = useRecoilValue(cardState);
-  const [card, setCard] = useRecoilState(cardState);
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
 
-  console.log('cardInfo', cardInfo);
+  const role = 12; // 11: 작업자, 12: 개발자
 
-  // useEffect(() => {
-  //   customAxios
-  //     .post('/block/12', {})
-  //     .then(response => {
-  //       // console.log('Data retrieved:', response.data);
-  //       // console.log('Data retrieved:', response.data.data.cardList);
-  //       setCard(response.data.data.cardList);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //     });
-  // }, []);
-  const ComponentID = 'CH2';
+  const render1 = useCallback((props: BlockProps) => {
+    const sectionId = props.section;
+    // console.log('asdfafd', props.cardList);
+
+    props.cardList.map((card: any) => {
+      // console.log('여기와?');
+      // console.log(ChatComponentIdSwitch(card.cardType));
+      // ChatComponentIdSwitch(card.cardType);
+    });
+
+    return (
+      <>
+        <ChatbotProfile />
+        {/* <S.ChatLayout>
+          <ScrollView>{}</ScrollView>
+        </S.ChatLayout> */}
+        props.cardList sessionId==0 ? <></> : sessionId==1 ?{' '}
+        <ChatChooseSection1 /> : <ChatChooseSection2 />
+      </>
+    );
+  }, []);
+
+  useEffect(() => {
+    customAxios
+      .post(`block/${role}`, {})
+      .then(response => {
+        const data = response.data.data;
+        console.log(data.cardList);
+        data.cardList.map((card: any) => {
+          console.log(card);
+        });
+        // chatbotHistory.push(data);
+        // setChatbotHistory(prev => [...prev, data]);
+        const rr = render1();
+        setChatbotHistory(prev => [...prev, rr]);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+  console.log(chatbotHistory);
 
   return (
     <S.Container>
@@ -56,17 +94,7 @@ function Chat() {
         }}
       /> */}
       <S.ChatLayout>
-        <ScrollView>
-          <ChatbotMessage />
-          <ChatbotStartBoxTwo
-            handleDataBoxPress={function (): void {
-              throw new Error('Function not implemented.');
-            }}
-            handleLogBoxPress={function (): void {
-              throw new Error('Function not implemented.');
-            }}
-          />
-        </ScrollView>
+        <ScrollView>{}</ScrollView>
       </S.ChatLayout>
       {/* <AboutBottomSheetModal
         btnTitle={'bottomSheet예시'}

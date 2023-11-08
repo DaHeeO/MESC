@@ -33,10 +33,7 @@ interface ChatComponentIdSwitchProps {
   optionText2?: string | undefined | null;
 }
 
-export const ChatComponentIdSwitch = (
-  props: ChatComponentIdSwitchProps,
-  chatComponentId: string,
-) => {
+export const ChatComponentIdSwitch = (chatComponentId: string) => {
   const [card, setCard] = useRecoilState(cardState);
 
   useEffect(() => {
@@ -55,8 +52,8 @@ export const ChatComponentIdSwitch = (
   console.log(card);
 
   switch (chatComponentId) {
-    // case 'TX': // 텍스트
-    //   return <ChatbotMessage context={card.content} />;
+    case 'TX': // 텍스트
+      return <ChatbotMessage />;
 
     // case 'TA': // 데이터 조회 테이블
     //   return <DataComponent />;
