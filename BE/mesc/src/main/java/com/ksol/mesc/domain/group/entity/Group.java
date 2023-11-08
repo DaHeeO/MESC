@@ -18,7 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @Getter
-@Table(name = "ORGANIZATION")
+@Table(name = "organization")
 @ToString
 public class Group {
 	@Id

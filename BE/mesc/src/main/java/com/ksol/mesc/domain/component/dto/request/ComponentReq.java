@@ -9,5 +9,6 @@ public class ComponentReq {
 	private Integer id;
 	private ComponentType type;
 	private Integer sequence;
-	// private Integer typeId;
+	private Integer linkId;
+	private Integer cardId;
 }

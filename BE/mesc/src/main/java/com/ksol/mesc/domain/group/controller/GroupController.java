@@ -167,6 +167,7 @@ public class GroupController {
 
 			groupResponseList.add(groupResponse);
 		}
+
 		log.info("groupList : {}", groupList);
 
 		return ResponseEntity.ok(CommonResponseDto.success(groupResponseList));

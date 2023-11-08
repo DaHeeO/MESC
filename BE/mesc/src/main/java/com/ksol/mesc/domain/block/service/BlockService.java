@@ -89,16 +89,35 @@ public class BlockService {
 			//카드가 존재하지 않으면 추가, 존재하면 카드 수정
 			Card card = Card.toEntity(cardReq);
 			Card newCard = cardRepository.save(card);
+			log.info("newCard : {}", newCard);
 
 			// 컴포넌트 x -> 추가
 			// 컴포넌트 O -> 수정
 			List<ComponentReq> componentList = cardReq.getComponentPairReq().getComponentList();
+
+			if (cardReq.getId() == null) {
+				for (ComponentReq componentReq : componentList) {
+					componentReq.setCardId(newCard.getId());
+				}
+			}
+
 			List<Object> objectList = cardReq.getComponentPairReq().getObjectList();
 			for (int i = 0; i < componentList.size(); i++) {
 				ComponentReq componentReq = componentList.get(i);
 				Object object = objectList.get(i);
-				ComponentType componentType = componentReq.getType();
-				saveComponent(componentType, object);
+
+				//component 없으면 생성
+				if (componentReq.getId() == null) {
+					//type 별 생성
+					saveComponent(componentReq.getType(), object);
+					//dto에 type ID 추가
+					//
+					Component component = Component.toEntity(componentReq);
+					componentRepository.save();
+				} else {
+					ComponentType componentType = componentReq.getType();
+					saveComponent(componentType, object);
+				}
 			}
 		}
 	}
@@ -130,12 +149,12 @@ public class BlockService {
 		}
 	}
 
-	private <T> void saveEntity(String json, Class<T> entityClass, JpaRepository<T, Integer> repository) {
+	private <T> T saveEntity(String json, Class<T> entityClass, JpaRepository<T, Integer> repository) {
 		T entity;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			entity = objectMapper.readValue(json, entityClass);
-			repository.save(entity);
+			return repository.save(entity);
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}

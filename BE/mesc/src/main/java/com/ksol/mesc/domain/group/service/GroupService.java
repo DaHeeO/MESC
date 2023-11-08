@@ -49,6 +49,8 @@ public class GroupService {
 
 	//그룹 추가
 	public void addGroup(Group group) {
+		// log.info("addGroup : {}", groupRepository.findLastGroup());
+
 		groupRepository.save(group);
 	}
 
@@ -122,7 +124,5 @@ public class GroupService {
 			.block()
 			.getBody()
 			.getData();
-		// .toEntity(GroupMemberResponse.class)
-		// .block();
 	}
 }
