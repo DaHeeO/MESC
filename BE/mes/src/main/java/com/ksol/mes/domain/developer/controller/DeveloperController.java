@@ -57,11 +57,11 @@ public class DeveloperController {
                 method = "삭제";
             }
             developerQueryResponseDto.setResult(true);
-            developerQueryResponseDto.setMessage(modifiedCount + "개의 행이 " + method + "되었습니다.");
+            developerQueryResponseDto.setContent(modifiedCount + "개의 행이 " + method + "되었습니다.");
         } catch (SQLException e) {
             log.error(e.getMessage());
             developerQueryResponseDto.setResult(false);
-            developerQueryResponseDto.setMessage(e.getMessage());
+            developerQueryResponseDto.setContent(e.getMessage());
         }
         return new ResponseEntity<>(CommonResponseDto.success(developerQueryResponseDto), HttpStatus.OK);
     }
