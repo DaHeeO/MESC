@@ -78,6 +78,17 @@ public class GroupController {
 		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}
 
+	@Operation(summary = "그룹 멤버 추가 API", description = "그룹 멤버 추가 후, DB에 저장한다.")
+	@PatchMapping("/add/{groupId}")
+	public ResponseEntity<CommonResponseDto<?>> addGroupMember(@Parameter(description = "그룹 id", required = true)
+																  @PathVariable @Valid Integer groupId, @Parameter(description = "변경할 멤버", required = true)
+																  @RequestBody @Validated GroupMemberReq groupMemberReq, Authentication authentication) {
+		Integer userId = Integer.parseInt(authentication.getName());
+		groupService.addGroupMember(userId, groupId, groupMemberReq);
+
+		return ResponseEntity.ok(CommonResponseDto.success(null));
+	}
+
 	@Operation(summary = "그룹 멤버 삭제", description = "그룹 멤버 한명만 삭제")
 	@DeleteMapping("/member/{groupId}/{memberId}")
 	public ResponseEntity<CommonResponseDto<?>> deleteGroupMember(@Parameter(description = "그룹 id", required = true)

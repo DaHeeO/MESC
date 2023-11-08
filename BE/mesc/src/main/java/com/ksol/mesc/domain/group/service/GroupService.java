@@ -22,6 +22,9 @@ public interface GroupService {
 	//그룹 멤버 수정
 	void updateGroupMember(Integer userId, Integer groupId, GroupMemberReq groupMemberReq);
 
+	//그룹 멤버 추가
+	void addGroupMember(Integer userId, Integer groupId, GroupMemberReq groupMemberReq);
+
 	//그룹 멤버 삭제
 	void deleteGroupMember(Integer userId, Integer groupId, Integer memberId);
 

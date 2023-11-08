@@ -124,6 +124,42 @@ public class GroupServiceImpl implements GroupService {
 		}
 	}
 
+	//그룹 멤버 추가
+	@Override
+	@Transactional
+	public void addGroupMember(Integer userId, Integer groupId, GroupMemberReq groupMemberReq) {
+		checkBeforeGroupFunction(userId, groupId);
+
+		//1. update 할 멤버 리스트 가져오기
+		List<Integer> userList = groupMemberReq.getUserList();
+		List<GroupMember> groupMemberList = new ArrayList<>();
+
+		for (Integer reqUserId : userList) {
+			GroupMember groupMember = GroupMember.builder()
+					.userId(reqUserId)
+					.group(Group.builder().id(groupId).build())
+					.build();
+			groupMemberList.add(groupMember);
+		}
+
+		//2. 입력받은 멤버 리스트와 원래 멤버 리스트 비교
+		List<Integer> originMemberList = groupMemberRepository.findByUserId(groupId);
+		List<Integer> newMemberList = new ArrayList<>();
+
+		for (GroupMember groupMember : groupMemberList) {
+			newMemberList.add(groupMember.getUserId());
+		}
+
+		//2-2. 새로운 멤버 추가
+		for (int i = 0; i < groupMemberList.size(); i++) {
+			GroupMember groupMember = groupMemberList.get(i);
+			Integer groupUserId = groupMember.getUserId();
+			if (!originMemberList.contains(groupUserId)) {
+				groupMemberRepository.save(groupMember);
+			}
+		}
+	}
+
 
 	//그룹 멤버 삭제
 	@Override
