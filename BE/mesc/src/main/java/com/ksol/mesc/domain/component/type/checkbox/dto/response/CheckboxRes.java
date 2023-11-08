@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.checkbox.dto;
+package com.ksol.mesc.domain.component.type.checkbox.dto.response;
 
 import com.ksol.mesc.domain.component.type.checkbox.entity.Checkbox;
 

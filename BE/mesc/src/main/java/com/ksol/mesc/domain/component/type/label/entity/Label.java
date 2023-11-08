@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.label;
+package com.ksol.mesc.domain.component.type.label.entity;
 
 import com.ksol.mesc.domain.card.entity.Card;
 

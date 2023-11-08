@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.LinkedHashMap;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ public class CardController {
 	@PostMapping("/{cardId}")
 	public ResponseEntity<CommonResponseDto<?>> selectCard(@Parameter(description = "카드 id", required = true)
 	@PathVariable @Valid Integer cardId, @Parameter(description = "카드 정보")
-	@RequestBody @Valid CardReqDto cardReqDto, Principal principal) {
+	@RequestBody @Validated CardReqDto cardReqDto, Principal principal) {
 		Integer userId = Integer.parseInt(principal.getName());
 		Card card = cardService.selectCard(cardId);
 

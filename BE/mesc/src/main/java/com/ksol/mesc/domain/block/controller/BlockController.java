@@ -1,9 +1,10 @@
 package com.ksol.mesc.domain.block.controller;
 
-import java.security.Principal;
 import java.util.LinkedHashMap;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +49,7 @@ public class BlockController {
 	@PatchMapping("/admin/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
 	@PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
-	@RequestBody @Valid BlockReqDto blockUpdateReqDto) {
+	@RequestBody @Validated BlockReqDto blockUpdateReqDto) {
 		blockService.updateBlock(blockUpdateReqDto.getCardReqList());
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
@@ -60,9 +61,9 @@ public class BlockController {
 		@Parameter(description = "블록 id", required = true)
 		@PathVariable @Valid Integer blockId,
 		@Parameter(description = "카드 정보")
-		@RequestBody @Valid CardReqDto cardReqDto,
-		Principal principal) {
-		Integer userId = Integer.parseInt(principal.getName());
+		@RequestBody @Validated CardReqDto cardReqDto,
+		Authentication authentication) {
+		Integer userId = Integer.parseInt(authentication.getName());
 		LinkedHashMap<String, Object> responseMap = blockService.selectBlockInfo(blockId, cardReqDto, userId);
 
 		return ResponseEntity.ok(CommonResponseDto.success(responseMap));

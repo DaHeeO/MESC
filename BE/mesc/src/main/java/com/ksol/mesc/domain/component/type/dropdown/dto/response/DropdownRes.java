@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.type.dropdown.dto;
+package com.ksol.mesc.domain.component.type.dropdown.dto.response;
 
 import java.util.List;
 

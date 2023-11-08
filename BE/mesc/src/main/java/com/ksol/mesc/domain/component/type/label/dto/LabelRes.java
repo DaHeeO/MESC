@@ -1,6 +1,6 @@
 package com.ksol.mesc.domain.component.type.label.dto;
 
-import com.ksol.mesc.domain.component.type.label.Label;
+import com.ksol.mesc.domain.component.type.label.entity.Label;
 
 import lombok.Builder;
 import lombok.Data;
