@@ -9,7 +9,7 @@ export const AboutSelect = () => {
     {label: 'Apple', value: 'apple'},
     {label: 'Banana', value: 'banana'},
   ]);
-
+  // console.log(open);
   return (
     <DropDownPicker
       open={open}
@@ -18,6 +18,7 @@ export const AboutSelect = () => {
       setOpen={setOpen}
       setValue={setValue}
       setItems={setItems}
+      maxHeight={300}
     />
   );
 };

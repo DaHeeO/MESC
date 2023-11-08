@@ -4,14 +4,20 @@ import * as S from './Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import ChatInput from '../../components/chat/ChatInput';
+import ChatbotStartBox from '../../components/chat/ChatbotStartBoxOne';
 import ChatbotStartBoxTwo from '../../components/chat/ChatbotStartBoxTwo';
 import ChatbotMessage from '../../components/chat/ChatbotMessage';
 import UserMessage from '../../components/chat/UserMessage';
-import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
 import axios from 'axios';
+import LogLevelForm from '../../components/chat/log/LogLevelForm';
+import {ModalIdSwitch} from '../../components/common/ModalId';
+import {IconSwitch} from '../../components/common/ChatIcon';
+import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
+import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
+
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -38,6 +44,17 @@ function Chat() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]); // State to store chat messages
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
   const [axiosResult, setAxiosResult] = useState<AxiosResult>(); // State to store axios result
+  const [isModalVisible, setIsModalVisible] = useState(false); // 모달 상태 추가
+
+  // 모달을 여는 함수
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  // 모달을 닫는 함수
+  const hideModal = () => {
+    setIsModalVisible(false);
+  };
 
   const addChatMessage = (message: string) => {
     setChatMessages(prevMessages => [
@@ -49,6 +66,11 @@ function Chat() {
   const scrollToBottom = () => {
     chatLayoutRef.current?.scrollToEnd({animated: true});
   };
+
+  // 모달을 결정하는 함수
+  const ModalForm = ModalIdSwitch({modalId: 'RF'});
+  // 아이콘을 결정하는 함수
+  const IconForm = IconSwitch({iconId: 1});
 
   useEffect(() => {
     // Whenever chatMessages change, scroll to the bottom
@@ -72,7 +94,11 @@ function Chat() {
       <Header />
       {/* 챗봇 메세지 보이는 화면 */}
       <S.ChatLayout>
-        <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          ref={chatLayoutRef}
+          showsVerticalScrollIndicator={false}
+          // style={{backgroundColor: 'aqua'}}
+        >
           <ChatbotProfile />
           <ChatbotMessage
             context={`안녕하세요! HIHI님\n무엇을 도와드릴까요?\n아래 버튼\n작업을 선택해주세요!`}
@@ -108,19 +134,27 @@ function Chat() {
               )}
             </View>
           ))}
+          {/* <ChatChooseSection1 /> */}
+          <ChatChooseSection2 />
         </ScrollView>
-        <AboutBottomSheetModal
-          btnTitle={'bottomSheet예시'}
-          modalHeight={'70%'}
-          modalBreakPoint={'25%'}
-          component={<ConditionForm />}
-        />
       </S.ChatLayout>
-      <ChatInput
-        onSendMessage={addChatMessage}
-        onAxiosResult={result => setAxiosResult(result)}
+      <AboutBottomSheetModal
+        btnTitle={'bottomSheet예시'}
+        modalHeight={'70%'}
+        modalBreakPoint={'25%'}
+        component={ModalForm}
+        onModalShow={showModal}
+        onModalHide={hideModal}
       />
-
+      <AboutBottomSheetModal
+        btnTitle={'로그레벨'}
+        modalHeight={'60%'}
+        modalBreakPoint={'30%'}
+        component={<LogLevelForm />}
+        onModalShow={showModal}
+        onModalHide={hideModal}
+      />
+      {isModalVisible ? null : <ChatInput onSendMessage={addChatMessage} onAxiosResult={result => setAxiosResult(result)} />}
       {/* 모달 삽입 위치 */}
     </S.Container>
   );
