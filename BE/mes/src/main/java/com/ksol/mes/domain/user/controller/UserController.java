@@ -1,6 +1,8 @@
 package com.ksol.mes.domain.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,6 +74,15 @@ public class UserController {
 	// 현재 로그인한 유저 id
 	// => principal.getName()
 
+	@Operation(summary = "전체 멤버수 조회 API", description = "전체 멤버수 조회 후, 전달한다.")
+	@GetMapping("/members/count")
+	public ResponseEntity<CommonResponseDto<?>> getMemberCount() {
+		Integer totalCnt = userService.getUserCount();
+		Map<String, Integer> map = new HashMap<>();
+		map.put("totalCnt", totalCnt);
+		return ResponseEntity.ok(CommonResponseDto.success(map));
+	}
+
 	@Operation(summary = "그룹 멤버 조회 API", description = "그룹에 있는 멤버 정보를 조회 후, 전달한다.")
 	@PostMapping
 	public ResponseEntity<CommonResponseDto<?>> getGroupMembers(
@@ -86,10 +97,8 @@ public class UserController {
 			throw new RuntimeException(e);
 		}
 
-		Integer userCnt = userService.getUserCount();
 		GroupMemberResponse groupMemberResponse = GroupMemberResponse.builder()
 																	 .userList(userList)
-			.userCnt(userCnt)
 																	 .build();
 
 		return ResponseEntity.ok(CommonResponseDto.success(groupMemberResponse));
