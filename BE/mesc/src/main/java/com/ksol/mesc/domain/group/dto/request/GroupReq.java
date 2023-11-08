@@ -17,7 +17,7 @@ public class GroupReq {
 	private String groupName;
 	private Integer userId;
 	private Integer sequence;
-	private GroupState groupState;
+	private GroupState groupState = GroupState.ACTIVE;
 
 	public Group toEntity(GroupReq groupReq) {
 		Group group = Group.builder()

@@ -12,6 +12,13 @@ import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupState;
 
 public interface GroupRepository extends JpaRepository<Group, Integer> {
+	@Query("select g.state from Group g where g.id=:groupId")
+	GroupState findStateById(@Param("groupId") Integer groupId);
+
+	@Modifying
+	@Query("update Group g set g.groupName=:groupName where g.id=:groupId")
+	void updateGroupName(@Param("groupId") Integer groupId, @Param("groupName") String groupName);
+
 	@Modifying
 	@Query("UPDATE Group g SET g.state=:groupState WHERE g.id=:groupId")
 	void deleteGroup(@Param("groupId") Integer groupId, @Param("groupState") GroupState groupState);
