@@ -8,11 +8,12 @@ import ChatbotStartBox from '../../components/chat/ChatbotStartBoxOne';
 import ChatbotStartBoxTwo from '../../components/chat/ChatbotStartBoxTwo';
 import ChatbotMessage from '../../components/chat/ChatbotMessage';
 import UserMessage from '../../components/chat/UserMessage';
-import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
-import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
-import {ReportForm} from '../../components/message/ReportForm';
+import {ModalIdSwitch} from '../../components/common/ModalId';
+import {IconSwitch} from '../../components/common/ChatIcon';
+import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
+import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
@@ -42,6 +43,11 @@ function Chat() {
     chatLayoutRef.current?.scrollToEnd({animated: true});
   };
 
+  // 모달을 결정하는 함수
+  const ModalForm = ModalIdSwitch({modalId: 'RF'});
+  // 아이콘을 결정하는 함수
+  const IconForm = IconSwitch({iconId: 1});
+
   useEffect(() => {
     // Whenever chatMessages change, scroll to the bottom
     scrollToBottom();
@@ -62,7 +68,11 @@ function Chat() {
       <Header />
       {/* 챗봇 메세지 보이는 화면 */}
       <S.ChatLayout>
-        <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          ref={chatLayoutRef}
+          showsVerticalScrollIndicator={false}
+          // style={{backgroundColor: 'aqua'}}
+        >
           <ChatbotProfile />
           <ChatbotMessage
             context={`안녕하세요! HIHI님\n무엇을 도와드릴까요?\n아래 버튼\n작업을 선택해주세요!`}
@@ -87,13 +97,15 @@ function Chat() {
               )}
             </View>
           ))}
+          {/* <ChatChooseSection1 /> */}
+          <ChatChooseSection2 />
         </ScrollView>
       </S.ChatLayout>
       <AboutBottomSheetModal
         btnTitle={'bottomSheet예시'}
         modalHeight={'70%'}
         modalBreakPoint={'25%'}
-        component={<ReportForm />}
+        component={ModalForm}
         onModalShow={showModal}
         onModalHide={hideModal}
       />

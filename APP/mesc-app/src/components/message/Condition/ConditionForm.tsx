@@ -3,7 +3,7 @@ import {useRecoilState} from 'recoil';
 import {ConditionState} from '../../../states/ConditionState';
 import {FormContainer, TextBox, TextBtn} from './ConditionFormStyle';
 import {AboutSelect} from '../../common/about/AboutSelect';
-import {OkayBtn} from './ConditionBtn';
+import {OkayBtn} from '../Btn/SaveBtn';
 import {DatePicker} from '../../common/about/AboutDate';
 export const ConditionForm = () => {
   // Recoil에서 조건 꺼내오기

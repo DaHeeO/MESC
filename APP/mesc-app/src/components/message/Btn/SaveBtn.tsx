@@ -1,5 +1,5 @@
 import React from 'react';
-import {ButtonContainer, TextBox} from './ConditionFormStyle';
+import {ButtonContainer, TextBox} from '../Condition/ConditionFormStyle';
 
 interface OkayBtnProps {
   backgroundColor?: string;
