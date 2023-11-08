@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 
 import com.ksol.mesc.domain.group.dto.request.GroupListReq;
 import com.ksol.mesc.domain.group.dto.request.GroupMemberReq;
-import com.ksol.mesc.domain.group.dto.request.GroupReq;
 import com.ksol.mesc.domain.group.entity.Group;
 
 public interface GroupService {
@@ -18,7 +17,7 @@ public interface GroupService {
 	void deleteGroup(Integer userId, Integer groupId);
 
 	//그룹 이름 수정
-	void updateGroup(Integer userId, Integer groupId, GroupReq groupReq);
+	void updateGroup(Integer userId, GroupListReq groupListReq);
 
 	//그룹 멤버 수정
 	void updateGroupMember(Integer userId, Integer groupId, GroupMemberReq groupMemberReq);

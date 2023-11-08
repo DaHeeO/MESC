@@ -224,12 +224,14 @@ public class BlockService {
 
 			cardMap.put("cardType", CardType.TX);
 			cardMap.put("content", content);
-		} else if (cardType == CardType.QT) {    //query text
-			if (cardReqDto.getActionId() != null)
-				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", cardReqDto, cardType));
-			else    //single Table --> 수정 필요
-				cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/data/", cardReqDto, cardType));
-		} else if (cardType == CardType.TA) {    //table 조회
+		}
+		// else if (cardType == CardType.QT) {    //query text
+		// 	if (cardReqDto.getActionId() != null)
+		// 		cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/worker/query/", cardReqDto, cardType));
+		// 	else    //single Table --> 수정 필요
+		// 		cardMap.putAll((LinkedHashMap<String, Object>)requestPostToMes("/data/", cardReqDto, cardType));
+		// }
+		else if (cardType == CardType.TA) {    //table 조회
 			LinkedHashMap<String, Object> tableInfo = (LinkedHashMap<String, Object>)requestPostToMes("/worker/data/",
 				cardReqDto, cardType);
 			cardMap.put("label", tableInfo.get("label"));

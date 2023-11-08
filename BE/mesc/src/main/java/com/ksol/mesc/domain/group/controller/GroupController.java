@@ -57,12 +57,12 @@ public class GroupController {
 	}
 
 	@Operation(summary = "그룹 이름 수정 API", description = "변경할 그룹 이름을 DB에 저장한다.")
-	@PatchMapping("/name/{groupId}")
-	public ResponseEntity<CommonResponseDto<?>> updateGroup(@Parameter(description = "그룹 ID", required = true)
-	@PathVariable @Valid Integer groupId, @Parameter(description = "변경할 그룹 정보", required = true)
-	@RequestBody @Validated GroupReq groupReq, Authentication authentication) {
+	@PatchMapping("/name")
+	public ResponseEntity<CommonResponseDto<?>> updateGroup(
+		@Parameter(description = "변경할 그룹 정보", required = true)
+		@RequestBody @Validated GroupListReq groupListReq, Authentication authentication) {
 		Integer userId = Integer.parseInt(authentication.getName());
-		groupService.updateGroup(userId, groupId, groupReq);
+		groupService.updateGroup(userId, groupListReq);
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}
