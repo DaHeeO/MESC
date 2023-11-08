@@ -10,16 +10,34 @@ import UserMessage from '../../components/chat/UserMessage';
 import Report from '../messages/Report';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
-import FingerPrint from '../../components/figerprint/FingerPrint';
+import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
+import axios from 'axios';
 
 // ChatMessage 타입 정의
 interface ChatMessage {
   text: string;
 }
 
+interface AxiosResult {
+  statusCode: number;
+  message: string;
+  data: {
+    blockId: number;
+    isPossible: string;
+    cardList: {
+      cardId: number;
+      cardType: string;
+      content: string;
+      message: string;
+    }[];
+    dcbList: number[];
+  };
+}
+
 function Chat() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]); // State to store chat messages
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
+  const [axiosResult, setAxiosResult] = useState<AxiosResult>(); // State to store axios result
 
   const addChatMessage = (message: string) => {
     setChatMessages(prevMessages => [
@@ -46,6 +64,8 @@ function Chat() {
     // 로그 보기 버튼이 클릭되었을 때 처리할 로직
     addChatMessage('로그 보기');
   };
+
+  //지문인식//
 
   return (
     <S.Container>
@@ -78,6 +98,14 @@ function Chat() {
               {message.text.startsWith('SELECT') && (
                 <ChatbotMessage context={`아래는 selet문입니다`} />
               )}
+              {(message.text.startsWith('INSERT') ||
+                message.text.startsWith('UPDATE') ||
+                message.text.startsWith('DELETE')) && (
+                <>
+                  <ChatbotMessage context={`아래는 데이터 조작문입니다`} />
+                  <ChatbotMessage context={`${axiosResult?.message}`} />
+                </>
+              )}
             </View>
           ))}
         </ScrollView>
@@ -88,7 +116,11 @@ function Chat() {
           component={<ConditionForm />}
         />
       </S.ChatLayout>
-      <ChatInput onSendMessage={addChatMessage} />
+      <ChatInput
+        onSendMessage={addChatMessage}
+        onAxiosResult={result => setAxiosResult(result)}
+      />
+
       {/* 모달 삽입 위치 */}
     </S.Container>
   );

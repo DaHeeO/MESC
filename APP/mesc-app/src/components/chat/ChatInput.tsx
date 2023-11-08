@@ -1,19 +1,22 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {ScrollView, TouchableOpacity, Alert} from 'react-native';
-import axios from 'axios';
+import axios, {Axios, AxiosResponse} from 'axios';
 import _ from 'lodash';
 import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
-import FingerPrint from '../figerprint/FingerPrint';
 import TouchID from 'react-native-touch-id';
 import Toast from 'react-native-toast-message';
+import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
+  onAxiosResult: (result: any) => void;
 }
 
-function ChatInput({onSendMessage}: ChatInputProps) {
+const isTrue = true;
+
+function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
   const [value, setValue] = useState('');
 
   const [input, setInput] = useState('');
@@ -101,85 +104,47 @@ function ChatInput({onSendMessage}: ChatInputProps) {
     }
   };
 
-  // 지문인식
-  async function handleFingerPrint() {
-    const optionalConfigObject = {
-      title: 'touch id를 수행합니다.',
-      imageColor: 'black',
-      imageErrorColor: '#ff0000',
-      sensorDescription: 'Touch sensor',
-      sensorErrorDescription: 'Failed',
-      cancelText: 'Cancel',
-      backgroundColor: 'yellow',
-
-      fallbackLabel: 'Show Passcode',
-      unifiedErrors: true,
-      passcodeFallback: true,
-    };
-
-    try {
-      const isSupported = await TouchID.isSupported(optionalConfigObject);
-      console.log(`타입: ${isSupported}`); // faceid, touchid
-    } catch (err) {
-      console.log(err);
-      Toast.show({
-        type: 'error',
-        text1: '지문인식을 지원하지 않습니다.',
-      });
-      return;
-    }
-
-    try {
-      const res = await TouchID.authenticate(
-        '지문을 인식해주세요.',
-        optionalConfigObject,
-      );
-      console.log('인식성공', res);
-      Alert.alert('지문인식 성공\n쿼리문이 전송되었습니다.');
-
-      // 액시오스
-
-      const token =
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvaEBuYXZlci5jb20iLCJBdXRoIjoiREVWRUxPUEVSIiwidXNlcklkIjo0LCJleHAiOjE2OTkzMzY5MDl9.kvAp4KfjNWZwYB-HI7-cw4fd9v40BKW0OHQqAvxpDTU';
-
-      axios
-        .post(
-          `https://www.mesc.kr/api/api/developer/query`,
-          {query: input},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        )
-        .then(response => {
-          console.log('엑시오스 시작');
-          if (response.status === 200) {
-            console.log(response.data);
-            console.log(response.data.statusCode);
-            const count = response.data.data.modifiedCount;
-            console.log(count);
-
-            console.log(response.data.message);
-          } else {
-            console.log('에러');
-          }
-        });
-    } catch (err) {
-      console.log('인식실패', err);
-      Toast.show({
-        type: 'error',
-        text1: '열굴인식 실패',
-      });
-    }
-  }
-
   // 전송 버튼을 눌렀을 때 처리하는 함수
-  const handleSendButtonPress = () => {
+  const handleSendButtonPress = async () => {
     if (input.trim() !== '') {
-      onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
-      setInput(''); // 입력 필드 지우기
-      handleFingerPrint();
+      //토큰
+      const token =
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvaEBuYXZlci5jb20iLCJBdXRoIjoiREVWRUxPUEVSIiwidXNlcklkIjo0LCJleHAiOjE2OTk0NTcwOTB9.W913PphQHK-iLQKVeVsiJP6BzYihFa8wumgASorYBT4';
+
+      // 조회
+
+      // 수정, 추가, 삭제
+      let fingerResult = await handleFingerPrint();
+      if (fingerResult === '지문인식 성공') {
+        onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
+        setInput(''); // 입력 필드 지우기
+
+        axios
+          .post(
+            `https://www.mesc.kr/api/api/developer/query`,
+            {query: input},
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          )
+          .then(response => {
+            if (response.status == 200) {
+              // 결과 값 담기
+              // statusCode, message, data.modifiedCount
+              const result = response.data;
+              onAxiosResult(result);
+            } else {
+              console.log('에러');
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        // 지문인식 실패
+      }
     } else {
       console.log('공백입니다요');
     }
@@ -217,6 +182,7 @@ function ChatInput({onSendMessage}: ChatInputProps) {
           placeholder="검색어를 입력해주세요."
           multiline={true}
           returnKeyType="go"
+          // editable={isTrue ? true : false}
         />
         <S.SendBox>
           <Send onPress={handleSendButtonPress} />
