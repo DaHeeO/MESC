@@ -17,7 +17,8 @@ public class WorkerDataResponseDto {
     private List<String> columnNameList = new ArrayList<>();
     private List<String> columnTypeList = new ArrayList<>();
     private List<List<String>> rowList;
-    private Map<String, Object> label = new HashMap<>();
+    private List<LabelResponseDto> label = new ArrayList<>();
+    // private Map<String, Object> label = new HashMap<>();
 
     public WorkerDataResponseDto(Map<String, Object> tableInfo) {
         String query = (String)tableInfo.get("query");
@@ -25,17 +26,19 @@ public class WorkerDataResponseDto {
         Set<String> tableSet = table.getTableList();
         List<Map<String, String>> tableList = new ArrayList<>();
 
-        label.put("query", query);
+        label.add(LabelResponseDto.toResponse("쿼리", "q", query));
+        // label.put("query", query);
 
         for(String tableName : tableSet){
             LinkedHashMap<String, String> temp = new LinkedHashMap<>();
-            temp.put("name", tableName);
-            temp.put("query", "SELECT * FROM "+tableName);
+            label.add(LabelResponseDto.toResponse(tableName, "t", "SELECT * FROM "+tableName));
+            // temp.put("name", tableName);
+            // temp.put("query", "SELECT * FROM "+tableName);
 
-            tableList.add(temp);
+            // tableList.add(temp);
         }
 
-        label.put("table", tableList);
+        // label.put("table", tableList);
 
         for (ColumnData column : table.getColumns()) {
             String columnLabel = column.getColumnLabel();
