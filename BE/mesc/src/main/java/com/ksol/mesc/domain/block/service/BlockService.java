@@ -40,12 +40,11 @@ import com.ksol.mesc.domain.component.type.dropdown.repository.DropdownRepositor
 import com.ksol.mesc.domain.component.type.label.Label;
 import com.ksol.mesc.domain.component.type.label.LabelRepository;
 import com.ksol.mesc.domain.component.type.label.dto.LabelRes;
-import com.ksol.mesc.domain.component.values.dto.ValuesRes;
-import com.ksol.mesc.domain.component.values.entity.CValues;
-import com.ksol.mesc.domain.component.values.repository.ValuesRepository;
+import com.ksol.mesc.domain.component.type.values.dto.ValuesRes;
+import com.ksol.mesc.domain.component.type.values.entity.ComponentValue;
+import com.ksol.mesc.domain.component.type.values.repository.ValuesRepository;
 import com.ksol.mesc.domain.dcb.entity.DCB;
 import com.ksol.mesc.domain.dcb.repository.DCBRepository;
-import com.ksol.mesc.domain.directbutton.repository.DirectButtonRepository;
 import com.ksol.mesc.domain.log.service.LogSerivce;
 import com.ksol.mesc.domain.user.service.UserServiceImpl;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
@@ -69,7 +68,6 @@ public class BlockService {
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
 	private final ValuesRepository valuesRepository;
-	private final DirectButtonRepository directButtonRepository;
 	private final DCBRepository dcbRepository;
 
 	//export lib
@@ -287,9 +285,9 @@ public class BlockService {
 				if (dropdownOpt.isEmpty())
 					continue;
 				Dropdown dropdown = dropdownOpt.get();
-				List<CValues> valuesList = valuesRepository.findByDropdown(dropdown);
+				List<ComponentValue> valuesList = valuesRepository.findByDropdown(dropdown);
 				List<ValuesRes> valuesResList = new ArrayList<>();
-				for (CValues cValues : valuesList) {
+				for (ComponentValue cValues : valuesList) {
 					valuesResList.add(ValuesRes.toResponse(cValues));
 				}
 				dropdownList.add(DropdownRes.toResponse(dropdown, valuesResList));

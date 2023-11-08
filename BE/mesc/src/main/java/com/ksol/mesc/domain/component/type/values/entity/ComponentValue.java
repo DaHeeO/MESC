@@ -1,4 +1,4 @@
-package com.ksol.mesc.domain.component.values.entity;
+package com.ksol.mesc.domain.component.type.values.entity;
 
 import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
 
@@ -14,7 +14,7 @@ import lombok.Getter;
 @Entity
 @Getter
 @Table(name = "COMPONENT_VALUES")
-public class CValues {
+public class ComponentValue {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

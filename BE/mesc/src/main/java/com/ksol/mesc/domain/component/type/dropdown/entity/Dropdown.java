@@ -23,6 +23,8 @@ public class Dropdown {
 	private String name;
 	@Column(name = "REAL_COLUMN_NAME")
 	private String columnName;
+	@Column(name = "REAL_TABLE_NAME")
+	private String tableName;
 	@Enumerated(EnumType.STRING)
 	private DropdownType type;
 }
