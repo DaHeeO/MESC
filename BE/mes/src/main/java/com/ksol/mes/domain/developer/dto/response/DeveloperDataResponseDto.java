@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Data
 public class DeveloperDataResponseDto {
+    private Boolean result = true;
     private List<String> columnNameList = new ArrayList<>();
     private List<String> columnTypeList = new ArrayList<>();
     private List<List<String>> rowList;

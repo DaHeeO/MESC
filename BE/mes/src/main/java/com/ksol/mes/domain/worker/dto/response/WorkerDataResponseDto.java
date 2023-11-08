@@ -14,6 +14,7 @@ import java.util.Set;
 
 @Data
 public class WorkerDataResponseDto {
+    private Boolean result = true;
     private List<String> columnNameList = new ArrayList<>();
     private List<String> columnTypeList = new ArrayList<>();
     private List<List<String>> rowList;
