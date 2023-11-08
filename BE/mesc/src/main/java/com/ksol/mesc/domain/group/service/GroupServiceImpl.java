@@ -124,6 +124,25 @@ public class GroupServiceImpl implements GroupService {
 		}
 	}
 
+
+	//그룹 멤버 삭제
+	@Override
+	@Transactional
+	public void deleteGroupMember(Integer userId, Integer groupId, Integer memberId) {
+		checkBeforeGroupFunction(userId, groupId);
+
+
+		List<Integer> originMemberList = groupMemberRepository.findByUserId(groupId);
+		System.out.println(groupId + " " + memberId);
+
+
+		if(originMemberList.contains(memberId)) {
+			Integer groupMemberId = groupMemberRepository.findByGroupAndUser(groupId, memberId);
+			if(groupMemberId != null)
+				groupMemberRepository.deleteById(groupMemberId);
+		}
+	}
+
 	//그룹 순서 수정
 	@Override
 	@Transactional
