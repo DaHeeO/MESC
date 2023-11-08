@@ -18,7 +18,7 @@ import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mesc.domain.group.dto.request.GroupListReq;
 import com.ksol.mesc.domain.group.dto.request.GroupMemberReq;
 import com.ksol.mesc.domain.group.dto.request.GroupReq;
-import com.ksol.mesc.domain.group.service.GroupService;
+import com.ksol.mesc.domain.group.service.GroupServiceImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class GroupController {
-	private final GroupService groupService;
+	private final GroupServiceImpl groupService;
 
 	@Operation(summary = "그룹 추가 API", description = "그룹을 DB에 저장한다.")
 	@PostMapping
