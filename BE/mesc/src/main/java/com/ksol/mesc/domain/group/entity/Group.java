@@ -2,6 +2,8 @@ package com.ksol.mesc.domain.group.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,4 +34,6 @@ public class Group {
 	@Column(name = "GROUP_NAME")
 	String groupName;
 	Integer sequence;
+	@Enumerated(EnumType.STRING)
+	GroupState state;
 }

@@ -9,8 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.ksol.mesc.domain.group.entity.Group;
+import com.ksol.mesc.domain.group.entity.GroupState;
 
 public interface GroupRepository extends JpaRepository<Group, Integer> {
+	@Modifying
+	@Query("UPDATE Group g SET g.state=:groupState WHERE g.id=:groupId")
+	void deleteGroup(@Param("groupId") Integer groupId, @Param("groupState") GroupState groupState);
+
 	@Modifying
 	@Query("update Group g set g.sequence=:sequence where g.id=:groupId")
 	void updateGroupSequence(@Param("groupId") Integer groupId, @Param("sequence") Integer sequence);

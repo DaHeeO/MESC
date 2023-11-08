@@ -25,7 +25,6 @@ import com.ksol.mesc.domain.group.dto.response.GroupResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
 import com.ksol.mesc.domain.group.service.GroupService;
-import com.ksol.mesc.domain.user.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -40,14 +39,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GroupController {
 	private final GroupService groupService;
-	private final UserService userService;
 
 	@Operation(summary = "그룹 추가 API", description = "DB에 그룹을 저장한다.")
 	@PostMapping
 	public ResponseEntity<CommonResponseDto<?>> addGroup(@Parameter(description = "그룹명", required = true)
 	@RequestBody GroupReq groupReq, Authentication authentication) {
 		Integer userId = Integer.parseInt(authentication.getName());
-
 		groupReq.setUserId(userId);
 		groupService.addGroup(groupReq.toEntity(groupReq));
 		return ResponseEntity.ok(CommonResponseDto.success(null));
@@ -55,18 +52,19 @@ public class GroupController {
 
 	@Operation(summary = "그룹 삭제 API", description = "DB에서 그룹을 삭제한다.")
 	@DeleteMapping("/{groupId}")
+	@Transactional
 	public ResponseEntity<CommonResponseDto<?>> deleteGroup(@Parameter(description = "그룹 id", required = true)
 	@PathVariable Integer groupId, Authentication authentication) {
 		Integer userId = Integer.parseInt(authentication.getName());
 
 		//그룹 id가 존재하지 않으면 error
 		if (groupService.selectGroupById(groupId) == null)
-			return ResponseEntity.badRequest().body(CommonResponseDto.error(400, "Do not exist Group ID"));
+			return ResponseEntity.badRequest().body(CommonResponseDto.error(400, "Don't exist Group ID"));
 
 		//유저가 그룹 생성자가 아니면 error
 		if (groupService.selectGroupByUser(groupId, userId) == null)
 			return ResponseEntity.badRequest()
-				.body(CommonResponseDto.error(400, "Do not be same User and Group User"));
+				.body(CommonResponseDto.error(400, "Don't be same User and Group User"));
 
 		groupService.deleteGroup(groupId);
 
@@ -74,7 +72,8 @@ public class GroupController {
 	}
 
 	@Operation(summary = "그룹 이름 수정 API", description = "변경할 그룹 이름을 DB에 저장한다.")
-	@PatchMapping("/{userId}/{groupId}")
+	@PatchMapping("/name/{groupId}")
+	@Transactional
 	public ResponseEntity<CommonResponseDto<?>> updateGroup(@Parameter(description = "그룹 id", required = true)
 	@PathVariable Integer groupId, @Parameter(description = "변경할 그룹명", required = true)
 	@RequestBody GroupReq groupReq, Authentication authentication) {
@@ -93,6 +92,7 @@ public class GroupController {
 			.id(groupId)
 			.userId(userId)
 			.groupName(groupReq.getGroupName())
+			.state(groupReq.getGroupState())
 			.build();
 		groupService.updateGroup(group);
 
@@ -101,6 +101,7 @@ public class GroupController {
 
 	@Operation(summary = "그룹 멤버 수정 API", description = "그룹 멤버 수정 후, DB에 저장한다.")
 	@PatchMapping("/member/{groupId}")
+	@Transactional
 	public ResponseEntity<CommonResponseDto<?>> updateGroupMember(@Parameter(description = "그룹 id", required = true)
 	@PathVariable Integer groupId, @Parameter(description = "변경할 멤버", required = true)
 	@RequestBody GroupMemberReq groupMemberReq, Authentication authentication) {

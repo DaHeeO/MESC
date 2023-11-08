@@ -15,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
+import com.ksol.mesc.domain.group.entity.GroupState;
 import com.ksol.mesc.domain.group.repository.GroupMemberRepository;
 import com.ksol.mesc.domain.group.repository.GroupRepository;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
@@ -34,9 +35,7 @@ public class GroupService {
 	//그룹 id로 조회
 	public Group selectGroupById(Integer groupId) {
 		Optional<Group> optionalGroup = groupRepository.findById(groupId);
-		if (optionalGroup.isEmpty())
-			return null;
-		return optionalGroup.get();
+		return optionalGroup.orElse(null);
 	}
 
 	//사용자 id로 조회
@@ -49,14 +48,13 @@ public class GroupService {
 
 	//그룹 추가
 	public void addGroup(Group group) {
-		// log.info("addGroup : {}", groupRepository.findLastGroup());
-
 		groupRepository.save(group);
 	}
 
 	//그룹 삭제
 	public void deleteGroup(Integer groupId) {
-		groupRepository.deleteById(groupId);
+		groupRepository.deleteGroup(groupId, GroupState.DELETE);
+		// groupRepository.deleteById(groupId);
 	}
 
 	//그룹 이름 수정

@@ -1,6 +1,7 @@
 package com.ksol.mesc.domain.group.dto.request;
 
 import com.ksol.mesc.domain.group.entity.Group;
+import com.ksol.mesc.domain.group.entity.GroupState;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,7 @@ public class GroupReq {
 	private String groupName;
 	private Integer userId;
 	private Integer sequence;
+	private GroupState groupState;
 
 	public Group toEntity(GroupReq groupReq) {
 		Group group = Group.builder()
@@ -23,6 +25,7 @@ public class GroupReq {
 			.groupName(groupReq.getGroupName())
 			.userId(groupReq.getUserId())
 			.sequence(groupReq.getSequence())
+			.state(groupReq.getGroupState())
 			.build();
 		return group;
 	}
