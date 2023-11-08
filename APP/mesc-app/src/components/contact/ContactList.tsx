@@ -14,6 +14,9 @@ import Search from '../../assets/icons/search.svg';
 import CheckBoxIcon from '../../assets/icons/checkbox.svg';
 // BottomSheet
 import {BottomSheetModal, BottomSheetScrollView} from '@gorhom/bottom-sheet';
+import {AboutBottomSheetModal} from '../common/bottomSheet/AboutBottomModal';
+import {ReportForm} from '../message/Report/ReportForm';
+import {useNavigation} from '@react-navigation/native';
 
 export const ContactListForm = () => {
   const token =
@@ -42,8 +45,6 @@ export const ContactListForm = () => {
   Contacts.map(contact => {
     console.log(contact);
   });
-
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const [checkContact, setCheckContact] = useRecoilState(checkContactState);
   const handleCheckBoxClick = (
@@ -75,11 +76,11 @@ export const ContactListForm = () => {
   };
 
   console.log('checkContact: ', checkContact);
-  const data = useMemo(() => {
-    return Contacts;
-  }, []);
-  //   이 값을 props로 넘겨서  modal에게 전달
+
+  const [complite, setComplite] = useState(false);
+
   const handleClosePress = () => {
+    setComplite(!complite);
     console.log('완료 버튼 눌림');
   };
 
@@ -137,43 +138,49 @@ export const ContactListForm = () => {
 
   return (
     // 전체를 담는 Container
-    <AboutContainer
-      backgroundColor="skyblue"
-      width="100%"
-      height="100%"
-      flexDirection="column">
-      <S.Container>
-        <S.Div>
-          <S.Top>
-            <S.Navigation style={{justifyContent: 'flex-end'}}>
-              <S.TitleBox>
-                <S.Title>연락 처</S.Title>
-              </S.TitleBox>
-              <S.Right onPress={() => handleClosePress()}>
-                <S.Text size={16} color={colors.primary}>
-                  완료
-                </S.Text>
-              </S.Right>
-            </S.Navigation>
-            <S.Search>
-              <Search />
-              <S.SearchText placeholder="검색" />
-            </S.Search>
-          </S.Top>
-          <S.Body>
-            <S.FilterDiv>
-              <S.FilterText>멤버 총 {data.length}명</S.FilterText>
-              <TouchableOpacity>
-                <Filter />
-              </TouchableOpacity>
-            </S.FilterDiv>
-            <BottomSheetScrollView style={{marginBottom: '10%'}}>
-              {/* 연락처 정보 랜더링 되는 구간 */}
-              {data.map(renderItem)}
-            </BottomSheetScrollView>
-          </S.Body>
-        </S.Div>
-      </S.Container>
-    </AboutContainer>
+    <>
+      {complite === false ? (
+        <AboutContainer
+          backgroundColor="skyblue"
+          width="100%"
+          height="100%"
+          flexDirection="column">
+          <S.Container>
+            <S.Div>
+              <S.Top>
+                <S.Navigation style={{justifyContent: 'flex-end'}}>
+                  <S.TitleBox>
+                    <S.Title>연락처</S.Title>
+                  </S.TitleBox>
+                  <S.Right onPress={() => handleClosePress()}>
+                    <S.Text size={16} color={colors.primary}>
+                      완료
+                    </S.Text>
+                  </S.Right>
+                </S.Navigation>
+                <S.Search>
+                  <Search />
+                  <S.SearchText placeholder="검색" />
+                </S.Search>
+              </S.Top>
+              <S.Body>
+                <S.FilterDiv>
+                  <S.FilterText>멤버 총 {Contacts.length}명</S.FilterText>
+                  <TouchableOpacity>
+                    <Filter />
+                  </TouchableOpacity>
+                </S.FilterDiv>
+                <BottomSheetScrollView style={{marginBottom: '10%'}}>
+                  {/* 연락처 정보 랜더링 되는 구간 */}
+                  {Contacts.map(renderItem)}
+                </BottomSheetScrollView>
+              </S.Body>
+            </S.Div>
+          </S.Container>
+        </AboutContainer>
+      ) : (
+        <ReportForm />
+      )}
+    </>
   );
 };
