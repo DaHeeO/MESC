@@ -8,13 +8,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.group.entity.Group;
-import com.ksol.mesc.domain.group.entity.GroupState;
 
 public interface GroupRepository extends JpaRepository<Group, Integer> {
 	//그룹 상태 조회
 	@Query("select g.state from Group g where g.id=:groupId")
-	GroupState findStateById(@Param("groupId") Integer groupId);
+	EntityState findStateById(@Param("groupId") Integer groupId);
 
 	//그룹 이름 변경
 	@Modifying
@@ -24,7 +24,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 	//그룹 삭제 -> 상태 DELETE로 변경
 	@Modifying
 	@Query("UPDATE Group g SET g.state=:groupState WHERE g.id=:groupId")
-	void deleteGroup(@Param("groupId") Integer groupId, @Param("groupState") GroupState groupState);
+	void updateGroupState(@Param("groupId") Integer groupId, @Param("groupState") EntityState groupState);
 
 	//그룹 순서 변경
 	@Modifying
@@ -33,11 +33,11 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
 	//활동 중인 유저 조회
 	@Query("select g from Group g where g.userId=:userId and g.state=:groupState")
-	List<Group> findByUserId(@Param("userId") Integer userId, @Param("groupState") GroupState groupState);
+	List<Group> findByUserId(@Param("userId") Integer userId, @Param("groupState") EntityState groupState);
 
 	//그룹id, userId를 이용한 활동 중인 유저 조회
 	@Query("select g from Group g where g.id=:groupId and g.userId=:userId and g.state=:groupState")
 	Optional<Group> findByUserAndGroup(@Param("groupId") Integer groupId, @Param("userId") Integer userId,
-		@Param("groupState") GroupState groupState);
+		@Param("groupState") EntityState groupState);
 
 }

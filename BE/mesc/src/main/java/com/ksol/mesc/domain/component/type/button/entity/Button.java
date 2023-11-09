@@ -1,5 +1,6 @@
 package com.ksol.mesc.domain.component.type.button.entity;
 
+import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.component.entity.LinkType;
 
 import jakarta.persistence.Column;
@@ -42,5 +43,7 @@ public class Button {
 	private String response;
 	@Column(name = "RESPONSE_TYPE")
 	private String responseType;
+	@Enumerated(EnumType.STRING)
+	private EntityState state;
 
 }

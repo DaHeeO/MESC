@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.group.dto.request.GroupListReq;
 import com.ksol.mesc.domain.group.dto.request.GroupMemberReq;
@@ -20,7 +21,6 @@ import com.ksol.mesc.domain.group.dto.request.GroupReq;
 import com.ksol.mesc.domain.group.dto.response.GroupResponse;
 import com.ksol.mesc.domain.group.entity.Group;
 import com.ksol.mesc.domain.group.entity.GroupMember;
-import com.ksol.mesc.domain.group.entity.GroupState;
 import com.ksol.mesc.domain.group.repository.GroupMemberRepository;
 import com.ksol.mesc.domain.group.repository.GroupRepository;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
@@ -45,11 +45,11 @@ public class GroupServiceImpl implements GroupService {
 		//1. 그룹 id가 존재하지 않으면 error
 		groupRepository.findById(groupId).orElseThrow(() -> new GroupNotFoundException("Group Not Found"));
 		//2. 그룹이 delete인 경우 error
-		if (groupRepository.findStateById(groupId) == GroupState.DELETE) {
+		if (groupRepository.findStateById(groupId) == EntityState.DELETE) {
 			throw new GroupNotFoundException("Group Not Found");
 		}
 		//3. 로그인한 user가 그룹 생성자가 아니면 error
-		groupRepository.findByUserAndGroup(groupId, userId, GroupState.ACTIVE)
+		groupRepository.findByUserAndGroup(groupId, userId, EntityState.ACTIVE)
 			.orElseThrow(() -> new GroupAndUserMismatchException("Group And User Mismatch"));
 	}
 
@@ -64,7 +64,7 @@ public class GroupServiceImpl implements GroupService {
 	@Transactional
 	public void deleteGroup(Integer userId, Integer groupId) {
 		checkBeforeGroupFunction(userId, groupId);
-		groupRepository.deleteGroup(groupId, GroupState.DELETE);
+		groupRepository.updateGroupState(groupId, EntityState.DELETE);
 	}
 
 	//그룹 이름 수정
@@ -169,7 +169,7 @@ public class GroupServiceImpl implements GroupService {
 	@Override
 	public LinkedHashMap<String, Object> selectGroup(Integer userId) {
 		LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
-		List<Group> groupList = groupRepository.findByUserId(userId, GroupState.ACTIVE);
+		List<Group> groupList = groupRepository.findByUserId(userId, EntityState.ACTIVE);
 		List<GroupResponse> groupResponseList = new ArrayList<>();
 
 		for (Group group : groupList) {

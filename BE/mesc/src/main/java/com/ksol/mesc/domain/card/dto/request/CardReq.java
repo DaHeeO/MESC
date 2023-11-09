@@ -1,7 +1,9 @@
 package com.ksol.mesc.domain.card.dto.request;
 
+import java.util.List;
+
 import com.ksol.mesc.domain.card.entity.Card;
-import com.ksol.mesc.domain.component.dto.request.ComponentPairReq;
+import com.ksol.mesc.domain.component.dto.request.ComponentReq;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +21,8 @@ public class CardReq {
 	private String cardType;
 	private String content;
 	private Integer blockId;
-	private ComponentPairReq componentPairReq;
+	private List<ComponentReq> componentList;
+	// private ComponentPairReq componentPairReq;
 
 	public static CardReq toResponse(Card card) {
 		CardReq cardReq = CardReq.builder()

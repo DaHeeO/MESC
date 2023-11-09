@@ -1,5 +1,7 @@
 package com.ksol.mesc.domain.component.type.dropdown.entity;
 
+import com.ksol.mesc.domain.common.EntityState;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,4 +29,6 @@ public class Dropdown {
 	private String tableName;
 	@Enumerated(EnumType.STRING)
 	private DropdownType type;
+	@Enumerated(EnumType.STRING)
+	private EntityState state;
 }

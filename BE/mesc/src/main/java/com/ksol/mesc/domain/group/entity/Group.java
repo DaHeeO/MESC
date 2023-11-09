@@ -1,5 +1,7 @@
 package com.ksol.mesc.domain.group.entity;
 
+import com.ksol.mesc.domain.common.EntityState;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -35,5 +37,5 @@ public class Group {
 	String groupName;
 	Integer sequence;
 	@Enumerated(EnumType.STRING)
-	GroupState state;
+	EntityState state;
 }

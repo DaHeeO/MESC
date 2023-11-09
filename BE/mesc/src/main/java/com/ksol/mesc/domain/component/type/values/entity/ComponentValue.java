@@ -1,8 +1,11 @@
 package com.ksol.mesc.domain.component.type.values.entity;
 
+import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,6 +22,8 @@ public class ComponentValue {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String value;
+	@Enumerated(EnumType.STRING)
+	private EntityState state;
 	@ManyToOne
 	@JoinColumn(name = "LINK_ID")
 	private Dropdown dropdown;
