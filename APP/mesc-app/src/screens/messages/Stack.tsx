@@ -3,7 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Messages from './Messages';
-import Log from '../log/Log';
 import Chat from '../../screens/chat/Chat';
 
 const Stack = createStackNavigator();
@@ -22,11 +21,7 @@ function MessageStack() {
           component={Chat}
           options={{headerShown: false}}
         />
-        <Stack.Screen
-          name="Log"
-          component={Log}
-          options={{headerShown: false}}
-        />
+
         <Stack.Screen
           name="Chat"
           component={Chat}

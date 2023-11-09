@@ -1,12 +1,14 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+
 import {token} from './Token';
+
+
 
 // 로컬 스토리지에 accessToken 값 추출
 export async function getAccessToken() {
-  const value = token;
-  // const value = await AsyncStorage.getItem('accessToken');
+  const value = await AsyncStorage.getItem('accessToken');
   return value;
 }
 
