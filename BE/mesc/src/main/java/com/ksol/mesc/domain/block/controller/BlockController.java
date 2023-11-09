@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
+import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.service.BlockService;
-import com.ksol.mesc.domain.card.dto.request.CardReq;
 import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -67,7 +67,7 @@ public class BlockController {
 		@Parameter(description = "블록 id", required = true)
 		@PathVariable @Valid Integer blockId,
 		@Parameter(description = "카드 정보")
-		@RequestBody @Validated CardReq cardReqDto,
+		@RequestBody @Validated CardReqDto cardReqDto,
 		Authentication authentication) {
 		Integer userId = Integer.parseInt(authentication.getName());
 		LinkedHashMap<String, Object> responseMap = blockService.selectBlockInfo(blockId, cardReqDto, userId);
