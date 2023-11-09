@@ -3,10 +3,11 @@ import {View, Text} from 'react-native';
 import * as S from './ChatbotMessage.styles';
 import {cardState} from '../../states/CardState';
 import {useRecoilValue} from 'recoil';
+import {Card} from '../../states/CardState';
 
-function ChatbotMessage() {
+function ChatbotMessage(props: {card: Card}) {
   const [dynamicWidth, setDynamicWidth] = useState<number>(250);
-  const card = useRecoilValue(cardState);
+  const {card} = props;
   const context = card.content;
 
   useEffect(() => {

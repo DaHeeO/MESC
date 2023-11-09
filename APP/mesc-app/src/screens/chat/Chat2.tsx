@@ -43,11 +43,11 @@ function Chat() {
     const sectionId = props.section;
     // console.log('asdfafd', props.cardList);
 
-    const renderComponents = [];
+    const renderComponents: any = [];
 
     props.cardList.map((card: any) => {
-      console.log('여기와?');
-      const value = ChatComponentIdSwitch(card.cardType);
+      // console.log('여기와?');
+      const value = ChatComponentIdSwitch(card);
       renderComponents.push(value);
 
       // ChatComponentIdSwitch(card.cardType);

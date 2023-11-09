@@ -14,7 +14,7 @@ import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import customAxios from '../../../Api';
 import {useRecoilState} from 'recoil';
-import {cardState} from '../../states/CardState';
+import {Card, cardState} from '../../states/CardState';
 
 interface ChatComponentIdSwitchProps {
   chatComponentId?: string;
@@ -33,7 +33,7 @@ interface ChatComponentIdSwitchProps {
   optionText2?: string | undefined | null;
 }
 
-export function ChatComponentIdSwitch(chatComponentId: string) {
+export function ChatComponentIdSwitch(card: Card) {
   // const [card, setCard] = useRecoilState(cardState);
 
   // useEffect(() => {
@@ -50,11 +50,12 @@ export function ChatComponentIdSwitch(chatComponentId: string) {
   // }, []);
   // console.log(1111111111111111111111111111);
   // console.log(card);
+  const cardType = card.cardType;
 
-  switch (chatComponentId) {
+  switch (cardType) {
     case 'TX': // 텍스트
       console.log('adfadfafadf/.///////////////////');
-      return <ChatbotMessage />;
+      return <ChatbotMessage card={card} />;
 
     // case 'TA': // 데이터 조회 테이블
     //   return <DataComponent />;
