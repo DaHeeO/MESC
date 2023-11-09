@@ -13,11 +13,10 @@ public class ValuesRes {
 	private Integer linkId;
 
 	public static ValuesRes toResponse(ComponentValue values) {
-		ValuesRes valuesRes = ValuesRes.builder()
+		return ValuesRes.builder()
 			.id(values.getId())
 			.value(values.getValue())
 			.linkId(values.getDropdown().getId())
 			.build();
-		return valuesRes;
 	}
 }

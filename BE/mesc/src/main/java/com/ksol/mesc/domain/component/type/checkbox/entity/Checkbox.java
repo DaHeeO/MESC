@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -23,5 +24,6 @@ public class Checkbox {
 	private Integer id;
 	private String name;
 	@Enumerated(EnumType.STRING)
-	private EntityState state;
+	@Builder.Default
+	private EntityState state = EntityState.ACTIVE;
 }

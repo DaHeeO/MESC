@@ -18,12 +18,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
+@Slf4j
 public class Card {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,16 +47,18 @@ public class Card {
 	private String contentKey;
 
 	public static Card toEntity(CardReq cardReq) {
-		Card card = Card.builder()
+		if (cardReq.getState() == null) {
+			cardReq.setState(EntityState.ACTIVE);
+		}
+		return Card.builder()
 			.id(cardReq.getId())
 			.name(cardReq.getName())
 			.sequence(cardReq.getSequence())
-			// .cardType(cardReq.getCardType())
 			.cardType(CardType.valueOf(cardReq.getCardType()))
 			.content(cardReq.getContent())
-			.block(Block.builder().id(cardReq.getBlockId()).build())
+			.block(cardReq.getBlock())
+			.state(cardReq.getState())
 			.build();
-		return card;
 	}
 
 	@Override

@@ -33,9 +33,12 @@ public class Block {
 	private Boolean isPossible;
 
 	public static Block toEntity(BlockInfoDto blockInfoDto) {
+		if (blockInfoDto.getState() == null)
+			blockInfoDto.setState(EntityState.ACTIVE);
 		return Block.builder()
 			.id(blockInfoDto.getId())
 			.name(blockInfoDto.getName())
+			.state(blockInfoDto.getState())
 			.build();
 	}
 

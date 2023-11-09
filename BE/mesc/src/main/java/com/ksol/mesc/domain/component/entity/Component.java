@@ -47,7 +47,7 @@ public class Component {
 	private Card card;
 
 	public static Component toEntity(ComponentReq componentReq) {
-		if (componentReq.getSequence() == null)
+		if (componentReq.getState() == null)
 			componentReq.setState(EntityState.ACTIVE);
 
 		return Component.builder()

@@ -34,7 +34,8 @@ public class Button {
 	private String name;
 	@Column(name = "LINK_TYPE")
 	@Enumerated(EnumType.STRING)
-	private LinkType linkType;
+	@Builder.Default
+	private LinkType linkType = LinkType.B;
 	@Column(name = "LINK")
 	private String link;
 	@Column(name = "ICON_ID")
@@ -44,6 +45,7 @@ public class Button {
 	@Column(name = "RESPONSE_TYPE")
 	private String responseType;
 	@Enumerated(EnumType.STRING)
-	private EntityState state;
+	@Builder.Default
+	private EntityState state = EntityState.ACTIVE;
 
 }

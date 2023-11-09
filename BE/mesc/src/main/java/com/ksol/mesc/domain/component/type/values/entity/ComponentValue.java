@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -23,7 +24,8 @@ public class ComponentValue {
 	private Integer id;
 	private String value;
 	@Enumerated(EnumType.STRING)
-	private EntityState state;
+	@Builder.Default
+	private EntityState state = EntityState.ACTIVE;
 	@ManyToOne
 	@JoinColumn(name = "LINK_ID")
 	private Dropdown dropdown;

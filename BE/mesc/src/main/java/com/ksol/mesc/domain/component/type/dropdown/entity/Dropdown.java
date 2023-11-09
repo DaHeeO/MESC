@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -30,5 +31,6 @@ public class Dropdown {
 	@Enumerated(EnumType.STRING)
 	private DropdownType type;
 	@Enumerated(EnumType.STRING)
-	private EntityState state;
+	@Builder.Default
+	private EntityState state = EntityState.ACTIVE;
 }
