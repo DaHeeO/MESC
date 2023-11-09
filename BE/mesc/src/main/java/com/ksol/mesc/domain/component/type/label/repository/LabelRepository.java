@@ -12,4 +12,5 @@ import com.ksol.mesc.domain.component.type.label.entity.Label;
 public interface LabelRepository extends JpaRepository<Label, Integer> {
 	@Query("select l from Label l where l.card=:card")
 	List<Label> findByCard(@Param("card") Card card);
+
 }

@@ -1,5 +1,7 @@
 package com.ksol.mesc.domain.component.type.dropdown.entity;
 
+import com.ksol.mesc.domain.common.EntityState;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -27,4 +30,7 @@ public class Dropdown {
 	private String tableName;
 	@Enumerated(EnumType.STRING)
 	private DropdownType type;
+	@Enumerated(EnumType.STRING)
+	@Builder.Default
+	private EntityState state = EntityState.ACTIVE;
 }

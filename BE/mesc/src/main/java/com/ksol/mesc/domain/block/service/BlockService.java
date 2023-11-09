@@ -10,12 +10,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ksol.mesc.domain.api.service.ApiService;
+import com.ksol.mesc.domain.block.dto.request.BlockInfoDto;
+import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.block.repository.BlockRepository;
@@ -23,6 +27,7 @@ import com.ksol.mesc.domain.card.dto.request.CardReq;
 import com.ksol.mesc.domain.card.entity.Card;
 import com.ksol.mesc.domain.card.entity.CardType;
 import com.ksol.mesc.domain.card.repository.CardRepository;
+import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.component.dto.request.ComponentReq;
 import com.ksol.mesc.domain.component.entity.Component;
@@ -79,51 +84,209 @@ public class BlockService {
 	private final ApiService apiService;
 
 	//블록 추가
-	public void addBlock(Block block) {
-		blockRepository.save(block);
-	}
+	@Transactional
+	public void addBlockContent(BlockReqDto blockReqDto) {
+		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
+		Integer blockId = blockInfoDto.getId();
+		List<CardReq> cardReqList = blockReqDto.getCardReqList();
+		List<ComponentReq> componentReqs = blockReqDto.getComponentList();
 
-	//블록 수정
-	public void updateBlock(List<CardReq> cardReqList) {
-		for (CardReq cardReq : cardReqList) {
-			//카드가 존재하지 않으면 추가, 존재하면 카드 수정
-			Card card = Card.toEntity(cardReq);
-			Card newCard = cardRepository.save(card);
-			log.info("newCard : {}", newCard);
+		//1. 블록 추가
+		if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
+			Block savedBlock = saveBlock(blockInfoDto);
+			// blockId = savedBlock.getId();
+			Integer cardSize = cardReqList.size();
+			for (int i = 0; i < cardSize; i++) {
+				CardReq cardReq = cardReqList.get(i);
+				cardReq.setBlock(savedBlock);
+			}
+		}
 
-			// 컴포넌트 x -> 추가
-			// 컴포넌트 O -> 수정
-			List<ComponentReq> componentList = cardReq.getComponentPairReq().getComponentList();
+		//2. 카드 추가 + 관련 컴포넌트 추가
+		if (cardReqList != null) {
+			for (CardReq cardReq : cardReqList) {
+				Card savedCard = saveCard(cardReq);
+				List<ComponentReq> componentReqList = cardReq.getComponentList();
+				if (componentReqList == null)
+					continue;
+				Integer componentSize = cardReq.getComponentList().size();
+				for (int i = 0; i < componentSize; i++) {
+					ComponentReq componentReq = componentReqList.get(i);
+					componentReq.setCard(savedCard);
 
-			if (cardReq.getId() == null) {
-				for (ComponentReq componentReq : componentList) {
-					componentReq.setCardId(newCard.getId());
+					//3. 컴포넌트 추가
+					Object object = componentReq.getObject();
+					//3-1. 요소 추가 + 컴포넌트 추가
+					ComponentType componentType = componentReq.getType();
+					saveComponent(componentType, object, componentReq);
 				}
 			}
+		}
 
-			List<Object> objectList = cardReq.getComponentPairReq().getObjectList();
-			for (int i = 0; i < componentList.size(); i++) {
-				ComponentReq componentReq = componentList.get(i);
-				Object object = objectList.get(i);
+		//컴포넌트 추가
+		if (componentReqs != null) {
+			for (ComponentReq componentReq : componentReqs) {
+				Card card = cardRepository.findById(componentReq.getCardId())
+					.orElseThrow(() -> new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
+				componentReq.setCard(card);
+				Object object = componentReq.getObject();
 
-				//component 없으면 생성
-				if (componentReq.getId() == null) {
-					//type 별 생성
-					saveComponent(componentReq.getType(), object);
-					//dto에 type ID 추가
-					//
-					// Component component = Component.toEntity(componentReq);
-					// componentRepository.save();
-				} else {
-					ComponentType componentType = componentReq.getType();
-					saveComponent(componentType, object);
+				//3-1. 요소 수정 + 컴포넌트 수정
+				ComponentType componentType = componentReq.getType();
+				saveComponent(componentType, object, componentReq);
+			}
+		}
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public Block saveBlock(BlockInfoDto blockInfoDto) {
+		Block savedBlock = blockRepository.save(Block.toEntity(blockInfoDto));
+		return savedBlock;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	// public Card saveCard(CardReq cardReq, Integer blockId) {
+	public Card saveCard(CardReq cardReq) {
+		// cardReq.setBlockId(blockId);
+		Card savedCard = cardRepository.save(Card.toEntity(cardReq));
+		return savedCard;
+	}
+
+	//블록 삭제
+	@Transactional
+	public void deleteBlockContent(Integer blockId, BlockReqDto blockReqDto) {
+		//1. 블록 삭제의 경우 -> 블록 연관된 것 삭제
+		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
+		if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
+			blockRepository.updateState(blockId, EntityState.DELETE);
+			List<Card> cardList = cardRepository.findByBlockId(blockId, EntityState.ACTIVE);
+
+			for (Card card : cardList) {
+				cardRepository.updateState(card.getId(), EntityState.DELETE);
+				List<Component> componentList = componentRepository.findByCard(card);
+
+				for (Component component : componentList) {
+					componentRepository.updateState(component.getId(), EntityState.DELETE);
+				}
+			}
+			return;
+		}
+
+		//2. 카드 삭제의 경우 -> 연관된 것 삭제
+		List<CardReq> cardReqList = blockReqDto.getCardReqList();
+		if (cardReqList != null) {
+			for (CardReq cardReq : cardReqList) {
+				cardReq.setBlockId(blockId);
+				Card card = Card.toEntity(cardReq);
+				cardRepository.updateState(card.getId(), EntityState.DELETE);
+				List<Component> componentList = componentRepository.findByCard(card);
+
+				for (Component component : componentList) {
+					componentRepository.updateState(component.getId(), EntityState.DELETE);
+
+					ComponentType componentType = component.getComponentType();
+					Integer id = component.getLinkId();
+					switch (componentType) {
+						case BU:
+							buttonRepository.updateState(id, EntityState.DELETE);
+							break;
+						case CB:
+							checkboxRepository.updateState(id, EntityState.DELETE);
+							break;
+						case DD:
+							dropdownRepository.updateState(id, EntityState.DELETE);
+							break;
+						default:
+							throw new IllegalArgumentException("Invalid ComponentType");
+					}
+				}
+			}
+		}
+
+		//3. 컴포넌트 삭제의 경우
+		List<ComponentReq> componentReqList = blockReqDto.getComponentList();
+		if (componentReqList != null) {
+			for (ComponentReq componentReq : componentReqList) {
+				Component component = Component.toEntity(componentReq);
+				componentRepository.updateState(component.getId(), EntityState.DELETE);
+
+				ComponentType componentType = componentReq.getType();
+				Integer id = componentReq.getLinkId();
+				switch (componentType) {
+					case BU:
+						buttonRepository.updateState(id, EntityState.DELETE);
+						break;
+					case CB:
+						checkboxRepository.updateState(id, EntityState.DELETE);
+						break;
+					case DD:
+						dropdownRepository.updateState(id, EntityState.DELETE);
+						break;
+					default:
+						throw new IllegalArgumentException("Invalid ComponentType");
 				}
 			}
 		}
 	}
 
-	//type 별 객체 수정
-	public void saveComponent(ComponentType componentType, Object object) {
+	//블록 수정
+	@Transactional
+	public void updateBlockContent(Integer blockId, BlockReqDto blockReqDto) {
+		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
+		List<CardReq> cardReqList = blockReqDto.getCardReqList();
+		List<ComponentReq> componentReqs = blockReqDto.getComponentList();
+
+		//1. 블록 수정
+		if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
+			blockInfoDto.setId(blockId);
+			blockRepository.save(Block.toEntity(blockInfoDto));
+		}
+
+		//2. 카드 수정
+		if (cardReqList != null) {
+			for (CardReq cardReq : cardReqList) {
+				Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
+					.orElseThrow(() -> new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
+				cardReq.setBlock(block);
+				Card card = cardRepository.save(Card.toEntity(cardReq));
+
+				List<ComponentReq> componentReqList = cardReq.getComponentList();
+				if (componentReqList == null)
+					continue;
+				Integer componentSize = cardReq.getComponentList().size();
+				for (int i = 0; i < componentSize; i++) {
+					//3. 컴포넌트 수정
+					ComponentReq componentReq = componentReqList.get(i);
+					componentReq.setCard(card);
+					Object object = componentReq.getObject();
+
+					//3-1. 요소 수정 + 컴포넌트 수정
+					ComponentType componentType = componentReq.getType();
+					saveComponent(componentType, object, componentReq);
+				}
+			}
+		}
+
+		//3. 컴포넌트 수정
+		if (componentReqs != null) {
+			for (ComponentReq componentReq : componentReqs) {
+				Card card = cardRepository.findById(componentReq.getCardId())
+					.orElseThrow(() -> new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
+				componentReq.setCard(card);
+				Object object = componentReq.getObject();
+
+				//3-1. 요소 수정 + 컴포넌트 수정
+				ComponentType componentType = componentReq.getType();
+				saveComponent(componentType, object, componentReq);
+			}
+		}
+	}
+
+	//type 별 객체 삭제
+
+	//type 별 객체 저장
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void saveComponent(ComponentType componentType, Object object, ComponentReq componentReq) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			String json = objectMapper.writeValueAsString(object);
@@ -131,19 +294,23 @@ public class BlockService {
 			switch (componentType) {
 				case BU:
 					Button button = saveEntity(json, Button.class, buttonRepository);
+					componentReq.setLinkId(button.getId());
 					break;
 				case CB:
 					Checkbox checkbox = saveEntity(json, Checkbox.class, checkboxRepository);
+					componentReq.setLinkId(checkbox.getId());
 					break;
 				case DD:
 					Dropdown dropdown = saveEntity(json, Dropdown.class, dropdownRepository);
-					break;
-				case LA:
-					Label label = saveEntity(json, Label.class, labelRepository);
+					componentReq.setLinkId(dropdown.getId());
 					break;
 				default:
 					throw new IllegalArgumentException("Invalid ComponentType");
 			}
+
+			//컴포넌트 추가
+			Component component = Component.toEntity(componentReq);
+			componentRepository.save(component);
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
@@ -163,7 +330,7 @@ public class BlockService {
 	//블록 조회
 	public LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, CardReqDto cardReqDto, Integer userId) {
 		//블록 조회
-		Block block = blockRepository.findById(blockId)
+		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
 			.orElseThrow(() -> new BusinessException(ErrorCode.ENTITY_NOT_FOUND));
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
 
@@ -172,7 +339,7 @@ public class BlockService {
 		//		log.info("block={}", block);
 
 		//블록과 연결된 카드 조회
-		List<Card> cardList = cardRepository.findByBlockId(blockId);
+		List<Card> cardList = cardRepository.findByBlockId(blockId, EntityState.ACTIVE);
 
 		//카드 정보 저장
 		List<LinkedHashMap<String, Object>> cardMapList = new ArrayList<>();

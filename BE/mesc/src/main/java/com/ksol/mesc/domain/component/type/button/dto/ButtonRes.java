@@ -16,7 +16,7 @@ public class ButtonRes {
 	private String response;
 
 	public static ButtonRes toResponse(Button button) {
-		ButtonRes buttonRes = ButtonRes.builder()
+		return ButtonRes.builder()
 			.id(button.getId())
 			.name(button.getName())
 			.linkType(button.getLinkType().toString())
@@ -24,6 +24,5 @@ public class ButtonRes {
 			.iconId(button.getIconId())
 			.response(button.getResponse())
 			.build();
-		return buttonRes;
 	}
 }

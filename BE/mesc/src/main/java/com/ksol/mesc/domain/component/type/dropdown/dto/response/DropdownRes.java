@@ -19,7 +19,7 @@ public class DropdownRes {
 	private List<ValuesRes> valuesList;
 
 	public static DropdownRes toResponse(Dropdown dropdown, List<ValuesRes> valuesReqList) {
-		DropdownRes dropdownRes = DropdownRes.builder()
+		return DropdownRes.builder()
 			.id(dropdown.getId())
 			.name(dropdown.getName())
 			.columnName(dropdown.getColumnName())
@@ -27,6 +27,5 @@ public class DropdownRes {
 			.type(dropdown.getType().toString())
 			.valuesList(valuesReqList)
 			.build();
-		return dropdownRes;
 	}
 }

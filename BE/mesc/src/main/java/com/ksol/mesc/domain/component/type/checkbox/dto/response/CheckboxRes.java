@@ -12,10 +12,9 @@ public class CheckboxRes {
 	private String name;
 
 	public static CheckboxRes toResponse(Checkbox checkbox) {
-		CheckboxRes checkboxRes = CheckboxRes.builder()
+		return CheckboxRes.builder()
 			.id(checkbox.getId())
 			.name(checkbox.getName())
 			.build();
-		return checkboxRes;
 	}
 }

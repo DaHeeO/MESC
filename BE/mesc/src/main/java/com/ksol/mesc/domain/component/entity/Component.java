@@ -1,6 +1,7 @@
 package com.ksol.mesc.domain.component.entity;
 
 import com.ksol.mesc.domain.card.entity.Card;
+import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.component.dto.request.ComponentReq;
 
 import jakarta.persistence.Column;
@@ -39,14 +40,22 @@ public class Component {
 	private Integer sequence;
 	@Column(name = "LINK_ID")
 	private Integer linkId;
+	@Enumerated(EnumType.STRING)
+	private EntityState state;
 	@ManyToOne
 	@JoinColumn(name = "CARD_ID")
 	private Card card;
 
 	public static Component toEntity(ComponentReq componentReq) {
+		if (componentReq.getState() == null)
+			componentReq.setState(EntityState.ACTIVE);
+
 		return Component.builder()
 			.id(componentReq.getId())
+			.card(componentReq.getCard())
 			.sequence(componentReq.getSequence())
+			.linkId(componentReq.getLinkId())
+			.state(componentReq.getState())
 			.componentType(componentReq.getType())
 			.build();
 	}
