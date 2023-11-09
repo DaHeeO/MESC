@@ -43,20 +43,28 @@ function Chat() {
     const sectionId = props.section;
     // console.log('asdfafd', props.cardList);
 
+    const renderComponents = [];
+
     props.cardList.map((card: any) => {
-      // console.log('여기와?');
-      // console.log(ChatComponentIdSwitch(card.cardType));
+      console.log('여기와?');
+      const value = ChatComponentIdSwitch(card.cardType);
+      renderComponents.push(value);
+
       // ChatComponentIdSwitch(card.cardType);
     });
 
     return (
       <>
         <ChatbotProfile />
-        {/* <S.ChatLayout>
-          <ScrollView>{}</ScrollView>
-        </S.ChatLayout> */}
-        props.cardList sessionId==0 ? <></> : sessionId==1 ?{' '}
-        <ChatChooseSection1 /> : <ChatChooseSection2 />
+        {ChatComponentIdSwitch('TX')}
+        {ChatComponentIdSwitch('TX')}
+        {sectionId == 0 ? (
+          <></>
+        ) : sectionId == 1 ? (
+          <ChatChooseSection1 />
+        ) : (
+          <ChatChooseSection2 />
+        )}
       </>
     );
   }, []);
@@ -72,7 +80,7 @@ function Chat() {
         });
         // chatbotHistory.push(data);
         // setChatbotHistory(prev => [...prev, data]);
-        const rr = render1();
+        const rr = render1(data);
         setChatbotHistory(prev => [...prev, rr]);
       })
       .catch(error => {
@@ -94,7 +102,9 @@ function Chat() {
         }}
       /> */}
       <S.ChatLayout>
-        <ScrollView>{}</ScrollView>
+        <ScrollView>
+          <>{chatbotHistory[1]}</>
+        </ScrollView>
       </S.ChatLayout>
       {/* <AboutBottomSheetModal
         btnTitle={'bottomSheet예시'}

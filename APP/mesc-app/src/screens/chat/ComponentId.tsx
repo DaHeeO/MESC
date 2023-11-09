@@ -33,26 +33,27 @@ interface ChatComponentIdSwitchProps {
   optionText2?: string | undefined | null;
 }
 
-export const ChatComponentIdSwitch = (chatComponentId: string) => {
-  const [card, setCard] = useRecoilState(cardState);
+export function ChatComponentIdSwitch(chatComponentId: string) {
+  // const [card, setCard] = useRecoilState(cardState);
 
-  useEffect(() => {
-    customAxios
-      .post('/block/12', {})
-      .then(response => {
-        // console.log('Data retrieved:', response.data);
-        // console.log('Data retrieved:', response.data.data.cardList);
-        setCard(response.data.data.cardList);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }, []);
-  console.log(1111111111111111111111111111);
-  console.log(card);
+  // useEffect(() => {
+  //   customAxios
+  //     .post('/block/12', {})
+  //     .then(response => {
+  //       // console.log('Data retrieved:', response.data);
+  //       // console.log('Data retrieved:', response.data.data.cardList);
+  //       setCard(response.data.data.cardList);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  // }, []);
+  // console.log(1111111111111111111111111111);
+  // console.log(card);
 
   switch (chatComponentId) {
     case 'TX': // 텍스트
+      console.log('adfadfafadf/.///////////////////');
       return <ChatbotMessage />;
 
     // case 'TA': // 데이터 조회 테이블
@@ -106,8 +107,13 @@ export const ChatComponentIdSwitch = (chatComponentId: string) => {
           }}
         />
       );
-
-    default:
-      return <></>;
+    // <ChatbotStartBoxTwo
+    //   handleDataBoxPress={function (): void {
+    //     throw new Error('Function not implemented.');
+    //   }}
+    //   handleLogBoxPress={function (): void {
+    //     throw new Error('Function not implemented.');
+    //   }}
+    // />
   }
-};
+}
