@@ -56,8 +56,7 @@ function Chat() {
     return (
       <>
         <ChatbotProfile />
-        {ChatComponentIdSwitch('TX')}
-        {ChatComponentIdSwitch('TX')}
+        {renderComponents.map((component: any) => component)}
         {sectionId == 0 ? (
           <></>
         ) : sectionId == 1 ? (
