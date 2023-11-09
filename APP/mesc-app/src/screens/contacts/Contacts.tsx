@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import {TouchableOpacity, ScrollView} from 'react-native';
 import * as S from './Conatcts.styles';
 import {colors} from '../../components/common/Theme';
+import axios from 'axios';
+import {err} from 'react-native-svg/lib/typescript/xml';
+import {customAxios} from '../../../Api';
 
 import Left from '../../assets/icons/left.svg';
 import Search from '../../assets/icons/search.svg';
@@ -22,107 +25,41 @@ interface ContactsProps {
   navigation: any;
 }
 
-interface userInfoList {
+interface user {
   userId: number;
-  imageUrl: string;
-  userName: string;
-  userEmail: string;
-  userRank: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
 }
 
-// API 연결 안됨아직
-const Test = [
-  {
-    userId: 1,
-    imageUrl: image1,
-    userName: '오다희',
-    userEmail: 'test@samsung.com',
-    userRank: '사원',
-  },
-  {
-    userId: 2,
-    imageUrl: image2,
-    userName: '내남친',
-    userEmail: 'test@samsung.com',
-    userRank: '대리',
-  },
-  {
-    userId: 3,
-    imageUrl: image3,
-    userName: '왁',
-    userEmail: 'test@samsung.com',
-    userRank: '과장',
-  },
-  {
-    userId: 4,
-    imageUrl: image4,
-    userName: '자기야 왜 칭얼대',
-    userEmail: 'test@samsung.com',
-    userRank: '대리',
-  },
-  {
-    userId: 5,
-    imageUrl: image5,
-    userName: '당후니',
-    userEmail: 'test@samsung.com',
-    userRank: '사원',
-  },
-  {
-    userId: 6,
-    imageUrl: image6,
-    userName: '말년이 무섭다',
-    userEmail: 'test@samsung.com',
-    userRank: '사장',
-  },
-  {
-    userId: 7,
-    imageUrl: image7,
-    userName: '무무렐라',
-    userEmail: 'test@samsung.com',
-    userRank: '사장',
-  },
-  {
-    userId: 8,
-    imageUrl: image8,
-    userName: '무니는 포도가 먹고 시푼데',
-    userEmail: 'test@samsung.com',
-    userRank: '사장',
-  },
-  {
-    userId: 9,
-    imageUrl: image9,
-    userName: '타당타당',
-    userEmail: 'test@samsung.com',
-    userRank: '왕뚜껑',
-  },
-  {
-    userId: 10,
-    imageUrl: image10,
-    userName: '행버억',
-    userEmail: 'test@samsung.com',
-    userRank: '광렬',
-  },
+const Images = [
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+  image7,
+  image8,
+  image9,
+  image10,
 ];
 
 const Contacts = ({navigation}: ContactsProps) => {
-  const [data, setData] = useState<userInfoList[]>([]);
+  const [data, setData] = useState<user[]>([]);
 
-  // useEffect(() => {
-  //   // Make a GET request here
-  //   fetch('https://api.example.com/data')
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((responseData: Contact[]) => {
-  //       setData(responseData);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    // Fetch data from the API
+    customAxios
+      .get(`mesc/user/members`, {})
+      .then(response => {
+        setData(response.data.data.userList);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
 
   return (
     <S.Container>
@@ -147,7 +84,7 @@ const Contacts = ({navigation}: ContactsProps) => {
         {/* 연락처 리스트 */}
         <S.Body>
           <S.FilterDiv>
-            <S.FilterText>멤버 총 {Test.length}명</S.FilterText>
+            <S.FilterText>멤버 총 {data.length}명</S.FilterText>
             <TouchableOpacity>
               <Filter />
             </TouchableOpacity>
@@ -158,30 +95,29 @@ const Contacts = ({navigation}: ContactsProps) => {
               alignItems: 'center',
               width: '100%',
             }}>
-            {Test?.map(item => (
+            {data?.map((item, index) => (
               <S.ContactDiv key={item.userId}>
                 <S.ContactBox>
                   <S.ImageBox>
-                    <S.Img source={item.imageUrl} />
+                    <S.Img source={Images[index % 10]} />
                   </S.ImageBox>
                   <S.InfoBox>
                     <S.BoldText size={17} color={colors.primary}>
-                      {item.userName}
+                      {item.name || '이름 없음'}
                     </S.BoldText>
                     <S.BoldText size={14} color={colors.tertiary}>
-                      {item.userEmail}
+                      {item.email}
                     </S.BoldText>
                   </S.InfoBox>
                 </S.ContactBox>
-                <S.RankBox>
+                <S.RankBox isNull={item.role === null}>
                   <S.BoldText size={14} color={colors.tertiary}>
-                    {item.userRank}
+                    {item.role}
                   </S.BoldText>
                 </S.RankBox>
               </S.ContactDiv>
             ))}
           </ScrollView>
-          {/* <ContactList contactList={Test} /> */}
         </S.Body>
       </S.Div>
     </S.Container>
