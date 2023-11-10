@@ -12,10 +12,12 @@ import * as S from './BottomTab.styles';
 import Main from '../../../screens/main/Main';
 import ContactStack from '../../../screens/contacts/Stack';
 import Setting from '../../../screens/settings/Settings';
-import Chat from '../../../screens/chat/Chat';
+import Chat from '../../../screens/chat/Chat2';
 
 // icon
 import BottomTabIcon from './NavIcon';
+
+import CustomAxios, {customAxios} from '../../../../Api';
 
 const Tab = createBottomTabNavigator();
 
@@ -143,8 +145,21 @@ function BottompTab() {
             <BottomTabIcon focused={focused} type="Message" />
           ),
           tabBarLabel: () => <S.Text>채팅</S.Text>,
-          // tabBarStyle: {display: 'none'},
         }}
+        // listeners={({navigation, route}) => ({
+        //   focus: () => {
+        //     // 탭이 포커스될 때 Axios 요청을 보냅니다.
+        //     customAxios
+        //       .post(`block/11`, {})
+        //       .then(response => {
+        //         // 요청이 성공했을 때의 로직
+        //         // console.log(response.data);
+        //       })
+        //       .catch(error => {
+        //         // 에러 처리 로직
+        //       });
+        //   },
+        // })}
       />
       <Tab.Screen
         name="Setting"

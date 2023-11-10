@@ -1,18 +1,23 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text} from 'react-native';
 import * as S from './ChatbotMessage.styles';
+import {cardState} from '../../states/CardState';
+import {useRecoilValue} from 'recoil';
+import {Card} from '../../states/CardState';
 
-interface ChatbotMessageProps {
-  context: string;
-}
-
-function ChatbotMessage({context}: ChatbotMessageProps) {
+function ChatbotMessage(props: {card: Card}) {
   const [dynamicWidth, setDynamicWidth] = useState<number>(250);
+  const {card} = props;
+  const context = card.content;
 
   useEffect(() => {
-    const lines = context.split('\n');
+    let lines: string[] = [];
+    if (context !== null && context !== undefined) {
+      lines = context.split('\n');
+    }
 
-    const maxLength = Math.max(...lines.map(line => line.length));
+    const maxLength =
+      lines.length === 0 ? 10 : Math.max(...lines.map(line => line.length));
 
     if (maxLength * 10 < 250) {
       // 만약 가장 긴 줄의 길이가 width 미만이라면 동적으로 width를 재설정

@@ -1,23 +1,26 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {ScrollView, TouchableOpacity, Alert} from 'react-native';
 import axios, {Axios, AxiosResponse} from 'axios';
-import _ from 'lodash';
+import _, {set} from 'lodash';
 import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
-import TouchID from 'react-native-touch-id';
-import Toast from 'react-native-toast-message';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
 import {customAxios} from '../../../Api';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {ChatbotHistoryState} from '../../states/BlockState';
+import UserMessage from '../../components/chat/UserMessage';
 
-interface ChatInputProps {
-  onSendMessage: (message: string) => void;
-  onAxiosResult: (result: any) => void;
-}
+// interface ChatInputProps {
+//   onSendMessage: (message: string) => void;
+//   onAxiosResult: (result: any) => void;
+// }
 
 const isTrue = true;
 
-function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
+function ChatInput() {
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
   const [value, setValue] = useState('');
 
   const [input, setInput] = useState('');
@@ -109,32 +112,38 @@ function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
     if (input.trim() !== '') {
       //토큰
 
+      setChatbotHistory(prev => [
+        ...prev,
+        <UserMessage message={input.trim()} />,
+      ]);
+
       // 조회
 
       // 수정, 추가, 삭제
-      let fingerResult = await handleFingerPrint();
-      if (fingerResult === '지문인식 성공') {
-        onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
-        setInput(''); // 입력 필드 지우기
+      // let fingerResult = await handleFingerPrint();
+      // if (fingerResult === '지문인식 성공') {
+      // onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
 
-        customAxios
-          .post(`api/developer/query`, {query: input})
-          .then(response => {
-            if (response.status == 200) {
-              // 결과 값 담기
-              // statusCode, message, data.modifiedCount
-              const result = response.data;
-              onAxiosResult(result);
-            } else {
-              console.log('에러');
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      } else {
-        // 지문인식 실패
-      }
+      setInput(''); // 입력 필드 지우기
+
+      // customAxios
+      //   .post(`api/developer/query`, {query: input})
+      //   .then(response => {
+      //     if (response.status == 200) {
+      //       // 결과 값 담기
+      //       // statusCode, message, data.modifiedCount
+      //       const result = response.data;
+      //       onAxiosResult(result);
+      //     } else {
+      //       console.log('에러');
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
+      // } else {
+      //   // 지문인식 실패
+      // }
     } else {
       console.log('공백입니다요');
     }
