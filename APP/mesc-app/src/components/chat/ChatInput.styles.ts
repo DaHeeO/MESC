@@ -20,7 +20,6 @@ export const PlusBox = styled.View`
   height: 24px;
   //background-color: gray;
   margin-left: 10px;
-  // border: 1px solid red;
 `;
 
 export const InputBox = styled.TextInput`
@@ -28,7 +27,6 @@ export const InputBox = styled.TextInput`
   height: auto;
   max-height: 100px;
   padding-left: 15px;
-  margin: 10px
   display: flex;
   flex: 1;
   color: grey;
@@ -41,9 +39,6 @@ export const SendBox = styled.View`
   width: 24px;
   height: 24px;
   margin-right: 10px;
-  // margin-left: 8px;
-  // border: 1px solid red;
-  //background-color: gray;
 `;
 
 // input 묶음
@@ -65,7 +60,6 @@ export const SuggestionsBox = styled.View`
   height: 50px;
   display: flex;
   background-color: ${colors.icy};
-  // border: 1px solid red;
   border-bottom-width: 1px;
   border-bottom-color: #dcd9d9;
   flex-direction: row;
