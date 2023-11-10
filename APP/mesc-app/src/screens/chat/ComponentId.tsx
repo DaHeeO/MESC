@@ -98,16 +98,7 @@ export function ChatComponentIdSwitch(card: Card) {
     //   );
 
     case 'CH2': // 개발자 시작 화면
-      return (
-        <ChatbotStartBoxTwo
-          handleDataBoxPress={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-          handleLogBoxPress={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-        />
-      );
+      return <ChatbotStartBoxTwo card={card} />;
     // <ChatbotStartBoxTwo
     //   handleDataBoxPress={function (): void {
     //     throw new Error('Function not implemented.');

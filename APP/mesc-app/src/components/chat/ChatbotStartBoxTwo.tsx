@@ -5,23 +5,23 @@ import RobotIcon2 from '../../assets/images/RobotIcon2.png';
 import ChatbotOptionBox from './ChatbotOptionBox';
 import {useRecoilValue} from 'recoil';
 import {cardState} from '../../states/CardState';
+import {Card} from '../../states/CardState';
 
 interface ChatbotStartBoxTwoProps {
   handleDataBoxPress: () => void;
   handleLogBoxPress: () => void;
 }
 
-export const ChatbotStartBoxTwo = ({
-  handleDataBoxPress,
-  handleLogBoxPress,
-}: ChatbotStartBoxTwoProps) => {
-  const card = useRecoilValue(cardState);
+export const ChatbotStartBoxTwo = (props: {card: Card}) => {
+  const {card} = props;
   let buttonName0;
   let buttonName1;
   if (card.button !== undefined && card.button !== null) {
     buttonName0 = card.button[0].name;
     buttonName1 = card.button[1].name;
   }
+  const test1 = () => console.log('1번');
+  const test2 = () => console.log('2번');
 
   return (
     <S.ChatbotBox>
@@ -48,14 +48,8 @@ export const ChatbotStartBoxTwo = ({
       </S.MidBox>
       <S.BottomBox>
         {/* 챗봇 시작화면 옵션 선택 */}
-        <ChatbotOptionBox
-          handleOptionPress={handleDataBoxPress}
-          optionTitle={buttonName0}
-        />
-        <ChatbotOptionBox
-          handleOptionPress={handleLogBoxPress}
-          optionTitle={buttonName1}
-        />
+        <ChatbotOptionBox handleOptionPress={test1} optionTitle={buttonName0} />
+        <ChatbotOptionBox handleOptionPress={test2} optionTitle={buttonName1} />
       </S.BottomBox>
     </S.ChatbotBox>
   );
