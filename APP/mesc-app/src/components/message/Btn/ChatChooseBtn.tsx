@@ -5,7 +5,8 @@ import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {set} from 'lodash';
 import UserMessage from '../../chat/UserMessage';
-import {customAxios} from '../../../../Api';
+import {getBlock} from '../../../../Api';
+import {BlockResponseData} from '../../../states/BlockResponseState';
 
 interface ChatBtnProps {
   btnTitle: string;
@@ -17,7 +18,9 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
 
-  function handle() {
+  const [block, setBlock] = useRecoilState(BlockResponseData);
+
+  async function handle() {
     // 사용자 응답집어넣기
     setChatbotHistory(prev => [
       ...prev,
@@ -30,6 +33,10 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       console.log('보고하기');
     } else if (props.btnTitle === '데이터 조작') {
       console.log('데이터 조작');
+      const response = await getBlock(7, {});
+      console.log(response);
+
+      setBlock(response);
     }
   }
 
