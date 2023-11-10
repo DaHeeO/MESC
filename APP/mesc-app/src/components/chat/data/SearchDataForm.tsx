@@ -1,124 +1,41 @@
 import React, {useState} from 'react';
-import {useRecoilValue} from 'recoil';
 import * as S from './SearchDataForm.styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import SearchBtn from '../../../assets/icons/searchbtn.svg';
 import NextBtn from '../../../assets/icons/nextBtn.svg';
+import {useRecoilValue, useRecoilState} from 'recoil';
 import {BlockResponseData} from '../../../states/BlockResponseState';
+import {getBlock} from '../../../../Api';
+import {get, set} from 'lodash';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import {TableTitleState} from '../../../states/DataTitleState';
+import {Table} from '@mui/material';
 
-// const dummyData = {
-//   statusCode: 200,
-//   message: 'Success',
-//   data: {
-//     blockId: 3,
-//     isPossible: false,
-//     cardList: [
-//       {
-//         cardId: 3,
-//         cardType: 'TX',
-//         cardName: '공정목록텍스트',
-//         content: '다음 공정리스트 중 원하는 목록을 선택해주세요.',
-//       },
-//       {
-//         cardId: 4,
-//         cardType: 'ML',
-//         cardName: '공정목록',
-//         content: null,
-//         button: [
-//           {
-//             id: 4,
-//             name: '전체 작업 지시 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 5,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 6,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 7,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 8,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 9,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 10,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 11,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 12,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//           {
-//             id: 13,
-//             name: '전체 작업 조회',
-//             linkType: 'B',
-//             link: '4',
-//             iconId: null,
-//             response: '전체 작업 조회',
-//           },
-//         ],
-//       },
-//     ],
-//     dcbList: [],
-//   },
-// };
+type ButtonItem = {
+  id: number;
+  name: string;
+  link: string;
+  actionId?: number;
+};
 
 const SearchDataForm = () => {
-  const cardList = useRecoilValue(BlockResponseData);
-  // Extract cardList from dummyData
-  // const {cardList} = dummyData.data;
+  const [block, setBlock] = useRecoilState(BlockResponseData);
+  const [tableTitle, setTataTitle] = useRecoilState(TableTitleState);
+  // console.log('block', block);
+  const cardList = block.cardList;
+  const mlCard = cardList.find(card => card.cardType === 'ML');
 
-  // Filter the cardList to get only those cards with cardType 'ML'
-  // const mlCard = cardList.find(card => card.cardType === 'ML');
+  const handleButtonClick = async (button: ButtonItem) => {
+    const body = {
+      actionId: 23,
+      conditions: '',
+    };
+
+    const block = await getBlock(4, body);
+    // console.log(block);
+    setBlock(block);
+    setTataTitle(button.name);
+  };
 
   return (
     <S.Container>
@@ -130,16 +47,18 @@ const SearchDataForm = () => {
       </S.SearchInput>
       <S.ButtonContainer>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {/* {mlCard &&
+          {mlCard &&
             mlCard.button &&
-            mlCard.button.map((button: any) => (
+            mlCard.button.map((button: ButtonItem) => (
               <S.ButtonRow key={button.id}>
-                <S.ButtonName>{button.name}</S.ButtonName>
-                <S.ImageBox>
-                  <NextBtn />
-                </S.ImageBox>
+                <TouchableOpacity onPress={() => handleButtonClick(button)}>
+                  <S.ButtonName>{button.name}</S.ButtonName>
+                  <S.ImageBox>
+                    <NextBtn />
+                  </S.ImageBox>
+                </TouchableOpacity>
               </S.ButtonRow>
-            ))} */}
+            ))}
         </ScrollView>
       </S.ButtonContainer>
     </S.Container>

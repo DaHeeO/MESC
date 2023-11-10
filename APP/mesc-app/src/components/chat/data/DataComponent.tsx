@@ -5,6 +5,12 @@ import DataBox from './DataBox';
 import Label from './Label';
 import * as S from './DataComponent.styles';
 import {set} from 'lodash';
+import {useRecoilValue, useRecoilState} from 'recoil';
+import {BlockResponseData} from '../../../states/BlockResponseState';
+import {
+  TableTitleState,
+  SingleTableTitleState,
+} from '../../../states/DataTitleState';
 
 type Card = {
   cardId: number;
@@ -37,129 +43,8 @@ type ButtonItem = {
   response: string;
 };
 
-const dummyData = {
-  statusCode: 200,
-  message: 'Success',
-  data: {
-    blockId: 4,
-    isPossible: false,
-    cardList: [
-      {
-        cardId: 5,
-        cardType: 'TX',
-        cardName: '공정조희텍스트',
-        content:
-          '다음은 전체 공정 조회 [조회], [쿼리문] 결과입니다.\\n추가적으로 메뉴탭에서 [테이블]을 선택하면\\n해당 테이블의 데이터를 확인할 수 있습니다. ',
-      },
-      {
-        cardId: 6,
-        cardType: 'TA',
-        cardName: '공정테이블',
-        content: null,
-        labels: [
-          {
-            name: '쿼리',
-            labelType: 'q',
-            query:
-              'select * from WO_INFO join PROD_INFO on WO_INFO.PROD_ID=PROD_INFO.PROD_ID where WO_INFO.PROD_ID=1',
-          },
-          {
-            name: 'prod_info',
-            labelType: 't',
-            query: 'SELECT * FROM prod_info',
-          },
-        ],
-        table: {
-          columnNameList: [
-            'WO_ID',
-            'PROD_ID',
-            'LINE_ID',
-            'WORK_ID',
-            'FCT_ID',
-            'SHOP_ID',
-            'WO_STS',
-            'WO_YMD',
-            'MFG_TYPE',
-            'STATUS',
-            'PROD_ID',
-            'PROD_NAME',
-          ],
-          columnTypeList: [
-            'INT',
-            'INT',
-            'INT',
-            'INT',
-            'INT',
-            'INT',
-            'CHAR(4)',
-            'DATETIME',
-            'VARCHAR',
-            'VARCHAR',
-            'INT',
-            'VARCHAR',
-          ],
-          rowList: [
-            [
-              '1dfdfdf',
-              '1ddd',
-              '1ddd',
-              '1dddd',
-              '1dddd',
-              '1ddd',
-              '1ddd',
-              '2011-01-01',
-              '1',
-              '1',
-              '1',
-              '1번',
-            ],
-            [
-              '1dfdfdf',
-              '1ddd',
-              '1ddd',
-              '1dddd',
-              '1dddd',
-              '1ddd',
-              '1ddd',
-              '2011-01-01',
-              '1',
-              '1',
-              '1',
-              '1번',
-            ],
-            [
-              '1dfdfdf',
-              '1ddd',
-              '1ddd',
-              '1dddd',
-              '1dddd',
-              '1ddd',
-              '1ddd',
-              '2011-01-01',
-              '1',
-              '1',
-              '1',
-              '1번',
-            ],
-          ],
-        },
-        button: [
-          {
-            id: 21,
-            name: '조건 변경',
-            linkType: 'C',
-            link: '22',
-            iconId: null,
-            response: '조건 변경',
-          },
-        ],
-      },
-    ],
-    dcbList: [],
-  },
-};
-
 const DataComponent = () => {
+  const [block, setBlock] = useRecoilState(BlockResponseData);
   const [cards, setCards] = useState<Card[] | undefined>(undefined);
   const [data1, setData1] = useState<TableData>();
   const [data2, setData2] = useState<String | TableData>();
@@ -167,52 +52,20 @@ const DataComponent = () => {
   const [labels, setLabels] = useState<LabelItem[]>([]);
   const [query, setQuery] = useState<string>();
   const [selectedLabel, setSelectedLabel] = useState<LabelItem>();
-  // useEffect(() => {
-
-  //   // 함수를 비동기로 선언합니다.
-  //   const fetchCards = async () => {
-  //     const token =
-  //       'deyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvaEBuYXZlci5jb20iLCJBdXRoIjoiREVWRUxPUEVSIiwidXNlcklkIjo0LCJleHAiOjE2OTk1MDg0NTF9.mhX8E7UiKhJ9nImGMmTpiKYGyt5nXz4_vqB7mKQwvXI'; // 여기에 실제 토큰 값을 넣어주세요.
-
-  //     try {
-  //       // POST 요청을 보냅니다.
-  //       const response = await axios.post(
-  //         'https://www.mesc.kr/api/mesc/block/6', // 요청할 URL
-  //         {actionId: 23}, // 요청 바디
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`, // 헤더에 토큰을 포함시킵니다.
-  //           },
-  //         },
-  //       );
-
-  //       // 응답에서 data를 추출하여 cards 상태를 설정합니다.
-  //       setCards(response.data);
-  //     } catch (error) {
-  //       // 오류가 발생한 경우 콘솔에 로그를 남깁니다.
-  //       console.error('There was an error!', error);
-  //     }
-  //   };
-
-  //   // 정의한 함수를 호출합니다.
-  //   fetchCards();
-  // }, []);
-
-  // 'TA' table 데이터 저장하기 위해
-
-  // 'TA' label 데이터 저장하기 위해
-
-  // 'TA' label의 q타입 query 데이터 저장하기 위해
+  const [dataTitle, setDataTitle] = useRecoilState(TableTitleState);
+  const [singleTableTitle, setSingleTableTitle] = useRecoilState(
+    SingleTableTitleState,
+  );
 
   useEffect(() => {
-    setCards(dummyData.data.cardList);
-  }, []);
-
-  useEffect(() => {
+    // block 상태에서 cards 데이터를 추출
+    const cards = block.cardList;
     if (cards) {
-      // 'TA' table 데이터 저장
       const data1 = cards.filter(card => card.cardType === 'TA');
-      setData1(data1[0].table);
+
+      if (data1[0] && data1[0].table) {
+        setData1(data1[0].table);
+      }
 
       // 'TA' labels 데이터 저장
       const tableLabels = cards.find(card => card.cardType === 'TA')?.labels;
@@ -226,6 +79,7 @@ const DataComponent = () => {
         ?.labels?.find(label => label.labelType === 'q');
       if (queryLabel && !selectedLabel) {
         setSelectedLabel(queryLabel);
+        console.log('queryLabel', queryLabel);
       }
 
       // 'TA' labels의 labelType이 'q'인 것 query 데이터 저장
@@ -237,7 +91,7 @@ const DataComponent = () => {
         setData2(cardQuery);
       }
     }
-  }, [cards]);
+  }, [block]); // block이 변경될 때마다 실행
 
   // 라벨을 선택하는 함수입니다.
   const handleSelectLabel = (labelItem: LabelItem) => {
@@ -246,6 +100,7 @@ const DataComponent = () => {
       setData2(query); // query를 유지합니다.
     } else if (labelItem.labelType === 't') {
       fetchData(labelItem.query); // 테이블 데이터를 가져옵니다.
+      setSingleTableTitle(labelItem.name);
     }
   };
 
@@ -323,7 +178,7 @@ const DataComponent = () => {
           // style={{backgroundColor: 'red'}}
         >
           {/* 첫 번째 섹션: data1 렌더링 */}
-          <DataBox table={data1} />
+          <DataBox table={data1} title={dataTitle} />
         </S.DataSection>
         <S.DataSection>
           {/* 두 번째 섹션: Label을 렌더링합니다. */}
@@ -350,7 +205,7 @@ const DataComponent = () => {
               {typeof data2 === 'string' ? (
                 <DataBox query={data2} />
               ) : (
-                <DataBox table={data2 as TableData} />
+                <DataBox table={data2 as TableData} title={singleTableTitle} />
               )}
             </View>
           )}

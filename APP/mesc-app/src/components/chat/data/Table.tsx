@@ -1,18 +1,22 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {View, Dimensions, ScrollView} from 'react-native';
 import * as S from './Teble.styles';
+import {useRecoilValue} from 'recoil';
+import {TableTitleState} from '../../../states/DataTitleState';
 
 type TableProps = {
+  title?: string;
   header: string[];
   typeHeader: string[];
   body: any[][]; // or string[][]
   // 다른 props들이 있다면 여기에 추가
 };
 
-const Table: React.FC<TableProps> = ({header, typeHeader, body}) => {
+const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
   const [columnWidths, setColumnWidths] = useState<number[]>(
     new Array(header.length).fill(0),
   );
+  const dataTitle = useRecoilValue(TableTitleState);
 
   const horizontalScrollRef = useRef(null);
 
@@ -41,7 +45,7 @@ const Table: React.FC<TableProps> = ({header, typeHeader, body}) => {
   return (
     <S.Container>
       <S.Header>
-        <S.Title></S.Title>
+        <S.Title>{title}</S.Title>
         <S.Button></S.Button>
       </S.Header>
       <S.Body>

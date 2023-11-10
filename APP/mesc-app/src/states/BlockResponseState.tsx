@@ -5,6 +5,39 @@ export const BlockResponseData = atom({
   default: {
     blockId: 0,
     isPossible: false,
-    cardList: [],
+    cardList: [] as Card[],
+    section: 0,
   },
 });
+
+type Card = {
+  cardId: number;
+  cardName?: string | null | undefined;
+  content?: string | null;
+  cardType: string;
+  labels?: LabelItem[] | null | undefined;
+  table?: TableData | null | undefined;
+  button?: ButtonItem[] | null | undefined;
+};
+
+type LabelItem = {
+  name: string;
+  labelType: string;
+  query: string;
+};
+
+type TableData = {
+  columnNameList: string[];
+  columnTypeList: string[];
+  rowList: string[][];
+};
+
+type ButtonItem = {
+  id: number;
+  name: string;
+  linkType: string;
+  link: string;
+  iconId?: any | null;
+  response: string;
+  actionId?: number;
+};

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import * as S from './ChatbotMessage.styles';
-import {cardState} from '../../states/CardState';
+// import {cardState} from '../../states/CardState';
 import {useRecoilValue} from 'recoil';
 import {Card} from '../../states/CardState';
 
