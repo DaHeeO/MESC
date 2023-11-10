@@ -4,8 +4,6 @@ import {useNavigation} from '@react-navigation/native';
 
 import {token} from './Token';
 
-
-
 // 로컬 스토리지에 accessToken 값 추출
 export async function getAccessToken() {
   const value = await AsyncStorage.getItem('accessToken');
