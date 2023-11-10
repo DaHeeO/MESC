@@ -18,6 +18,19 @@ export async function getUserName() {
   return userName;
 }
 
+export async function getBlock(blockId: number, body: {}) {
+  let block;
+  await customAxios
+    .post(`block/${blockId}`, body)
+    .then(response => {
+      block = response.data.data;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return block;
+}
+
 // baseURL 설정
 export const customAxios = axios.create({
   baseURL: `https://www.mesc.kr/api/`,
