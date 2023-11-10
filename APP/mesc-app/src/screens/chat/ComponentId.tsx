@@ -50,11 +50,12 @@ export function ChatComponentIdSwitch(card: Card) {
   // }, []);
   // console.log(1111111111111111111111111111);
   // console.log(card);
+
   const cardType = card.cardType;
 
   switch (cardType) {
     case 'TX': // 텍스트
-      console.log('adfadfafadf/.///////////////////');
+      // console.log('adfadfafadf/.///////////////////');
       return <ChatbotMessage card={card} />;
 
     // case 'TA': // 데이터 조회 테이블

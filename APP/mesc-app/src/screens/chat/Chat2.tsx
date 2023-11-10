@@ -26,8 +26,10 @@ import {AboutContainer} from '../../components/common/about/AboutContainer';
 import {ChatbotHistoryState} from '../../states/BlockState';
 import {set} from 'lodash';
 import {Card} from '../../states/CardState';
+import {BlockIdState} from '../../states/BlockIdState';
 
 interface BlockProps {
+  blockId: number;
   cardList: Card[];
   isPossible: boolean;
   section: number;
@@ -36,73 +38,61 @@ interface BlockProps {
 function Chat() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+  const [blockId, setBlockId] = useRecoilState(BlockIdState);
 
-  const role = 12; // 11: 작업자, 12: 개발자
-
-  const render1 = useCallback((props: BlockProps) => {
-    const sectionId = props.section;
-    // console.log('asdfafd', props.cardList);
-
-    const renderComponents: any = [];
-
-    props.cardList.map((card: any) => {
-      // console.log('여기와?');
-      const value = ChatComponentIdSwitch(card);
-      renderComponents.push(value);
-
-      // ChatComponentIdSwitch(card.cardType);
-    });
-
-    return (
-      <>
-        <ChatbotProfile />
-        {renderComponents.map((component: any) => component)}
-        {sectionId == 0 ? (
-          <></>
-        ) : sectionId == 1 ? (
-          <ChatChooseSection1 />
-        ) : (
-          <ChatChooseSection2 />
-        )}
-      </>
-    );
+  useEffect(() => {
+    setBlockId(12);
   }, []);
 
   useEffect(() => {
+    console.log('blockId', blockId);
     customAxios
-      .post(`block/${role}`, {})
+      .post(`block/${blockId}`, {})
       .then(response => {
         const data = response.data.data;
         console.log(data.cardList);
-        data.cardList.map((card: any) => {
-          console.log(card);
-        });
-        // chatbotHistory.push(data);
-        // setChatbotHistory(prev => [...prev, data]);
-        const rr = render1(data);
-        setChatbotHistory(prev => [...prev, rr]);
+
+        const renderedComponent = render(data);
+        setChatbotHistory(prev => [...prev, renderedComponent]);
+        // console.log('chatbotHistory', chatbotHistory);
       })
       .catch(error => {
         console.log(error);
       });
+  }, [blockId]);
+
+  const render = useCallback((props: BlockProps) => {
+    // section 값에 따라 조건부 렌더링을 위한 변수
+    let buttonComponent;
+    if (props.section === 1) {
+      buttonComponent = <ChatChooseSection1 />;
+    } else if (props.section === 2) {
+      buttonComponent = <ChatChooseSection2 />;
+    }
+
+    // cardList를 순회하면서 각 cardType에 따른 컴포넌트를 렌더링
+    const cardComponents = props.cardList.map((card, index) => (
+      <View key={index}>{ChatComponentIdSwitch(card)}</View>
+    ));
+
+    return (
+      <>
+        <ChatbotProfile />
+        {cardComponents}
+        {buttonComponent}
+      </>
+    );
   }, []);
-  console.log(chatbotHistory);
 
   return (
     <S.Container>
       <Header />
-      {/* 챗봇 메세지 보이는 화면 */}
-      {/* <ChatbotStartBoxTwo
-        handleDataBoxPress={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-        handleLogBoxPress={function (): void {
-          throw new Error('Function not implemented.');
-        }}
-      /> */}
       <S.ChatLayout>
         <ScrollView>
-          <>{chatbotHistory[1]}</>
+          {chatbotHistory.map((component, index) => (
+            // chatbotHistory 배열을 순회하며 컴포넌트 렌더링
+            <React.Fragment key={index}>{component}</React.Fragment>
+          ))}
         </ScrollView>
       </S.ChatLayout>
       {/* <AboutBottomSheetModal
@@ -126,9 +116,9 @@ function Chat() {
         modalHeight={'70%'}
         modalBreakPoint={'30%'}
         component={<SearchDataForm />}
-        onModalShow={showModal}
-        onModalHide={hideModal}
-      /> */}
+        // onModalShow={showModal}
+        // onModalHide={hideModal}
+      />*/}
       {/* {isModalVisible ? null : (
         <ChatInput
           onSendMessage={addChatMessage}

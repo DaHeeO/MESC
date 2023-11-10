@@ -3,9 +3,11 @@ import {Text} from 'react-native';
 import * as S from './ChatbotStartBoxTwo.styles';
 import RobotIcon2 from '../../assets/images/RobotIcon2.png';
 import ChatbotOptionBox from './ChatbotOptionBox';
-import {useRecoilValue} from 'recoil';
+import {useRecoilValue, useRecoilState} from 'recoil';
 import {cardState} from '../../states/CardState';
 import {Card} from '../../states/CardState';
+import {BlockIdState} from '../../states/BlockIdState';
+import {set} from 'lodash';
 
 interface ChatbotStartBoxTwoProps {
   handleDataBoxPress: () => void;
@@ -13,6 +15,8 @@ interface ChatbotStartBoxTwoProps {
 }
 
 export const ChatbotStartBoxTwo = (props: {card: Card}) => {
+  const [blockId, setBlockId] = useRecoilState(BlockIdState);
+  const [isModalVisible, setModalVisible] = useState(false);
   const {card} = props;
   let buttonName0;
   let buttonName1;
@@ -20,8 +24,35 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
     buttonName0 = card.button[0].name;
     buttonName1 = card.button[1].name;
   }
-  const test1 = () => console.log('1번');
-  const test2 = () => console.log('2번');
+  const test1 = () => {
+    console.log('1번');
+    if (card.button?.[0]?.link) {
+      // link가 undefined가 아닌 경우에만 parseInt 호출
+      const link = parseInt(card.button[0].link);
+      if (!isNaN(link)) {
+        setBlockId(link);
+        setModalVisible(true);
+        console.log('link', link);
+      }
+    }
+  };
+
+  const test2 = () => {
+    console.log('2번');
+    if (card.button?.[1]?.link) {
+      // link가 undefined가 아닌 경우에만 parseInt를 호출합니다.
+      const link = parseInt(card.button[1].link);
+      if (!isNaN(link)) {
+        setBlockId(link);
+        setModalVisible(true);
+        console.log('link', link);
+      }
+    }
+  };
+
+  const hideModal = () => {
+    setModalVisible(false); // 모달을 숨기도록 상태를 설정합니다.
+  };
 
   return (
     <S.ChatbotBox>
