@@ -2,9 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import {BtnContainer, ChooseBtnBody} from './ChatChooseBtnStyle';
 import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
-import {useRecoilState, useRecoilValue} from 'recoil';
-import {set} from 'lodash';
-import UserMessage from '../../chat/UserMessage';
+import {useRecoilState} from 'recoil';
 import {getBlock} from '../../../../Api';
 import {BlockResponseData} from '../../../states/BlockResponseState';
 
@@ -15,30 +13,26 @@ interface ChatBtnProps {
 }
 
 export const AboutChatBtn = (props: ChatBtnProps) => {
-  const [chatbotHistory, setChatbotHistory] =
-    useRecoilState(ChatbotHistoryState);
-
   const [block, setBlock] = useRecoilState(BlockResponseData);
 
   async function handle() {
-    // 사용자 응답집어넣기
-    setChatbotHistory(prev => [
-      ...prev,
-      <UserMessage message={props.btnTitle} />,
-    ]);
+    let blockId = 0;
 
     if (props.btnTitle === '처음으로') {
-      console.log('처음으로');
+      // 개발자인지, 작업자인지 구분해야함
+      blockId = 12;
     } else if (props.btnTitle === '보고하기') {
-      console.log('보고하기');
+      blockId = 6;
     } else if (props.btnTitle === '데이터 조작') {
-      console.log('데이터 조작');
-      const response = await getBlock(7, {});
-      console.log(response);
-
-      setBlock(response);
+      blockId = 7;
     }
+    putBlockToRecoil(blockId);
   }
+
+  const putBlockToRecoil = async (blockId: number) => {
+    const newBlock = await getBlock(blockId, {});
+    if (newBlock) setBlock(newBlock);
+  };
 
   return (
     /* bottomSheet를 띄우기 위한 Btn */
