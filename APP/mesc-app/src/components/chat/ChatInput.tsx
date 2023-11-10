@@ -8,7 +8,7 @@ import Send from '../../assets/icons/send.svg';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
 import {customAxios} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
-import {ChatbotHistoryState} from '../../states/BlockState';
+import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
 
 // interface ChatInputProps {
