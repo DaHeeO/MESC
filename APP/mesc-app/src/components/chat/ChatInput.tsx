@@ -8,6 +8,7 @@ import Send from '../../assets/icons/send.svg';
 import TouchID from 'react-native-touch-id';
 import Toast from 'react-native-toast-message';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
+import {customAxios} from '../../../Api';
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
@@ -33,10 +34,9 @@ function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
 
     setLoading(true);
     try {
-      const response = await axios.get(
-        'https://www.mesc.kr/api/api/mesc/autocomplete',
-        {params: {prefix: kw}},
-      );
+      const response = await customAxios.get('api/mesc/autocomplete', {
+        params: {prefix: kw},
+      });
       setSuggestions(response.data);
     } catch (error) {
       console.error('Error fetching suggestions', error);
@@ -108,8 +108,6 @@ function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
   const handleSendButtonPress = async () => {
     if (input.trim() !== '') {
       //토큰
-      const token =
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvaEBuYXZlci5jb20iLCJBdXRoIjoiREVWRUxPUEVSIiwidXNlcklkIjo0LCJleHAiOjE2OTk0NTcwOTB9.W913PphQHK-iLQKVeVsiJP6BzYihFa8wumgASorYBT4';
 
       // 조회
 
@@ -119,16 +117,8 @@ function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
         onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
         setInput(''); // 입력 필드 지우기
 
-        axios
-          .post(
-            `https://www.mesc.kr/api/api/developer/query`,
-            {query: input},
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            },
-          )
+        customAxios
+          .post(`api/developer/query`, {query: input})
           .then(response => {
             if (response.status == 200) {
               // 결과 값 담기

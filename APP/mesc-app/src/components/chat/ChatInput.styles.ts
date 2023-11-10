@@ -31,6 +31,7 @@ export const InputBox = styled.TextInput`
   margin: 10px
   display: flex;
   flex: 1;
+  font-color: grey;
   background-color: #ebecef;
   border-radius: 20px;
   lineHeight: 18px;

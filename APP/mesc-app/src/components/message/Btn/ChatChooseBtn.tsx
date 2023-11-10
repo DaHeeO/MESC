@@ -25,7 +25,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
         width="65%"
         // style={{backgroundColor: 'skyblue'}}
       >
-        <Text>{props.btnTitle}</Text>
+        <Text style={{color: 'grey'}}>{props.btnTitle}</Text>
       </BtnContainer>
     </ChooseBtnBody>
   );

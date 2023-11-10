@@ -135,8 +135,8 @@ function Chat() {
               )}
             </View>
           ))}
-          {/* <ChatChooseSection1 /> */}
-          <ChatChooseSection2 />
+          <ChatChooseSection1 />
+          {/* <ChatChooseSection2 /> */}
         </ScrollView>
       </S.ChatLayout>
       <AboutBottomSheetModal

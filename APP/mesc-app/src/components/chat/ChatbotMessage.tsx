@@ -6,29 +6,6 @@ interface ChatbotMessageProps {
   context: string;
 }
 
-// 동적으로 width를 설정하기 위한 함수
-// function DynamicWidth(context: string) {
-//   const [dynamicWidth, setDynamicWidth] = useState<number>(250);
-//   console.log('초기' + dynamicWidth);
-
-//   useEffect(() => {
-//     const lines = context.split('\n');
-
-//     const maxLength = Math.max(...lines.map(line => line.length));
-//     console.log(maxLength);
-
-//     if (maxLength * 10 < 250) {
-//       // 만약 가장 긴 줄의 길이가 width 미만이라면 동적으로 width를 재설정
-//       setDynamicWidth(maxLength * 10);
-//       console.log('마지막' + maxLength * 10);
-//     } else {
-//       setDynamicWidth(250);
-//     }
-//   }, [context]);
-
-//   return dynamicWidth;
-// }
-
 function ChatbotMessage({context}: ChatbotMessageProps) {
   const [dynamicWidth, setDynamicWidth] = useState<number>(250);
 
@@ -62,6 +39,7 @@ function ChatbotMessage({context}: ChatbotMessageProps) {
           style={{
             fontSize: 14,
             textAlign: 'left',
+            color: 'grey',
             fontWeight: 'bold',
           }}>
           {context}
