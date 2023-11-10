@@ -100,6 +100,7 @@ function Chat() {
           {/* <UserMessage message={userMessage} /> */}
         </ScrollView>
       </S.ChatLayout>
+      <ChatInput />
       {/* <AboutBottomSheetModal
         btnTitle={'bottomSheet예시'}
         modalHeight={'70%'}
