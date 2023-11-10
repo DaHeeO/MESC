@@ -27,6 +27,7 @@ import {ChatbotHistoryState} from '../../states/BlockState';
 import {set} from 'lodash';
 import {Card} from '../../states/CardState';
 import {BlockIdState} from '../../states/BlockIdState';
+import {UserMessageState} from '../../states/UserMessageState';
 
 interface BlockProps {
   blockId: number;
@@ -39,6 +40,7 @@ function Chat() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   const [blockId, setBlockId] = useRecoilState(BlockIdState);
+  // const [userMessage, setUserMessage] = useRecoilState(UserMessageState);
 
   useEffect(() => {
     setBlockId(12);
@@ -60,6 +62,8 @@ function Chat() {
         console.log(error);
       });
   }, [blockId]);
+
+  console.log(chatbotHistory);
 
   const render = useCallback((props: BlockProps) => {
     // section 값에 따라 조건부 렌더링을 위한 변수
@@ -91,8 +95,9 @@ function Chat() {
         <ScrollView>
           {chatbotHistory.map((component, index) => (
             // chatbotHistory 배열을 순회하며 컴포넌트 렌더링
-            <React.Fragment key={index}>{component}</React.Fragment>
+            <View key={index}>{component}</View>
           ))}
+          {/* <UserMessage message={userMessage} /> */}
         </ScrollView>
       </S.ChatLayout>
       {/* <AboutBottomSheetModal

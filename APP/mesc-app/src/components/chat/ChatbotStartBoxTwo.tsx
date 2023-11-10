@@ -8,6 +8,9 @@ import {cardState} from '../../states/CardState';
 import {Card} from '../../states/CardState';
 import {BlockIdState} from '../../states/BlockIdState';
 import {set} from 'lodash';
+import {UserMessageState} from '../../states/UserMessageState';
+import {ChatbotHistoryState} from '../../states/BlockState';
+import Usermessage from './UserMessage';
 
 interface ChatbotStartBoxTwoProps {
   handleDataBoxPress: () => void;
@@ -17,20 +20,31 @@ interface ChatbotStartBoxTwoProps {
 export const ChatbotStartBoxTwo = (props: {card: Card}) => {
   const [blockId, setBlockId] = useRecoilState(BlockIdState);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
+  const [userMessage, setUserMessage] = useRecoilState(UserMessageState);
   const {card} = props;
-  let buttonName0;
-  let buttonName1;
+  let buttonName0: any;
+  let buttonName1: any;
   if (card.button !== undefined && card.button !== null) {
     buttonName0 = card.button[0].name;
     buttonName1 = card.button[1].name;
   }
+
+  const test3 = () => {};
+
   const test1 = () => {
     console.log('1번');
     if (card.button?.[0]?.link) {
       // link가 undefined가 아닌 경우에만 parseInt 호출
       const link = parseInt(card.button[0].link);
       if (!isNaN(link)) {
+        setChatbotHistory(prev => [
+          ...prev,
+          <Usermessage message={buttonName0} />,
+        ]);
         setBlockId(link);
+
         setModalVisible(true);
         console.log('link', link);
       }
@@ -43,6 +57,11 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
       // link가 undefined가 아닌 경우에만 parseInt를 호출합니다.
       const link = parseInt(card.button[1].link);
       if (!isNaN(link)) {
+        setChatbotHistory(prev => [
+          ...prev,
+          <Usermessage message={buttonName1} />,
+        ]);
+        // setUserMessage(buttonName1);
         setBlockId(link);
         setModalVisible(true);
         console.log('link', link);
