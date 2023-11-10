@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {BtnContainer, ChooseBtnBody} from './ChatChooseBtnStyle';
-import {ChatbotHistoryState} from '../../../states/BlockState';
+import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {set} from 'lodash';
 import UserMessage from '../../chat/UserMessage';
