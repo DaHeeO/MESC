@@ -1,4 +1,9 @@
+// React
 import React, {useCallback, useEffect, useState} from 'react';
+import {useRecoilState, useRecoilValue} from 'recoil';
+// Api
+import customAxios, {getUserName} from '../../../../Api';
+// LocalStorage
 import {
   AddPersonBtn,
   CustomTextArea,
@@ -11,10 +16,9 @@ import {
 } from './ReportForm.styles';
 import {ScrollView, Text} from 'react-native';
 import {OkayBtn} from '../Btn/SaveBtn';
-import {useRecoilState, useRecoilValue} from 'recoil';
 import {checkContactState} from '../../../states/CheckContact';
 import {ContactListForm} from '../../contact/ContactList';
-import customAxios from '../../../../Api';
+
 //interface
 interface BottomSheetProps {
   //   모달 전체 높이
@@ -32,16 +36,17 @@ export const ReportForm = (props: BottomSheetProps) => {
   const [user, setUser] = useRecoilState(checkContactState);
   const [complite, setComplite] = useState(false);
 
+  const userName = getUserName();
   //다시 연락처 선택
   const reChooseContact = () => {
     // console.log('연락처가기');
     setComplite(!complite);
   };
+  // const name = AsyncStorage.getItem('userName');
 
-  const UserName = '송소연';
   const emailExample = `
   공장 이슈 발생 안내 \n
-  안녕하세요 '${UserName}'입니다.\n
+  안녕하세요 '${userName}'입니다.\n
   현재 공장에 이슈가 발생했습니다.\n\n
   - 이슈 상황 :\n 
   - 요청 내용 :\n\n

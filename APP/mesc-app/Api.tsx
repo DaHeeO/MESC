@@ -10,6 +10,16 @@ export async function getAccessToken() {
   return value;
 }
 
+// 로컬 스토리지에 name 값 추출
+export async function getUserName() {
+  const data = await AsyncStorage.getItem('userName');
+  if (!data) {
+    return null;
+  }
+  const userName = JSON.stringify(data);
+  return userName;
+}
+
 // baseURL 설정
 export const customAxios = axios.create({
   baseURL: `https://www.mesc.kr/api/`,

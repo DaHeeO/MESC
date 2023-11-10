@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import axios from 'axios';
+//Axios
+import customAxios from '../../../Api';
 //Recoil
 import {useRecoilState} from 'recoil';
 import {checkContactState} from '../../states/CheckContact';
@@ -17,17 +18,9 @@ import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {ReportForm} from '../message/Report/ReportForm';
 
 export const ContactListForm = () => {
-  const token =
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvaEBuYXZlci5jb20iLCJBdXRoIjoiREVWRUxPUEVSIiwidXNlcklkIjo0LCJleHAiOjE2OTk2NjE3MTJ9.n8H1K0SMOe7CtdnNiE_FSZ9x6ssQL00VNIYSa6h7SeU';
-  //새로고침 할 때 마다 연락처 다 받아오기
   useEffect(() => {
-    axios
-      .get('https://www.mesc.kr/api/mesc/user/members', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-
+    customAxios
+      .get('https://www.mesc.kr/api/mesc/user/members', {})
       .then(res => {
         const contactList = res.data.data;
         // contactList를 Contacts에 추가
