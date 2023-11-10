@@ -4,12 +4,20 @@ import {useNavigation} from '@react-navigation/native';
 
 import {token} from './Token';
 
-
-
 // 로컬 스토리지에 accessToken 값 추출
 export async function getAccessToken() {
   const value = await AsyncStorage.getItem('accessToken');
   return value;
+}
+
+// 로컬 스토리지에 name 값 추출
+export async function getUserName() {
+  const data = await AsyncStorage.getItem('userName');
+  if (!data) {
+    return null;
+  }
+  const userName = JSON.stringify(data);
+  return userName;
 }
 
 // baseURL 설정

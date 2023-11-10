@@ -19,6 +19,7 @@ interface LoginProps {
   navigation: any;
 }
 
+
 const Login = ({navigation}: LoginProps) => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +29,7 @@ const Login = ({navigation}: LoginProps) => {
     // 앱이 꺼졌을 때 토큰을 유지할지 말지 정해야함
     // 유지한다면, 한번 로그인하면 로그인 창이 다시 뜰 필요가 없음
     if (await doLogin()) {
-      console.log('aaa');
+      // console.log('aaa');
       navigation.navigate('Intro');
     }
   };
@@ -53,12 +54,17 @@ const Login = ({navigation}: LoginProps) => {
         password: password,
       })
       .then(res => {
-        const accessToken = res.data.accessToken;
+        const accessToken = res.data.tokenInfo.accessToken;
+        const userName = res.data.name;
+        // console.log('usrName : ', userName);
+        const userRole = res.data.role;
         AsyncStorage.setItem('accessToken', accessToken);
+        AsyncStorage.setItem('userName', userName);
+        AsyncStorage.setItem('userRole', userRole);
         loginPass = true;
       })
       .catch(() => {
-        Alert.alert('로그인 실패!!');
+        Alert.alert('로그인 실패');
       });
     return loginPass;
   };

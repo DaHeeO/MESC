@@ -80,7 +80,7 @@ function Main({navigation}: any) {
             <S.Avatar source={Avatar} />
             <S.WelcomeBox>
               <S.BoldText size={16} color={C.colors.primary}>
-                안녕하세요. 오다희님
+                안녕하세요 HIHI 님
               </S.BoldText>
               <S.Text size={12} color={C.colors.primary}>
                 Mesc에 오신걸 환영합니다.

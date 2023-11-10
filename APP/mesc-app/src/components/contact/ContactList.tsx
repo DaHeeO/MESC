@@ -1,7 +1,8 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import axios from 'axios';
+import React, {useCallback, useEffect, useState} from 'react';
+//Axios
+import customAxios from '../../../Api';
 //Recoil
-import {RecoilState, useRecoilState} from 'recoil';
+import {useRecoilState} from 'recoil';
 import {checkContactState} from '../../states/CheckContact';
 // style
 import {AboutContainer} from '../common/about/AboutContainer';
@@ -13,23 +14,13 @@ import Filter from '../../assets/icons/filter.svg';
 import Search from '../../assets/icons/search.svg';
 import CheckBoxIcon from '../../assets/icons/checkbox.svg';
 // BottomSheet
-import {BottomSheetModal, BottomSheetScrollView} from '@gorhom/bottom-sheet';
-import {AboutBottomSheetModal} from '../common/bottomSheet/AboutBottomModal';
+import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {ReportForm} from '../message/Report/ReportForm';
-import {useNavigation} from '@react-navigation/native';
 
 export const ContactListForm = () => {
-  const token =
-    'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvaEBuYXZlci5jb20iLCJBdXRoIjoiREVWRUxPUEVSIiwidXNlcklkIjo0LCJleHAiOjE2OTk1MDM1MDF9.RQ0Lz7DVr_acVTN2VW5UzHWq3HJGhP11kEkHtIO9U-g';
-  //새로고침 할 때 마다 연락처 다 받아오기
   useEffect(() => {
-    axios
-      .get('https://www.mesc.kr/api/mesc/user/members', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-
+    customAxios
+      .get('https://www.mesc.kr/api/mesc/user/members', {})
       .then(res => {
         const contactList = res.data.data;
         // contactList를 Contacts에 추가
@@ -54,7 +45,7 @@ export const ContactListForm = () => {
     phoneNumber: string,
     role: string,
   ) => {
-    console.log('체크박스 클릭됨' + userId);
+    // console.log('체크박스 클릭됨' + userId);
 
     setCheckContact(prev => {
       // 이미 선택된 사용자인지 확인
@@ -75,7 +66,8 @@ export const ContactListForm = () => {
     });
   };
 
-  console.log('checkContact: ', checkContact);
+  // // 출력문
+  // console.log('checkContact: ', checkContact);
 
   const [complite, setComplite] = useState(false);
 
