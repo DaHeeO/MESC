@@ -1,10 +1,8 @@
 package com.ksol.mes.domain.worker.controller;
 
-import com.ksol.mes.domain.common.CommonResponseDto;
-import com.ksol.mes.global.error.ErrorCode;
+import com.ksol.mes.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mes.global.error.exception.InvalidValueException;
 import com.ksol.mes.global.util.jdbc.SQLErrorResponseDto;
-import com.ksol.mes.global.util.jdbc.Table;
 import com.ksol.mes.domain.worker.dto.request.WorkerDataRequestDto;
 import com.ksol.mes.domain.worker.dto.request.WorkerQueryRequestDto;
 import com.ksol.mes.domain.worker.dto.response.WorkerDataResponseDto;

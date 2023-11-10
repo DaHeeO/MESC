@@ -1,4 +1,4 @@
-package com.ksol.mes.domain.common;
+package com.ksol.mes.domain.common.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -2,6 +2,7 @@ package com.ksol.mes.domain.user.dto.response;
 
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @Getter
-@ToString
 public class GroupMemberResponse {
+	@Schema(description = "그룹에 있는 userList", example = "UserResponse")
 	private List<UserResponse> userList;
 }

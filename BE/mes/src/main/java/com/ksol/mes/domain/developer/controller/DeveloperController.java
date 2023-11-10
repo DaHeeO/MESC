@@ -1,13 +1,12 @@
 package com.ksol.mes.domain.developer.controller;
 
-import com.ksol.mes.domain.common.CommonResponseDto;
+import com.ksol.mes.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperDataRequestDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperQueryRequestDto;
 import com.ksol.mes.domain.developer.dto.response.DeveloperDataResponseDto;
 import com.ksol.mes.domain.developer.dto.response.DeveloperQueryResponseDto;
 import com.ksol.mes.global.util.jdbc.SQLErrorResponseDto;
 import com.ksol.mes.domain.developer.service.DeveloperService;
-import com.ksol.mes.global.error.ErrorCode;
 import com.ksol.mes.global.error.exception.InvalidValueException;
 import com.ksol.mes.global.util.jdbc.Table;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +30,7 @@ public class DeveloperController {
     @PostMapping("/data")
     public ResponseEntity<CommonResponseDto<?>> getData (@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto, BindingResult bindingResult) {
         checkValidates(bindingResult);
+        log.info("query1 : {}", developerDataRequestDto.getQuery());
         DeveloperDataResponseDto developerDataResponseDto;
 
         try {
@@ -47,6 +47,7 @@ public class DeveloperController {
     public ResponseEntity<CommonResponseDto<?>> executeQuery (@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
         checkValidates(bindingResult);
         DeveloperQueryResponseDto developerQueryResponseDto= new DeveloperQueryResponseDto();
+        log.info("query : {}", developerQueryRequestDto.getQuery());
         try {
             String query = developerQueryRequestDto.getQuery();
             Integer modifiedCount = developerService.executeQuery(query);
@@ -64,6 +65,13 @@ public class DeveloperController {
             developerQueryResponseDto.setContent(e.getMessage());
         }
         return new ResponseEntity<>(CommonResponseDto.success(developerQueryResponseDto), HttpStatus.OK);
+    }
+
+    //커밋 수행
+    @GetMapping("/commit")
+    public ResponseEntity<CommonResponseDto<?>> confirmCommit () {
+        developerService.commitTransation();
+        return new ResponseEntity<>(CommonResponseDto.success(null), HttpStatus.OK);
     }
 
     private static void checkValidates(BindingResult bindingResult) {

@@ -5,6 +5,7 @@ import com.ksol.mes.global.util.jdbc.Table;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
@@ -28,7 +29,19 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    @Transactional
     public Integer executeQuery(String query) throws SQLException {
         return jdbcUtil.execute(getOnlyOneQuery(query));
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void commitTransation(){
+        jdbcUtil.commitTransaction();
+    }
+
+    // @Transactional(propagation = Propagation.REQUIRED)
+    // public void rollbackTransaction(){
+    //     jdbcUtil.rollbackTransaction();
+    // }
 }

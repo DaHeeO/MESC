@@ -1,4 +1,4 @@
-package com.ksol.mes.domain.user;
+package com.ksol.mes.domain.user.entity;
 
 public enum UserRole {
 	WORKER,

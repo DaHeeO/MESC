@@ -60,6 +60,7 @@ public class JdbcUtil {
         Table table;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection.setAutoCommit(false);
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             table = new Table(resultSet);
@@ -100,5 +101,25 @@ public class JdbcUtil {
         }
 
         return counts;
+    }
+
+    public void commitTransaction(){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection.commit();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void rollbackTransaction(){
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection.rollback();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

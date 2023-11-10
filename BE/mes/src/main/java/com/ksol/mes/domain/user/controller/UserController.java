@@ -1,15 +1,10 @@
 package com.ksol.mes.domain.user.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.ksol.mes.domain.common.CommonResponseDto;
+import com.ksol.mes.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mes.domain.user.dto.request.LoginReq;
 import com.ksol.mes.domain.user.dto.request.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.UserReq;
@@ -79,9 +74,6 @@ public class UserController {
 	@GetMapping("/members/count")
 	public ResponseEntity<CommonResponseDto<?>> getMemberCount() {
 		MemberCntDto memberCntDto = userService.getUserCount();
-		// Integer totalCnt = userService.getUserCount();
-		// Map<String, Integer> map = new HashMap<>();
-		// map.put("totalCnt", totalCnt);
 		return ResponseEntity.ok(CommonResponseDto.success(memberCntDto));
 	}
 

@@ -2,9 +2,7 @@ package com.ksol.mes.domain.user.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ksol.mes.domain.user.UserRole;
+import com.ksol.mes.domain.user.entity.UserRole;
 import com.ksol.mes.domain.user.dto.request.LoginReq;
 import com.ksol.mes.domain.user.dto.request.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.UserReq;
@@ -71,15 +69,6 @@ public class UserServiceImpl implements UserService {
 		log.debug("authenticationToken={}", authenticationToken);
 
 		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
-		// 사용자의 ROLE 정보 확인
-		// if (authentication != null) {
-		// 	for (GrantedAuthority authority : authentication.getAuthorities()) {
-		// 		String role = authority.getAuthority();
-		// 		log.debug("user role : {}", role);
-		// 	}
-		// }
-
 		TokenInfo tokenInfo = jwtTokenProvider.createToken(authentication);
 		redisService.setRefreshToken(findUser.getEmail(), tokenInfo.getRefreshToken());
 		return tokenInfo;
