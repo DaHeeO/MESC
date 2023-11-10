@@ -2,7 +2,9 @@ package com.ksol.mes.domain.user.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ksol.mes.domain.user.dto.response.LoginResponseDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +19,8 @@ import com.ksol.mes.domain.user.UserRole;
 import com.ksol.mes.domain.user.dto.request.LoginReq;
 import com.ksol.mes.domain.user.dto.request.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.UserReq;
+import com.ksol.mes.domain.user.dto.response.GroupMemberResponse;
+import com.ksol.mes.domain.user.dto.response.MemberCntDto;
 import com.ksol.mes.domain.user.dto.response.UserResponse;
 import com.ksol.mes.domain.user.entity.User;
 import com.ksol.mes.domain.user.exception.UserNotFoundException;
@@ -123,48 +127,48 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserResponse> getGroupMembers(UserReq userReq) throws Exception {
+	public GroupMemberResponse getGroupMembers(UserReq userReq){
 		List<Integer> userIdList = userReq.getUserList();
+		if(userReq == null) return null;
+
 		Integer[] integerArray = userIdList.toArray(new Integer[0]);
-		List<User> userList = userRepository.getUserById(integerArray);
-		List<UserResponse> userResponseList = new ArrayList<>();
+		List<User> userList = userRepository.getUserById(integerArray).orElseThrow(() -> new UserNotFoundException("User Not Found"));
 
-		for (User user : userList) {
-			UserResponse userResponse = UserResponse.builder()
-													.userId(user.getId())
-													.name(user.getName())
-													.email(user.getEmail())
-													.phoneNumber(user.getPhoneNumber())
-													.build();
-
-			userResponseList.add(userResponse);
-		}
-
-		return userResponseList;
-	}
-
-	public List<UserResponse> getUsers() throws Exception {
-		List<User> userList = userRepository.findAll();
-
-		List<UserResponse> userResponseList = new ArrayList<>();
-
-		for (User user : userList) {
-			UserResponse userResponse = UserResponse.builder()
-													.userId(user.getId())
-													.name(user.getName())
-													.email(user.getEmail())
-													.phoneNumber(user.getPhoneNumber())
-													.build();
-
-			userResponseList.add(userResponse);
-		}
-
-		return userResponseList;
+		return makeGroupMemberResponse(userList);
 	}
 
 	@Override
-	public Integer getUserCount(){
-		return userRepository.getUserCount();
+	public GroupMemberResponse getUsers(){
+		List<User> userList = userRepository.findAll();
+
+		return makeGroupMemberResponse(userList);
+	}
+
+	public GroupMemberResponse makeGroupMemberResponse(List<User> userList){
+		List<UserResponse> userResponseList = new ArrayList<>();
+
+		for (User user : userList) {
+			UserResponse userResponse = UserResponse.builder()
+				.userId(user.getId())
+				.name(user.getName())
+				.email(user.getEmail())
+				.phoneNumber(user.getPhoneNumber())
+				.build();
+
+			userResponseList.add(userResponse);
+		}
+
+		return GroupMemberResponse.builder()
+			.userList(userResponseList)
+			.build();
+	}
+
+	@Override
+	public MemberCntDto getUserCount(){
+		Integer totalUserCnt = userRepository.getUserCount();
+		return MemberCntDto.builder()
+			.totalCnt(totalUserCnt)
+			.build();
 	}
 
 	@Override
