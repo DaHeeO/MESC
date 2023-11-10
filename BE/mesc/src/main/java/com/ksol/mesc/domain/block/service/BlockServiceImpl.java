@@ -414,8 +414,8 @@ public class BlockServiceImpl implements BlockService {
 			case CH, CH1, CH2:// 일반 챗봇
 				cardMap.put("title", card.getName());
 				break;
-			default:
-				throw new IllegalArgumentException("Invalid ComponentType");
+			// default:
+			// 	throw new IllegalArgumentException("Invalid ComponentType");
 		}
 
 		//component 조회
@@ -429,6 +429,7 @@ public class BlockServiceImpl implements BlockService {
 	//component type에 따른 조회
 	public LinkedHashMap<String, List<Object>> selectComponentByType(List<Component> componentList) {
 		LinkedHashMap<String, List<Object>> compMap = new LinkedHashMap<>();
+		String[] cType = {"button", "checkbox", "dropdown"};
 		compMap.put("button", new ArrayList<>());
 		compMap.put("checkbox", new ArrayList<>());
 		compMap.put("dropdown", new ArrayList<>());
@@ -467,9 +468,12 @@ public class BlockServiceImpl implements BlockService {
 			}
 		}
 
-		for (String key : compMap.keySet()) {
-			if (compMap.get(key) == null)
+		List<String> keys = new ArrayList<>(compMap.keySet());
+		for (int i = 0; i < keys.size(); i++) {
+			String key = keys.get(i);
+			if (compMap.get(key).isEmpty()) {
 				compMap.remove(key);
+			}
 		}
 
 		return compMap;
