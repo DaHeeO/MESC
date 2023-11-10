@@ -7,14 +7,13 @@ import ChatInput from '../../components/chat/ChatInput';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
-import axios from 'axios';
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
 import {ModalIdSwitch} from '../../components/common/ModalId';
 import {IconSwitch} from '../../components/common/ChatIcon';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
 import SearchDataForm from '../../components/chat/data/SearchDataForm';
-import {customAxios} from '../../../Api';
+import {customAxios, getBlock} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatComponentIdSwitch} from './ComponentId';
 import {AboutContainer} from '../../components/common/about/AboutContainer';
@@ -29,15 +28,8 @@ function Chat() {
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
   useEffect(() => {
-    customAxios
-      .post(`block/12`, {})
-      .then(response => {
-        // 서버 응답 recoil에 저장
-        setBlock(response.data.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    const role = 12;
+    putBlockToRecoil(role);
   }, []);
 
   useEffect(() => {
@@ -76,6 +68,11 @@ function Chat() {
 
   const scrollToBottom = () => {
     chatLayoutRef.current?.scrollToEnd({animated: true});
+  };
+
+  const putBlockToRecoil = async (blockId: number) => {
+    const newBlock = await getBlock(blockId, {});
+    setBlock(newBlock);
   };
 
   return (
