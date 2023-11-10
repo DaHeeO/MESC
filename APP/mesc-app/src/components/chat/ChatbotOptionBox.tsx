@@ -11,7 +11,7 @@ import * as S from './ChatbotOptionBox.styles';
 
 interface ChatbotOptionBoxProps {
   handleOptionPress: () => void;
-  optionTitle: string;
+  optionTitle: string | undefined;
 }
 
 function ChatbotOptionBox({
