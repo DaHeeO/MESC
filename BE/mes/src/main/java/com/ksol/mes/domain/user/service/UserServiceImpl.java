@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.ksol.mes.domain.user.dto.response.LoginResponseDto;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public TokenInfo login(LoginReq loginReq) {
+	public LoginResponseDto login(LoginReq loginReq) {
 		User findUser = userRepository.findByEmail(loginReq.getEmail())
 									  .orElseThrow(() -> new UserNotFoundException("User Not Found"));
 		UsernamePasswordAuthenticationToken authenticationToken = loginReq.toAuthentication();
@@ -71,7 +72,7 @@ public class UserServiceImpl implements UserService {
 		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 		TokenInfo tokenInfo = jwtTokenProvider.createToken(authentication);
 		redisService.setRefreshToken(findUser.getEmail(), tokenInfo.getRefreshToken());
-		return tokenInfo;
+		return new LoginResponseDto(findUser.getName(), findUser.getRoles().get(0), tokenInfo);
 	}
 
 	@Override

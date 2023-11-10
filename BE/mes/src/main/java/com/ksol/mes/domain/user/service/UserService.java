@@ -5,6 +5,7 @@ import java.util.List;
 import com.ksol.mes.domain.user.dto.request.LoginReq;
 import com.ksol.mes.domain.user.dto.request.SignUpReq;
 import com.ksol.mes.domain.user.dto.request.UserReq;
+import com.ksol.mes.domain.user.dto.response.LoginResponseDto;
 import com.ksol.mes.domain.user.dto.response.GroupMemberResponse;
 import com.ksol.mes.domain.user.dto.response.MemberCntDto;
 import com.ksol.mes.domain.user.dto.response.UserResponse;
@@ -16,7 +17,7 @@ public interface UserService {
 
 	void signUp(SignUpReq signUpReq);
 
-	TokenInfo login(LoginReq loginReq);
+	LoginResponseDto login(LoginReq loginReq);
 
 	TokenInfo recreateToken(HttpServletRequest request);
 

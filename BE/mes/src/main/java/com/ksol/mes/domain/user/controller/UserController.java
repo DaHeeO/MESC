@@ -1,5 +1,6 @@
 package com.ksol.mes.domain.user.controller;
 
+import com.ksol.mes.domain.user.dto.response.LoginResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +42,8 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(
 		@Parameter(description = "이메일, 패스워드", required = true) @RequestBody @Validated LoginReq loginReq) {
-		TokenInfo tokenInfo = userService.login(loginReq);
-		return ResponseEntity.ok(tokenInfo);
+		LoginResponseDto loginResponseDto = userService.login(loginReq);
+		return ResponseEntity.ok(loginResponseDto);
 	}
 
 	@Operation(summary = "이메일로 유저 찾기 API", description = "email로 사용자 정보를 찾아온다.")
