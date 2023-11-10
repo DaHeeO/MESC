@@ -1,28 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Text} from 'react-native';
 import * as S from './ChatbotStartBoxTwo.styles';
 import RobotIcon2 from '../../assets/images/RobotIcon2.png';
 import ChatbotOptionBox from './ChatbotOptionBox';
-import {useRecoilValue, useRecoilState} from 'recoil';
-import {cardState} from '../../states/CardState';
+import {useRecoilState} from 'recoil';
 import {Card} from '../../states/CardState';
-import {set} from 'lodash';
-import {UserMessageState} from '../../states/UserMessageState';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import Usermessage from './UserMessage';
 import {AboutBottomSheetModal} from '../common/bottomSheet/AboutBottomModal';
 import SearchDataForm from '../../components/chat/data/SearchDataForm';
-
-interface ChatbotStartBoxTwoProps {
-  handleDataBoxPress: () => void;
-  handleLogBoxPress: () => void;
-}
+import {getBlock} from '../../../Api';
+import {BlockResponseData} from '../../states/BlockResponseState';
 
 export const ChatbotStartBoxTwo = (props: {card: Card}) => {
+  const [block, setBlock] = useRecoilState(BlockResponseData);
   const [isModalVisible, setModalVisible] = useState(false);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
-  // const [userMessage, setUserMessage] = useRecoilState(UserMessageState);
   const {card} = props;
   let buttonName0: any;
   let buttonName1: any;
@@ -40,14 +34,18 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
           ...prev,
           <Usermessage message={button.name} />,
         ]);
-        // setBlockId(link);
-        console.log('link', link);
+        putBlockToRecoil(link);
 
         if (buttonIndex === 0) {
           setModalVisible(true);
         }
       }
     }
+  };
+
+  const putBlockToRecoil = async (blockId: number) => {
+    const newBlock = await getBlock(blockId, {});
+    setBlock(newBlock);
   };
 
   const hideBottomSheetModal = () => {
