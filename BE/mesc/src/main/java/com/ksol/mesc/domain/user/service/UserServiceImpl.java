@@ -1,5 +1,6 @@
 package com.ksol.mesc.domain.user.service;
 
+import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,13 @@ public class UserServiceImpl implements UserService {
 	private final JwtTokenProvider jwtTokenProvider;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-	public TokenInfo forwardLoginRequest(LoginReq loginReq) {
+	public LoginResponseDto forwardLoginRequest(LoginReq loginReq) {
 		return webClient.post()
 			.uri("/user/login")
 			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue(loginReq)
 			.retrieve()
-			.toEntity(TokenInfo.class)
+			.toEntity(LoginResponseDto.class)
 			.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()
 			.getBody();
