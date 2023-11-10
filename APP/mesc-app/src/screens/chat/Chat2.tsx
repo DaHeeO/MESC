@@ -42,6 +42,8 @@ function Chat() {
   const [blockId, setBlockId] = useRecoilState(BlockIdState);
   // const [userMessage, setUserMessage] = useRecoilState(UserMessageState);
 
+  const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
+
   useEffect(() => {
     setBlockId(12);
   }, []);
@@ -54,8 +56,8 @@ function Chat() {
         const data = response.data.data;
         // console.log(data.cardList);
 
-        const renderedComponent = render(data);
-        setChatbotHistory(prev => [...prev, renderedComponent]);
+        const chatbotBlock = makeChatbotBlock(data);
+        setChatbotHistory(prev => [...prev, chatbotBlock]);
         // console.log('chatbotHistory', chatbotHistory);
       })
       .catch(error => {
@@ -63,7 +65,7 @@ function Chat() {
       });
   }, [blockId]);
 
-  const render = useCallback((props: BlockProps) => {
+  const makeChatbotBlock = useCallback((props: BlockProps) => {
     // section 값에 따라 조건부 렌더링을 위한 변수
     let buttonComponent;
     if (props.section === 1) {
@@ -86,11 +88,20 @@ function Chat() {
     );
   }, []);
 
+  // chatbotHistory 변경될 때마다 스크롤
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatbotHistory]);
+
+  const scrollToBottom = () => {
+    chatLayoutRef.current?.scrollToEnd({animated: true});
+  };
+
   return (
     <S.Container>
       <Header />
       <S.ChatLayout>
-        <ScrollView>
+        <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
           {chatbotHistory.map((component, index) => (
             // chatbotHistory 배열을 순회하며 컴포넌트 렌더링
             <View key={index}>{component}</View>
