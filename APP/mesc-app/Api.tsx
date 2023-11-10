@@ -19,7 +19,7 @@ export async function getUserName() {
 }
 
 export async function getBlock(blockId: number, body: {}) {
-  let block;
+  let block: any;
   await customAxios
     .post(`block/${blockId}`, body)
     .then(response => {
