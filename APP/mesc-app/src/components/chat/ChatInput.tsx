@@ -6,7 +6,7 @@ import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
-import {customAxios} from '../../../Api';
+import {customAxios, getBlock} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
@@ -17,7 +17,6 @@ function ChatInput() {
     useRecoilState(ChatbotHistoryState);
 
   const [inputState, setInputState] = useRecoilState(InputState);
-  console.log(inputState);
 
   const [input, setInput] = useState('');
   const [keyword, setKeyword] = useState('');
@@ -108,40 +107,22 @@ function ChatInput() {
     if (input.trim() !== '') {
       //토큰
 
+      const usermessage = input.trim().toUpperCase();
+
       setChatbotHistory(prev => [
         ...prev,
-        <UserMessage message={input.trim()} />,
+        <UserMessage message={usermessage} />,
       ]);
 
       // 조회
 
       // 수정, 추가, 삭제
-      // let fingerResult = await handleFingerPrint();
-      // if (fingerResult === '지문인식 성공') {
-      // onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
-
+      if (input.startsWith('SELECT')) {
+        console.log('셀렉트하십쇼');
+      }
       setInput(''); // 입력 필드 지우기
-
-      // customAxios
-      //   .post(`api/developer/query`, {query: input})
-      //   .then(response => {
-      //     if (response.status == 200) {
-      //       // 결과 값 담기
-      //       // statusCode, message, data.modifiedCount
-      //       const result = response.data;
-      //       onAxiosResult(result);
-      //     } else {
-      //       console.log('에러');
-      //     }
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
-      // } else {
-      //   // 지문인식 실패
-      // }
     } else {
-      console.log('공백입니다요');
+      Alert.alert('데이터 조작일 때만 사용 가능합니다.');
     }
   };
 
