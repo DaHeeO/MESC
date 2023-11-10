@@ -35,6 +35,8 @@ public class Block {
 	public static Block toEntity(BlockInfoDto blockInfoDto) {
 		if (blockInfoDto.getState() == null)
 			blockInfoDto.setState(EntityState.ACTIVE);
+		if (blockInfoDto.getIsEditable() == null)
+			blockInfoDto.setIsEditable(false);
 		return Block.builder()
 			.id(blockInfoDto.getId())
 			.name(blockInfoDto.getName())

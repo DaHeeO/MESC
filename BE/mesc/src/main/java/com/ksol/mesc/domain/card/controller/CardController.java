@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
-import com.ksol.mesc.domain.block.service.BlockService;
+import com.ksol.mesc.domain.block.service.BlockServiceImpl;
 import com.ksol.mesc.domain.card.entity.Card;
-import com.ksol.mesc.domain.card.service.CardService;
+import com.ksol.mesc.domain.card.service.CardServiceImpl;
 import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,8 +26,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/card")
 @RequiredArgsConstructor
 public class CardController {
-	private final CardService cardService;
-	private final BlockService blockService;
+	private final CardServiceImpl cardService;
+	private final BlockServiceImpl blockService;
 
 	@Operation(summary = "카드 조회 API", description = "요청한 카드와 엮여 있는 정보를 조회한다.")
 	@PostMapping("/{cardId}")

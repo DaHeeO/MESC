@@ -12,8 +12,8 @@ import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.component.entity.Component;
 
 public interface ComponentRepository extends JpaRepository<Component, Integer> {
-	@Query("select com from Component com where com.card=:card")
-	List<Component> findByCard(@Param("card") Card card);
+	@Query("select com from Component com where com.card=:card and com.state=:state")
+	List<Component> findByCard(@Param("card") Card card, @Param("state") EntityState state);
 
 	@Modifying
 	@Query("update Component c set c.state=:state where c.id=:id")

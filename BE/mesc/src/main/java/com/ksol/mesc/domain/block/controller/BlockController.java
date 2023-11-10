@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
-import com.ksol.mesc.domain.block.service.BlockService;
+import com.ksol.mesc.domain.block.service.BlockServiceImpl;
 import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/block")
 @Slf4j
 public class BlockController {
-	private final BlockService blockService;
+	private final BlockServiceImpl blockService;
 
 	@Operation(summary = "블록 추가 API", description = "새로운 블록을 DB에 저장한다.")
 	@PostMapping("/admin")

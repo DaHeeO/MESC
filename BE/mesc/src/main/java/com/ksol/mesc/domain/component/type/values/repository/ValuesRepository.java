@@ -13,8 +13,8 @@ import com.ksol.mesc.domain.component.type.values.entity.ComponentValue;
 public interface ValuesRepository extends JpaRepository<ComponentValue, Integer> {
 	ComponentValue save(ComponentValue componentValue);
 
-	@Query("select c from ComponentValue c where c.dropdown=:dropdown")
-	List<ComponentValue> findByDropdown(@Param("dropdown") Dropdown dropdown);
+	@Query("select c from ComponentValue c where c.dropdown=:dropdown and c.state=:state")
+	List<ComponentValue> findByDropdown(@Param("dropdown") Dropdown dropdown, @Param("state") EntityState state);
 
 	@Query("update ComponentValue cv set cv.state=:state where cv.id=:id")
 	void updateState(@Param("id") Integer id, @Param("state") EntityState state);
