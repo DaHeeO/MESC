@@ -6,10 +6,9 @@ import ChatbotOptionBox from './ChatbotOptionBox';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {cardState} from '../../states/CardState';
 import {Card} from '../../states/CardState';
-import {BlockIdState} from '../../states/BlockIdState';
 import {set} from 'lodash';
 import {UserMessageState} from '../../states/UserMessageState';
-import {ChatbotHistoryState} from '../../states/BlockState';
+import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import Usermessage from './UserMessage';
 import {AboutBottomSheetModal} from '../common/bottomSheet/AboutBottomModal';
 import SearchDataForm from '../../components/chat/data/SearchDataForm';
@@ -20,7 +19,6 @@ interface ChatbotStartBoxTwoProps {
 }
 
 export const ChatbotStartBoxTwo = (props: {card: Card}) => {
-  const [blockId, setBlockId] = useRecoilState(BlockIdState);
   const [isModalVisible, setModalVisible] = useState(false);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
@@ -42,7 +40,7 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
           ...prev,
           <Usermessage message={button.name} />,
         ]);
-        setBlockId(link);
+        // setBlockId(link);
         console.log('link', link);
 
         if (buttonIndex === 0) {
