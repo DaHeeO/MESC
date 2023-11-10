@@ -373,7 +373,7 @@ public class BlockServiceImpl implements BlockService {
 				LinkedHashMap<String, Object> tableInfo = (LinkedHashMap<String, Object>)requestPostToMes(
 					"/worker/data/",
 					cardReqDto, cardType);
-				cardMap.put("label", tableInfo.get("label"));
+				cardMap.put("labels", tableInfo.get("label"));
 				tableInfo.remove("label");
 				cardMap.put("table", tableInfo);
 				break;
