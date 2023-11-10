@@ -5,6 +5,7 @@ import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import {useRecoilState} from 'recoil';
 import {getBlock} from '../../../../Api';
 import {BlockResponseData} from '../../../states/BlockResponseState';
+import UserMessage from '../../chat/UserMessage';
 
 interface ChatBtnProps {
   btnTitle: string;
@@ -14,9 +15,16 @@ interface ChatBtnProps {
 
 export const AboutChatBtn = (props: ChatBtnProps) => {
   const [block, setBlock] = useRecoilState(BlockResponseData);
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
 
   async function handle() {
     let blockId = 0;
+
+    setChatbotHistory(prev => [
+      ...prev,
+      <UserMessage message={props.btnTitle} />,
+    ]);
 
     if (props.btnTitle === '처음으로') {
       // 개발자인지, 작업자인지 구분해야함
