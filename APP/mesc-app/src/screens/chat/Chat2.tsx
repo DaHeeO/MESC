@@ -47,12 +47,12 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    console.log('blockId', blockId);
+    // console.log('blockId', blockId);
     customAxios
       .post(`block/${blockId}`, {})
       .then(response => {
         const data = response.data.data;
-        console.log(data.cardList);
+        // console.log(data.cardList);
 
         const renderedComponent = render(data);
         setChatbotHistory(prev => [...prev, renderedComponent]);
@@ -62,8 +62,6 @@ function Chat() {
         console.log(error);
       });
   }, [blockId]);
-
-  console.log(chatbotHistory);
 
   const render = useCallback((props: BlockProps) => {
     // section 값에 따라 조건부 렌더링을 위한 변수

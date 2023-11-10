@@ -11,6 +11,8 @@ import {set} from 'lodash';
 import {UserMessageState} from '../../states/UserMessageState';
 import {ChatbotHistoryState} from '../../states/BlockState';
 import Usermessage from './UserMessage';
+import {AboutBottomSheetModal} from '../common/bottomSheet/AboutBottomModal';
+import SearchDataForm from '../../components/chat/data/SearchDataForm';
 
 interface ChatbotStartBoxTwoProps {
   handleDataBoxPress: () => void;
@@ -22,7 +24,7 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
-  const [userMessage, setUserMessage] = useRecoilState(UserMessageState);
+  // const [userMessage, setUserMessage] = useRecoilState(UserMessageState);
   const {card} = props;
   let buttonName0: any;
   let buttonName1: any;
@@ -31,45 +33,26 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
     buttonName1 = card.button[1].name;
   }
 
-  const test3 = () => {};
-
-  const test1 = () => {
-    console.log('1번');
-    if (card.button?.[0]?.link) {
-      // link가 undefined가 아닌 경우에만 parseInt 호출
-      const link = parseInt(card.button[0].link);
+  const handleButtonPress = (buttonIndex: number) => {
+    const button = card.button?.[buttonIndex];
+    if (button?.link) {
+      const link = parseInt(button.link);
       if (!isNaN(link)) {
         setChatbotHistory(prev => [
           ...prev,
-          <Usermessage message={buttonName0} />,
+          <Usermessage message={button.name} />,
         ]);
         setBlockId(link);
-
-        setModalVisible(true);
         console.log('link', link);
+
+        if (buttonIndex === 0) {
+          setModalVisible(true);
+        }
       }
     }
   };
 
-  const test2 = () => {
-    console.log('2번');
-    if (card.button?.[1]?.link) {
-      // link가 undefined가 아닌 경우에만 parseInt를 호출합니다.
-      const link = parseInt(card.button[1].link);
-      if (!isNaN(link)) {
-        setChatbotHistory(prev => [
-          ...prev,
-          <Usermessage message={buttonName1} />,
-        ]);
-        // setUserMessage(buttonName1);
-        setBlockId(link);
-        setModalVisible(true);
-        console.log('link', link);
-      }
-    }
-  };
-
-  const hideModal = () => {
+  const hideBottomSheetModal = () => {
     setModalVisible(false); // 모달을 숨기도록 상태를 설정합니다.
   };
 
@@ -98,9 +81,24 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
       </S.MidBox>
       <S.BottomBox>
         {/* 챗봇 시작화면 옵션 선택 */}
-        <ChatbotOptionBox handleOptionPress={test1} optionTitle={buttonName0} />
-        <ChatbotOptionBox handleOptionPress={test2} optionTitle={buttonName1} />
+        <ChatbotOptionBox
+          handleOptionPress={() => handleButtonPress(0)}
+          optionTitle={buttonName0}
+        />
+        <ChatbotOptionBox
+          handleOptionPress={() => handleButtonPress(1)}
+          optionTitle={buttonName1}
+        />
       </S.BottomBox>
+      {isModalVisible && (
+        <AboutBottomSheetModal
+          btnTitle="모달 버튼"
+          modalHeight="50%"
+          modalBreakPoint="25%"
+          component={<SearchDataForm />} // 모달에 표시할 컴포넌트
+          onModalHide={hideBottomSheetModal}
+        />
+      )}
     </S.ChatbotBox>
   );
 };
