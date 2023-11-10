@@ -2,9 +2,9 @@ spring:
   # DB 설정
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #    url: jdbc:mysql://localhost:3306/mesc?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-    #    username: ksol
-    #    password: ksol1117
+    #    url: jdbc:mysql://localhost:3306/mescdb?useUniCode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    #    username: root
+    #    password: root
     url: jdbc:mysql://k9b201.p.ssafy.io:3306/mesc?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: ksol
     password: ksol1117

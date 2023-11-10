@@ -12,6 +12,7 @@ public class ButtonRes {
 	private String name;
 	private String linkType;
 	private String link;
+	private Integer actionId;
 	private Integer iconId;
 	private String response;
 
@@ -21,6 +22,7 @@ public class ButtonRes {
 			.name(button.getName())
 			.linkType(button.getLinkType().toString())
 			.link(button.getLink())
+			.actionId(button.getActionId())
 			.iconId(button.getIconId())
 			.response(button.getResponse())
 			.build();

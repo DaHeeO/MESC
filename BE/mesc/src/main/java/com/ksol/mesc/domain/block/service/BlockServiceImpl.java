@@ -42,7 +42,6 @@ import com.ksol.mesc.domain.component.type.checkbox.repository.CheckboxRepositor
 import com.ksol.mesc.domain.component.type.dropdown.dto.response.DropdownRes;
 import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
 import com.ksol.mesc.domain.component.type.dropdown.repository.DropdownRepository;
-import com.ksol.mesc.domain.component.type.label.repository.LabelRepository;
 import com.ksol.mesc.domain.component.type.values.dto.ValuesRes;
 import com.ksol.mesc.domain.component.type.values.entity.ComponentValue;
 import com.ksol.mesc.domain.component.type.values.repository.ValuesRepository;
@@ -66,7 +65,6 @@ public class BlockServiceImpl implements BlockService {
 	private final CardRepository cardRepository;
 	private final ComponentRepository componentRepository;
 	private final ButtonRepository buttonRepository;
-	private final LabelRepository labelRepository;
 	private final CheckboxRepository checkboxRepository;
 	private final DropdownRepository dropdownRepository;
 	private final ValuesRepository valuesRepository;
@@ -84,6 +82,7 @@ public class BlockServiceImpl implements BlockService {
 	//블록 조회
 	@Override
 	public LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, CardReqDto cardReqDto, Integer userId) {
+		log.info("blockId : {}", blockId);
 		//블록 조회
 		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
 			.orElseThrow(() -> new EntityNotFoundException("Active Block Not Found"));
@@ -232,10 +231,10 @@ public class BlockServiceImpl implements BlockService {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void updateComponentByType(Component component) {
-		componentRepository.updateState(component.getId(), EntityState.DELETE);
-
 		ComponentType componentType = component.getComponentType();
 		Integer id = component.getLinkId();
+		componentRepository.updateState(component.getId(), EntityState.DELETE);
+
 		switch (componentType) {
 			case BU:
 				buttonRepository.updateState(id, EntityState.DELETE);
@@ -329,7 +328,8 @@ public class BlockServiceImpl implements BlockService {
 		}
 	}
 
-	private <T> T saveEntity(String json, Class<T> entityClass, JpaRepository<T, Integer> repository) {
+	@Transactional(propagation = Propagation.REQUIRED)
+	public <T> T saveEntity(String json, Class<T> entityClass, JpaRepository<T, Integer> repository) {
 		T entity;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
@@ -361,7 +361,6 @@ public class BlockServiceImpl implements BlockService {
 						content = content.replace("{" + key + "}", map.get(key));
 					}
 				}
-
 				cardMap.put("cardType", CardType.TX);
 				cardMap.put("content", content);
 				break;

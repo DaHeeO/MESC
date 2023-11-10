@@ -1,6 +1,5 @@
 package com.ksol.mesc.domain.user.controller;
 
-import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mesc.domain.user.dto.LoginReq;
+import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
 import com.ksol.mesc.domain.user.service.UserService;
 import com.ksol.mesc.global.config.jwt.TokenInfo;

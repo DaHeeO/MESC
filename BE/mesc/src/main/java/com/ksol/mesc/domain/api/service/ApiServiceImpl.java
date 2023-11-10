@@ -54,6 +54,7 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public LinkedHashMap<String, Object> getCountsByQuery(String query) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
+
 		Object data = webClient.post()
 			.uri("/developer/query")
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
@@ -68,6 +69,7 @@ public class ApiServiceImpl implements ApiService {
 			.block()
 			.getBody()
 			.getData();
+		log.info("webclient 끝 : {}", data);
 		return (LinkedHashMap<String, Object>)data;
 	}
 

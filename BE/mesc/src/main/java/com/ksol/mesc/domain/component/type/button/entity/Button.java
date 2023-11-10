@@ -38,6 +38,8 @@ public class Button {
 	private LinkType linkType = LinkType.B;
 	@Column(name = "LINK")
 	private String link;
+	@Column(name = "ACTION_ID")
+	private Integer actionId;
 	@Column(name = "ICON_ID")
 	private Integer iconId;
 	@Column(name = "RESPONSE")
