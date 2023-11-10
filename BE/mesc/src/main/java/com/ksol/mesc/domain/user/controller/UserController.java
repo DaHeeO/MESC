@@ -1,5 +1,6 @@
 package com.ksol.mesc.domain.user.controller;
 
+import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -34,8 +35,8 @@ public class UserController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(
 		@Parameter(description = "이메일, 패스워드", required = true) @RequestBody @Validated LoginReq loginReq) {
-		TokenInfo tokenInfo = userService.forwardLoginRequest(loginReq);
-		return ResponseEntity.ok(tokenInfo);
+		LoginResponseDto loginResponseDto = userService.forwardLoginRequest(loginReq);
+		return ResponseEntity.ok(loginResponseDto);
 	}
 
 	@Operation(summary = "토큰 재발급 API", description = "입력된 refreshToken을 검증한 뒤 mes에 API 요청을 해 새로운 토큰을 발급받는다.")
