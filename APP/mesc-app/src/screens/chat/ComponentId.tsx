@@ -86,27 +86,10 @@ export function ChatComponentIdSwitch(card: Card) {
     // // case 'RE': // 보고 눌렀을 때 나오는 창
     // //   return < />;
 
-    // case 'CH1': // 작업자 시작 화면
-    //   return (
-    //     <ChatbotStartBoxOne
-    //       handleDataBoxPress={function (): void {
-    //         throw new Error('Function not implemented.');
-    //       }}
-    //       title={''}
-    //       middleText={''}
-    //       optionText1={''}
-    //     />
-    //   );
+    case 'CH1': // 작업자 시작 화면
+      return <ChatbotStartBoxOne card={card} />;
 
     case 'CH2': // 개발자 시작 화면
       return <ChatbotStartBoxTwo card={card} />;
-    // <ChatbotStartBoxTwo
-    //   handleDataBoxPress={function (): void {
-    //     throw new Error('Function not implemented.');
-    //   }}
-    //   handleLogBoxPress={function (): void {
-    //     throw new Error('Function not implemented.');
-    //   }}
-    // />
   }
 }

@@ -8,14 +8,16 @@ export async function getAccessToken() {
   return value;
 }
 
-// 로컬 스토리지에 name 값 추출
+// 로컬 스토리지에 accessToken 값 추출
 export async function getUserName() {
-  const data = await AsyncStorage.getItem('userName');
-  if (!data) {
-    return null;
-  }
-  const userName = JSON.stringify(data);
-  return userName;
+  const value = await AsyncStorage.getItem('userName');
+  return value;
+}
+
+// 로컬 스토리지에 accessToken 값 추출
+export async function getUserRole() {
+  const value = await AsyncStorage.getItem('userRole');
+  return value;
 }
 
 export async function getBlock(blockId: number, body: {}) {
