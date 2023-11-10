@@ -31,10 +31,10 @@ export const InputBox = styled.TextInput`
   margin: 10px
   display: flex;
   flex: 1;
-  font-color: grey;
+  color: grey;
   background-color: #ebecef;
   border-radius: 20px;
-  lineHeight: 18px;
+  line-height: 18px;
 `;
 
 export const SendBox = styled.View`
