@@ -19,7 +19,6 @@ interface LoginProps {
   navigation: any;
 }
 
-
 const Login = ({navigation}: LoginProps) => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');

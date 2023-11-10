@@ -1,6 +1,11 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {BtnContainer, ChooseBtnBody} from './ChatChooseBtnStyle';
+import {ChatbotHistoryState} from '../../../states/BlockState';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {set} from 'lodash';
+import UserMessage from '../../chat/UserMessage';
+import {customAxios} from '../../../../Api';
 
 interface ChatBtnProps {
   btnTitle: string;
@@ -9,9 +14,28 @@ interface ChatBtnProps {
 }
 
 export const AboutChatBtn = (props: ChatBtnProps) => {
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
+
+  function handle() {
+    // 사용자 응답집어넣기
+    setChatbotHistory(prev => [
+      ...prev,
+      <UserMessage message={props.btnTitle} />,
+    ]);
+
+    if (props.btnTitle === '처음으로') {
+      console.log('처음으로');
+    } else if (props.btnTitle === '보고하기') {
+      console.log('보고하기');
+    } else if (props.btnTitle === '데이터 조작') {
+      console.log('데이터 조작');
+    }
+  }
+
   return (
     /* bottomSheet를 띄우기 위한 Btn */
-    <ChooseBtnBody>
+    <ChooseBtnBody onPress={handle}>
       {/* icon 자리 */}
       <BtnContainer
         width="25%"

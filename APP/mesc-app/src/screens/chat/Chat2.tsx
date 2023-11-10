@@ -107,6 +107,7 @@ function Chat() {
             <View key={index}>{component}</View>
           ))}
           {/* <UserMessage message={userMessage} /> */}
+          <ChatChooseSection1 />
         </ScrollView>
       </S.ChatLayout>
       <ChatInput />
