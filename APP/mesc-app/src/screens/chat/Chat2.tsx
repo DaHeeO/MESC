@@ -77,7 +77,7 @@ function Chat() {
 
   const putBlockToRecoil = async (blockId: number) => {
     const newBlock = await getBlock(blockId, {});
-    setBlock(newBlock);
+    if (newBlock) setBlock(newBlock);
   };
 
   return (
@@ -89,7 +89,6 @@ function Chat() {
             // chatbotHistory 배열 순회하며 컴포넌트 렌더링
             <View key={index}>{component}</View>
           ))}
-          <ChatChooseSection1 />
         </ScrollView>
       </S.ChatLayout>
       <ChatInput />

@@ -17,7 +17,6 @@ function ChatInput() {
     useRecoilState(ChatbotHistoryState);
 
   const [inputState, setInputState] = useRecoilState(InputState);
-  console.log(inputState);
 
   const [input, setInput] = useState('');
   const [keyword, setKeyword] = useState('');
