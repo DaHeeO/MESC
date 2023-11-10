@@ -1,18 +1,14 @@
-import React, {useState, useCallback, useRef, useMemo} from 'react';
-import {
-  TouchableOpacity,
-  ScrollView,
-  Pressable,
-  Animated,
-  View,
-  Text,
-} from 'react-native';
+import React, {useState, useEffect, useCallback, useRef, useMemo} from 'react';
+import {TouchableOpacity, ScrollView, Pressable, Text} from 'react-native';
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
+import customAxios from '../../../Api';
+import {groupInfo} from '../../states/GroupInfo';
+import {useRecoilState} from 'recoil';
 import * as S from './Detail.styles';
 import {colors} from '../../components/common/Theme';
 
@@ -39,159 +35,60 @@ interface ContactsProps {
 
 interface userInfoList {
   userId: number;
-  imageUrl: string;
-  userName: string;
-  userEmail: string;
-  userRank: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  role: string;
 }
 
 // API 연결 안됨아직
 
 const Detail = ({navigation}: ContactsProps) => {
-  // const [data, setData] = useState<userInfoList[]>([]);
+  const Images = [
+    image1,
+    image2,
+    image3,
+    image4,
+    image5,
+    image6,
+    image7,
+    image8,
+    image9,
+    image10,
+  ];
 
-  // useEffect(() => {
-  //   // Make a GET request here
-  //   fetch('https://api.example.com/data')
-  //     .then(response => {
-  //       if (!response.ok) {
-  //         throw new Error('Network response was not ok');
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((responseData: Contact[]) => {
-  //       setData(responseData);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching data:', error);
-  //     });
-  // }, []);
-
-  const [Test, setTest] = useState([
-    {
-      userId: 1,
-      imageUrl: image1,
-      userName: '오다희',
-      userEmail: 'test@samsung.com',
-      userRank: '사원',
-    },
-    {
-      userId: 2,
-      imageUrl: image2,
-      userName: '내남친',
-      userEmail: 'test@samsung.com',
-      userRank: '대리',
-    },
-    {
-      userId: 3,
-      imageUrl: image3,
-      userName: '왁',
-      userEmail: 'test@samsung.com',
-      userRank: '과장',
-    },
-    {
-      userId: 4,
-      imageUrl: image4,
-      userName: '자기야 왜 칭얼대',
-      userEmail: 'test@samsung.com',
-      userRank: '대리',
-    },
-    {
-      userId: 5,
-      imageUrl: image5,
-      userName: '당후니',
-      userEmail: 'test@samsung.com',
-      userRank: '사원',
-    },
-    {
-      userId: 6,
-      imageUrl: image6,
-      userName: '말년이 무섭다',
-      userEmail: 'test@samsung.com',
-      userRank: '사장',
-    },
-  ]);
+  // Recoil에서 조건 꺼내오기
+  const [groupInfoValue, setGroupInfoValue] = useRecoilState(groupInfo);
+  const [data, setData] = useState<userInfoList[]>([]);
+  const [contacts, setContacts] = useState<userInfoList[]>([]);
 
   // BottomSheet
   // hooks
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-  // variables
-  const Contacts = [
-    {
-      userId: 1,
-      imageUrl: image1,
-      userName: '오다희',
-      userEmail: 'test@samsung.com',
-      userRank: '사원',
-    },
-    {
-      userId: 2,
-      imageUrl: image2,
-      userName: '내남친',
-      userEmail: 'test@samsung.com',
-      userRank: '대리',
-    },
-    {
-      userId: 3,
-      imageUrl: image3,
-      userName: '왁',
-      userEmail: 'test@samsung.com',
-      userRank: '과장',
-    },
-    {
-      userId: 4,
-      imageUrl: image4,
-      userName: '자기야 왜 칭얼대',
-      userEmail: 'test@samsung.com',
-      userRank: '대리',
-    },
-    {
-      userId: 5,
-      imageUrl: image5,
-      userName: '당후니',
-      userEmail: 'test@samsung.com',
-      userRank: '사원',
-    },
-    {
-      userId: 6,
-      imageUrl: image6,
-      userName: '말년이 무섭다',
-      userEmail: 'test@samsung.com',
-      userRank: '사장',
-    },
-    {
-      userId: 7,
-      imageUrl: image7,
-      userName: '무무렐라',
-      userEmail: 'test@samsung.com',
-      userRank: '사장',
-    },
-    {
-      userId: 8,
-      imageUrl: image8,
-      userName: '무니는 포도가 먹고 시푼데',
-      userEmail: 'test@samsung.com',
-      userRank: '사장',
-    },
-    {
-      userId: 9,
-      imageUrl: image9,
-      userName: '타당타당',
-      userEmail: 'test@samsung.com',
-      userRank: '왕뚜껑',
-    },
-    {
-      userId: 10,
-      imageUrl: image10,
-      userName: '행버억',
-      userEmail: 'test@samsung.com',
-      userRank: '광렬',
-    },
-  ];
+  useEffect(() => {
+    // Fetch data from the API
+    customAxios
+      .get(`mesc/group/member/${groupInfoValue.groupId}`, {})
+      .then(response => {
+        console.log(response.data.data);
+        setData(response.data.data.userList);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
 
-  const data = useMemo(() => {
-    return Contacts;
+  useEffect(() => {
+    // Fetch data from the API
+    customAxios
+      .get(`mesc/user/members`, {})
+      .then(response => {
+        setContacts(response.data.data.userList);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   }, []);
 
   const snapPoints = useMemo(() => ['99%'], []);
@@ -212,37 +109,83 @@ const Detail = ({navigation}: ContactsProps) => {
     {},
   );
 
+  const handleResetCheckedItems = () => {
+    const checkedItemIds = Object.keys(checkedItems)
+      .filter(userId => checkedItems[parseInt(userId, 10)])
+      .map(userId => parseInt(userId, 10));
+
+    customAxios
+      .patch(`mesc/group/add/${groupInfoValue.groupId}`, {
+        userList: checkedItemIds,
+      })
+      .then(response => {
+        customAxios
+          .get(`mesc/group/member/${groupInfoValue.groupId}`, {})
+          .then(response => {
+            setData(response.data.data.userList); // 서버에서 새로운 목록을 받아온다면, state를 업데이트합니다.
+          })
+          .catch(error => {
+            console.error('목록 다시 불러오기 실패:', error);
+          });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
+    // axios로 checkedItemIds를 서버에 보내기
+
+    setCheckedItems({}); // 모두 초기 상태로 변경
+  };
+
   const handleCheckBoxClick = useCallback((userId: number) => {
     setCheckedItems(prevCheckedItems => ({
       ...prevCheckedItems,
       [userId]: !prevCheckedItems[userId],
     }));
   }, []);
-  const [dragState, setDragState] = useState({});
 
   const handleDeleteGroup = (userIdToDelete: number) => {
-    const updatedTest = Test.filter(item => item.userId !== userIdToDelete);
-    setTest(updatedTest);
-
-    // 나머지 로직을 수행할 수 있도록 dragState를 업데이트합니다.
-    setDragState({...dragState, [userIdToDelete]: false});
+    customAxios
+      .delete(
+        `mesc/group/member/${groupInfoValue.groupId}/${userIdToDelete}`,
+        {},
+      )
+      .then(response => {
+        customAxios
+          .get(`mesc/group/member/${groupInfoValue.groupId}`, {})
+          .then(response => {
+            setData(response.data.data.userList); // 서버에서 새로운 목록을 받아온다면, state를 업데이트합니다.
+          })
+          .catch(error => {
+            console.error('목록 다시 불러오기 실패:', error);
+          });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   };
 
   // renders
   const renderItem = useCallback(
-    (item: any) => {
+    (item: any, index: number) => {
       const isChecked = checkedItems[item.userId];
+      const disabledUserIds = data.map(user => user.userId); // 현재 그룹에 속한 멤버들의 userId 목록
+      const isDisabled = disabledUserIds.includes(item.userId); // 현재 그룹에 속한 멤버라면, disabled 처리
       return (
         <S.ContactDiv
           key={item.userId}
-          onPress={() => handleCheckBoxClick(item.userId)}>
+          onPress={
+            isDisabled ? undefined : () => handleCheckBoxClick(item.userId)
+          } // onPress 이벤트 설정
+          style={{opacity: isDisabled ? 0.5 : 1}} // Opacity 설정
+        >
           <S.ContactBox>
             <S.ImageBox>
-              <S.Img source={item.imageUrl} />
+              <S.Img source={Images[index % 10]} />
             </S.ImageBox>
             <S.InfoBox>
               <S.BoldText size={17} color={colors.primary}>
-                {item.userName}
+                {item.name}
               </S.BoldText>
             </S.InfoBox>
           </S.ContactBox>
@@ -261,21 +204,21 @@ const Detail = ({navigation}: ContactsProps) => {
     [checkedItems, handleCheckBoxClick],
   );
 
-  const renderRightActions = (dragX: any, index: number) => {
+  const renderRightActions = (dragX: any, userIdToDelete: number) => {
     const trans = dragX.interpolate({
       inputRange: [0, 50, 100, 101],
       outputRange: [0, -10, -10, 1],
     });
 
     return (
-      <Pressable onPress={() => console.log(index)}>
+      <Pressable onPress={() => console.log(userIdToDelete)}>
         <S.DeleteContainer
           style={[
             {
               transform: [{translateX: trans}],
             },
           ]}>
-          <S.DeleteBox onPress={() => handleDeleteGroup(index)}>
+          <S.DeleteBox onPress={() => handleDeleteGroup(userIdToDelete)}>
             <S.BoldText size={12} color="#ffffff">
               삭제
             </S.BoldText>
@@ -297,7 +240,7 @@ const Detail = ({navigation}: ContactsProps) => {
               </S.Text>
             </S.Left>
             <S.TitleBox>
-              <S.Title>그룹이름</S.Title>
+              <S.Title>{groupInfoValue.groupName}</S.Title>
             </S.TitleBox>
             <S.Right onPress={handlePresentModalPress}>
               <Plus />
@@ -311,7 +254,7 @@ const Detail = ({navigation}: ContactsProps) => {
         {/* 연락처 리스트 */}
         <S.Body>
           <S.FilterDiv>
-            <S.FilterText>멤버 총 {Test.length}명</S.FilterText>
+            <S.FilterText>멤버 총 {data.length}명</S.FilterText>
             <TouchableOpacity>
               <Filter />
             </TouchableOpacity>
@@ -322,7 +265,7 @@ const Detail = ({navigation}: ContactsProps) => {
               alignItems: 'center',
               width: '100%',
             }}>
-            {Test?.map(item => (
+            {data?.map((item, index) => (
               <GestureHandlerRootView key={item.userId}>
                 <Swipeable
                   renderRightActions={dragX =>
@@ -333,20 +276,20 @@ const Detail = ({navigation}: ContactsProps) => {
                   <S.ContactDiv key={item.userId}>
                     <S.ContactBox>
                       <S.ImageBox>
-                        <S.Img source={item.imageUrl} />
+                        <S.Img source={Images[index % 10]} />
                       </S.ImageBox>
                       <S.InfoBox>
                         <S.BoldText size={17} color={colors.primary}>
-                          {item.userName}
+                          {item.name}
                         </S.BoldText>
                         <S.BoldText size={14} color={colors.tertiary}>
-                          {item.userEmail}
+                          {item.email}
                         </S.BoldText>
                       </S.InfoBox>
                     </S.ContactBox>
-                    <S.RankBox>
+                    <S.RankBox isNull={item.role === null}>
                       <S.BoldText size={14} color={colors.tertiary}>
-                        {item.userRank}
+                        {item.role}
                       </S.BoldText>
                     </S.RankBox>
                   </S.ContactDiv>
@@ -369,7 +312,12 @@ const Detail = ({navigation}: ContactsProps) => {
                   <S.TitleBox>
                     <S.Title>연락처</S.Title>
                   </S.TitleBox>
-                  <S.Right onPress={() => handleClosePress()}>
+                  <S.Right
+                    onPress={() => {
+                      handleResetCheckedItems(); // 모두 초기 상태로 변경
+                      handleClosePress();
+                      console.log(checkedItems);
+                    }}>
                     <S.Text size={16} color={colors.primary}>
                       완료
                     </S.Text>
@@ -382,13 +330,13 @@ const Detail = ({navigation}: ContactsProps) => {
               </S.Top>
               <S.Body>
                 <S.FilterDiv>
-                  <S.FilterText>멤버 총 {data.length}명</S.FilterText>
+                  <S.FilterText>멤버 총 {contacts.length}명</S.FilterText>
                   <TouchableOpacity>
                     <Filter />
                   </TouchableOpacity>
                 </S.FilterDiv>
                 <BottomSheetScrollView style={{marginBottom: '10%'}}>
-                  {data.map(renderItem)}
+                  {contacts.map(renderItem)}
                 </BottomSheetScrollView>
               </S.Body>
             </S.Div>

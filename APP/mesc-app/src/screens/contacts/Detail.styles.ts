@@ -110,7 +110,7 @@ export const FilterText = styled.Text`
   font-weight: bold;
 `;
 
-export const ContactDiv = styled.TouchableOpacity`
+export const ContactDiv = styled.Pressable`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -145,13 +145,13 @@ export const InfoBox = styled.View`
   margin-left: 16px;
 `;
 
-export const RankBox = styled.View`
+export const RankBox = styled.View<{isNull?: boolean}>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 20%;
   padding: 6px;
-  background-color: ${colors.icy};
+  background-color: ${props => (props.isNull ? 'white' : colors.lightiris)}
   border-radius: 100px;
 `;
 
