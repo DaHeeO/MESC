@@ -120,7 +120,6 @@ function ChatInput() {
       // 조회
       if (userMessage.startsWith('SELECT')) {
         const response = await getBlock(9, {query: userMessage});
-        console.log(response);
         setBlock(response);
       }
 
