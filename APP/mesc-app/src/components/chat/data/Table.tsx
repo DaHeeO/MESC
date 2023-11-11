@@ -1,18 +1,29 @@
 import React, {useState, useEffect, useRef} from 'react';
+// Styled
 import {View, Dimensions, ScrollView} from 'react-native';
 import * as S from './Teble.styles';
+// Components
+import {ConditionModify} from '../../common/id/ChatChooseId';
+import { useRecoilState } from 'recoil';
+import { ConditionModifyState } from '../../../states/BottomSheetState';
+import { modalIdState } from '../../../states/ModalIdState';
+
 
 type TableProps = {
   header: string[];
   typeHeader: string[];
   body: any[][]; // or string[][]
   // 다른 props들이 있다면 여기에 추가
+  onPress: () => void;
 };
 
-const Table: React.FC<TableProps> = ({header, typeHeader, body}) => {
+const Table: React.FC<TableProps> = (props:TableProps) => {
   const [columnWidths, setColumnWidths] = useState<number[]>(
-    new Array(header.length).fill(0),
+    new Array(props.header.length).fill(0),
   );
+
+    const [openCoditionForm, setOpenCoditionForm] = useRecoilState(ConditionModifyState);
+    const [modalId, setModalId] = useRecoilState(modalIdState); 
 
   const horizontalScrollRef = useRef(null);
 
@@ -41,21 +52,32 @@ const Table: React.FC<TableProps> = ({header, typeHeader, body}) => {
   return (
     <S.Container>
       <S.Header>
-        <S.Title></S.Title>
-        <S.Button></S.Button>
+        <S.Container width="60%" height="100%"></S.Container>
+        <S.Container
+          width="40%"
+          height="100%"
+          justifyContent="center"
+          alignItems="flex-end">
+          <ConditionModify onPress={
+            setOpenCoditionForm(!openCoditionForm);
+            setModalId(switchModalId('CF'));
+            console.log('조건변경: ', openCoditionForm
+            );
+          } />
+        </S.Container>
       </S.Header>
       <S.Body>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <View>
             <View style={{flexDirection: 'row'}}>
-              {header.map((column, index) => (
+              {props.header.map((column, index) => (
                 <S.ColumnInfoBox key={`header-${index}`}>
                   <S.ColumnName>{column}</S.ColumnName>
                 </S.ColumnInfoBox>
               ))}
             </View>
             <View style={{flexDirection: 'row'}}>
-              {typeHeader.map((type, index) => (
+              {props.typeHeader.map((type, index) => (
                 <S.ColumnInfoBox key={`type-${index}`}>
                   <S.ColumnType>{type}</S.ColumnType>
                 </S.ColumnInfoBox>
@@ -64,7 +86,7 @@ const Table: React.FC<TableProps> = ({header, typeHeader, body}) => {
             <ScrollView
               nestedScrollEnabled={true}
               showsVerticalScrollIndicator={false}>
-              {body.map((row, rowIndex) => (
+              {props.body.map((row, rowIndex) => (
                 <View key={`row-${rowIndex}`} style={{flexDirection: 'row'}}>
                   {row.map((cell, cellIndex) => (
                     <S.CellBox key={`cell-${rowIndex}-${cellIndex}`}>

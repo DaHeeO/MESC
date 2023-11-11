@@ -4,14 +4,19 @@ import {BtnContainer, ChooseBtnBody} from './ChatChooseBtnStyle';
 
 interface ChatBtnProps {
   btnTitle: string;
-  // iconId: number;
+  height?: string;
   icon?: React.ReactNode;
+  bordercolor?: string;
+  onPress?: () => void;
 }
 
 export const AboutChatBtn = (props: ChatBtnProps) => {
   return (
     /* bottomSheet를 띄우기 위한 Btn */
-    <ChooseBtnBody>
+    <ChooseBtnBody
+      height={props.height}
+      border={props.bordercolor}
+      onPress={props.onPress}>
       {/* icon 자리 */}
       <BtnContainer
         width="25%"
@@ -25,7 +30,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
         width="65%"
         // style={{backgroundColor: 'skyblue'}}
       >
-        <Text>{props.btnTitle}</Text>
+        <Text style={{color: 'black'}}>{props.btnTitle}</Text>
       </BtnContainer>
     </ChooseBtnBody>
   );

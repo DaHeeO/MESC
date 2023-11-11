@@ -13,7 +13,7 @@ import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
 import axios from 'axios';
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
-import {ModalIdSwitch} from '../../components/common/ModalId';
+import {ModalIdSwitch} from '../../components/common/id/ModalId';
 import {IconSwitch} from '../../components/common/ChatIcon';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';

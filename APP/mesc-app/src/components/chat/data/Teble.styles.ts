@@ -1,22 +1,30 @@
 import styled from 'styled-components/native';
 import {colors} from '../../common/Theme';
 
-export const Container = styled.View`
-  flex-direction: column;
-  flex: 1;
+interface TableContainerProps {
+  width?: string;
+  height?: string;
+  direction?: string;
+  justifyContent?: string;
+  alignItems?: string;
+}
+
+export const Container = styled.View<TableContainerProps>`
   // border: 1px solid green;
-  // overflow: hidden;
+  flex: 1;
+  width: ${props => props.width};
+  height: ${props => props.height};
+  flex-direction: ${props => props.direction || 'column'};
+  justify-content: ${props => props.justifyContent || 'center'};
+  align-items: ${props => props.alignItems || 'center'};
 `;
 
 export const Header = styled.View`
-  width: 100%;
-  height: 30px;
   // border: 1px solid red;
+  flex-direction: row;
+  width: 100%;
+  height: 50px;
 `;
-
-export const Title = styled.Text``;
-
-export const Button = styled.View``;
 
 export const Body = styled.View`
   // overflow: hidden;

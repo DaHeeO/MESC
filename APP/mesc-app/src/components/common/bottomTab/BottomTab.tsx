@@ -12,6 +12,7 @@ import * as S from './BottomTab.styles';
 import Main from '../../../screens/main/Main';
 import ContactStack from '../../../screens/contacts/Stack';
 import Setting from '../../../screens/settings/Settings';
+import Test from '../../../screens/settings/test';
 import Chat from '../../../screens/chat/Chat2';
 
 // icon
@@ -137,7 +138,7 @@ function BottompTab() {
       />
       <Tab.Screen
         name="Chat"
-        component={Chat}
+        component={Test}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Message" />
