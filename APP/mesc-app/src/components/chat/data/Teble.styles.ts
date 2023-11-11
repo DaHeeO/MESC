@@ -46,8 +46,6 @@ export const CellBox = styled.View`
 
 export const ColumnName = styled.Text``;
 
-export const ColumnType = styled.Text`
-  text-size: 8px;
-`;
+export const ColumnType = styled.Text``;
 
 export const Cell = styled.Text``;

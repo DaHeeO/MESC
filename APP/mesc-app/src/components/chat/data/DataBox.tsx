@@ -6,11 +6,14 @@ import Query from './Query';
 
 type DataBoxProps = {
   title?: string;
-  table?: {
-    columnNameList: string[];
-    columnTypeList: string[];
-    rowList: string[][];
-  };
+  table?:
+    | {
+        columnNameList: string[];
+        columnTypeList: string[];
+        rowList: string[][];
+      }
+    | undefined
+    | null;
   query?: string;
 };
 

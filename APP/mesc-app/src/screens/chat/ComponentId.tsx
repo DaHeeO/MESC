@@ -42,7 +42,7 @@ export function ChatComponentIdSwitch(card: Card) {
       return <ChatbotMessage card={card} />;
 
     case 'TA': // 데이터 조회 테이블
-      return <DataComponent />;
+      return <DataComponent card={card} />;
 
     // case 'STA': // 단일 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
