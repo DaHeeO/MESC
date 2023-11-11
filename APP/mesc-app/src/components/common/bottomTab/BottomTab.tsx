@@ -140,7 +140,7 @@ function BottompTab() {
       />
       <Tab.Screen
         name="Chat"
-        component={Test}
+        component={Chat}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Message" />
