@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
-import * as S from './ChatbotMessage.styles';
+import * as S from './QueryResultMessage.styles';
 import {cardState} from '../../states/CardState';
 import {useRecoilValue} from 'recoil';
 import {Card} from '../../states/CardState';
 
-function ChatbotMessage(props: {card: Card}) {
+function QueryResultMessage(props: {card: Card}) {
   const [dynamicWidth, setDynamicWidth] = useState<number>(250);
   const {card} = props;
   const context = card.content;
@@ -56,4 +56,4 @@ function ChatbotMessage(props: {card: Card}) {
   );
 }
 
-export default ChatbotMessage;
+export default QueryResultMessage;

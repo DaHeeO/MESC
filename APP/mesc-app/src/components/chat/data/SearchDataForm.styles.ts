@@ -29,7 +29,6 @@ export const ImageBox = styled.View`
 `;
 
 export const SearchText = styled.TextInput`
-  //   border: 3px solid black;
   height: 50px;
   margin-left: 5px;
   font-size: 15px;

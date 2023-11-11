@@ -11,10 +11,13 @@ import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
 import {InputState} from '../../states/InputState';
+import {BlockResponseData} from '../../states/BlockResponseState';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+
+  const [block, setBlock] = useRecoilState(BlockResponseData);
 
   const [inputState, setInputState] = useRecoilState(InputState);
 
@@ -107,20 +110,36 @@ function ChatInput() {
     if (input.trim() !== '') {
       //토큰
 
-      const usermessage = input.trim().toUpperCase();
+      const userMessage = input.trim().toUpperCase();
 
       setChatbotHistory(prev => [
         ...prev,
-        <UserMessage message={usermessage} />,
+        <UserMessage message={userMessage} />,
       ]);
 
       // 조회
+      if (userMessage.startsWith('SELECT')) {
+        const response = await getBlock(9, {query: userMessage});
+        console.log(response);
+        setBlock(response);
+      }
 
       // 수정, 추가, 삭제
-      if (input.startsWith('SELECT')) {
-        console.log('셀렉트하십쇼');
+      else if (
+        userMessage.startsWith('UPDATE') ||
+        userMessage.startsWith('INSERNT') ||
+        userMessage.startsWith('DELETE')
+      ) {
+        const response = await getBlock(8, {query: userMessage});
+        setBlock(response);
+
+        // 쿼리 에러 발생 했을 때 처리
+        // 인풋창에 그대로 두기
+        if (response.cardList[1].content.toLowerCase().includes('error')) {
+          setInput(input);
+        }
       }
-      setInput(''); // 입력 필드 지우기
+      setInput(''); // 입력 필드 지우기.
     } else {
       Alert.alert('데이터 조작일 때만 사용 가능합니다.');
     }
