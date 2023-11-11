@@ -66,23 +66,23 @@ function DataComponent(props: {card: Card}) {
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState<String | TableData>();
 
-  // const openModal = () => {
-  //   setModalVisible(true);
-  // };
+  const openModal = () => {
+    setModalVisible(true);
+  };
 
-  // const closeModal = () => {
-  //   setModalVisible(false);
-  // };
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
-  // const handleFirstSectionPress = () => {
-  //   setModalData(data1); // 첫 번째 섹션 데이터 설정
-  //   setModalVisible(true);
-  // };
+  const handleFirstSectionPress = () => {
+    setModalData(data1); // 첫 번째 섹션 데이터 설정
+    setModalVisible(true);
+  };
 
-  // const handleThirdSectionPress = () => {
-  //   setModalData(data2); // 세 번째 섹션 데이터 설정
-  //   setModalVisible(true);
-  // };
+  const handleThirdSectionPress = () => {
+    setModalData(data2); // 세 번째 섹션 데이터 설정
+    setModalVisible(true);
+  };
 
   // 카드 테이블이 존재하면(select문 성공 시)
   const tableData: TableData | null | undefined = card.table;
@@ -168,9 +168,12 @@ function DataComponent(props: {card: Card}) {
         // height="45%"
         // style={{backgroundColor: 'red'}}
         >
-          {/* <TouchableOpacity onPress={handleFirstSectionPress}> */}
           {/* 첫 번째 섹션: data1 렌더링 */}
-          <DataBox table={tableData} title={dataTitle} />
+          <DataBox
+            table={tableData}
+            title={dataTitle}
+            onPress={() => handleFirstSectionPress}
+          />
           {/* </TouchableOpacity> */}
         </S.DataSection>
 
@@ -187,16 +190,23 @@ function DataComponent(props: {card: Card}) {
             <View>
               {/* data2가 string 타입이 아니면 table prop으로 넘기고, string 타입이면 query prop으로 넘깁니다. */}
               {typeof data2 === 'string' ? (
-                <DataBox query={data2} />
+                <DataBox
+                  query={data2}
+                  onPress={() => handleThirdSectionPress}
+                />
               ) : (
-                <DataBox table={data2 as TableData} title={singleTableTitle} />
+                <DataBox
+                  table={data2 as TableData}
+                  title={singleTableTitle}
+                  onPress={() => handleThirdSectionPress}
+                />
               )}
             </View>
           )}
           {/* </TouchableOpacity> */}
         </S.DataSection>
       </S.DataContainer>
-      <Modal
+      {/* <Modal
         visible={isModalVisible}
         onRequestClose={() => setModalVisible(false)}
         transparent={false}
@@ -206,7 +216,7 @@ function DataComponent(props: {card: Card}) {
         ) : (
           <DataBox table={modalData as TableData} title={singleTableTitle} />
         )}
-      </Modal>
+      </Modal> */}
     </View>
   );
 }

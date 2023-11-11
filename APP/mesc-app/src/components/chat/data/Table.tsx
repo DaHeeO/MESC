@@ -1,5 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {View, Dimensions, ScrollView} from 'react-native';
+import {
+  View,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  Text,
+} from 'react-native';
 import * as S from './Teble.styles';
 import {useRecoilValue} from 'recoil';
 import {TableTitleState} from '../../../states/DataTitleState';
@@ -8,14 +15,29 @@ type TableProps = {
   title?: string;
   header: string[];
   typeHeader: string[];
-  body: any[][]; // or string[][]
-  // 다른 props들이 있다면 여기에 추가
+  body: any[][];
 };
 
 const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
   const [columnWidths, setColumnWidths] = useState<number[]>(
     new Array(header.length).fill(0),
   );
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<{
+    rowIndex: number;
+    content: string[];
+  } | null>(null);
+
+  // 셀 클릭 이벤트 핸들러
+  const handleRowPress = (rowIndex: any, row: any) => {
+    console.log(`Row ${rowIndex} was pressed`, row);
+    setSelectedRow({rowIndex, content: row});
+    setModalVisible(true);
+  };
+
+  // 모달 숨기는 함수
+  const hideModal = () => setModalVisible(false);
+
   const dataTitle = useRecoilValue(TableTitleState);
 
   const horizontalScrollRef = useRef(null);
@@ -78,18 +100,35 @@ const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
               nestedScrollEnabled={true}
               showsVerticalScrollIndicator={false}>
               {body.map((row, rowIndex) => (
-                <View key={`row-${rowIndex}`} style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                  key={`row-${rowIndex}`}
+                  style={{flexDirection: 'row'}}
+                  onPress={() => handleRowPress(rowIndex, row)}>
                   {row.map((cell, cellIndex) => (
                     <S.CellBox key={`cell-${rowIndex}-${cellIndex}`}>
                       <S.Cell>{cell}</S.Cell>
                     </S.CellBox>
                   ))}
-                </View>
+                </TouchableOpacity>
               ))}
             </ScrollView>
           </View>
         </ScrollView>
       </S.Body>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={hideModal}>
+        <View style={{marginTop: 50, backgroundColor: 'white', padding: 20}}>
+          {/* 선택된 셀의 내용을 표시 */}
+          <Text>Selected Cell: {selectedRow?.rowIndex}</Text>
+          {/* 모달을 닫는 버튼 */}
+          <TouchableOpacity onPress={hideModal}>
+            <Text>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </S.Container>
   );
 };
