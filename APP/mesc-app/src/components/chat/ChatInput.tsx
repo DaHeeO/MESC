@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {ScrollView, TouchableOpacity, Alert} from 'react-native';
+import {ScrollView, TouchableOpacity, Alert, View, Text} from 'react-native';
 import axios, {Axios, AxiosResponse} from 'axios';
 import _, {set} from 'lodash';
 import * as S from './ChatInput.styles';
@@ -11,11 +11,30 @@ import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
 import {InputState} from '../../states/InputState';
+//style
+import hiddenStart from '../../assets/icons/hiddenStart.svg';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
 
+  // plus 버튼 눌렀을 때 효과
+  const [inputShow, setInputShow] = useState(false);
+  const [inputHeight, setInputHeight] = useState('70px');
+  const [inputJustify, setInputJustify] = useState('center');
+  const [showBox, setShowBox] = useState('none');
+
+  useEffect(() => {
+    if (inputShow == true) {
+      setInputHeight('150px');
+      setInputJustify('flex-start');
+      setShowBox('flex');
+    } else {
+      setInputHeight('auto');
+      setInputJustify('center');
+      setShowBox('none');
+    }
+  }, [inputShow]);
   const [inputState, setInputState] = useRecoilState(InputState);
 
   const [input, setInput] = useState('');
@@ -164,23 +183,50 @@ function ChatInput() {
           </ScrollView>
         </S.SuggestionsBox>
       )}
-      <S.ChatInput>
-        <S.PlusBox>
-          <Plus />
-        </S.PlusBox>
-        <S.InputBox
-          value={input}
-          onChangeText={handleInputChange}
-          onBlur={handleInputBlur}
-          onFocus={handleInputFocus}
-          placeholder="검색어를 입력해주세요."
-          multiline={true}
-          returnKeyType="go"
-          editable={inputState ? true : false}
-        />
-        <S.SendBox>
-          <Send onPress={handleSendButtonPress} />
-        </S.SendBox>
+      <S.ChatInput height={inputHeight} justifyContent={inputJustify}>
+        <S.OtherContainer>
+          <S.PlusBox
+            onPress={() => {
+              setInputShow(!inputShow);
+            }}>
+            <Plus />
+          </S.PlusBox>
+          <S.InputBox
+            value={input}
+            onChangeText={handleInputChange}
+            onBlur={handleInputBlur}
+            onFocus={handleInputFocus}
+            placeholder="검색어를 입력해주세요."
+            multiline={true}
+            returnKeyType="go"
+            editable={inputState ? true : false}
+          />
+          <S.SendBox>
+            <Send onPress={handleSendButtonPress} />
+          </S.SendBox>
+        </S.OtherContainer>
+        <S.HiddenContainer display={showBox}>
+          <S.MenuBox margin="15px">
+            <S.MenuBox width="100%" height="65%">
+              <S.Img source={hiddenStart} />
+            </S.MenuBox>
+            <S.MenuBox width="100%" height="35%">
+              <Text style={{color: 'black'}}>처음으로</Text>
+            </S.MenuBox>
+          </S.MenuBox>
+          <S.MenuBox margin="15px">
+            <S.MenuBox width="100%" height="65%"></S.MenuBox>
+            <S.MenuBox width="100%" height="35%">
+              <Text style={{color: 'black'}}>데이터 조작</Text>
+            </S.MenuBox>
+          </S.MenuBox>
+          <S.MenuBox margin="15px">
+            <S.MenuBox width="100%" height="65%"></S.MenuBox>
+            <S.MenuBox width="100%" height="35%">
+              <Text style={{color: 'black'}}>보고하기</Text>
+            </S.MenuBox>
+          </S.MenuBox>
+        </S.HiddenContainer>
       </S.ChatInput>
     </S.Input>
   );
