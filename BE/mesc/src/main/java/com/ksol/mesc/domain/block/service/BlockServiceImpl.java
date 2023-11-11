@@ -392,7 +392,6 @@ public class BlockServiceImpl implements BlockService {
 				break;
 			case QTX:    // insert,update,delete 결과
 				cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
-				cardMap.put("cardType", CardType.TX);
 				break;
 			case RE:    //보고
 				LinkedHashMap<String, List<LinkedHashMap<String, Object>>> m = (LinkedHashMap<String, List<LinkedHashMap<String, Object>>>)userService.selectAllUser();
