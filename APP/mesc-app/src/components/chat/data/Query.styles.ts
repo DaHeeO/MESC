@@ -1,15 +1,20 @@
 import styled from 'styled-components/native';
 
-export const QueryBox = styled.View`
+export const QueryBox = styled.TouchableOpacity`
   padding: 10px;
   flex: 1;
-  // background-color: aqua;
   width: 100%;
-  // border: 1px solid #e9e9e9;
-  // border: 1px red;
-  /* 추가적인 스타일링 */
+  background-color: white;
+  border: 1px red;
 `;
 
 export const Query = styled.Text`
   font-size: 15px;
+`;
+
+export const QueryContainer = styled.View`
+  background-color: white;
+  border: 1px solid green;
+  height: 700px;
+  margin-top: 58px;
 `;

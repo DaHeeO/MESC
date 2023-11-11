@@ -10,17 +10,23 @@ import {
 import * as S from './Teble.styles';
 import {useRecoilValue} from 'recoil';
 import {TableTitleState} from '../../../states/DataTitleState';
+import DataBox from './DataBox';
 
 type TableProps = {
   title?: string;
-  header: string[];
-  typeHeader: string[];
-  body: any[][];
+  columnName: string[];
+  columnType: string[];
+  rowList: any[][];
 };
 
-const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
+const Table: React.FC<TableProps> = ({
+  title,
+  columnName,
+  columnType,
+  rowList,
+}) => {
   const [columnWidths, setColumnWidths] = useState<number[]>(
-    new Array(header.length).fill(0),
+    new Array(columnName.length).fill(0),
   );
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
@@ -83,14 +89,14 @@ const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <View>
             <View style={{flexDirection: 'row'}}>
-              {header.map((column, index) => (
+              {columnName.map((column, index) => (
                 <S.ColumnInfoBox key={`header-${index}`}>
                   <S.ColumnName>{column}</S.ColumnName>
                 </S.ColumnInfoBox>
               ))}
             </View>
             <View style={{flexDirection: 'row'}}>
-              {typeHeader.map((type, index) => (
+              {columnType.map((type, index) => (
                 <S.ColumnInfoBox key={`type-${index}`}>
                   <S.ColumnType>{type}</S.ColumnType>
                 </S.ColumnInfoBox>
@@ -99,7 +105,7 @@ const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
             <ScrollView
               nestedScrollEnabled={true}
               showsVerticalScrollIndicator={false}>
-              {body.map((row, rowIndex) => (
+              {rowList.map((row, rowIndex) => (
                 <TouchableOpacity
                   key={`row-${rowIndex}`}
                   style={{flexDirection: 'row'}}
@@ -120,14 +126,18 @@ const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
         transparent={true}
         visible={isModalVisible}
         onRequestClose={hideModal}>
-        <View style={{marginTop: 50, backgroundColor: 'white', padding: 20}}>
-          {/* 선택된 셀의 내용을 표시 */}
-          <Text>Selected Cell: {selectedRow?.rowIndex}</Text>
+        <S.ModalContainer>
           {/* 모달을 닫는 버튼 */}
           <TouchableOpacity onPress={hideModal}>
             <Text>Close</Text>
           </TouchableOpacity>
-        </View>
+          <Table
+            title={title}
+            columnName={columnName}
+            columnType={columnType}
+            rowList={rowList}
+          />
+        </S.ModalContainer>
       </Modal>
     </S.Container>
   );

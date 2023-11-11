@@ -40,9 +40,9 @@ const DataBox: React.FC<DataBoxProps> = ({title, table, query, onPress}) => {
       return (
         <Table
           title={title}
-          header={table.columnNameList}
-          typeHeader={table.columnTypeList}
-          body={table.rowList}
+          columnName={table.columnNameList}
+          columnType={table.columnTypeList}
+          rowList={table.rowList}
         />
       );
     } else if (query) {

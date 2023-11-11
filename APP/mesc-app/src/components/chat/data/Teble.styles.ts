@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import {colors} from '../../common/Theme';
 
 export const Container = styled.View`
+  background-color: ${colors.icy};
   flex-direction: column;
   flex: 1;
   // border: 1px solid green;
@@ -49,3 +50,10 @@ export const ColumnName = styled.Text``;
 export const ColumnType = styled.Text``;
 
 export const Cell = styled.Text``;
+
+export const ModalContainer = styled.View`
+  background-color: ${colors.icy};
+  border: 1px solid green;
+  height: 700px;
+  margin-top: 58px;
+`;
