@@ -41,7 +41,7 @@ function Chat() {
     setChatbotHistory(prev => [...prev, chatbotBlock]);
   }, [block]);
 
-  const makeChatbotBlock = useCallback((data: any) => {
+  const makeChatbotBlock = (data: any) => {
     // section 값에 따라 조건부 렌더링
     let buttonComponent;
     if (data.section === 1) {
@@ -64,7 +64,7 @@ function Chat() {
         {buttonComponent}
       </>
     );
-  }, []);
+  };
 
   // chatbotHistory 변경될 때마다 스크롤
   useEffect(() => {
