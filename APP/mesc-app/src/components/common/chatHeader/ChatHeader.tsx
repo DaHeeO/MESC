@@ -1,8 +1,9 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import Back from '../../../assets/icons/chatbotback2.svg';
 import Dots from '../../../assets/icons/dots.svg';
 import styled from 'styled-components/native';
+import {useNavigation} from '@react-navigation/native';
 
 export const HeaderBody = styled.View`
   position: 'fixed';
@@ -26,6 +27,11 @@ export const Text = styled.Text`
 `;
 
 function Header() {
+  const navigation: any = useNavigation();
+  const handleBackPress = () => {
+    navigation.navigate('Main');
+  };
+
   return (
     <HeaderBody>
       <View
@@ -34,7 +40,9 @@ function Header() {
           display: 'flex',
           justifyContent: 'center',
         }}>
-        <Back style={{marginLeft: 20, justifyContent: 'center'}} />
+        <TouchableOpacity onPress={handleBackPress}>
+          <Back style={{marginLeft: 20, justifyContent: 'center'}} />
+        </TouchableOpacity>
       </View>
       <View style={{width: '80%', display: 'flex', justifyContent: 'center'}}>
         <Text>MESC</Text>

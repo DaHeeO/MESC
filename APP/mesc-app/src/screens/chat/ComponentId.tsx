@@ -15,6 +15,7 @@ import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBo
 import customAxios from '../../../Api';
 import {useRecoilState} from 'recoil';
 import {Card, cardState} from '../../states/CardState';
+import QueryResultMessage from '../../components/chat/QueryResultMessage';
 
 interface ChatComponentIdSwitchProps {
   chatComponentId?: string;
@@ -48,6 +49,8 @@ export function ChatComponentIdSwitch(card: Card) {
 
     // case 'QTA': // 쿼리입력(SELECT)에 따른 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
+    case 'QU':
+      return <Table header={[]} typeHeader={[]} body={[]} />;
 
     // case 'ML': // 데이터 조회 시 공정 리스트
     //   return (
@@ -67,6 +70,9 @@ export function ChatComponentIdSwitch(card: Card) {
 
     // // case 'RE': // 보고 눌렀을 때 나오는 창
     // //   return < />;
+
+    case 'QTX':
+      return <QueryResultMessage card={card} />;
 
     case 'CH1': // 작업자 시작 화면
       return <ChatbotStartBoxOne card={card} />;

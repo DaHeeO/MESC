@@ -31,7 +31,6 @@ function UserMessage(props: {message: string}) {
       <S.TextBox>
         <Text
           style={{
-            // fontSize: 15,
             textAlign: 'left',
             color: 'white',
             letterSpacing: 1,

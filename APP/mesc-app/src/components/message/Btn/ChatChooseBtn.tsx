@@ -31,7 +31,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       blockId = 12;
     } else if (props.btnTitle === '보고하기') {
       blockId = 6;
-    } else if (props.btnTitle === '데이터 조작') {
+    } else if (props.btnTitle === 'DB 조작') {
       blockId = 7;
     }
     putBlockToRecoil(blockId);

@@ -23,7 +23,7 @@ export const PlusBox = styled.View`
 `;
 
 export const InputBox = styled.TextInput`
-  width: 80%;
+  width: 90%;
   height: auto;
   max-height: 100px;
   padding-left: 15px;
@@ -85,7 +85,6 @@ export const WordBox = styled.View<{length?: number}>`
 `;
 
 export const WordText = styled.Text`
-  // color: #ffffff; // 흰색 폰트
-  // margin: 5px;
+  color: black; // 흰색 폰트
   // 추가적인 폰트 스타일링을 여기에 넣을 수 있습니다.
 `;
