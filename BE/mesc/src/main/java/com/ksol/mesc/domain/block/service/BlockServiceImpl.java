@@ -115,7 +115,6 @@ public class BlockServiceImpl implements BlockService {
 		Integer sectionId = 0;
 		if (!byBlockId.isEmpty()) {
 			sectionId = byBlockId.get(0).getSectionType();
-			System.out.println("byBlockId = " + byBlockId.get(0));
 		}
 		objMap.put("section", sectionId);
 		return objMap;
@@ -381,11 +380,18 @@ public class BlockServiceImpl implements BlockService {
 				cardMap.put("singleTable", requestPostToMes("/developer/data", cardReqDto, cardType));
 				break;
 			case QU:    //select 쿼리 입력
-				cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
+				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery());
+				Boolean result = (Boolean)tableByQuery.get("result");
+				cardMap.put("result", result);
+				if(result) {
+					tableByQuery.remove("result");
+					cardMap.put("table", tableByQuery);
+				} else {
+					cardMap.putAll(tableByQuery);
+				}
 				break;
 			case QTX:    // insert,update,delete 결과
 				cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
-				cardMap.put("cardType", CardType.TX);
 				break;
 			case RE:    //보고
 				LinkedHashMap<String, List<LinkedHashMap<String, Object>>> m = (LinkedHashMap<String, List<LinkedHashMap<String, Object>>>)userService.selectAllUser();
