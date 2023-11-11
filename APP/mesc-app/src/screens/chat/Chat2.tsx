@@ -50,7 +50,8 @@ function Chat() {
       buttonComponent = <ChatChooseSection2 />;
     }
 
-    setInputState(data.isPossible);
+    // setInputState(data.isPossible);
+    setInputState(true);
 
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
     const cardComponents = data.cardList.map((card: any, index: any) => (
