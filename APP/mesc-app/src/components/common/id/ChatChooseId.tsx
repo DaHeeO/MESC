@@ -10,7 +10,7 @@ import {useRecoilState} from 'recoil';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
 
 interface chatBtnprops {
-  onPress: () => any;
+  onPress: () => void;
 }
 
 export const GoStartChat = () => {

@@ -71,25 +71,28 @@ function Test() {
     );
   }, []);
 
-  // useEffect(() => {
-  //   customAxios
-  //     .post(`block/${role}`, {})
-  //     .then(response => {
-  //       const data = response.data.data;
-  //       console.log(data.cardList);
-  //       data.cardList.map((card: any) => {
-  //         console.log(card);
-  //       });
+  useEffect(() => {
+    customAxios
+      .post(`block/${role}`, {})
+      .then(response => {
+        const data = response.data.data;
+        console.log(data.cardList);
+        data.cardList.map((card: any) => {
+          console.log(card);
+        });
 
-  //       const rr = render1(data);
-  //       setChatbotHistory(prev => [...prev, rr]);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
-  // console.log(chatbotHistory);
+        const rr = render1(data);
+        setChatbotHistory(prev => [...prev, rr]);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+  console.log(chatbotHistory);
 
+
+
+  
   return (
     <S.Container>
       <Header />

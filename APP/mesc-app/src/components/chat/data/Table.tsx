@@ -4,10 +4,9 @@ import {View, Dimensions, ScrollView} from 'react-native';
 import * as S from './Teble.styles';
 // Components
 import {ConditionModify} from '../../common/id/ChatChooseId';
-import { useRecoilState } from 'recoil';
-import { ConditionModifyState } from '../../../states/BottomSheetState';
-import { modalIdState } from '../../../states/ModalIdState';
-
+import {useRecoilState} from 'recoil';
+import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {modalIdState} from '../../../states/ModalIdState';
 
 type TableProps = {
   header: string[];
@@ -17,13 +16,14 @@ type TableProps = {
   onPress: () => void;
 };
 
-const Table: React.FC<TableProps> = (props:TableProps) => {
+const Table: React.FC<TableProps> = (props: TableProps) => {
   const [columnWidths, setColumnWidths] = useState<number[]>(
     new Array(props.header.length).fill(0),
   );
 
-    const [openCoditionForm, setOpenCoditionForm] = useRecoilState(ConditionModifyState);
-    const [modalId, setModalId] = useRecoilState(modalIdState); 
+  const [openCoditionForm, setOpenCoditionForm] =
+    useRecoilState(ConditionModifyState);
+  const [modalId, setModalId] = useRecoilState(modalIdState);
 
   const horizontalScrollRef = useRef(null);
 
@@ -58,12 +58,12 @@ const Table: React.FC<TableProps> = (props:TableProps) => {
           height="100%"
           justifyContent="center"
           alignItems="flex-end">
-          <ConditionModify onPress={
-            setOpenCoditionForm(!openCoditionForm);
-            setModalId(switchModalId('CF'));
-            console.log('조건변경: ', openCoditionForm
-            );
-          } />
+          <ConditionModify
+            onPress={
+              setOpenCoditionForm(!openCoditionForm);
+              console.log('조건변경: ', openCoditionForm);
+            }
+          />
         </S.Container>
       </S.Header>
       <S.Body>
