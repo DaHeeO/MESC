@@ -50,25 +50,14 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       height={props.height}
       border={props.bordercolor}
       onPress={props.onPress}>
-    <ChooseBtnBody onPress={handle}>
       {/* icon 자리 */}
-      <BtnContainer
-        width="25%"
-        // style={{backgroundColor: 'pink'}}
-      >
+      <BtnContainer width="25%" /* style={{backgroundColor: 'pink'}} */>
         {/* ';아이콘 넘기 */}
         {props.icon}
       </BtnContainer>
       {/* 버튼 내용 자리 */}
-      <BtnContainer
-        width="65%"
-        // style={{backgroundColor: 'skyblue'}}
-      >
-<<<<<<< HEAD
-        <Text style={{color: 'black'}}>{props.btnTitle}</Text>
-=======
+      <BtnContainer width="65%" /* style={{backgroundColor: 'skyblue'}} */>
         <Text style={{color: 'grey'}}>{props.btnTitle}</Text>
->>>>>>> 51454eb09e7c80b95d87f79a4bc91c660204fbd8
       </BtnContainer>
     </ChooseBtnBody>
   );

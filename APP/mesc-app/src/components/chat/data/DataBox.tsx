@@ -9,6 +9,7 @@ type DataBoxProps = {
     columnNameList: string[];
     columnTypeList: string[];
     rowList: string[][];
+    // onPress: () => void;
   };
   query?: string;
 };

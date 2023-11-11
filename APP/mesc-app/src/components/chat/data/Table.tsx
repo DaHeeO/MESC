@@ -13,7 +13,7 @@ type TableProps = {
   typeHeader: string[];
   body: any[][]; // or string[][]
   // 다른 props들이 있다면 여기에 추가
-  onPress: () => void;
+  // onPress: () => void;
 };
 
 const Table: React.FC<TableProps> = (props: TableProps) => {
@@ -58,12 +58,13 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
           height="100%"
           justifyContent="center"
           alignItems="flex-end">
-          {/* <ConditionModify
-            onPress={
+          <ConditionModify
+            onPress={() => {
               setOpenCoditionForm(!openCoditionForm);
-              console.log('조건변경: ', openCoditionForm);
-            }
-          /> */}
+              setModalId('CF');
+              // console.log('조건변경: ', openCoditionForm);
+            }}
+          />
         </S.Container>
       </S.Header>
       <S.Body>

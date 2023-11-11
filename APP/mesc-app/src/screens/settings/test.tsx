@@ -1,25 +1,31 @@
 // React
-import React, {useEffect, useCallback, useState} from 'react';
+import React, {useEffect, useCallback, useState, useRef} from 'react';
 //Styled
-import {ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import * as S from '../chat/Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
 // Components
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
-import {customAxios} from '../../../Api';
 import {RecoilState, useRecoilState, useRecoilValue} from 'recoil';
 import {ChatComponentIdSwitch} from '../chat/ComponentId';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import {Card} from '../../states/CardState';
 import DataComponent from '../../components/chat/data/DataComponent';
+import ChatInput from '../../components/chat/ChatInput';
+import {BlockResponseData} from '../../states/BlockResponseState';
+import {InputState} from '../../states/InputState';
+
 //BottomSheet
 import {ModalIdSwitch} from '../../components/common/id/ModalId';
 import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal1';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import {modalIdState} from '../../states/ModalIdState';
+
+//Api
+import {getBlock} from '../../../Api';
 
 interface BlockProps {
   cardList: Card[];
@@ -31,6 +37,7 @@ function Test() {
   // 원하는 모달 띄우기 (모달은 채팅 하단에 있음)
   const modalId = useRecoilValue(modalIdState);
   const realModalId = ModalIdSwitch({modalId});
+  // console.log('realModalId', realModalId);
 
   // const ModalState: RecoilState<string> = 'ConditionModifyState';
 
@@ -39,54 +46,81 @@ function Test() {
 
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+  const [block, setBlock] = useRecoilState(BlockResponseData);
 
-  const role = 12; // 11: 작업자, 12: 개발자
+  const [inputState, setInputState] = useRecoilState(InputState);
 
-  const render1 = useCallback((props: BlockProps) => {
-    const sectionId = props.section;
-    // console.log('asdfafd', props.cardList);
+  const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
-    const renderComponents: any = [];
+  useEffect(() => {
+    const role = 12;
+    putBlockToRecoil(role);
+  }, []);
 
-    props.cardList.map((card: any) => {
-      // console.log('여기와?');
-      const value = ChatComponentIdSwitch(card);
-      renderComponents.push(value);
+  useEffect(() => {
+    if (block.blockId === 0) return;
+    const chatbotBlock = makeChatbotBlock(block);
+    setChatbotHistory(prev => [...prev, chatbotBlock]);
+  }, [block]);
 
-      // ChatComponentIdSwitch(card.cardType);
-    });
+  const makeChatbotBlock = useCallback((data: any) => {
+    // section 값에 따라 조건부 렌더링
+    let buttonComponent;
+    if (data.section === 1) {
+      buttonComponent = <ChatChooseSection1 />;
+    } else if (data.section === 2) {
+      buttonComponent = <ChatChooseSection2 />;
+    }
+
+    setInputState(data.isPossible);
+
+    // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
+    const cardComponents = data.cardList.map((card: any, index: any) => (
+      <View key={index}>{ChatComponentIdSwitch(card)}</View>
+    ));
 
     return (
       <>
         <ChatbotProfile />
-        {renderComponents.map((component: any) => component)}
-        {sectionId == 0 ? (
-          <></>
-        ) : sectionId == 1 ? (
-          <ChatChooseSection1 />
-        ) : (
-          <ChatChooseSection2 />
-        )}
+        {cardComponents}
+        {buttonComponent}
       </>
     );
   }, []);
 
+  // chatbotHistory 변경될 때마다 스크롤
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatbotHistory]);
+
+  const scrollToBottom = () => {
+    chatLayoutRef.current?.scrollToEnd({animated: true});
+  };
+
+  const putBlockToRecoil = async (blockId: number) => {
+    const newBlock = await getBlock(blockId, {});
+    if (newBlock) setBlock(newBlock);
+  };
+
   return (
     <S.Container>
       <Header />
-      {/* 챗봇 메세지 보이는 화면 */}
       <S.ChatLayout>
-        <ScrollView>
-          <>{chatbotHistory[1]}</>
+        <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
+          {chatbotHistory.map((component, index) => (
+            // chatbotHistory 배열 순회하며 컴포넌트 렌더링
+            <View key={index}>{component}</View>
+          ))}
           <DataComponent />
         </ScrollView>
-        <BottomSheet
-          isModalVisible={!isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
-          modalHeight={'70%'}
-          modalBreakPoint={'20%'}
-          component={`${realModalId}`} // 여기를 ID값을 받을 수 있도록
-        />
       </S.ChatLayout>
+      <BottomSheet
+        isModalVisible={!isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
+        modalHeight={'70%'}
+        modalBreakPoint={'20%'}
+        component={realModalId} // 여기를 ID값을 받을 수 있도록
+      />
+      <ChatInput />
     </S.Container>
   );
 }
