@@ -53,7 +53,7 @@ export const AboutBottomSheetModal = (props: BottomSheetProps) => {
     <BottomSheetModalProvider>
       <>
         <BtnBody width="130px" onPress={handlePresentModalPress}>
-          <Text>{props.btnTitle}</Text>
+          <Text style={{color: 'grey'}}>{props.btnTitle}</Text>
         </BtnBody>
         <BottomSheetModal
           ref={bottomSheetModalRef}

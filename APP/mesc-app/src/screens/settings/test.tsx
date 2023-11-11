@@ -11,7 +11,7 @@ import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection
 import {customAxios} from '../../../Api';
 import {RecoilState, useRecoilState, useRecoilValue} from 'recoil';
 import {ChatComponentIdSwitch} from '../chat/ComponentId';
-import {ChatbotHistoryState} from '../../states/BlockState';
+import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import {Card} from '../../states/CardState';
 import DataComponent from '../../components/chat/data/DataComponent';
 //BottomSheet
@@ -71,28 +71,6 @@ function Test() {
     );
   }, []);
 
-  useEffect(() => {
-    customAxios
-      .post(`block/${role}`, {})
-      .then(response => {
-        const data = response.data.data;
-        console.log(data.cardList);
-        data.cardList.map((card: any) => {
-          console.log(card);
-        });
-
-        const rr = render1(data);
-        setChatbotHistory(prev => [...prev, rr]);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-  console.log(chatbotHistory);
-
-
-
-  
   return (
     <S.Container>
       <Header />

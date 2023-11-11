@@ -1,27 +1,56 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Text} from 'react-native';
 import * as S from './ChatbotStartBoxTwo.styles';
 import RobotIcon2 from '../../assets/images/RobotIcon2.png';
 import ChatbotOptionBox from './ChatbotOptionBox';
-import {useRecoilValue} from 'recoil';
-import {cardState} from '../../states/CardState';
+import {useRecoilState} from 'recoil';
 import {Card} from '../../states/CardState';
-
-interface ChatbotStartBoxTwoProps {
-  handleDataBoxPress: () => void;
-  handleLogBoxPress: () => void;
-}
+import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
+import Usermessage from './UserMessage';
+import {AboutBottomSheetModal} from '../common/bottomSheet/AboutBottomModal';
+import SearchDataForm from '../../components/chat/data/SearchDataForm';
+import {getBlock} from '../../../Api';
+import {BlockResponseData} from '../../states/BlockResponseState';
 
 export const ChatbotStartBoxTwo = (props: {card: Card}) => {
+  const [block, setBlock] = useRecoilState(BlockResponseData);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
   const {card} = props;
-  let buttonName0;
-  let buttonName1;
+  let buttonName0: any;
+  let buttonName1: any;
   if (card.button !== undefined && card.button !== null) {
     buttonName0 = card.button[0].name;
     buttonName1 = card.button[1].name;
   }
-  const test1 = () => console.log('1번');
-  const test2 = () => console.log('2번');
+
+  const handleButtonPress = (buttonIndex: number) => {
+    const button = card.button?.[buttonIndex];
+    if (button?.link) {
+      const link = parseInt(button.link);
+      if (!isNaN(link)) {
+        setChatbotHistory(prev => [
+          ...prev,
+          <Usermessage message={button.name} />,
+        ]);
+        putBlockToRecoil(link);
+
+        if (buttonIndex === 0) {
+          setModalVisible(true);
+        }
+      }
+    }
+  };
+
+  const putBlockToRecoil = async (blockId: number) => {
+    const newBlock = await getBlock(blockId, {});
+    setBlock(newBlock);
+  };
+
+  const hideBottomSheetModal = () => {
+    setModalVisible(false); // 모달을 숨기도록 상태를 설정합니다.
+  };
 
   return (
     <S.ChatbotBox>
@@ -48,9 +77,24 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
       </S.MidBox>
       <S.BottomBox>
         {/* 챗봇 시작화면 옵션 선택 */}
-        <ChatbotOptionBox handleOptionPress={test1} optionTitle={buttonName0} />
-        <ChatbotOptionBox handleOptionPress={test2} optionTitle={buttonName1} />
+        <ChatbotOptionBox
+          handleOptionPress={() => handleButtonPress(0)}
+          optionTitle={buttonName0}
+        />
+        <ChatbotOptionBox
+          handleOptionPress={() => handleButtonPress(1)}
+          optionTitle={buttonName1}
+        />
       </S.BottomBox>
+      {isModalVisible && (
+        <AboutBottomSheetModal
+          btnTitle="모달 버튼"
+          modalHeight="50%"
+          modalBreakPoint="25%"
+          component={<SearchDataForm />} // 모달에 표시할 컴포넌트
+          onModalHide={hideBottomSheetModal}
+        />
+      )}
     </S.ChatbotBox>
   );
 };

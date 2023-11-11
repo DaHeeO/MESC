@@ -1,13 +1,36 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
-import {token} from './Token';
 
 // 로컬 스토리지에 accessToken 값 추출
 export async function getAccessToken() {
-  const value = token;
-  // const value = await AsyncStorage.getItem('accessToken');
+  const value = await AsyncStorage.getItem('accessToken');
   return value;
+}
+
+// 로컬 스토리지에 accessToken 값 추출
+export async function getUserName() {
+  const value = await AsyncStorage.getItem('userName');
+  return value;
+}
+
+// 로컬 스토리지에 accessToken 값 추출
+export async function getUserRole() {
+  const value = await AsyncStorage.getItem('userRole');
+  return value;
+}
+
+export async function getBlock(blockId: number, body: {}) {
+  let block: any;
+  await customAxios
+    .post(`block/${blockId}`, body)
+    .then(response => {
+      block = response.data.data;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return block;
 }
 
 // baseURL 설정

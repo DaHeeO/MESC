@@ -58,12 +58,12 @@ const Table: React.FC<TableProps> = (props: TableProps) => {
           height="100%"
           justifyContent="center"
           alignItems="flex-end">
-          <ConditionModify
+          {/* <ConditionModify
             onPress={
               setOpenCoditionForm(!openCoditionForm);
               console.log('조건변경: ', openCoditionForm);
             }
-          />
+          /> */}
         </S.Container>
       </S.Header>
       <S.Body>

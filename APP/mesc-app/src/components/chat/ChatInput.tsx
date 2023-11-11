@@ -1,23 +1,22 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {ScrollView, TouchableOpacity, Alert} from 'react-native';
 import axios, {Axios, AxiosResponse} from 'axios';
-import _ from 'lodash';
+import _, {set} from 'lodash';
 import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
-import TouchID from 'react-native-touch-id';
-import Toast from 'react-native-toast-message';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
+import {customAxios} from '../../../Api';
+import {useRecoilState, useRecoilValue} from 'recoil';
+import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
+import UserMessage from '../../components/chat/UserMessage';
+import {InputState} from '../../states/InputState';
 
-interface ChatInputProps {
-  onSendMessage: (message: string) => void;
-  onAxiosResult: (result: any) => void;
-}
+function ChatInput() {
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
 
-const isTrue = true;
-
-function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
-  const [value, setValue] = useState('');
+  const [inputState, setInputState] = useRecoilState(InputState);
 
   const [input, setInput] = useState('');
   const [keyword, setKeyword] = useState('');
@@ -33,10 +32,9 @@ function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
 
     setLoading(true);
     try {
-      const response = await axios.get(
-        'https://www.mesc.kr/api/api/mesc/autocomplete',
-        {params: {prefix: kw}},
-      );
+      const response = await customAxios.get('api/mesc/autocomplete', {
+        params: {prefix: kw},
+      });
       setSuggestions(response.data);
     } catch (error) {
       console.error('Error fetching suggestions', error);
@@ -108,43 +106,39 @@ function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
   const handleSendButtonPress = async () => {
     if (input.trim() !== '') {
       //토큰
-      const token =
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvaEBuYXZlci5jb20iLCJBdXRoIjoiREVWRUxPUEVSIiwidXNlcklkIjo0LCJleHAiOjE2OTk0NTcwOTB9.W913PphQHK-iLQKVeVsiJP6BzYihFa8wumgASorYBT4';
+
+      setChatbotHistory(prev => [
+        ...prev,
+        <UserMessage message={input.trim()} />,
+      ]);
 
       // 조회
 
       // 수정, 추가, 삭제
-      let fingerResult = await handleFingerPrint();
-      if (fingerResult === '지문인식 성공') {
-        onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
-        setInput(''); // 입력 필드 지우기
+      // let fingerResult = await handleFingerPrint();
+      // if (fingerResult === '지문인식 성공') {
+      // onSendMessage(input); // 메시지를 부모 컴포넌트인 Chat로 전송
 
-        axios
-          .post(
-            `https://www.mesc.kr/api/api/developer/query`,
-            {query: input},
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            },
-          )
-          .then(response => {
-            if (response.status == 200) {
-              // 결과 값 담기
-              // statusCode, message, data.modifiedCount
-              const result = response.data;
-              onAxiosResult(result);
-            } else {
-              console.log('에러');
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      } else {
-        // 지문인식 실패
-      }
+      setInput(''); // 입력 필드 지우기
+
+      // customAxios
+      //   .post(`api/developer/query`, {query: input})
+      //   .then(response => {
+      //     if (response.status == 200) {
+      //       // 결과 값 담기
+      //       // statusCode, message, data.modifiedCount
+      //       const result = response.data;
+      //       onAxiosResult(result);
+      //     } else {
+      //       console.log('에러');
+      //     }
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
+      // } else {
+      //   // 지문인식 실패
+      // }
     } else {
       console.log('공백입니다요');
     }
@@ -182,7 +176,7 @@ function ChatInput({onSendMessage, onAxiosResult}: ChatInputProps) {
           placeholder="검색어를 입력해주세요."
           multiline={true}
           returnKeyType="go"
-          // editable={isTrue ? true : false}
+          editable={inputState ? true : false}
         />
         <S.SendBox>
           <Send onPress={handleSendButtonPress} />

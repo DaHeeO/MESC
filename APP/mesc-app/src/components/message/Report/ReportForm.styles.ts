@@ -1,10 +1,9 @@
 import styled from 'styled-components/native';
 
 export const ReportFormContainer = styled.View`
+  // background-color: yellow;
   width: 100%;
   height: 100%;
-  // background-color: yellow;
-  display: flex;
   flex-direction: column;
 `;
 
@@ -73,4 +72,27 @@ export const CustomTextArea = styled.TextInput`
   border-radius: 12px;
   background-color: #fff;
   margin-top: 25px;
+`;
+
+export const UserTag = styled.TouchableOpacity`
+  background-color: #f5f8fc;
+  flex-direction: row;
+  border-radius: 14px;
+  width: 70px;
+  height: 70%;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+`;
+
+export const ReportTouchContainer = styled.TouchableOpacity<ReportContainerProps>`
+  // border: 1px solid blue;
+  box-sizing: border-box;
+  height: ${props => props.height || 'auto'};
+  width: ${props => props.width || 'auto'};
+  display: flex;
+  justify-content: ${props => props.justifyContent || 'center'};
+  align-items: ${props => props.alignItems || 'center'};
+  flex-direction: ${props => props.direction || 'rows'};
+  flex-shrink: 0;
 `;

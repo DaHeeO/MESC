@@ -44,6 +44,7 @@ function ChatbotMessage(props: {card: Card}) {
           style={{
             fontSize: 14,
             textAlign: 'left',
+            color: 'grey',
             fontWeight: 'bold',
           }}>
           {context}

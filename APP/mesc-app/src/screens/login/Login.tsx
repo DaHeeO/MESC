@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as S from './Login.styles';
 
 import BoxChecked from '../../components/loginComponent/BoxChecked';
@@ -12,12 +13,26 @@ import EyeOff from '../../assets/icons/eye-off.svg';
 import Lock from '../../assets/icons/lock.svg';
 import FindId from './FindId';
 import FindPassword from './FindPassword';
+import customAxios from '../../../Api';
 
 interface LoginProps {
   navigation: any;
 }
 
 const Login = ({navigation}: LoginProps) => {
+  const [loginId, setLoginId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const pressedLoginButton = async () => {
+    AsyncStorage.clear();
+    // 앱이 꺼졌을 때 토큰을 유지할지 말지 정해야함
+    // 유지한다면, 한번 로그인하면 로그인 창이 다시 뜰 필요가 없음
+    if (await doLogin()) {
+      // console.log('aaa');
+      navigation.navigate('Intro');
+    }
+  };
+
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -28,6 +43,29 @@ const Login = ({navigation}: LoginProps) => {
 
   const toggleCheckBox = () => {
     setIsRemembered(!isRemebered);
+  };
+
+  const doLogin = async () => {
+    let loginPass = false;
+    await customAxios
+      .post(`mesc/user/login`, {
+        email: loginId,
+        password: password,
+      })
+      .then(res => {
+        const accessToken = res.data.tokenInfo.accessToken;
+        const userName = res.data.name;
+        // console.log('usrName : ', userName);
+        const userRole = res.data.role;
+        AsyncStorage.setItem('accessToken', accessToken);
+        AsyncStorage.setItem('userName', userName);
+        AsyncStorage.setItem('userRole', userRole);
+        loginPass = true;
+      })
+      .catch(() => {
+        Alert.alert('로그인 실패');
+      });
+    return loginPass;
   };
 
   return (
@@ -44,7 +82,10 @@ const Login = ({navigation}: LoginProps) => {
           <S.InputBox>
             <S.InputDiv>
               <User />
-              <S.Input placeholder="KNOX 아이디"></S.Input>
+              <S.Input
+                placeholder="KNOX 아이디"
+                value={loginId}
+                onChangeText={id => setLoginId(id)}></S.Input>
             </S.InputDiv>
           </S.InputBox>
           {/* 비밀번호 입력창 */}
@@ -53,7 +94,9 @@ const Login = ({navigation}: LoginProps) => {
               <Lock />
               <S.Input
                 secureTextEntry={!showPassword}
-                placeholder="비밀번호"></S.Input>
+                placeholder="비밀번호"
+                value={password}
+                onChangeText={password => setPassword(password)}></S.Input>
             </S.InputDiv>
             <TouchableOpacity onPress={togglePasswordVisibility}>
               {showPassword ? <Eye /> : <EyeOff />}
@@ -85,7 +128,8 @@ const Login = ({navigation}: LoginProps) => {
             //     routes: [{name: 'Intro1'}],
             //   });
             // }}>
-            onPress={() => navigation.navigate('Intro')}>
+            // onPress={() => navigation.navigate('Intro')}
+            onPress={pressedLoginButton}>
             <S.ButtonText> 로그인 </S.ButtonText>
           </S.Button>
         </S.Bottom>
