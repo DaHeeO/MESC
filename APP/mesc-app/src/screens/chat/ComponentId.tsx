@@ -35,32 +35,14 @@ interface ChatComponentIdSwitchProps {
 }
 
 export function ChatComponentIdSwitch(card: Card) {
-  // const [card, setCard] = useRecoilState(cardState);
-
-  // useEffect(() => {
-  //   customAxios
-  //     .post('/block/12', {})
-  //     .then(response => {
-  //       // console.log('Data retrieved:', response.data);
-  //       // console.log('Data retrieved:', response.data.data.cardList);
-  //       setCard(response.data.data.cardList);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //     });
-  // }, []);
-  // console.log(1111111111111111111111111111);
-  // console.log(card);
-
   const cardType = card.cardType;
 
   switch (cardType) {
     case 'TX': // 텍스트
-      // console.log('adfadfafadf/.///////////////////');
       return <ChatbotMessage card={card} />;
 
-    // case 'TA': // 데이터 조회 테이블
-    //   return <DataComponent />;
+    case 'TA': // 데이터 조회 테이블
+      return <DataComponent />;
 
     // case 'STA': // 단일 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;

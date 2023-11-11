@@ -5,6 +5,7 @@ import Table from './Table';
 import Query from './Query';
 
 type DataBoxProps = {
+  title?: string;
   table?: {
     columnNameList: string[];
     columnTypeList: string[];
@@ -13,11 +14,12 @@ type DataBoxProps = {
   query?: string;
 };
 
-const DataBox: React.FC<DataBoxProps> = ({table, query}) => {
+const DataBox: React.FC<DataBoxProps> = ({title, table, query}) => {
   return (
     <S.DataBoxContainer>
       {table ? (
         <Table
+          title={title}
           header={table.columnNameList}
           typeHeader={table.columnTypeList}
           body={table.rowList}

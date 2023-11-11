@@ -4,13 +4,15 @@ import {colors} from '../../components/common/Theme';
 
 export const UserMessage = styled.View`
   margin-left: auto;
-  margin-top: 20px;
   border-radius: 10px;
   height: auto;
   min-height: 25px;
   align-items: center;
   justify-content: center;
   background-color: ${colors.iris};
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 3px;
 `;
 
 export const TextBox = styled.View`
