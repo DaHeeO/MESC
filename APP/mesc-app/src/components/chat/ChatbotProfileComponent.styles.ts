@@ -5,9 +5,9 @@ import {colors} from '../common/Theme';
 export const Container = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-top: 12px;
-  margin-bottom: 10px;
-  //background-color: yellow;
+  margin-top: 10px;
+  // margin-bottom: 10px;
+  background-color: yellow;
 `;
 
 export const ImgBox = styled.View`

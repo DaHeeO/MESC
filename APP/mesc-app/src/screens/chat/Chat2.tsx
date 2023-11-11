@@ -4,7 +4,6 @@ import * as S from './Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import ChatInput from '../../components/chat/ChatInput';
-import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
 import LogLevelForm from '../../components/chat/log/LogLevelForm';
@@ -19,6 +18,7 @@ import {ChatComponentIdSwitch} from './ComponentId';
 import {AboutContainer} from '../../components/common/about/AboutContainer';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import {BlockResponseData} from '../../states/BlockResponseState';
+import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {InputState} from '../../states/InputState';
 
 function Chat() {
@@ -92,6 +92,12 @@ function Chat() {
         </ScrollView>
       </S.ChatLayout>
       <ChatInput />
+      <AboutBottomSheetModal
+        btnTitle={'데이터조회'}
+        modalHeight={'70%'}
+        modalBreakPoint={'30%'}
+        component={<SearchDataForm />}
+      />
     </S.Container>
   );
 }

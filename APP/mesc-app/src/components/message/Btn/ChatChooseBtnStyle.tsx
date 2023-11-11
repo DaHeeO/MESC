@@ -5,13 +5,14 @@ interface ChooseBtnProps {
 }
 
 export const ChooseBtnBody = styled.TouchableOpacity<ChooseBtnProps>`
-  width: 110px;
-  height: 40px;
+  width: 100px;
+  height: 30px;
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
   border-radius: 10px;
   flex-direction: row;
+  // border: 3px solid green;
 `;
 
 export const BtnContainer = styled.View<ChooseBtnProps>`
@@ -19,6 +20,7 @@ export const BtnContainer = styled.View<ChooseBtnProps>`
   height: 100%;
   justify-content: center;
   align-items: center;
+  // background-color: yellow;
 `;
 
 interface IconBoxProps {
