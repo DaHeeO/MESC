@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {View, ActivityIndicator, ScrollView} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  ScrollView,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
 import {customAxios, getBlock} from '../../../../Api';
 import DataBox from './DataBox';
 import Label from './Label';
@@ -57,6 +63,26 @@ const DataComponent = () => {
   const [singleTableTitle, setSingleTableTitle] = useRecoilState(
     SingleTableTitleState,
   );
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [modalData, setModalData] = useState<String | TableData>();
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleFirstSectionPress = () => {
+    setModalData(data1); // 첫 번째 섹션 데이터 설정
+    setModalVisible(true);
+  };
+
+  const handleThirdSectionPress = () => {
+    setModalData(data2); // 세 번째 섹션 데이터 설정
+    setModalVisible(true);
+  };
 
   useEffect(() => {
     // block 상태에서 cards 데이터를 추출
@@ -139,12 +165,15 @@ const DataComponent = () => {
     <View>
       <S.DataContainer>
         <S.DataSection
-          height="45%"
-          // style={{backgroundColor: 'red'}}
+        // height="45%"
+        // style={{backgroundColor: 'red'}}
         >
-          {/* 첫 번째 섹션: data1 렌더링 */}
-          <DataBox table={data1} title={dataTitle} />
+          <TouchableOpacity onPress={handleFirstSectionPress}>
+            {/* 첫 번째 섹션: data1 렌더링 */}
+            <DataBox table={data1} title={dataTitle} />
+          </TouchableOpacity>
         </S.DataSection>
+
         <S.DataSection>
           {/* 두 번째 섹션: Label을 렌더링합니다. */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -160,22 +189,41 @@ const DataComponent = () => {
             </S.LabelContainer>
           </ScrollView>
         </S.DataSection>
-        <S.DataSection height="45%">
-          {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox를 렌더링합니다. */}
-          {loading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
-          ) : (
-            <View>
-              {/* data2가 string 타입이 아니면 table prop으로 넘기고, string 타입이면 query prop으로 넘깁니다. */}
-              {typeof data2 === 'string' ? (
-                <DataBox query={data2} />
-              ) : (
-                <DataBox table={data2 as TableData} title={singleTableTitle} />
-              )}
-            </View>
-          )}
+
+        <S.DataSection
+        // height="45%"
+        >
+          <TouchableOpacity onPress={handleThirdSectionPress}>
+            {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox를 렌더링합니다. */}
+            {loading ? (
+              <ActivityIndicator size="large" color="#0000ff" />
+            ) : (
+              <View>
+                {/* data2가 string 타입이 아니면 table prop으로 넘기고, string 타입이면 query prop으로 넘깁니다. */}
+                {typeof data2 === 'string' ? (
+                  <DataBox query={data2} />
+                ) : (
+                  <DataBox
+                    table={data2 as TableData}
+                    title={singleTableTitle}
+                  />
+                )}
+              </View>
+            )}
+          </TouchableOpacity>
         </S.DataSection>
       </S.DataContainer>
+      <Modal
+        visible={isModalVisible}
+        onRequestClose={() => setModalVisible(false)}
+        transparent={false}
+        animationType="slide">
+        {typeof modalData === 'string' ? (
+          <DataBox query={modalData} />
+        ) : (
+          <DataBox table={modalData as TableData} title={singleTableTitle} />
+        )}
+      </Modal>
     </View>
   );
 };
