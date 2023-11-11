@@ -17,16 +17,17 @@ import {
   TableTitleState,
   SingleTableTitleState,
 } from '../../../states/DataTitleState';
+import {Card} from '../../../states/CardState';
 
-type Card = {
-  cardId: number;
-  cardName?: string;
-  content: string | null;
-  cardType: string;
-  labels?: LabelItem[];
-  table?: TableData;
-  button?: ButtonItem[];
-};
+// type Card = {
+//   cardId: number;
+//   cardName?: string;
+//   content: string | null;
+//   cardType: string;
+//   labels?: LabelItem[];
+//   table?: TableData;
+//   button?: ButtonItem[];
+// };
 
 type LabelItem = {
   name: string;
@@ -50,13 +51,12 @@ type ButtonItem = {
   response: string;
 };
 
-const DataComponent = () => {
-  const [block, setBlock] = useRecoilState(BlockResponseData);
-  const [cards, setCards] = useState<Card[] | undefined>(undefined);
+function DataComponent(props: {card: Card}) {
+  const {card} = props;
   const [data1, setData1] = useState<TableData>();
   const [data2, setData2] = useState<String | TableData>();
   const [loading, setLoading] = useState(false);
-  const [labels, setLabels] = useState<LabelItem[]>([]);
+  // const [labels, setLabels] = useState<LabelItem[]>([]);
   const [query, setQuery] = useState<string>();
   const [selectedLabel, setSelectedLabel] = useState<LabelItem>();
   const [dataTitle, setDataTitle] = useRecoilState(TableTitleState);
@@ -66,59 +66,39 @@ const DataComponent = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState<String | TableData>();
 
-  const openModal = () => {
-    setModalVisible(true);
-  };
+  // const openModal = () => {
+  //   setModalVisible(true);
+  // };
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
+  // const closeModal = () => {
+  //   setModalVisible(false);
+  // };
 
-  const handleFirstSectionPress = () => {
-    setModalData(data1); // 첫 번째 섹션 데이터 설정
-    setModalVisible(true);
-  };
+  // const handleFirstSectionPress = () => {
+  //   setModalData(data1); // 첫 번째 섹션 데이터 설정
+  //   setModalVisible(true);
+  // };
 
-  const handleThirdSectionPress = () => {
-    setModalData(data2); // 세 번째 섹션 데이터 설정
-    setModalVisible(true);
-  };
+  // const handleThirdSectionPress = () => {
+  //   setModalData(data2); // 세 번째 섹션 데이터 설정
+  //   setModalVisible(true);
+  // };
 
+  // 카드 테이블이 존재하면(select문 성공 시)
+  const tableData: TableData | null | undefined = card.table;
+
+  // 'TA' labels 데이터 저장
+  let LabelSection = makeLableSection(card.labels);
+
+  // 'TA' labels의 labelType이 'q'인 것 선택된 상태로 저장
+  const queryLabel = card.labels?.find(label => label.labelType === 'q');
   useEffect(() => {
-    // block 상태에서 cards 데이터를 추출
-    const cards = block.cardList;
-    if (cards) {
-      const data1 = cards.filter(card => card.cardType === 'TA');
-
-      if (data1[0] && data1[0].table) {
-        setData1(data1[0].table);
-      }
-
-      // 'TA' labels 데이터 저장
-      const tableLabels = cards.find(card => card.cardType === 'TA')?.labels;
-      if (tableLabels) {
-        setLabels(tableLabels);
-      }
-
-      // 'TA' labels의 labelType이 'q'인 것 선택된 상태로 저장
-      const queryLabel = cards
-        .find(card => card.cardType === 'TA')
-        ?.labels?.find(label => label.labelType === 'q');
-      if (queryLabel && !selectedLabel) {
-        setSelectedLabel(queryLabel);
-        console.log('queryLabel', queryLabel);
-      }
-
-      // 'TA' labels의 labelType이 'q'인 것 query 데이터 저장
-      const cardQuery = cards
-        .find(card => card.cardType === 'TA')
-        ?.labels?.find(label => label.labelType === 'q')?.query;
-      if (cardQuery) {
-        setQuery(cardQuery);
-        setData2(cardQuery);
-      }
+    if (queryLabel && !selectedLabel) {
+      setSelectedLabel(queryLabel);
     }
-  }, [block]); // block이 변경될 때마다 실행
+    setData2(queryLabel?.query); // query를 저장합니다.
+    setQuery(queryLabel?.query);
+  }, []);
 
   // 라벨을 선택하는 함수입니다.
   const handleSelectLabel = (labelItem: LabelItem) => {
@@ -132,34 +112,54 @@ const DataComponent = () => {
   };
 
   const fetchData = async (query: string) => {
+    // console.log(
+    //   '================================================================',
+    // );
+    // console.log('query', query);
     if (!query) return;
 
     try {
-      setLoading(true);
+      // setLoading(true);
       const body = {
-        query: 'select * from user',
+        query: query,
       };
-      // await customAxios
-      //   .post(`developer/data/preview`, body)
-      //   .then(response => {
-      //     setData2(response.data.cardList[0].table); // 응답 데이터로 data2를 업데이트합니다.
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
       const response = await getBlock(9, body);
-      console.log('response', response);
       const singleTableData = response.cardList.filter(
         (card: Card) => card.cardType === 'QU',
       );
-      console.log('singleTableData', singleTableData);
-      setData2(singleTableData.table);
+      // console.log(
+      //   'singleTableData================================================================',
+      // );
+      // console.log('singleTableData.table', singleTableData[0].table);
+      setData2(singleTableData[0].table);
     } catch (error) {
       console.error('Fetching data failed: ', error);
     } finally {
-      setLoading(false); // 요청이 완료되면 로딩 상태를 해제합니다.
+      // setLoading(false); // 요청이 완료되면 로딩 상태를 해제합니다.
     }
   };
+
+  function makeLableSection(labelItems: LabelItem[] | null | undefined) {
+    if (!labelItems) return <></>;
+    return (
+      <S.DataSection>
+        {/* 두 번째 섹션: Label을 렌더링합니다. */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <S.LabelContainer>
+            {labelItems.map((labelItem, index) => (
+              <Label
+                key={index}
+                isSelected={selectedLabel?.name === labelItem.name}
+                onSelect={() => handleSelectLabel(labelItem)}
+                label={labelItem}
+                // Style might need to be added here to ensure label width is dynamic
+              />
+            ))}
+          </S.LabelContainer>
+        </ScrollView>
+      </S.DataSection>
+    );
+  }
 
   return (
     <View>
@@ -168,49 +168,32 @@ const DataComponent = () => {
         // height="45%"
         // style={{backgroundColor: 'red'}}
         >
-          <TouchableOpacity onPress={handleFirstSectionPress}>
-            {/* 첫 번째 섹션: data1 렌더링 */}
-            <DataBox table={data1} title={dataTitle} />
-          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={handleFirstSectionPress}> */}
+          {/* 첫 번째 섹션: data1 렌더링 */}
+          <DataBox table={tableData} title={dataTitle} />
+          {/* </TouchableOpacity> */}
         </S.DataSection>
 
-        <S.DataSection>
-          {/* 두 번째 섹션: Label을 렌더링합니다. */}
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <S.LabelContainer>
-              {labels.map((labelItem, index) => (
-                <Label
-                  isSelected={selectedLabel?.name === labelItem.name}
-                  onSelect={() => handleSelectLabel(labelItem)}
-                  label={labelItem}
-                  // Style might need to be added here to ensure label width is dynamic
-                />
-              ))}
-            </S.LabelContainer>
-          </ScrollView>
-        </S.DataSection>
+        {LabelSection}
 
         <S.DataSection
         // height="45%"
         >
-          <TouchableOpacity onPress={handleThirdSectionPress}>
-            {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox를 렌더링합니다. */}
-            {loading ? (
-              <ActivityIndicator size="large" color="#0000ff" />
-            ) : (
-              <View>
-                {/* data2가 string 타입이 아니면 table prop으로 넘기고, string 타입이면 query prop으로 넘깁니다. */}
-                {typeof data2 === 'string' ? (
-                  <DataBox query={data2} />
-                ) : (
-                  <DataBox
-                    table={data2 as TableData}
-                    title={singleTableTitle}
-                  />
-                )}
-              </View>
-            )}
-          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={handleThirdSectionPress}> */}
+          {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox를 렌더링합니다. */}
+          {loading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <View>
+              {/* data2가 string 타입이 아니면 table prop으로 넘기고, string 타입이면 query prop으로 넘깁니다. */}
+              {typeof data2 === 'string' ? (
+                <DataBox query={data2} />
+              ) : (
+                <DataBox table={data2 as TableData} title={singleTableTitle} />
+              )}
+            </View>
+          )}
+          {/* </TouchableOpacity> */}
         </S.DataSection>
       </S.DataContainer>
       <Modal
@@ -226,6 +209,6 @@ const DataComponent = () => {
       </Modal>
     </View>
   );
-};
+}
 
 export default DataComponent;

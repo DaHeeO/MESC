@@ -49,7 +49,6 @@ export const ButtonRow = styled.View`
 `;
 
 export const ButtonName = styled.Text`
-  //   border: 3px solid blue;
   height: 50px;
   width: 250px;
   font-size: 15px;
