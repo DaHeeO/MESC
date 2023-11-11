@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, ActivityIndicator, ScrollView} from 'react-native';
-import customAxios from '../../../../Api';
+import {customAxios, getBlock} from '../../../../Api';
 import DataBox from './DataBox';
 import Label from './Label';
 import * as S from './DataComponent.styles';
@@ -29,6 +29,7 @@ type LabelItem = {
 };
 
 type TableData = {
+  // result?: string;
   columnNameList: string[];
   columnTypeList: string[];
   rowList: string[][];
@@ -110,16 +111,23 @@ const DataComponent = () => {
     try {
       setLoading(true);
       const body = {
-        query: query,
+        query: 'select * from user',
       };
-      await customAxios
-        .post(`developer/data/preview`, body)
-        .then(response => {
-          setData2(response.data.cardList[0].table); // 응답 데이터로 data2를 업데이트합니다.
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      // await customAxios
+      //   .post(`developer/data/preview`, body)
+      //   .then(response => {
+      //     setData2(response.data.cardList[0].table); // 응답 데이터로 data2를 업데이트합니다.
+      //   })
+      //   .catch(error => {
+      //     console.log(error);
+      //   });
+      const response = await getBlock(9, body);
+      console.log('response', response);
+      const singleTableData = response.cardList.filter(
+        (card: Card) => card.cardType === 'QU',
+      );
+      console.log('singleTableData', singleTableData);
+      setData2(singleTableData.table);
     } catch (error) {
       console.error('Fetching data failed: ', error);
     } finally {
