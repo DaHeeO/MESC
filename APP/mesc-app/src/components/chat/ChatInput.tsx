@@ -12,6 +12,7 @@ import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
 import {InputState} from '../../states/InputState';
 import {BlockResponseData} from '../../states/BlockResponseState';
+import {LogSearchOption} from '../../states/LogSearchOption';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
@@ -20,6 +21,7 @@ function ChatInput() {
   const [block, setBlock] = useRecoilState(BlockResponseData);
 
   const [inputState, setInputState] = useRecoilState(InputState);
+  const [logSearchOption, setLogSearchOption] = useRecoilState(LogSearchOption);
 
   const [input, setInput] = useState('');
   const [keyword, setKeyword] = useState('');
@@ -107,51 +109,78 @@ function ChatInput() {
 
   // 전송 버튼을 눌렀을 때 처리하는 함수
   const handleSendButtonPress = async () => {
-    if (input.trim() !== '') {
-      //토큰
-
-      const userMessage = input.trim().toUpperCase();
-
-      setChatbotHistory(prev => [
-        ...prev,
-        <UserMessage message={userMessage} />,
-      ]);
-
-      if (userMessage === '/로그') {
-        const response = await getBlock(5, {});
-        setBlock(response);
+    const userMessage = input.trim();
+    setChatbotHistory(prev => [...prev, <UserMessage message={userMessage} />]);
+    if (userMessage !== '') {
+      const blockId = block.blockId;
+      // recoil에서 block가져와서 blockId에 따라 처리
+      if (blockId == 7) {
+        // 직접입력 티카타카 하드코딩 하도록...
+        queryInput(userMessage);
+      } else if (blockId == 5) {
+        const keyword = userMessage;
+        // 리코일에 추가
+        setLogSearchOption(prev => ({...prev, keyword: keyword}));
+        // setLogSearchOption({keyword: keyword, date: '', levelList: []});
+        putBlockToRecoil(13, {});
+      } else if (blockId == 13) {
+        const date = userMessage;
+        console.log('date========================================');
+        console.log(date);
+        // 리코일에 추가
+        setLogSearchOption(prev => ({...prev, date: date}));
+        console.log('logoption========================================');
+        console.log(logSearchOption);
+        putBlockToRecoil(14, {});
+      } else {
+        defaultInput(userMessage);
       }
-
-      if (userMessage === '/쿼리') {
-        const response = await getBlock(7, {});
-        setBlock(response);
-      }
-
-      // 조회
-      if (userMessage.startsWith('SELECT')) {
-        const response = await getBlock(9, {query: userMessage});
-        setBlock(response);
-      }
-
-      // 수정, 추가, 삭제
-      else if (
-        userMessage.startsWith('UPDATE') ||
-        userMessage.startsWith('INSERNT') ||
-        userMessage.startsWith('DELETE')
-      ) {
-        const response = await getBlock(8, {query: userMessage});
-        setBlock(response);
-
-        // 쿼리 에러 발생 했을 때 처리
-        // 인풋창에 그대로 두기
-        if (response.cardList[1].content.toLowerCase().includes('error')) {
-          setInput(input);
-        }
-      }
+      console.log(logSearchOption);
       setInput(''); // 입력 필드 지우기.
+    }
+  };
+
+  const defaultInput = async (userMessage: String) => {
+    if (userMessage === '/로그') {
+      putBlockToRecoil(5, {});
+    } else if (userMessage === '/쿼리') {
+      putBlockToRecoil(7, {});
+    } else {
+      const role = 12; // 나중에 개발자/관리자 구분해서 넣기
+      putBlockToRecoil(role, {});
+    }
+  };
+
+  const queryInput = async (userMessage: String) => {
+    const upperQuery = userMessage.toUpperCase();
+
+    if (upperQuery.startsWith('SELECT')) {
+      // 조회
+      const nextBlock: any = putBlockToRecoil(9, {query: userMessage});
+      // 에러처리 추가해줘야함
+    } else if (
+      // 수정, 추가, 삭제
+      upperQuery.startsWith('UPDATE') ||
+      upperQuery.startsWith('INSERNT') ||
+      upperQuery.startsWith('DELETE')
+    ) {
+      const nextBlock: any = putBlockToRecoil(8, {query: userMessage});
+
+      // 쿼리 에러 발생 했을 때 처리
+      // 인풋창에 그대로 두기
+      if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
+        setInput(input);
+      }
     } else {
       Alert.alert('데이터 조작일 때만 사용 가능합니다.');
+      putBlockToRecoil(7, {});
     }
+  };
+
+  const putBlockToRecoil = async (blockId: number, body: object) => {
+    const newBlock = await getBlock(blockId, body);
+    if (newBlock) setBlock(newBlock);
+    return newBlock;
   };
 
   return (
