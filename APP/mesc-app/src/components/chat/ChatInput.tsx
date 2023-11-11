@@ -10,18 +10,13 @@ import {customAxios} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
-
-// interface ChatInputProps {
-//   onSendMessage: (message: string) => void;
-//   onAxiosResult: (result: any) => void;
-// }
-
-const isTrue = true;
+import {InputState} from '../../states/InputState';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
-  const [value, setValue] = useState('');
+
+  const [inputState, setInputState] = useRecoilState(InputState);
 
   const [input, setInput] = useState('');
   const [keyword, setKeyword] = useState('');
@@ -181,7 +176,7 @@ function ChatInput() {
           placeholder="검색어를 입력해주세요."
           multiline={true}
           returnKeyType="go"
-          // editable={isTrue ? true : false}
+          editable={inputState ? true : false}
         />
         <S.SendBox>
           <Send onPress={handleSendButtonPress} />

@@ -24,7 +24,7 @@ function UserMessage(props: {message: string}) {
     } else {
       setDynamicWidth(200);
     }
-  }, [props.message]);
+  }, []);
 
   return (
     <S.UserMessage style={{width: dynamicWidth + 30}}>

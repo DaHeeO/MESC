@@ -19,11 +19,14 @@ import {AboutContainer} from '../../components/common/about/AboutContainer';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import {BlockResponseData} from '../../states/BlockResponseState';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
+import {InputState} from '../../states/InputState';
 
 function Chat() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   const [block, setBlock] = useRecoilState(BlockResponseData);
+
+  const [inputState, setInputState] = useRecoilState(InputState);
 
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
@@ -46,6 +49,8 @@ function Chat() {
     } else if (data.section === 2) {
       buttonComponent = <ChatChooseSection2 />;
     }
+
+    setInputState(data.isPossible);
 
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
     const cardComponents = data.cardList.map((card: any, index: any) => (
