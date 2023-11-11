@@ -117,6 +117,16 @@ function ChatInput() {
         <UserMessage message={userMessage} />,
       ]);
 
+      if (userMessage === '/로그') {
+        const response = await getBlock(5, {});
+        setBlock(response);
+      }
+
+      if (userMessage === '/쿼리') {
+        const response = await getBlock(7, {});
+        setBlock(response);
+      }
+
       // 조회
       if (userMessage.startsWith('SELECT')) {
         const response = await getBlock(9, {query: userMessage});

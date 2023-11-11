@@ -20,6 +20,8 @@ const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
 
   const horizontalScrollRef = useRef(null);
 
+  const tableHeader = makeHeader(title);
+
   const updateColumnWidths = (width: number, index: number) => {
     setColumnWidths(currentWidths => {
       const newWidths = [...currentWidths];
@@ -34,6 +36,16 @@ const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
     updateColumnWidths(width, index);
   };
 
+  function makeHeader(title: String | undefined) {
+    if (!title) return <></>;
+    return (
+      <S.Header>
+        <S.Title>{title}</S.Title>
+        <S.Button></S.Button>
+      </S.Header>
+    );
+  }
+
   // // ScrollView의 너비를 화면 크기에 맞추기 위한 state
   // const [scrollViewWidth, setScrollViewWidth] = useState(0);
 
@@ -44,10 +56,7 @@ const Table: React.FC<TableProps> = ({title, header, typeHeader, body}) => {
 
   return (
     <S.Container>
-      <S.Header>
-        <S.Title>{title}</S.Title>
-        <S.Button></S.Button>
-      </S.Header>
+      {tableHeader}
       <S.Body>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <View>
