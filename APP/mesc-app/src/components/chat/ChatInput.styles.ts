@@ -10,6 +10,7 @@ interface InputProps {
   display?: string;
   justifyContent?: string;
   source?: string;
+  marginTop?: string;
 }
 
 export const OtherContainer = styled.View<InputProps>`
@@ -18,6 +19,7 @@ export const OtherContainer = styled.View<InputProps>`
   flex-direction: row;
   align-content: center;
   align-items: center;
+  margin-top: ${({marginTop}) => (marginTop ? marginTop : '0px')};
 `;
 
 export const HiddenContainer = styled.View<InputProps>`
@@ -119,7 +121,7 @@ export const WordText = styled.Text`
 `;
 
 export const MenuBox = styled.TouchableOpacity<InputProps>`
-  border: 1px solid red;
+  // border: 1px solid red;
   width: ${({width}) => (width ? width : '80px')};
   height: ${({height}) => (height ? height : '80px')};
   margin: ${({margin}) => (margin ? margin : '0px')};
@@ -128,7 +130,8 @@ export const MenuBox = styled.TouchableOpacity<InputProps>`
   align-items: center;
 `;
 
-export const Img = styled(Image)`
-  width: 29px;
-  height: 15px;
+export const Img = styled.Image`
+  // background-color: red;
+  width: 60%;
+  height: 92%;
 `;

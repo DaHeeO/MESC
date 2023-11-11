@@ -11,8 +11,6 @@ import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
 import {InputState} from '../../states/InputState';
-//style
-import hiddenStart from '../../assets/icons/hiddenStart.svg';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
@@ -23,16 +21,19 @@ function ChatInput() {
   const [inputHeight, setInputHeight] = useState('70px');
   const [inputJustify, setInputJustify] = useState('center');
   const [showBox, setShowBox] = useState('none');
+  const [noMagin, setNoMargin] = useState('0px');
 
   useEffect(() => {
     if (inputShow == true) {
       setInputHeight('150px');
-      setInputJustify('flex-start');
+      setInputJustify('space-around');
       setShowBox('flex');
+      setNoMargin('15px');
     } else {
       setInputHeight('auto');
       setInputJustify('center');
       setShowBox('none');
+      setNoMargin('0px');
     }
   }, [inputShow]);
   const [inputState, setInputState] = useRecoilState(InputState);
@@ -184,7 +185,7 @@ function ChatInput() {
         </S.SuggestionsBox>
       )}
       <S.ChatInput height={inputHeight} justifyContent={inputJustify}>
-        <S.OtherContainer>
+        <S.OtherContainer marginTop={noMagin}>
           <S.PlusBox
             onPress={() => {
               setInputShow(!inputShow);
@@ -208,20 +209,24 @@ function ChatInput() {
         <S.HiddenContainer display={showBox}>
           <S.MenuBox margin="15px">
             <S.MenuBox width="100%" height="65%">
-              <S.Img source={hiddenStart} />
+              <S.Img source={require('../../assets/images/Gostart3.png')} />
             </S.MenuBox>
             <S.MenuBox width="100%" height="35%">
               <Text style={{color: 'black'}}>처음으로</Text>
             </S.MenuBox>
           </S.MenuBox>
           <S.MenuBox margin="15px">
-            <S.MenuBox width="100%" height="65%"></S.MenuBox>
+            <S.MenuBox width="100%" height="65%">
+              <S.Img source={require('../../assets/images/GoDB.png')} />
+            </S.MenuBox>
             <S.MenuBox width="100%" height="35%">
               <Text style={{color: 'black'}}>데이터 조작</Text>
             </S.MenuBox>
           </S.MenuBox>
           <S.MenuBox margin="15px">
-            <S.MenuBox width="100%" height="65%"></S.MenuBox>
+            <S.MenuBox width="100%" height="65%">
+              <S.Img source={require('../../assets/images/Goreport3.png')} />
+            </S.MenuBox>
             <S.MenuBox width="100%" height="35%">
               <Text style={{color: 'black'}}>보고하기</Text>
             </S.MenuBox>
