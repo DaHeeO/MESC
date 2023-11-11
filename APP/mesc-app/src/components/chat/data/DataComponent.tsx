@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, ActivityIndicator, ScrollView} from 'react-native';
-import axios from 'axios';
+import customAxios from '../../../../Api';
 import DataBox from './DataBox';
 import Label from './Label';
 import * as S from './DataComponent.styles';
@@ -109,60 +109,17 @@ const DataComponent = () => {
 
     try {
       setLoading(true);
-
-      const response = {
-        statusCode: 200,
-        message: 'Success',
-        data: {
-          blockId: 1,
-          cardList: [
-            {
-              cardId: 1,
-              cardType: 'STA',
-              content: null,
-              table: {
-                columnNameList: [
-                  'test',
-                  '잘 되나',
-                  '제발 되라',
-                  '갯수',
-                  'ddddd',
-                ],
-                columnTypeList: [
-                  'varchar(15)',
-                  'varchar(15)',
-                  'varchar(15)',
-                  'int',
-                  'varchar(15)',
-                ],
-                rowList: [
-                  [
-                    'ㄴㅇㄹㄴ A',
-                    'ㅇㄹㄴㅇㄹ',
-                    'ㅇㄹㅇㄹ',
-                    'ㄴㅇㄹㅇㄹ',
-                    'dfdf',
-                  ],
-                  ['ㅇㄹㅇㅇ A', '소공ㄴㄴ정A', '공정ㄴㄴB', 'ㅇㄹㅇ', 'sdfs'],
-                  ['대공정 C', '소공정F', '공정G', '20220805', 'sdfds'],
-                  ['대공정 A', '소공정A', '공정A', '20231105', 'sdfdfdf'],
-                  ['대공정 A', '소공정Adddd', '공정B', '20231028', 'sdfsdf'],
-                  ['대공정 B', '소공정C', '공정D', '20230601', 'sdfsdfsdf'],
-                ],
-              },
-              checkbox: [
-                {
-                  id: 2,
-                  name: '2번',
-                },
-              ],
-            },
-          ],
-        },
+      const body = {
+        query: query,
       };
-
-      // const response = await axios.get(`YOUR_API_ENDPOINT/${query}`); // 라벨 이름을 이용해 요청을 보내세요.
-      setData2(response.data.cardList[0].table); // 응답 데이터로 data2를 업데이트합니다.
+      await customAxios
+        .post(`developer/data/preview`, body)
+        .then(response => {
+          setData2(response.data.cardList[0].table); // 응답 데이터로 data2를 업데이트합니다.
+        })
+        .catch(error => {
+          console.log(error);
+        });
     } catch (error) {
       console.error('Fetching data failed: ', error);
     } finally {

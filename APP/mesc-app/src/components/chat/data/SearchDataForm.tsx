@@ -10,6 +10,8 @@ import {get, set} from 'lodash';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
 import {TableTitleState} from '../../../states/DataTitleState';
 import {Table} from '@mui/material';
+import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
+import UserMessage from '../UserMessage';
 
 type ButtonItem = {
   id: number;
@@ -21,16 +23,21 @@ type ButtonItem = {
 const SearchDataForm = () => {
   const [block, setBlock] = useRecoilState(BlockResponseData);
   const [tableTitle, setTataTitle] = useRecoilState(TableTitleState);
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
   // console.log('block', block);
   const cardList = block.cardList;
   const mlCard = cardList.find(card => card.cardType === 'ML');
 
   const handleButtonClick = async (button: ButtonItem) => {
+    setChatbotHistory([
+      ...chatbotHistory,
+      <UserMessage message={button.name} />,
+    ]);
     const body = {
       actionId: 23,
       conditions: '',
     };
-
     const block = await getBlock(4, body);
     // console.log(block);
     setBlock(block);
