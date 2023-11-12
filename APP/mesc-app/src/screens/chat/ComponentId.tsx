@@ -15,6 +15,7 @@ import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBo
 import customAxios from '../../../Api';
 import {useRecoilState} from 'recoil';
 import {Card, cardState} from '../../states/CardState';
+import QueryResultMessage from '../../components/chat/QueryResultMessage';
 
 interface ChatComponentIdSwitchProps {
   chatComponentId?: string;
@@ -34,38 +35,22 @@ interface ChatComponentIdSwitchProps {
 }
 
 export function ChatComponentIdSwitch(card: Card) {
-  // const [card, setCard] = useRecoilState(cardState);
-
-  // useEffect(() => {
-  //   customAxios
-  //     .post('/block/12', {})
-  //     .then(response => {
-  //       // console.log('Data retrieved:', response.data);
-  //       // console.log('Data retrieved:', response.data.data.cardList);
-  //       setCard(response.data.data.cardList);
-  //     })
-  //     .catch(error => {
-  //       console.error('Error:', error);
-  //     });
-  // }, []);
-  // console.log(1111111111111111111111111111);
-  // console.log(card);
-
   const cardType = card.cardType;
 
   switch (cardType) {
     case 'TX': // 텍스트
-      // console.log('adfadfafadf/.///////////////////');
       return <ChatbotMessage card={card} />;
 
-    // case 'TA': // 데이터 조회 테이블
-    //   return <DataComponent />;
+    case 'TA': // 데이터 조회 테이블
+      return <DataComponent card={card} />;
 
     // case 'STA': // 단일 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
 
     // case 'QTA': // 쿼리입력(SELECT)에 따른 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
+    case 'QU':
+      return <DataBox table={card.table} />;
 
     // case 'ML': // 데이터 조회 시 공정 리스트
     //   return (
@@ -85,6 +70,9 @@ export function ChatComponentIdSwitch(card: Card) {
 
     // // case 'RE': // 보고 눌렀을 때 나오는 창
     // //   return < />;
+
+    case 'QTX':
+      return <QueryResultMessage card={card} />;
 
     case 'CH1': // 작업자 시작 화면
       return <ChatbotStartBoxOne card={card} />;

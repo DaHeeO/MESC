@@ -1,105 +1,129 @@
-import React, {useState, useEffect, useRef} from 'react';
-// Styled
-import {View, Dimensions, ScrollView} from 'react-native';
+//React
+import React, {useState} from 'react';
+//Style
+import {View, ScrollView, TouchableOpacity, Modal, Text} from 'react-native';
 import * as S from './Teble.styles';
-// Components
-import {ConditionModify} from '../../common/id/ChatChooseId';
+//Recoil
 import {useRecoilState} from 'recoil';
+import {ConditionModify} from '../../common/id/ChatChooseId';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {modalIdState} from '../../../states/ModalIdState';
 
 type TableProps = {
-  header: string[];
-  typeHeader: string[];
-  body: any[][]; // or string[][]
-  // 다른 props들이 있다면 여기에 추가
-  // onPress: () => void;
+  title?: string;
+  columnName: string[];
+  columnType: string[];
+  rowList: any[][];
+  isModal: boolean;
 };
 
-const Table: React.FC<TableProps> = (props: TableProps) => {
-  const [columnWidths, setColumnWidths] = useState<number[]>(
-    new Array(props.header.length).fill(0),
-  );
-
+const Table: React.FC<TableProps> = ({
+  title,
+  columnName,
+  columnType,
+  rowList,
+  isModal,
+}) => {
   const [openCoditionForm, setOpenCoditionForm] =
     useRecoilState(ConditionModifyState);
   const [modalId, setModalId] = useRecoilState(modalIdState);
-
-  const horizontalScrollRef = useRef(null);
-
-  const updateColumnWidths = (width: number, index: number) => {
-    setColumnWidths(currentWidths => {
-      const newWidths = [...currentWidths];
-      newWidths[index] = Math.max(newWidths[index], width);
-      return newWidths;
-    });
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<{
+    rowIndex: number;
+    content: string[];
+  } | null>(null);
+  // 셀 클릭 이벤트 핸들러
+  const handleRowPress = (rowIndex: any, row: any) => {
+    if (isModal) return;
+    // console.log(`Row ${rowIndex} was pressed`, row);
+    setSelectedRow({rowIndex, content: row});
+    setModalVisible(true);
   };
-
-  // 각 열에 대해 onLayout 콜백을 생성하는 함수
-  const onLayoutCallback = (index: number) => (event: any) => {
-    const {width} = event.nativeEvent.layout;
-    updateColumnWidths(width, index);
-  };
-
-  // // ScrollView의 너비를 화면 크기에 맞추기 위한 state
-  // const [scrollViewWidth, setScrollViewWidth] = useState(0);
-
-  useEffect(() => {
-    const screen = Dimensions.get('window');
-    // setScrollViewWidth(screen.width);
-  }, []);
-
-  return (
-    <S.Container>
+  console.log('table4');
+  // 모달 숨기는 함수
+  const hideModal = () => setModalVisible(false);
+  const tableHeader = makeHeader(title);
+  function makeHeader(title: String | undefined) {
+    if (!title) return <></>;
+    // const [openCoditionForm, setOpenCoditionForm] =
+    //   useRecoilState(ConditionModifyState);
+    // const [modalId, setModalId] = useRecoilState(modalIdState);
+    return (
       <S.Header>
-        <S.Container width="60%" height="100%"></S.Container>
-        <S.Container
-          width="40%"
-          height="100%"
-          justifyContent="center"
-          alignItems="flex-end">
+        <S.Title>{title}</S.Title>
+        <S.Button>
           <ConditionModify
             onPress={() => {
               setOpenCoditionForm(!openCoditionForm);
               setModalId('CF');
-              // console.log('조건변경: ', openCoditionForm);
             }}
           />
-        </S.Container>
+        </S.Button>
       </S.Header>
-      <S.Body>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View>
-            <View style={{flexDirection: 'row'}}>
-              {props.header.map((column, index) => (
-                <S.ColumnInfoBox key={`header-${index}`}>
-                  <S.ColumnName>{column}</S.ColumnName>
-                </S.ColumnInfoBox>
-              ))}
+    );
+  }
+  console.log('table7');
+
+  return (
+    <S.Container>
+      <S.Table>
+        {tableHeader}
+        <S.Body>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View>
+              <View style={{flexDirection: 'row'}}>
+                {columnName.map((column, index) => (
+                  <S.ColumnInfoBox key={`header-${index}`}>
+                    <S.ColumnName>{column}</S.ColumnName>
+                  </S.ColumnInfoBox>
+                ))}
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                {columnType.map((type, index) => (
+                  <S.ColumnInfoBox key={`type-${index}`}>
+                    <S.ColumnType>{type}</S.ColumnType>
+                  </S.ColumnInfoBox>
+                ))}
+              </View>
+              <ScrollView
+                nestedScrollEnabled={true}
+                showsVerticalScrollIndicator={false}>
+                {rowList.map((row, rowIndex) => (
+                  <TouchableOpacity
+                    key={`row-${rowIndex}`}
+                    style={{flexDirection: 'row'}}
+                    onPress={() => handleRowPress(rowIndex, row)}>
+                    {row.map((cell, cellIndex) => (
+                      <S.CellBox key={`cell-${rowIndex}-${cellIndex}`}>
+                        <S.Cell>{cell}</S.Cell>
+                      </S.CellBox>
+                    ))}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
             </View>
-            <View style={{flexDirection: 'row'}}>
-              {props.typeHeader.map((type, index) => (
-                <S.ColumnInfoBox key={`type-${index}`}>
-                  <S.ColumnType>{type}</S.ColumnType>
-                </S.ColumnInfoBox>
-              ))}
-            </View>
-            <ScrollView
-              nestedScrollEnabled={true}
-              showsVerticalScrollIndicator={false}>
-              {props.body.map((row, rowIndex) => (
-                <View key={`row-${rowIndex}`} style={{flexDirection: 'row'}}>
-                  {row.map((cell, cellIndex) => (
-                    <S.CellBox key={`cell-${rowIndex}-${cellIndex}`}>
-                      <S.Cell>{cell}</S.Cell>
-                    </S.CellBox>
-                  ))}
-                </View>
-              ))}
-            </ScrollView>
-          </View>
-        </ScrollView>
-      </S.Body>
+          </ScrollView>
+        </S.Body>
+      </S.Table>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={hideModal}>
+        <S.ModalContainer>
+          {/* 모달을 닫는 버튼 */}
+          <TouchableOpacity onPress={hideModal}>
+            <Text>Close</Text>
+          </TouchableOpacity>
+          <Table
+            title={title}
+            columnName={columnName}
+            columnType={columnType}
+            rowList={rowList}
+            isModal={true}
+          />
+        </S.ModalContainer>
+      </Modal>
     </S.Container>
   );
 };

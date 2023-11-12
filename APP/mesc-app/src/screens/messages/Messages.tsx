@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {Report} from './Report';
+// import {Report} from './Report';
 
 interface MessagesProps {
   navigation: any;
@@ -14,9 +14,7 @@ const Messages = ({navigation}: MessagesProps) => {
         <Text>Go to Chat</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
-        <Report />
-      </TouchableOpacity>
+      <TouchableOpacity>{/* <Report /> */}</TouchableOpacity>
     </View>
   );
 };

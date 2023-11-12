@@ -9,6 +9,8 @@ import ChangePassword from './src/screens/login/ChangePassword';
 import Success from './src/screens/login/Success';
 import Intro from './src/screens/intro/Intro';
 import BottomTab from './src/components/common/bottomTab/BottomTab';
+import Main from './src/screens/main/Main';
+import Chat from './src/screens/chat/Chat2';
 import {RecoilRoot} from 'recoil';
 
 const Stack = createStackNavigator();
@@ -46,6 +48,16 @@ function App() {
           <Stack.Screen
             name="Intro"
             component={Intro}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Main"
+            component={Main}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Chat"
+            component={Chat}
             options={{headerShown: false}}
           />
           <Stack.Screen

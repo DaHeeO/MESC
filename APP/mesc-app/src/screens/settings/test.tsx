@@ -1,5 +1,5 @@
 // React
-import React, {useEffect, useCallback, useState, useRef} from 'react';
+import React, {useEffect, useCallback, useRef} from 'react';
 //Styled
 import {View, ScrollView} from 'react-native';
 import * as S from '../chat/Chat.styles';
@@ -8,7 +8,7 @@ import Header from '../../components/common/chatHeader/ChatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
-import {RecoilState, useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatComponentIdSwitch} from '../chat/ComponentId';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import {Card} from '../../states/CardState';
@@ -21,17 +21,10 @@ import {InputState} from '../../states/InputState';
 import {ModalIdSwitch} from '../../components/common/id/ModalId';
 import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal1';
 import {ConditionModifyState} from '../../states/BottomSheetState';
-import {ConditionForm} from '../../components/message/Condition/ConditionForm';
 import {modalIdState} from '../../states/ModalIdState';
 
 //Api
 import {getBlock} from '../../../Api';
-
-interface BlockProps {
-  cardList: Card[];
-  isPossible: boolean;
-  section: number;
-}
 
 function Test() {
   // 원하는 모달 띄우기 (모달은 채팅 하단에 있음)
@@ -111,7 +104,6 @@ function Test() {
             // chatbotHistory 배열 순회하며 컴포넌트 렌더링
             <View key={index}>{component}</View>
           ))}
-          <DataComponent />
         </ScrollView>
       </S.ChatLayout>
       <BottomSheet
