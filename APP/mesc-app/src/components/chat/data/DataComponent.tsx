@@ -11,16 +11,6 @@ import {
 } from '../../../states/DataTitleState';
 import {Card} from '../../../states/CardState';
 
-// type Card = {
-//   cardId: number;
-//   cardName?: string;
-//   content: string | null;
-//   cardType: string;
-//   labels?: LabelItem[];
-//   table?: TableData;
-//   button?: ButtonItem[];
-// };
-
 type LabelItem = {
   name: string;
   labelType: string;

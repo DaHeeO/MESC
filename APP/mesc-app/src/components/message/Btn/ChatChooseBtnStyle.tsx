@@ -2,11 +2,19 @@ import styled from 'styled-components/native';
 
 interface ChooseBtnProps {
   width?: string;
+  height?: string;
+  border?: string;
 }
 
 export const ChooseBtnBody = styled.TouchableOpacity<ChooseBtnProps>`
+<<<<<<< HEAD
+  border: ${props => props.border || 'none'};
+  height: ${props => props.height || '40px'};
+  width: 110px;
+=======
   width: 100px;
   height: 30px;
+>>>>>>> 0b60989669581405e27b55b3a4dd79ce5e5782f3
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
@@ -28,7 +36,7 @@ interface IconBoxProps {
 }
 
 export const IconBox = styled.Image`
-  border: 1px solid red;
+  // border: 1px solid red;
   width: 35px;
   height: 35px;
 `;
