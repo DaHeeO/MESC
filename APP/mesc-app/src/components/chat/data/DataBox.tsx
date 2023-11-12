@@ -16,6 +16,7 @@ type DataBoxProps = {
     | null;
   query?: string;
   onPress?: () => void;
+  isModal?: boolean;
 };
 
 const DataBox: React.FC<DataBoxProps> = ({title, table, query, onPress}) => {
@@ -43,10 +44,11 @@ const DataBox: React.FC<DataBoxProps> = ({title, table, query, onPress}) => {
           columnName={table.columnNameList}
           columnType={table.columnTypeList}
           rowList={table.rowList}
+          isModal={false}
         />
       );
     } else if (query) {
-      return <Query query={query} />;
+      return <Query query={query} isModal={false} />;
     }
   };
 

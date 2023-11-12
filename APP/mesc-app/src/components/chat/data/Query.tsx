@@ -6,14 +6,15 @@ import {ModalDataState} from '../../../states/ModalDataState';
 
 interface QueryProps {
   query: string;
+  isModal: boolean;
 }
 
-const Query: React.FC<QueryProps> = ({query}) => {
+const Query: React.FC<QueryProps> = ({query, isModal}) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [modalData, setModalData] = useRecoilState(ModalDataState);
 
   // 모달을 표시하는 함수
   const showModal = () => {
+    if (isModal) return;
     setModalVisible(true);
   };
 
@@ -43,7 +44,7 @@ const Query: React.FC<QueryProps> = ({query}) => {
           <TouchableOpacity onPress={hideModal}>
             <Text>Close</Text>
           </TouchableOpacity>
-          <Query query={query} />
+          <Query query={query} isModal={true} />
         </S.QueryContainer>
       </Modal>
     </>

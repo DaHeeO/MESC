@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Dimensions,
@@ -10,13 +10,14 @@ import {
 import * as S from './Teble.styles';
 import {useRecoilValue} from 'recoil';
 import {TableTitleState} from '../../../states/DataTitleState';
-import DataBox from './DataBox';
+import {tr} from 'date-fns/locale';
 
 type TableProps = {
   title?: string;
   columnName: string[];
   columnType: string[];
   rowList: any[][];
+  isModal: boolean;
 };
 
 const Table: React.FC<TableProps> = ({
@@ -24,10 +25,8 @@ const Table: React.FC<TableProps> = ({
   columnName,
   columnType,
   rowList,
+  isModal,
 }) => {
-  const [columnWidths, setColumnWidths] = useState<number[]>(
-    new Array(columnName.length).fill(0),
-  );
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
     rowIndex: number;
@@ -36,7 +35,8 @@ const Table: React.FC<TableProps> = ({
 
   // 셀 클릭 이벤트 핸들러
   const handleRowPress = (rowIndex: any, row: any) => {
-    console.log(`Row ${rowIndex} was pressed`, row);
+    if (isModal) return;
+    // console.log(`Row ${rowIndex} was pressed`, row);
     setSelectedRow({rowIndex, content: row});
     setModalVisible(true);
   };
@@ -44,25 +44,7 @@ const Table: React.FC<TableProps> = ({
   // 모달 숨기는 함수
   const hideModal = () => setModalVisible(false);
 
-  const dataTitle = useRecoilValue(TableTitleState);
-
-  const horizontalScrollRef = useRef(null);
-
   const tableHeader = makeHeader(title);
-
-  const updateColumnWidths = (width: number, index: number) => {
-    setColumnWidths(currentWidths => {
-      const newWidths = [...currentWidths];
-      newWidths[index] = Math.max(newWidths[index], width);
-      return newWidths;
-    });
-  };
-
-  // 각 열에 대해 onLayout 콜백을 생성하는 함수
-  const onLayoutCallback = (index: number) => (event: any) => {
-    const {width} = event.nativeEvent.layout;
-    updateColumnWidths(width, index);
-  };
 
   function makeHeader(title: String | undefined) {
     if (!title) return <></>;
@@ -74,53 +56,47 @@ const Table: React.FC<TableProps> = ({
     );
   }
 
-  // // ScrollView의 너비를 화면 크기에 맞추기 위한 state
-  // const [scrollViewWidth, setScrollViewWidth] = useState(0);
-
-  useEffect(() => {
-    const screen = Dimensions.get('window');
-    // setScrollViewWidth(screen.width);
-  }, []);
-
   return (
     <S.Container>
-      {tableHeader}
-      <S.Body>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          <View>
-            <View style={{flexDirection: 'row'}}>
-              {columnName.map((column, index) => (
-                <S.ColumnInfoBox key={`header-${index}`}>
-                  <S.ColumnName>{column}</S.ColumnName>
-                </S.ColumnInfoBox>
-              ))}
+      <S.Table>
+        {tableHeader}
+        <S.Body>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View>
+              <View style={{flexDirection: 'row'}}>
+                {columnName.map((column, index) => (
+                  <S.ColumnInfoBox key={`header-${index}`}>
+                    <S.ColumnName>{column}</S.ColumnName>
+                  </S.ColumnInfoBox>
+                ))}
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                {columnType.map((type, index) => (
+                  <S.ColumnInfoBox key={`type-${index}`}>
+                    <S.ColumnType>{type}</S.ColumnType>
+                  </S.ColumnInfoBox>
+                ))}
+              </View>
+              <ScrollView
+                nestedScrollEnabled={true}
+                showsVerticalScrollIndicator={false}>
+                {rowList.map((row, rowIndex) => (
+                  <TouchableOpacity
+                    key={`row-${rowIndex}`}
+                    style={{flexDirection: 'row'}}
+                    onPress={() => handleRowPress(rowIndex, row)}>
+                    {row.map((cell, cellIndex) => (
+                      <S.CellBox key={`cell-${rowIndex}-${cellIndex}`}>
+                        <S.Cell>{cell}</S.Cell>
+                      </S.CellBox>
+                    ))}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
             </View>
-            <View style={{flexDirection: 'row'}}>
-              {columnType.map((type, index) => (
-                <S.ColumnInfoBox key={`type-${index}`}>
-                  <S.ColumnType>{type}</S.ColumnType>
-                </S.ColumnInfoBox>
-              ))}
-            </View>
-            <ScrollView
-              nestedScrollEnabled={true}
-              showsVerticalScrollIndicator={false}>
-              {rowList.map((row, rowIndex) => (
-                <TouchableOpacity
-                  key={`row-${rowIndex}`}
-                  style={{flexDirection: 'row'}}
-                  onPress={() => handleRowPress(rowIndex, row)}>
-                  {row.map((cell, cellIndex) => (
-                    <S.CellBox key={`cell-${rowIndex}-${cellIndex}`}>
-                      <S.Cell>{cell}</S.Cell>
-                    </S.CellBox>
-                  ))}
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
-        </ScrollView>
-      </S.Body>
+          </ScrollView>
+        </S.Body>
+      </S.Table>
       <Modal
         animationType="slide"
         transparent={true}
@@ -136,6 +112,7 @@ const Table: React.FC<TableProps> = ({
             columnName={columnName}
             columnType={columnType}
             rowList={rowList}
+            isModal={true}
           />
         </S.ModalContainer>
       </Modal>

@@ -15,6 +15,11 @@ export const Query = styled.Text`
 export const QueryContainer = styled.View`
   background-color: white;
   border: 1px solid green;
-  height: 700px;
+  height: 82%;
   margin-top: 58px;
+  // flex: 1;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  // background-color: aqua;
 `;
