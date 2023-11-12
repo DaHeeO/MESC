@@ -30,14 +30,16 @@ export const FAQTitleBox = styled.View`
 export const FAQAnswerBox = styled.View`
   width: 100%;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 10px 8px;
-background-color: ${colors.backgroundGray};}`;
+  background-color: ${colors.backgroundGray};
+`;
 
 export const Container = styled.View`
   display: flex;
   width: 100%;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 `;
