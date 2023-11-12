@@ -1,5 +1,4 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import * as S from './Setting.styles';
 import BackgroundIntro from '../../assets/images/background-intro.png';
 import * as C from '../../components/common/Theme';
@@ -11,7 +10,11 @@ import Right from '../../assets/icons/right.svg';
 import Bell from '../../assets/icons/bell.svg';
 import Alert from '../../assets/icons/alert.svg';
 
-function Settings() {
+interface SettingsProps {
+  navigation: any;
+}
+
+function Settings({navigation}: SettingsProps) {
   return (
     <S.Container>
       <S.BackgroundImg source={BackgroundIntro} />
@@ -46,7 +49,7 @@ function Settings() {
                 기본 설정
               </S.BoldText>
             </S.TextBox>
-            <S.SettingBox>
+            <S.SettingBox onPress={() => navigation.navigate('FAQ')}>
               <S.SettingDiv>
                 <FAQ />
                 <S.Text
@@ -58,7 +61,7 @@ function Settings() {
               </S.SettingDiv>
               <Right />
             </S.SettingBox>
-            <S.SettingBox>
+            <S.SettingBox onPress={() => navigation.navigate('Notification')}>
               <S.SettingDiv>
                 <Bell />
                 <S.Text

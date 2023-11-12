@@ -242,7 +242,11 @@ const Detail = ({navigation}: ContactsProps) => {
             <S.TitleBox>
               <S.Title>{groupInfoValue.groupName}</S.Title>
             </S.TitleBox>
-            <S.Right onPress={handlePresentModalPress}>
+            <S.Right
+              onPress={() => {
+                handleResetCheckedItems(); // 모두 초기 상태로 변경
+                handlePresentModalPress();
+              }}>
               <Plus />
             </S.Right>
           </S.Navigation>
@@ -316,7 +320,6 @@ const Detail = ({navigation}: ContactsProps) => {
                     onPress={() => {
                       handleResetCheckedItems(); // 모두 초기 상태로 변경
                       handleClosePress();
-                      console.log(checkedItems);
                     }}>
                     <S.Text size={16} color={colors.primary}>
                       완료
