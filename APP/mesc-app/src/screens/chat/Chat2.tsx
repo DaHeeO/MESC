@@ -12,7 +12,7 @@ import {IconSwitch} from '../../components/common/ChatIcon';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
 import SearchDataForm from '../../components/chat/data/SearchDataForm';
-import {customAxios, getBlock} from '../../../Api';
+import {customAxios, getBlock, getUserRole} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatComponentIdSwitch} from './ComponentId';
 import {AboutContainer} from '../../components/common/about/AboutContainer';
@@ -20,6 +20,7 @@ import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import {BlockResponseData} from '../../states/BlockResponseState';
 import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {InputState} from '../../states/InputState';
+import {BlockType} from '../../const/constants';
 
 function Chat() {
   const [chatbotHistory, setChatbotHistory] =
@@ -31,8 +32,7 @@ function Chat() {
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
   useEffect(() => {
-    const role = 12;
-    putBlockToRecoil(role);
+    putStartBlockToRecoil();
   }, []);
 
   useEffect(() => {
@@ -76,9 +76,18 @@ function Chat() {
     chatLayoutRef.current?.scrollToEnd({animated: true});
   };
 
-  const putBlockToRecoil = async (blockId: number) => {
-    const newBlock = await getBlock(blockId, {});
+  const putStartBlockToRecoil = async () => {
+    const role = await getRoleBlockId();
+    const newBlock = await getBlock(role, {});
     if (newBlock) setBlock(newBlock);
+  };
+
+  const getRoleBlockId = async () => {
+    const roleType = await getUserRole();
+    if (roleType === 'DEVELOPER') {
+      return BlockType.DEVELOPER;
+    }
+    return BlockType.WORKER;
   };
 
   return (

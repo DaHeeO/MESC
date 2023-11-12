@@ -6,13 +6,14 @@ import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
-import {customAxios, getBlock} from '../../../Api';
+import {customAxios, getBlock, getUserRole} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
 import {InputState} from '../../states/InputState';
 import {BlockResponseData} from '../../states/BlockResponseState';
 import {LogSearchOption} from '../../states/LogSearchOption';
+import {BlockType} from '../../const/constants';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
@@ -114,16 +115,16 @@ function ChatInput() {
     if (userMessage !== '') {
       const blockId = block.blockId;
       // recoil에서 block가져와서 blockId에 따라 처리
-      if (blockId == 7) {
+      if (blockId == BlockType.QueryInput) {
         // 직접입력 티카타카 하드코딩 하도록...
         queryInput(userMessage);
-      } else if (blockId == 5) {
+      } else if (blockId == BlockType.LogKeyword) {
         const keyword = userMessage;
         // 리코일에 추가
         setLogSearchOption(prev => ({...prev, keyword: keyword}));
         // setLogSearchOption({keyword: keyword, date: '', levelList: []});
-        putBlockToRecoil(13, {});
-      } else if (blockId == 13) {
+        putBlockToRecoil(BlockType.LogDate, {});
+      } else if (blockId == BlockType.LogDate) {
         const date = userMessage;
         console.log('date========================================');
         console.log(date);
@@ -131,7 +132,7 @@ function ChatInput() {
         setLogSearchOption(prev => ({...prev, date: date}));
         console.log('logoption========================================');
         console.log(logSearchOption);
-        putBlockToRecoil(14, {});
+        putBlockToRecoil(BlockType.LogLevel, {});
       } else {
         defaultInput(userMessage);
       }
@@ -142,13 +143,21 @@ function ChatInput() {
 
   const defaultInput = async (userMessage: String) => {
     if (userMessage === '/로그') {
-      putBlockToRecoil(5, {});
+      putBlockToRecoil(BlockType.LogKeyword, {});
     } else if (userMessage === '/쿼리') {
-      putBlockToRecoil(7, {});
+      putBlockToRecoil(BlockType.QueryInput, {});
     } else {
-      const role = 12; // 나중에 개발자/관리자 구분해서 넣기
+      const role = await getRoleBlockId();
       putBlockToRecoil(role, {});
     }
+  };
+
+  const getRoleBlockId = async () => {
+    const roleType = await getUserRole();
+    if (roleType === 'DEVELOPER') {
+      return BlockType.DEVELOPER;
+    }
+    return BlockType.WORKER;
   };
 
   const queryInput = async (userMessage: String) => {
@@ -156,7 +165,9 @@ function ChatInput() {
 
     if (upperQuery.startsWith('SELECT')) {
       // 조회
-      const nextBlock: any = putBlockToRecoil(9, {query: userMessage});
+      const nextBlock: any = putBlockToRecoil(BlockType.SelectOutput, {
+        query: userMessage,
+      });
       // 에러처리 추가해줘야함
     } else if (
       // 수정, 추가, 삭제
@@ -164,7 +175,9 @@ function ChatInput() {
       upperQuery.startsWith('INSERNT') ||
       upperQuery.startsWith('DELETE')
     ) {
-      const nextBlock: any = putBlockToRecoil(8, {query: userMessage});
+      const nextBlock: any = putBlockToRecoil(BlockType.OperationOutput, {
+        query: userMessage,
+      });
 
       // 쿼리 에러 발생 했을 때 처리
       // 인풋창에 그대로 두기
@@ -173,7 +186,7 @@ function ChatInput() {
       }
     } else {
       Alert.alert('데이터 조작일 때만 사용 가능합니다.');
-      putBlockToRecoil(7, {});
+      putBlockToRecoil(BlockType.QueryInput, {});
     }
   };
 
