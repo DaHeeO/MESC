@@ -1,18 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  ActivityIndicator,
-  ScrollView,
-  Modal,
-  TouchableOpacity,
-} from 'react-native';
-import {customAxios, getBlock} from '../../../../Api';
+import {View, ScrollView, StyleSheet} from 'react-native';
+import {getBlock} from '../../../../Api';
 import DataBox from './DataBox';
 import Label from './Label';
 import * as S from './DataComponent.styles';
-import {set} from 'lodash';
-import {useRecoilValue, useRecoilState} from 'recoil';
-import {BlockResponseData} from '../../../states/BlockResponseState';
+import {useRecoilState} from 'recoil';
 import {
   TableTitleState,
   SingleTableTitleState,
@@ -55,7 +47,6 @@ function DataComponent(props: {card: Card}) {
   const {card} = props;
   const [data1, setData1] = useState<TableData>();
   const [data2, setData2] = useState<String | TableData>();
-  const [loading, setLoading] = useState(false);
   // const [labels, setLabels] = useState<LabelItem[]>([]);
   const [query, setQuery] = useState<string>();
   const [selectedLabel, setSelectedLabel] = useState<LabelItem>();
@@ -63,26 +54,6 @@ function DataComponent(props: {card: Card}) {
   const [singleTableTitle, setSingleTableTitle] = useRecoilState(
     SingleTableTitleState,
   );
-  const [isModalVisible, setModalVisible] = useState(false);
-  const [modalData, setModalData] = useState<String | TableData>();
-
-  // const openModal = () => {
-  //   setModalVisible(true);
-  // };
-
-  // const closeModal = () => {
-  //   setModalVisible(false);
-  // };
-
-  // const handleFirstSectionPress = () => {
-  //   setModalData(data1); // 첫 번째 섹션 데이터 설정
-  //   setModalVisible(true);
-  // };
-
-  // const handleThirdSectionPress = () => {
-  //   setModalData(data2); // 세 번째 섹션 데이터 설정
-  //   setModalVisible(true);
-  // };
 
   // 카드 테이블이 존재하면(select문 성공 시)
   const tableData: TableData | null | undefined = card.table;
@@ -119,7 +90,6 @@ function DataComponent(props: {card: Card}) {
     if (!query) return;
 
     try {
-      // setLoading(true);
       const body = {
         query: query,
       };
@@ -134,8 +104,6 @@ function DataComponent(props: {card: Card}) {
       setData2(singleTableData[0].table);
     } catch (error) {
       console.error('Fetching data failed: ', error);
-    } finally {
-      // setLoading(false); // 요청이 완료되면 로딩 상태를 해제합니다.
     }
   };
 
@@ -164,49 +132,23 @@ function DataComponent(props: {card: Card}) {
   return (
     <View>
       <S.DataContainer>
-        <S.DataSection
-        // height="45%"
-        // style={{backgroundColor: 'red'}}
-        >
-          {/* <TouchableOpacity onPress={handleFirstSectionPress}> */}
+        <S.DataSection style={{height: 230}}>
           {/* 첫 번째 섹션: data1 렌더링 */}
           <DataBox table={tableData} title={dataTitle} />
-          {/* </TouchableOpacity> */}
         </S.DataSection>
 
         {LabelSection}
 
-        <S.DataSection
-        // height="45%"
-        >
-          {/* <TouchableOpacity onPress={handleThirdSectionPress}> */}
-          {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox를 렌더링합니다. */}
-          {loading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
+        <S.DataSection style={{height: 230}}>
+          {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox 렌더링*/}
+          {/* data2가 string 타입면 query prop, 아니면 table prop으로 */}
+          {typeof data2 === 'string' ? (
+            <DataBox query={data2} />
           ) : (
-            <View>
-              {/* data2가 string 타입이 아니면 table prop으로 넘기고, string 타입이면 query prop으로 넘깁니다. */}
-              {typeof data2 === 'string' ? (
-                <DataBox query={data2} />
-              ) : (
-                <DataBox table={data2 as TableData} title={singleTableTitle} />
-              )}
-            </View>
+            <DataBox table={data2 as TableData} title={singleTableTitle} />
           )}
-          {/* </TouchableOpacity> */}
         </S.DataSection>
       </S.DataContainer>
-      <Modal
-        visible={isModalVisible}
-        onRequestClose={() => setModalVisible(false)}
-        transparent={false}
-        animationType="slide">
-        {typeof modalData === 'string' ? (
-          <DataBox query={modalData} />
-        ) : (
-          <DataBox table={modalData as TableData} title={singleTableTitle} />
-        )}
-      </Modal>
     </View>
   );
 }
