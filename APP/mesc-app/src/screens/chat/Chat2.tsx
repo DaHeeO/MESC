@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import * as S from './Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
