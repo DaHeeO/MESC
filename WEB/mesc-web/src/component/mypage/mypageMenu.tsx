@@ -16,6 +16,7 @@ export default function BasicMenu() {
   };
   const Logout = () => {
     alert("로그아웃 되었습니다.");
+    navigate("/login");
   };
   const goMyChatbot = () => {
     navigate("/MyChatbot");

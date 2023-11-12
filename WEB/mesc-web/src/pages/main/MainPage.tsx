@@ -1,14 +1,15 @@
 // React
 import React from "react";
-// Style
-import styled from "styled-components";
 // Components
+import Header from "../../component/layout/header";
 import { AboutBody } from "../../component/common/About/AboutBody";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
-import Header from "../../component/layout/header";
 import { ContainedBtn } from "../../component/common/About/AboutBtn";
+import { SelectBlock } from "../../component/Block/Select/SelectBlock";
 // Navigate
 import { useNavigate } from "react-router-dom";
+//etc
+import img from "../../assest/image/samsungSDI.png";
 
 export const MainPage = () => {
   const navigate = useNavigate();
@@ -18,6 +19,9 @@ export const MainPage = () => {
   };
   const goFAQ = () => {
     navigate(`/Faq`);
+  };
+  const goMyPage = () => {
+    navigate(`/Mypage`);
   };
 
   return (
@@ -49,7 +53,51 @@ export const MainPage = () => {
                 border: "1px solid black",
               }}
             >
-              회원정보
+              <AboutContainer height="50%">
+                <AboutContainer
+                  height="100%"
+                  width="70%"
+                  style={{
+                    backgroundImage: `url(${img})`, // 이미지 스타일 적용
+                    backgroundSize: "90% 90%",
+                    backgroundPosition: "center",
+                    borderRadius: "8px",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                ></AboutContainer>
+              </AboutContainer>
+              <AboutContainer height="20%" flexDirection="row">
+                <AboutContainer
+                  width="50%"
+                  height="100%"
+                  flexDirection="column"
+                >
+                  <AboutContainer width="100%" height="50%">
+                    이름
+                  </AboutContainer>
+                  <AboutContainer width="100%" height="50%">
+                    {/* {user.name} */}
+                    userName
+                  </AboutContainer>
+                </AboutContainer>
+                <AboutContainer
+                  width="50%"
+                  height="100%"
+                  flexDirection="column"
+                >
+                  <AboutContainer width="100%" height="50%">
+                    직급
+                  </AboutContainer>
+                  <AboutContainer width="100%" height="50%">
+                    {/* {user.role} */}
+                    userRole
+                  </AboutContainer>
+                </AboutContainer>
+              </AboutContainer>
+              <AboutContainer height="10%">userEmail</AboutContainer>
+              <AboutContainer height="20%">
+                <ContainedBtn content="회원정보 수정" onClick={goMyPage} />
+              </AboutContainer>
             </AboutContainer>
           </AboutContainer>
           {/* MainBody 우측 하단 -공지사항 */}
@@ -114,7 +162,7 @@ export const MainPage = () => {
               height="80%"
               style={{ border: "1px solid gray" }}
             >
-              현재 있는 챗봇
+              <SelectBlock data={[]} />
             </AboutContainer>
             <AboutContainer
               style={{ marginRight: "10%" }}

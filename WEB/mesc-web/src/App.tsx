@@ -4,7 +4,7 @@ import { RecoilRoot } from "recoil";
 import Layout from "./pages/layout";
 // 하위페이지
 import Main from "./pages/main/main";
-import Menu1 from "./pages/menu1";
+import { Menu1 } from "./pages/AddBlock/Add";
 import Menu2 from "./pages/menu2";
 import Menu3 from "./pages/menu3";
 import Menu4 from "./pages/menu4";
