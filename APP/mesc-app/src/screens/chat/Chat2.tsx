@@ -1,7 +1,5 @@
-//React
-import React, {useEffect, useRef} from 'react';
-// style
-import {View, ScrollView} from 'react-native';
+import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import * as S from './Chat.styles';
 // Components
 import Header from '../../components/common/chatHeader/ChatHeader';
@@ -37,6 +35,8 @@ function Chat() {
     useRecoilState(ConditionModifyState); // 해당 모달State값 넣기
   const modalId = useRecoilValue(modalIdState);
   const realModalId = ModalIdSwitch({modalId});
+  const [buttonComponent, setButtonComponent] =
+    useState<React.JSX.Element | null>(null);
 
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
@@ -52,14 +52,13 @@ function Chat() {
   }, [block]);
 
   const makeChatbotBlock = (data: any) => {
-    // section 값에 따라 조건부 렌더링
-    let buttonComponent;
+    let newButtonComponent = <ChatChooseSection1 />;
     if (data.section === 1) {
-      buttonComponent = <ChatChooseSection1 />;
+      newButtonComponent = <ChatChooseSection1 />;
     } else if (data.section === 2) {
-      buttonComponent = <ChatChooseSection2 />;
+      newButtonComponent = <ChatChooseSection2 />;
     }
-
+    setButtonComponent(newButtonComponent);
     // setInputState(data.isPossible);
     setInputState(true);
 
@@ -78,12 +77,14 @@ function Chat() {
   };
 
   // chatbotHistory 변경될 때마다 스크롤
-  useEffect(() => {
+  useLayoutEffect(() => {
     scrollToBottom();
-  }, [chatbotHistory]);
+  }, [chatbotHistory, buttonComponent]);
 
   const scrollToBottom = () => {
-    chatLayoutRef.current?.scrollToEnd({animated: true});
+    setTimeout(() => {
+      chatLayoutRef.current?.scrollToEnd({animated: true});
+    }, 10);
   };
 
   const putBlockToRecoil = async (blockId: number) => {
