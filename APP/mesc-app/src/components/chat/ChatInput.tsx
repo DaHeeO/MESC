@@ -117,6 +117,7 @@ function ChatInput() {
       // recoil에서 block가져와서 blockId에 따라 처리
       if (blockId == BlockType.QueryInput) {
         // 직접입력 티카타카 하드코딩 하도록...
+        // 명령어 or select, update, insert, delete
         queryInput(userMessage);
       } else if (blockId == BlockType.LogKeyword) {
         const keyword = userMessage;
@@ -126,18 +127,17 @@ function ChatInput() {
         putBlockToRecoil(BlockType.LogDate, {});
       } else if (blockId == BlockType.LogDate) {
         const date = userMessage;
-        console.log('date========================================');
-        console.log(date);
         // 리코일에 추가
         setLogSearchOption(prev => ({...prev, date: date}));
-        console.log('logoption========================================');
-        console.log(logSearchOption);
         putBlockToRecoil(BlockType.LogLevel, {});
       } else {
         defaultInput(userMessage);
       }
       console.log(logSearchOption);
       setInput(''); // 입력 필드 지우기.
+    } else {
+      // 아무것도 입력하지 않고 전송할 경우
+      Alert.alert('명령어 또는 데이터 조작의 쿼리문을 입력해주세요.');
     }
   };
 
@@ -192,6 +192,8 @@ function ChatInput() {
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
     const newBlock = await getBlock(blockId, body);
+    console.log(newBlock);
+
     if (newBlock) setBlock(newBlock);
     return newBlock;
   };
