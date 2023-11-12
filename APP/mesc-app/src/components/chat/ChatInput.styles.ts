@@ -2,35 +2,69 @@ import styled from 'styled-components/native';
 import {Image} from 'react-native';
 import {colors} from '../common/Theme';
 
-// input 구역
-export const ChatInput = styled.View`
-  width: 100%;
-  min-height: 70px;
-  height: auto;
-  // max-height: 18%;
-  display: flex;
-  background-color: ${colors.icy};
-  //border: 1px solid yellow;
+interface InputProps {
+  width?: string;
+  height?: string;
+  align?: string;
+  margin?: string;
+  display?: string;
+  justifyContent?: string;
+  source?: string;
+  marginTop?: string;
+}
+
+export const OtherContainer = styled.View<InputProps>`
+  // background-color: red;
+  // border: 1px solid red;
   flex-direction: row;
+  align-content: center;
   align-items: center;
+  margin-top: ${({marginTop}) => (marginTop ? marginTop : '0px')};
 `;
 
-export const PlusBox = styled.View`
+export const HiddenContainer = styled.View<InputProps>`
+  display: ${({display}) => (display ? display : 'none')};
+  // background-color: blue;
+  // height: 90%;
+  width: 100%;
+  flex-direction: row;
+`;
+
+// input 구역
+export const ChatInput = styled.View<InputProps>`
+  // border: 1px solid yellow;
+  width: 100%;
+  min-height: 70px;
+  height: ${({height}) => (height ? height : 'auto')};
+  display: flex;
+  background-color: ${colors.icy};
+  flex-direction: column;
+  align-items: ${({align}) => (align ? align : 'center')};
+  justify-content: ${({justifyContent}) =>
+    justifyContent ? justifyContent : 'center'};
+  // justify-content: center;
+`;
+
+export const PlusBox = styled.TouchableOpacity`
+  // background-color: gray;
   width: 24px;
   height: 24px;
-  //background-color: gray;
   margin-left: 10px;
 `;
 
 export const InputBox = styled.TextInput`
+<<<<<<< HEAD
+  background-color: #ebecef;
+  width: 80%;
+=======
   width: 90%;
+>>>>>>> 0b60989669581405e27b55b3a4dd79ce5e5782f3
   height: auto;
   max-height: 100px;
   padding-left: 15px;
   display: flex;
   flex: 1;
   color: grey;
-  background-color: #ebecef;
   border-radius: 20px;
   line-height: 18px;
 `;
@@ -87,4 +121,20 @@ export const WordBox = styled.View<{length?: number}>`
 export const WordText = styled.Text`
   color: black; // 흰색 폰트
   // 추가적인 폰트 스타일링을 여기에 넣을 수 있습니다.
+`;
+
+export const MenuBox = styled.TouchableOpacity<InputProps>`
+  // border: 1px solid red;
+  width: ${({width}) => (width ? width : '80px')};
+  height: ${({height}) => (height ? height : '80px')};
+  margin: ${({margin}) => (margin ? margin : '0px')};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Img = styled.Image`
+  // background-color: red;
+  width: 60%;
+  height: 92%;
 `;
