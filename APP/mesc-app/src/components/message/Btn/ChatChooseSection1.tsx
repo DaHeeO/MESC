@@ -9,7 +9,7 @@ export const ChatChooseSection1 = () => {
   return (
     <SectionBody>
       <SectionContainer
-        backgroundColor="yellow"
+        // backgroundColor="yellow"
         width="200px"
         height="50%"
         justify="space-between"
@@ -22,7 +22,7 @@ export const ChatChooseSection1 = () => {
         </SectionContainer>
       </SectionContainer>
       <SectionContainer
-        backgroundColor="red"
+        // backgroundColor="red"
         width="200px"
         height="50%"
         justify="space-between"
