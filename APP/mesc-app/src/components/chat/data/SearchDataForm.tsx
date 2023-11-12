@@ -39,7 +39,7 @@ const SearchDataForm = () => {
       conditions: '',
     };
     const block = await getBlock(4, body);
-    // console.log(block);
+    console.log(block);
     setBlock(block);
     setTataTitle(button.name);
   };

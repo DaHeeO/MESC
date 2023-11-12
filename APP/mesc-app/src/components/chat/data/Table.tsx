@@ -1,16 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Dimensions,
-  ScrollView,
-  TouchableOpacity,
-  Modal,
-  Text,
-} from 'react-native';
+//React
+import React, {useState} from 'react';
+//Style
+import {View, ScrollView, TouchableOpacity, Modal, Text} from 'react-native';
 import * as S from './Teble.styles';
-import {useRecoilValue} from 'recoil';
-import {TableTitleState} from '../../../states/DataTitleState';
-import {tr} from 'date-fns/locale';
+//Recoil
+import {useRecoilState} from 'recoil';
+import {ConditionModify} from '../../common/id/ChatChooseId';
+import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {modalIdState} from '../../../states/ModalIdState';
 
 type TableProps = {
   title?: string;
@@ -27,12 +24,14 @@ const Table: React.FC<TableProps> = ({
   rowList,
   isModal,
 }) => {
+  const [openCoditionForm, setOpenCoditionForm] =
+    useRecoilState(ConditionModifyState);
+  const [modalId, setModalId] = useRecoilState(modalIdState);
   const [isModalVisible, setModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
     rowIndex: number;
     content: string[];
   } | null>(null);
-
   // 셀 클릭 이벤트 핸들러
   const handleRowPress = (rowIndex: any, row: any) => {
     if (isModal) return;
@@ -40,21 +39,30 @@ const Table: React.FC<TableProps> = ({
     setSelectedRow({rowIndex, content: row});
     setModalVisible(true);
   };
-
+  console.log('table4');
   // 모달 숨기는 함수
   const hideModal = () => setModalVisible(false);
-
   const tableHeader = makeHeader(title);
-
   function makeHeader(title: String | undefined) {
     if (!title) return <></>;
+    // const [openCoditionForm, setOpenCoditionForm] =
+    //   useRecoilState(ConditionModifyState);
+    // const [modalId, setModalId] = useRecoilState(modalIdState);
     return (
       <S.Header>
         <S.Title>{title}</S.Title>
-        <S.Button></S.Button>
+        <S.Button>
+          <ConditionModify
+            onPress={() => {
+              setOpenCoditionForm(!openCoditionForm);
+              setModalId('CF');
+            }}
+          />
+        </S.Button>
       </S.Header>
     );
   }
+  console.log('table7');
 
   return (
     <S.Container>

@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useRecoilState} from 'recoil';
 import {ConditionState} from '../../../states/ConditionState';
 import {FormContainer, TextBox, TextBtn} from './ConditionFormStyle';
 import {AboutSelect} from '../../common/about/AboutSelect';
 import {OkayBtn} from '../Btn/SaveBtn';
 import {DatePicker} from '../../common/about/AboutDate';
+
 export const ConditionForm = () => {
   // Recoil에서 조건 꺼내오기
   const [condition, setCondition] = useRecoilState(ConditionState);
-  const [open, setOpen] = useState(false);
 
   // 조건 초기화 버튼
   const resetCondition = () => {

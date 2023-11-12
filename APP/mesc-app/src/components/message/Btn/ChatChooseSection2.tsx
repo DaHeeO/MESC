@@ -1,6 +1,10 @@
 import React from 'react';
 import {SectionBody, SectionContainer} from './SectionStyle';
-import {GoDataControll, GoReport, GoStartChat} from '../../common/ChatChooseId';
+import {
+  GoDataControll,
+  GoReport,
+  GoStartChat,
+} from '../../common/id/ChatChooseId';
 
 export const ChatChooseSection2 = () => {
   return (

@@ -9,8 +9,10 @@ import UserMessage from '../../chat/UserMessage';
 
 interface ChatBtnProps {
   btnTitle: string;
-  // iconId: number;
+  height?: string;
   icon?: React.ReactNode;
+  bordercolor?: string;
+  onPress?: () => void;
 }
 
 export const AboutChatBtn = (props: ChatBtnProps) => {
@@ -44,21 +46,18 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
 
   return (
     /* bottomSheet를 띄우기 위한 Btn */
-    <ChooseBtnBody onPress={handle}>
+    <ChooseBtnBody
+      height={props.height}
+      border={props.bordercolor}
+      onPress={props.onPress}>
       {/* icon 자리 */}
-      <BtnContainer
-        width="25%"
-        // style={{backgroundColor: 'pink'}}
-      >
+      <BtnContainer width="25%" /* style={{backgroundColor: 'pink'}} */>
         {/* ';아이콘 넘기 */}
         {props.icon}
       </BtnContainer>
       {/* 버튼 내용 자리 */}
-      <BtnContainer
-        width="65%"
-        // style={{backgroundColor: 'skyblue'}}
-      >
-        <Text style={{color: 'grey'}}>{props.btnTitle}</Text>
+      <BtnContainer width="65%" /* style={{backgroundColor: 'skyblue'}} */>
+        <Text style={{color: 'gray'}}>{props.btnTitle}</Text>
       </BtnContainer>
     </ChooseBtnBody>
   );

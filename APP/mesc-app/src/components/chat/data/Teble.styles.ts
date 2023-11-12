@@ -1,26 +1,38 @@
 import styled from 'styled-components/native';
 import {colors} from '../../common/Theme';
 
-export const Container = styled.View`
+interface TableContainerProps {
+  width?: string;
+  height?: string;
+  direction?: string;
+  justifyContent?: string;
+  alignItems?: string;
+}
+
+export const Container = styled.View<TableContainerProps>`
+  // border: 1px solid green;
+  flex: 1;
+  width: ${props => props.width};
+  height: ${props => props.height || '85%'};
+  flex-direction: ${props => props.direction || 'column'};
+  justify-content: ${props => props.justifyContent || 'center'};
+  align-items: ${props => props.alignItems || 'center'};
   background-color: ${colors.icy};
   flex-direction: column;
-  flex: 1;
-  // border: 1px solid green;
-  // overflow: hidden;
-  // background-color: blue;
-  height: 85%;
+`;
+
+export const Header = styled.View`
+  // border: 1px solid red;
+  // height: 30px;
+  height: 50px;
+  width: 100%;
+  flex-direction: row;
 `;
 
 export const Table = styled.View`
   flex: 1;
   background-color: aqua;
   border: 3px solid black;
-`;
-
-export const Header = styled.View`
-  width: 100%;
-  height: 30px;
-  border: 1px solid red;
 `;
 
 export const Title = styled.Text`
@@ -32,10 +44,10 @@ export const Title = styled.Text`
 export const Button = styled.View``;
 
 export const Body = styled.View`
+  // flex-direction: column;
   // overflow: hidden;
   width: 100%;
   flex: 1;
-  // flex-direction: column;
   border: 1px solid ${colors.secondary};
   border: 1px solid red;
   align-items: center;

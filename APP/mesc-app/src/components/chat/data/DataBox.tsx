@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, GestureResponderEvent, PanResponder} from 'react-native';
+import {PanResponder} from 'react-native';
 import * as S from './DataBox.styles';
 import Table from './Table';
 import Query from './Query';
@@ -38,6 +38,8 @@ const DataBox: React.FC<DataBoxProps> = ({title, table, query, onPress}) => {
 
   const renderContent = () => {
     if (table) {
+      console.log('table=========================================');
+      console.log(table);
       return (
         <Table
           title={title}

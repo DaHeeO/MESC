@@ -1,46 +1,53 @@
-import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import * as S from './Chat.styles';
-// Components
+// React
+import React, {useEffect, useCallback, useRef} from 'react';
+//Styled
+import {View, ScrollView} from 'react-native';
+import * as S from '../chat/Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
+// Components
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
-import ChatInput from '../../components/chat/ChatInput';
-import {ModalIdSwitch} from '../../components/common/id/ModalId';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
-import SearchDataForm from '../../components/chat/data/SearchDataForm';
-import {customAxios, getBlock, getUserRole} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
+import {ChatComponentIdSwitch} from '../chat/ComponentId';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
+import {Card} from '../../states/CardState';
+import DataComponent from '../../components/chat/data/DataComponent';
+import ChatInput from '../../components/chat/ChatInput';
 import {BlockResponseData} from '../../states/BlockResponseState';
 import {InputState} from '../../states/InputState';
-import {BlockType} from '../../const/constants';
-// Switch
-import {ChatComponentIdSwitch} from './ComponentId';
-// BottomSheet 모달
+
+//BottomSheet
+import {ModalIdSwitch} from '../../components/common/id/ModalId';
 import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal1';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
-import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 
-function Chat() {
+//Api
+import {getBlock} from '../../../Api';
+
+function Test() {
+  // 원하는 모달 띄우기 (모달은 채팅 하단에 있음)
+  const modalId = useRecoilValue(modalIdState);
+  const realModalId = ModalIdSwitch({modalId});
+  // console.log('realModalId', realModalId);
+
+  // const ModalState: RecoilState<string> = 'ConditionModifyState';
+
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(ConditionModifyState); // 해당 모달State값 넣기
+
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   const [block, setBlock] = useRecoilState(BlockResponseData);
 
   const [inputState, setInputState] = useRecoilState(InputState);
 
-  const [isModalVisible, setIsModalVisible] =
-    useRecoilState(ConditionModifyState); // 해당 모달State값 넣기
-  const modalId = useRecoilValue(modalIdState);
-  const realModalId = ModalIdSwitch({modalId});
-  const [buttonComponent, setButtonComponent] =
-    useState<React.JSX.Element | null>(null);
-
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
   useEffect(() => {
-    putStartBlockToRecoil();
+    const role = 12;
+    putBlockToRecoil(role);
   }, []);
 
   useEffect(() => {
@@ -49,16 +56,16 @@ function Chat() {
     setChatbotHistory(prev => [...prev, chatbotBlock]);
   }, [block]);
 
-  const makeChatbotBlock = (data: any) => {
-    let newButtonComponent = <ChatChooseSection1 />;
+  const makeChatbotBlock = useCallback((data: any) => {
+    // section 값에 따라 조건부 렌더링
+    let buttonComponent;
     if (data.section === 1) {
-      newButtonComponent = <ChatChooseSection1 />;
+      buttonComponent = <ChatChooseSection1 />;
     } else if (data.section === 2) {
-      newButtonComponent = <ChatChooseSection2 />;
+      buttonComponent = <ChatChooseSection2 />;
     }
-    setButtonComponent(newButtonComponent);
-    // setInputState(data.isPossible);
-    setInputState(true);
+
+    setInputState(data.isPossible);
 
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
     const cardComponents = data.cardList.map((card: any, index: any) => (
@@ -72,31 +79,20 @@ function Chat() {
         {buttonComponent}
       </>
     );
-  };
+  }, []);
 
   // chatbotHistory 변경될 때마다 스크롤
-  useLayoutEffect(() => {
+  useEffect(() => {
     scrollToBottom();
-  }, [chatbotHistory, buttonComponent]);
+  }, [chatbotHistory]);
 
   const scrollToBottom = () => {
-    setTimeout(() => {
-      chatLayoutRef.current?.scrollToEnd({animated: true});
-    }, 10);
+    chatLayoutRef.current?.scrollToEnd({animated: true});
   };
 
-  const putStartBlockToRecoil = async () => {
-    const role = await getRoleBlockId();
-    const newBlock = await getBlock(role, {});
+  const putBlockToRecoil = async (blockId: number) => {
+    const newBlock = await getBlock(blockId, {});
     if (newBlock) setBlock(newBlock);
-  };
-
-  const getRoleBlockId = async () => {
-    const roleType = await getUserRole();
-    if (roleType === 'DEVELOPER') {
-      return BlockType.DEVELOPER;
-    }
-    return BlockType.WORKER;
   };
 
   return (
@@ -110,7 +106,6 @@ function Chat() {
           ))}
         </ScrollView>
       </S.ChatLayout>
-
       <BottomSheet
         isModalVisible={!isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
         modalHeight={'70%'}
@@ -118,14 +113,8 @@ function Chat() {
         component={realModalId} // 여기를 ID값을 받을 수 있도록
       />
       <ChatInput />
-      <AboutBottomSheetModal
-        btnTitle={'데이터조회'}
-        modalHeight={'70%'}
-        modalBreakPoint={'30%'}
-        component={<SearchDataForm />}
-      />
     </S.Container>
   );
 }
 
-export default Chat;
+export default Test;
