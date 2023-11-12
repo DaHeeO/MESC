@@ -48,7 +48,9 @@ export const MainPage = () => {
               style={{
                 border: "1px solid black",
               }}
-            ></AboutContainer>
+            >
+              회원정보
+            </AboutContainer>
           </AboutContainer>
           {/* MainBody 우측 하단 -공지사항 */}
           <AboutContainer height="50%" width="100%">
