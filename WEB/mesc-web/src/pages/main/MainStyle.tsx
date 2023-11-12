@@ -16,6 +16,9 @@ export const MainPage = () => {
   const goMeun1 = () => {
     navigate(`/Menu1`);
   };
+  const goFAQ = () => {
+    navigate(`/Faq`);
+  };
 
   return (
     // 메인페이지 전체
@@ -59,7 +62,30 @@ export const MainPage = () => {
               style={{
                 border: "1px solid black",
               }}
-            ></AboutContainer>
+            >
+              <AboutContainer
+                width="100%"
+                height="10%"
+                style={{ border: "1px solid gray" }}
+              >
+                FAQ
+              </AboutContainer>
+              <AboutContainer
+                width="100%"
+                height="80%"
+                style={{ border: "1px solid gray" }}
+              >
+                FAQ
+              </AboutContainer>
+              <AboutContainer
+                style={{ marginRight: "10%" }}
+                width="100%"
+                height="10%"
+                justifyContent="end"
+              >
+                <ContainedBtn content="FAQ 추가하기" onClick={goFAQ} />
+              </AboutContainer>
+            </AboutContainer>
           </AboutContainer>
         </AboutContainer>
         {/* MainBody의 오른쪽 */}
