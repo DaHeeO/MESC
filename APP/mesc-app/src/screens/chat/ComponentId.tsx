@@ -50,7 +50,8 @@ export function ChatComponentIdSwitch(card: Card) {
     // case 'QTA': // 쿼리입력(SELECT)에 따른 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
     case 'QU':
-      return <DataBox table={card.table} />;
+      if (card.table) return <DataBox table={card.table} />;
+      return <ChatbotMessage card={card} />;
 
     // case 'ML': // 데이터 조회 시 공정 리스트
     //   return (
