@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "../common/About/AboutContainer";
+import { AboutContainer } from "../common/About/AboutContainer";
 import { useNavigate } from "react-router-dom";
 import BasicMenu from "../mypage/mypageMenu";
 
@@ -8,13 +8,17 @@ function Header() {
   const userName = "김싸피";
 
   const goMain = () => {
-    navigate(`/Main`);
+    navigate(`/`);
   };
 
   return (
     // header의 전체 높이, 웹사이트에서 차지하는 비율
-    <Container height="10%" backcolor="#19234b" justifyContent="space-between">
-      <Container
+    <AboutContainer
+      height="10%"
+      backcolor="#19234b"
+      justifyContent="space-between"
+    >
+      <AboutContainer
         onClick={goMain}
         height="100%"
         width="15%"
@@ -27,8 +31,8 @@ function Header() {
         }}
       >
         MESC
-      </Container>
-      <Container
+      </AboutContainer>
+      <AboutContainer
         height="100%"
         width="10%"
         fonts="1vw"
@@ -40,8 +44,8 @@ function Header() {
         }}
       >
         <BasicMenu />
-      </Container>
-    </Container>
+      </AboutContainer>
+    </AboutContainer>
   );
 }
 

@@ -3,7 +3,7 @@ import { RecoilRoot } from "recoil";
 //Header
 import Layout from "./pages/layout";
 // 하위페이지
-import Main from "./pages/main";
+import Main from "./pages/main/main";
 import Menu1 from "./pages/menu1";
 import Menu2 from "./pages/menu2";
 import Menu3 from "./pages/menu3";
@@ -19,7 +19,6 @@ function App() {
       <RecoilRoot>
         <Routes>
           <Route path="/*" element={<Layout />}>
-            <Route path="Main" element={<Main />} />
             <Route path="Mypage" element={<Mypage />} />
             <Route path="Menu1" element={<Menu1 />} />
             <Route path="Menu2" element={<Menu2 />} />
@@ -28,6 +27,7 @@ function App() {
             <Route path="MyChatbot" element={<MyChatbot />} />
           </Route>
           <Route path="/Login" element={<Login />} />
+          <Route path="/" element={<Main />} />
         </Routes>
       </RecoilRoot>
     </>

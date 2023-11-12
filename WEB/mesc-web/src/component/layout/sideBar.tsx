@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "../common/About/AboutContainer";
+import { AboutContainer } from "../common/About/AboutContainer";
 import { HoverContainer } from "../common/Layout/sideBarHover";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +21,7 @@ function SideBar() {
 
   return (
     // {/* sideBar */}
-    <Container
+    <AboutContainer
       height="100%"
       width="10%"
       flexDirection="column"
@@ -33,7 +33,7 @@ function SideBar() {
       <HoverContainer onClick={goMenu2}>메뉴 2</HoverContainer>
       <HoverContainer onClick={goMenu3}>메뉴 3</HoverContainer>
       <HoverContainer onClick={goMenu4}>메뉴 4</HoverContainer>
-    </Container>
+    </AboutContainer>
   );
 }
 

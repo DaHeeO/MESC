@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Body = styled.div`
+export const AboutBody = styled.div`
   width: 100vw;
   height: 100vh;
   margin: 0%;
