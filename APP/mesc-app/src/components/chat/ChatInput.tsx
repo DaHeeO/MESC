@@ -111,7 +111,16 @@ function ChatInput() {
   // 전송 버튼을 눌렀을 때 처리하는 함수
   const handleSendButtonPress = async () => {
     const userMessage = input.trim();
+
     setChatbotHistory(prev => [...prev, <UserMessage message={userMessage} />]);
+    if (userMessage === '/로그' || userMessage === '/쿼리') {
+      // 혹시라도 데이터 조작 버튼을 누르고 바로 그냥 명령문을 누르고 싶을 때
+      defaultInput(userMessage);
+
+      setInput(''); // 입력 필드 지우기.
+      return;
+    }
+
     if (userMessage !== '') {
       const blockId = block.blockId;
       // recoil에서 block가져와서 blockId에 따라 처리
@@ -133,7 +142,6 @@ function ChatInput() {
       } else {
         defaultInput(userMessage);
       }
-      console.log(logSearchOption);
       setInput(''); // 입력 필드 지우기.
     } else {
       // 아무것도 입력하지 않고 전송할 경우
@@ -142,12 +150,12 @@ function ChatInput() {
   };
 
   const defaultInput = async (userMessage: String) => {
-    if (userMessage === '/로그') {
+    const role = await getRoleBlockId();
+    if (userMessage === '/로그' && role === BlockType.DEVELOPER) {
       putBlockToRecoil(BlockType.LogKeyword, {});
-    } else if (userMessage === '/쿼리') {
+    } else if (userMessage === '/쿼리' && role === BlockType.DEVELOPER) {
       putBlockToRecoil(BlockType.QueryInput, {});
     } else {
-      const role = await getRoleBlockId();
       putBlockToRecoil(role, {});
     }
   };
@@ -163,17 +171,20 @@ function ChatInput() {
   const queryInput = async (userMessage: String) => {
     const upperQuery = userMessage.toUpperCase();
 
-    if (upperQuery.startsWith('SELECT')) {
+    if (upperQuery.startsWith('SELECT ')) {
       // 조회
       const nextBlock: any = putBlockToRecoil(BlockType.SelectOutput, {
         query: userMessage,
       });
       // 에러처리 추가해줘야함
+      if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
+        setInput(input);
+      }
     } else if (
       // 수정, 추가, 삭제
-      upperQuery.startsWith('UPDATE') ||
-      upperQuery.startsWith('INSERNT') ||
-      upperQuery.startsWith('DELETE')
+      upperQuery.startsWith('UPDATE ') ||
+      upperQuery.startsWith('INSERNT ') ||
+      upperQuery.startsWith('DELETE ')
     ) {
       const nextBlock: any = putBlockToRecoil(BlockType.OperationOutput, {
         query: userMessage,
@@ -185,14 +196,13 @@ function ChatInput() {
         setInput(input);
       }
     } else {
-      Alert.alert('데이터 조작일 때만 사용 가능합니다.');
+      Alert.alert('쿼리문을 정확하게 작성해주세요');
       putBlockToRecoil(BlockType.QueryInput, {});
     }
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
     const newBlock = await getBlock(blockId, body);
-    console.log(newBlock);
 
     if (newBlock) setBlock(newBlock);
     return newBlock;
