@@ -57,7 +57,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       </BtnContainer>
       {/* 버튼 내용 자리 */}
       <BtnContainer width="65%" /* style={{backgroundColor: 'skyblue'}} */>
-        <Text style={{color: 'grey'}}>{props.btnTitle}</Text>
+        <Text style={{color: 'gray'}}>{props.btnTitle}</Text>
       </BtnContainer>
     </ChooseBtnBody>
   );
