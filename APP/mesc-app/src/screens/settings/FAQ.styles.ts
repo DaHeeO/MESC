@@ -11,27 +11,27 @@ export const Container = styled.View`
 `;
 
 export const Div = styled.View`
-  width: 90%;
+  width: 100%;
   height: 100%;
+  align-items: center;
   // background-color: blue;
 `;
 
 export const Top = styled.View`
   width: 100%;
-  height: 10%;
+  height: 14%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  // background-color: green;
 `;
 
 export const Navigation = styled.View`
   display: flex;
   flex-direction: row;
   width: 100%;
+  padding: 0 5%;
   align-items: center;
   margin-top: 25px;
-  // background-color: red;
 `;
 
 export const Back = styled.TouchableOpacity`
@@ -63,4 +63,30 @@ export const Title = styled.Text`
   font-weight: bold;
   color: ${colors.primary};
   padding-bottom: 4px;
+`;
+
+export const Menu = styled.View`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const SelectBox = styled.TouchableOpacity<{selected: boolean}>`
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-bottom-width: 3px;
+  border-bottom-color: ${props =>
+    props.selected ? colors.primary : colors.backgroundGray};
+`;
+
+export const Body = styled.View`
+  display: flex;
+  align-items: center;
+  height: 77%;
+  width: 90%;
 `;

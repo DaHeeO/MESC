@@ -64,3 +64,19 @@ export const Title = styled.Text`
   color: ${colors.primary};
   padding-bottom: 4px;
 `;
+
+export const Body = styled.View`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 81%;
+`;
+
+export const NotificationBox = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px;
+`;
