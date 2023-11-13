@@ -24,7 +24,8 @@ export const SectionContainer = styled.View<SectionContainerProps>`
   width: ${(props: SectionContainerProps) => props.width || '100%'};
   height: ${(props: SectionContainerProps) => props.height || '100%'};
   flex-direction: ${(props: SectionContainerProps) => props.direction || 'row'};
-  align-items: ${(props: SectionContainerProps) => props.align || 'center'};
+  // align-items: ${(props: SectionContainerProps) => props.align || 'center'};
   justify-content: ${(props: SectionContainerProps) =>
     props.justify || 'flex-start'};
+  margin-bottom: 10px;
 `;

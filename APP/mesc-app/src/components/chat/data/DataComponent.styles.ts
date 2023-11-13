@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const DataContainer = styled.View`
-  border: 1px solid red;
+  // border: 1px solid red;
   border-radius: 6px;
   width: 100%;
   // height: 500px;
@@ -29,4 +29,14 @@ export const LabelContainer = styled.View`
   flex-direction: row;
   // border: 1px solid aqua;
   height: 30px;
+`;
+
+export const ModalContainer = styled.View`
+  border: 1px solid red;
+  border-radius: 6px;
+  width: 100%;
+  height: 300px;
+  flex-direction: column;
+  display: flex;
+  justify-content: space-between;
 `;

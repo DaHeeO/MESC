@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import * as S from './SearchDataForm.styles';
 import {ScrollView} from 'react-native-gesture-handler';
 import SearchBtn from '../../../assets/icons/searchbtn.svg';
@@ -6,10 +6,7 @@ import NextBtn from '../../../assets/icons/nextBtn.svg';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {BlockResponseData} from '../../../states/BlockResponseState';
 import {getBlock} from '../../../../Api';
-import {get, set} from 'lodash';
 import {TouchableOpacity} from '@gorhom/bottom-sheet';
-import {TableTitleState} from '../../../states/DataTitleState';
-import {Table} from '@mui/material';
 import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import UserMessage from '../UserMessage';
 
@@ -22,7 +19,6 @@ type ButtonItem = {
 
 const SearchDataForm = () => {
   const [block, setBlock] = useRecoilState(BlockResponseData);
-  const [tableTitle, setTataTitle] = useRecoilState(TableTitleState);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   // console.log('block', block);
@@ -36,12 +32,12 @@ const SearchDataForm = () => {
     ]);
     const body = {
       actionId: 23,
+      title: button.name,
       conditions: '',
     };
     const block = await getBlock(4, body);
-    console.log(block);
+    // console.log(block);
     setBlock(block);
-    setTataTitle(button.name);
   };
 
   return (

@@ -15,9 +15,9 @@ export const GoReport = () => {
 };
 
 export const GoDataControll = () => {
-  return <AboutChatBtn btnTitle={'DB 조작'} icon={<DataControll />} />;
+  return <AboutChatBtn btnTitle={'데이터조작'} icon={<DataControll />} />;
 };
 
 export const ConditionModify = () => {
-  return <AboutChatBtn btnTitle={'조건변경'} icon={<Filter />} />;
+  return <AboutChatBtn btnTitle={'조건 변경'} icon={<Filter />} />;
 };

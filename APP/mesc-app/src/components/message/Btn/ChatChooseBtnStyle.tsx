@@ -7,20 +7,18 @@ interface ChooseBtnProps {
 }
 
 export const ChooseBtnBody = styled.TouchableOpacity<ChooseBtnProps>`
-<<<<<<< HEAD
   border: ${props => props.border || 'none'};
-  height: ${props => props.height || '40px'};
-  width: 110px;
-=======
-  width: 100px;
-  height: 30px;
->>>>>>> 0b60989669581405e27b55b3a4dd79ce5e5782f3
+  height: ${props => props.height || '30px'};
+  width: ${props => props.width || '100px'};
+  // width: 105px;
+  // height: 30px;
   align-items: center;
   justify-content: center;
   background-color: #ffffff;
   border-radius: 10px;
   flex-direction: row;
   // border: 3px solid green;
+  // padding: 1px;
 `;
 
 export const BtnContainer = styled.View<ChooseBtnProps>`

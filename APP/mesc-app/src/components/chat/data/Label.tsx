@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, // 좌우 패딩
     borderRadius: 16, // 둥근 모서리
     overflow: 'hidden', // 모서리가 둥근 부분에서 내용이 넘치지 않도록 함
-    fontSize: 13, // 텍스트 크기
+    fontSize: 14, // 텍스트 크기
     fontWeight: 'bold', // 텍스트 굵기
     textAlign: 'center', // 텍스트 가운데 정렬
     minWidth: 60,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, // 좌우 패딩
     borderRadius: 16, // 둥근 모서리
     overflow: 'hidden', // 모서리가 둥근 부분에서 내용이 넘치지 않도록 함
-    fontSize: 13, // 텍스트 크기
+    fontSize: 14, // 텍스트 크기
     fontWeight: 'bold', // 텍스트 일반 굵기
     textAlign: 'center', // 텍스트 가운데 정렬
     minWidth: 60,

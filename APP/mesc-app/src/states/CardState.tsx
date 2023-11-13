@@ -5,6 +5,7 @@ export interface Card {
   cardName?: string | null | undefined;
   content?: string | null;
   cardType: string;
+  title?: string | null | undefined;
   labels?: LabelItem[] | null | undefined;
   table?: TableData | null | undefined;
   button?: ButtonItem[] | null | undefined;
