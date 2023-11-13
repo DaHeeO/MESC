@@ -167,6 +167,7 @@ public class UserServiceImpl implements UserService {
 				.userId(findUser.getId())
 				.email(findUser.getEmail())
 				.name(findUser.getName())
+			.role(findUser.getRoles().get(0))
 				.phoneNumber(findUser.getPhoneNumber())
 				.build();
 		return findUserRes;
