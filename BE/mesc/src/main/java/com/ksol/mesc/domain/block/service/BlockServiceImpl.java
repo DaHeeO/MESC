@@ -166,8 +166,10 @@ public class BlockServiceImpl implements BlockService {
 		if (blockInfoDto.getIsEditable()) {
 			cardReqList = saveBlock(blockInfoDto, cardReqList);
 		} else {
-			for (CardReq cardReq : cardReqList) {
-				cardReq.setBlock(block);
+			if (cardReqList != null) {
+				for (CardReq cardReq : cardReqList) {
+					cardReq.setBlock(block);
+				}
 			}
 		}
 
@@ -201,6 +203,7 @@ public class BlockServiceImpl implements BlockService {
 
 				for (Component component : componentList) {
 					componentRepository.updateState(component.getId(), EntityState.DELETE);
+					updateComponentByType(component);
 				}
 			}
 			return;
@@ -373,6 +376,7 @@ public class BlockServiceImpl implements BlockService {
 				LinkedHashMap<String, Object> tableInfo = (LinkedHashMap<String, Object>)requestPostToMes(
 					"/worker/data/",
 					cardReqDto, cardType);
+				cardMap.put("title", cardReqDto.getTitle());
 				cardMap.put("labels", tableInfo.get("label"));
 				tableInfo.remove("label");
 				cardMap.put("table", tableInfo);

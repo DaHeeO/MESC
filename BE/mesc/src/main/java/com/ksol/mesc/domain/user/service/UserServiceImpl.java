@@ -1,6 +1,5 @@
 package com.ksol.mesc.domain.user.service;
 
-import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -9,6 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.user.dto.LoginReq;
+import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
 import com.ksol.mesc.domain.user.entity.User;
 import com.ksol.mesc.domain.user.exception.EmailMessagingException;
@@ -106,6 +106,7 @@ public class UserServiceImpl implements UserService {
 			.uri("/user/findById/" + userId)
 			.retrieve()
 			.toEntity(User.class)
+			// .toEntity(User.class)
 			.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()
 			.getBody();

@@ -13,6 +13,8 @@ import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
+import com.ksol.mesc.domain.user.dto.UserReq;
+import com.ksol.mesc.domain.user.entity.User;
 import com.ksol.mesc.domain.user.service.UserService;
 import com.ksol.mesc.global.config.jwt.TokenInfo;
 
@@ -44,6 +46,18 @@ public class UserController {
 	public ResponseEntity<?> recreateToken(HttpServletRequest request) {
 		TokenInfo tokenInfo = userService.recreateToken(request);
 		return ResponseEntity.ok(tokenInfo);
+	}
+
+	//이름, 직급, 이메일
+	@Operation(summary = "로그인한 사용자 정보 조회 API", description = "로그인한 사용자 정보를 조회한다.")
+	@GetMapping
+	public ResponseEntity<CommonResponseDto<?>> findUserById(Authentication authentication) {
+		Integer userId = Integer.parseInt(authentication.getName());
+		log.info("userId : {}", userId);
+		User user = userService.findById(userId);
+		UserReq userReq = UserReq.toRequest(user);
+
+		return ResponseEntity.ok(CommonResponseDto.success(userReq));
 	}
 
 	// @Operation(summary = "이메일 발송 API", description = "해당 이메일로 메일을 발송한다.")
