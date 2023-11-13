@@ -136,10 +136,11 @@ public class BlockServiceImpl implements BlockService {
 	@Transactional
 	public BlockRes addBlock(BlockReqDto blockReqDto) {
 		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
-		Block block = blockRepository.save(Block.toEntity(blockInfoDto));
-		BlockRes blockRes = BlockRes.toResponse(block);
+		// Block block = blockRepository.save(Block.toEntity(blockInfoDto));
+		// BlockRes blockRes = BlockRes.toResponse(block);
 
-		return blockRes;
+		// return blockRes;
+		return null;
 	}
 
 	//블록 추가
