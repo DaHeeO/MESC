@@ -46,13 +46,13 @@ function DataComponent(props: {card: Card}) {
   // 카드 테이블이 존재하면(select문 성공 시)
   const tableData: TableData | null | undefined = card.table;
   if (card.button) {
-    console.log('card.button', card.button);
-    console.log('card.button[0].link', card.button[0].link);
+    // console.log('card.button', card.button);
+    // console.log('card.button[0].link', card.button[0].link);
   }
   if (card.button?.[0].link !== undefined) {
     setConditionId(card.button?.[0].link); // conditionId 저장
   }
-  console.log('conditionId=============', conditionId);
+  // console.log('conditionId=============', conditionId);
 
   // 'TA' labels 데이터 저장
   let LabelSection = makeLableSection(card.labels);

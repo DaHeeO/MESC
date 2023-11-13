@@ -34,16 +34,16 @@ export async function getBlock(blockId: number, body: {}) {
 }
 
 export async function getCard(cardId: number, body: {}) {
-  let block: any;
+  let card: any;
   await customAxios
     .post(`card/${cardId}`, body)
     .then(response => {
-      block = response.data.data;
+      card = response.data.data;
     })
     .catch(error => {
       console.log(error);
     });
-  return block;
+  return card;
 }
 
 // baseURL 설정
