@@ -149,11 +149,13 @@ public class BlockServiceImpl implements BlockService {
 
 		//2. 카드 추가 + 관련 컴포넌트 추가
 		if (cardReqList != null) {
+			log.info("cardReqList 수행");
 			saveCardAndComponent(cardReqList);
 		}
 
 		//컴포넌트 추가
 		if (componentReqs != null) {
+			log.info("component 수행");
 			saveComponent(componentReqs);
 		}
 	}
@@ -198,29 +200,49 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	//블록 삭제
+	@Transactional
+	public void deleteBlock(Integer blockId) {
+		Block block = blockRepository.findById(blockId)
+			.orElseThrow(() -> new EntityNotFoundException("Block Not Found"));
+		blockRepository.updateState(blockId, EntityState.DELETE);
+
+		List<Card> cardList = cardRepository.findByBlockId(blockId, EntityState.ACTIVE);
+		if (cardList == null)
+			return;
+		for (Card card : cardList) {
+			cardRepository.updateState(card.getId(), EntityState.DELETE);
+			List<Component> componentList = componentRepository.findByCard(card, EntityState.ACTIVE);
+
+			for (Component component : componentList) {
+				componentRepository.updateState(component.getId(), EntityState.DELETE);
+				updateComponentByType(component);
+			}
+		}
+	}
+
+	//블록 component 삭제
 	@Override
 	@Transactional
 	public void deleteBlockContent(Integer blockId, BlockReqDto blockReqDto) {
-		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
 		List<CardReq> cardReqList = blockReqDto.getCardReqList();
 		List<ComponentReq> componentReqList = blockReqDto.getComponentList();
 
-		//1. 블록 삭제의 경우 -> 블록 연관된 것 삭제
-		if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
-			blockRepository.updateState(blockId, EntityState.DELETE);
-			List<Card> cardList = cardRepository.findByBlockId(blockId, EntityState.ACTIVE);
-
-			for (Card card : cardList) {
-				cardRepository.updateState(card.getId(), EntityState.DELETE);
-				List<Component> componentList = componentRepository.findByCard(card, EntityState.ACTIVE);
-
-				for (Component component : componentList) {
-					componentRepository.updateState(component.getId(), EntityState.DELETE);
-					updateComponentByType(component);
-				}
-			}
-			return;
-		}
+		// //1. 블록 삭제의 경우 -> 블록 연관된 것 삭제
+		// if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
+		// 	blockRepository.updateState(blockId, EntityState.DELETE);
+		// 	List<Card> cardList = cardRepository.findByBlockId(blockId, EntityState.ACTIVE);
+		//
+		// 	for (Card card : cardList) {
+		// 		cardRepository.updateState(card.getId(), EntityState.DELETE);
+		// 		List<Component> componentList = componentRepository.findByCard(card, EntityState.ACTIVE);
+		//
+		// 		for (Component component : componentList) {
+		// 			componentRepository.updateState(component.getId(), EntityState.DELETE);
+		// 			updateComponentByType(component);
+		// 		}
+		// 	}
+		// 	return;
+		// }
 
 		//2. 카드 삭제의 경우 -> 연관된 것 삭제
 		if (cardReqList != null) {
@@ -278,9 +300,12 @@ public class BlockServiceImpl implements BlockService {
 		log.info("block 추가2");
 		Block savedBlock = blockRepository.save(Block.toEntity(blockInfoDto));
 		log.info("block : {}", savedBlock);
-		for (CardReq cardReq : cardReqList) {
-			cardReq.setBlock(savedBlock);
+		if (cardReqList != null) {
+			for (CardReq cardReq : cardReqList) {
+				cardReq.setBlock(savedBlock);
+			}
 		}
+
 		return cardReqList;
 	}
 

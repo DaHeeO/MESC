@@ -50,7 +50,7 @@ public class BlockController {
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}
-	
+
 	@Operation(summary = "블록 내용 수정 API", description = "수정된 블록과 엮여 있는 정보를 DB에 저장한다.")
 	@PatchMapping("/admin/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
@@ -61,9 +61,18 @@ public class BlockController {
 		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}
 
+	@Operation(summary = "블록 삭제 API", description = "수정된 블록과 엮여 있는 정보를 DB에 저장한다.")
+	@DeleteMapping("/admin/all/{blockId}")
+	public ResponseEntity<CommonResponseDto<?>> deleteBlock(@Parameter(description = "블록 id", required = true)
+	@PathVariable @Valid Integer blockId) {
+		blockService.deleteBlock(blockId);
+
+		return ResponseEntity.ok(CommonResponseDto.success(null));
+	}
+
 	@Operation(summary = "블록 내용 삭제 API", description = "수정된 블록과 엮여 있는 정보를 DB에 저장한다.")
 	@DeleteMapping("/admin/{blockId}")
-	public ResponseEntity<CommonResponseDto<?>> deleteBlock(@Parameter(description = "블록 id", required = true)
+	public ResponseEntity<CommonResponseDto<?>> deleteBlockInfo(@Parameter(description = "블록 id", required = true)
 	@PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
 	@RequestBody @Validated BlockReqDto blockReqDto) {
 		blockService.deleteBlockContent(blockId, blockReqDto);
