@@ -1,3 +1,6 @@
+FROM node:16.14.0-alpine as builder
+
+# 작업 폴더를 만들고 npm 설치
 WORKDIR /usr/src/app
 COPY package.json /usr/src/app/package.json
 
