@@ -3,13 +3,15 @@ import {ScrollView, Modal, Text, TouchableOpacity, View} from 'react-native';
 import * as S from './Query.styles';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {ModalDataState} from '../../../states/ModalDataState';
+import ModalBox from './ModalBox';
 
 interface QueryProps {
   query: string;
   isModal: boolean;
+  title?: string;
 }
 
-const Query: React.FC<QueryProps> = ({query, isModal}) => {
+const Query: React.FC<QueryProps> = ({query, isModal, title}) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   // 모달을 표시하는 함수
@@ -25,27 +27,28 @@ const Query: React.FC<QueryProps> = ({query, isModal}) => {
 
   return (
     <>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <ScrollView
-          nestedScrollEnabled={true}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{flexGrow: 1}}>
-          <S.QueryBox onPress={showModal}>
+      {/* <S.Header>
+        <S.HeaderContainer>
+          <S.Title>{title}</S.Title>
+        </S.HeaderContainer>
+      </S.Header> */}
+      <S.QueryBox onPress={showModal}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <ScrollView
+            nestedScrollEnabled={true}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{flexGrow: 1}}>
             <S.Query>{query}</S.Query>
-          </S.QueryBox>
+          </ScrollView>
         </ScrollView>
-      </ScrollView>
+      </S.QueryBox>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={isModalVisible}
         onRequestClose={hideModal}>
-        <S.QueryContainer>
-          <TouchableOpacity onPress={hideModal}>
-            <Text>Close</Text>
-          </TouchableOpacity>
-          <Query query={query} isModal={true} />
-        </S.QueryContainer>
+        <ModalBox query={query} onPress={hideModal} />
       </Modal>
     </>
   );

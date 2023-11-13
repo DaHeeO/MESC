@@ -1,11 +1,6 @@
 import {atom} from 'recoil';
 
-export const TableTitleState = atom({
-  key: 'TableTitleState',
-  default: '',
-});
-
-export const SingleTableTitleState = atom({
+export const SingleTableTitleState = atom<string>({
   key: 'SingleTableTitleState',
   default: '',
 });

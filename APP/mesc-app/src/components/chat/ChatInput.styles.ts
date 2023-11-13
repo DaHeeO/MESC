@@ -115,8 +115,7 @@ export const WordBox = styled.View<{length?: number}>`
 `;
 
 export const WordText = styled.Text`
-  color: black; // 흰색 폰트
-  // 추가적인 폰트 스타일링을 여기에 넣을 수 있습니다.
+  color: black;
 `;
 
 export const MenuBox = styled.TouchableOpacity<InputProps>`

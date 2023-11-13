@@ -10,6 +10,7 @@ import UserMessage from '../../chat/UserMessage';
 interface ChatBtnProps {
   btnTitle: string;
   height?: string;
+  width?: string;
   icon?: React.ReactNode;
   bordercolor?: string;
   onPress?: () => void;
@@ -50,15 +51,16 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
     /* bottomSheet를 띄우기 위한 Btn */
     <ChooseBtnBody
       height={props.height}
+      width={props.width}
       border={props.bordercolor}
-      onPress={handle}>
+      onPress={props.onPress ? props.onPress : handle}>
       {/* icon 자리 */}
-      <BtnContainer width="25%" /* style={{backgroundColor: 'pink'}} */>
+      <BtnContainer width="25px">
         {/* ';아이콘 넘기 */}
         {props.icon}
       </BtnContainer>
       {/* 버튼 내용 자리 */}
-      <BtnContainer width="65%" /* style={{backgroundColor: 'skyblue'}} */>
+      <BtnContainer width="70px">
         <Text style={{color: 'gray'}}>{props.btnTitle}</Text>
       </BtnContainer>
     </ChooseBtnBody>

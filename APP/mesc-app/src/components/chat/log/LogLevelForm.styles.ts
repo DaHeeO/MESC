@@ -17,7 +17,6 @@ export const Title = styled.Text`
   margin-left: 20px;
   margin-top: 20px;
   margin-right: 20px;
-  // height: 30px;
   border-bottom-width: 1px;
   border-bottom-color: black;
   padding-bottom: 10px;
