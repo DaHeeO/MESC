@@ -4,7 +4,7 @@ import {colors} from '../../components/common/Theme';
 
 // 채팅화면
 export const Container = styled.View`
-  background-color: ${colors.secondary};
+  background-color: #323639;
   display: flex;
   flex: 1;
   // height: 91%;
@@ -21,4 +21,9 @@ export const ChatLayout = styled.View`
   margin-right: 12px;
   //margin-bottom: 10px;
   border-radius: 10px;
+`;
+
+export const ModalContainer = styled.View`
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.8);
 `;

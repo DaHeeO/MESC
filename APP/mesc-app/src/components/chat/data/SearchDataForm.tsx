@@ -47,24 +47,28 @@ const SearchDataForm = () => {
 
   return (
     <S.Container>
-      <S.SearchInput>
-        <S.ImageBox>
-          <SearchBtn />
-        </S.ImageBox>
-        <S.SearchText placeholder="검색어를 입력하세요" />
-      </S.SearchInput>
+      {/* =========================== */}
+      <S.InputContainer>
+        <S.SearchInput>
+          <S.ImageBox>
+            <SearchBtn />
+          </S.ImageBox>
+          <S.SearchText placeholder="검색어를 입력하세요" />
+        </S.SearchInput>
+      </S.InputContainer>
+      {/* =========================== */}
       <S.ButtonContainer>
         <ScrollView showsVerticalScrollIndicator={false}>
           {mlCard &&
             mlCard.button &&
             mlCard.button.map((button: ButtonItem) => (
-              <S.ButtonRow key={button.id}>
-                <TouchableOpacity onPress={() => handleButtonClick(button)}>
-                  <S.ButtonName>{button.name}</S.ButtonName>
-                  <S.ImageBox>
-                    <NextBtn />
-                  </S.ImageBox>
-                </TouchableOpacity>
+              <S.ButtonRow
+                key={button.id}
+                onPress={() => handleButtonClick(button)}>
+                <S.ButtonName>{button.name}</S.ButtonName>
+                <S.ImageBox>
+                  <NextBtn />
+                </S.ImageBox>
               </S.ButtonRow>
             ))}
         </ScrollView>

@@ -30,7 +30,7 @@ export const ButtonBox = styled.View`
 `;
 
 export const Button = styled.View`
-  background-color: #5d5fef;
+  background-color: #3c56a0;
   height: 30px;
   width: 60px;
   border-radius: 14px; // 라운드 모양을 주기 위해 border-radius 추가

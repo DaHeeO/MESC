@@ -19,7 +19,7 @@ import {InputState} from '../../states/InputState';
 
 //BottomSheet
 import {ModalIdSwitch} from '../../components/common/id/ModalId';
-import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal1';
+import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
 

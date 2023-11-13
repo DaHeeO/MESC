@@ -22,7 +22,7 @@ function ChatbotMessage(props: {card: Card}) {
     if (maxLength * 10 < 230) {
       // 만약 가장 긴 줄의 길이가 width 미만이라면 동적으로 width를 재설정
       if (maxLength * 10 < 230) {
-        setDynamicWidth(maxLength * 10);
+        setDynamicWidth(maxLength * 12);
       } else {
         setDynamicWidth(230);
       }
@@ -46,7 +46,7 @@ function ChatbotMessage(props: {card: Card}) {
             style={{
               fontSize: 14,
               textAlign: 'left',
-              color: 'grey',
+              color: '#323639',
               fontWeight: 'bold',
             }}>
             {context}

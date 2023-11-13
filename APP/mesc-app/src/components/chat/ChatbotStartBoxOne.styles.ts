@@ -4,7 +4,7 @@ import {colors} from '../common/Theme';
 
 export const ChatbotBox = styled.View`
   width: 260px;
-  height: 200px;
+  height: 190px;
   display: flex;
   border-radius: 10px;
   margin-top: 10px;
@@ -49,9 +49,10 @@ export const MidBox = styled.View`
 `;
 
 export const BottomBox = styled.View`
-  flex: 2;
+  flex: 1.5;
   display: flex;
   background-color: ${colors.icy};
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  // background-color: pink;
 `;

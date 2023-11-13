@@ -22,7 +22,7 @@ export const TopBox = styled.View`
 
 export const NameBox = styled.View`
   width: 45%;
-  //background-color: green;
+  // background-color: green;
   heigth: 100%;
 `;
 
@@ -44,10 +44,9 @@ export const Img = styled(Image)`
 export const MidBox = styled.View`
   flex: 1;
   background-color: ${colors.icy};
-  background-color: pink;
   justify-content: center;
   margin-left: 10px;
-  background-color: yellow;
+  // background-color: yellow;
 `;
 
 export const BottomBox = styled.View`
@@ -56,5 +55,5 @@ export const BottomBox = styled.View`
   background-color: ${colors.icy};
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  background-color: aqua;
+  // background-color: aqua;
 `;

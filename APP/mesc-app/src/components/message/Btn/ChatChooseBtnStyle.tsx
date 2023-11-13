@@ -26,7 +26,6 @@ export const BtnContainer = styled.View<ChooseBtnProps>`
   height: 100%;
   justify-content: center;
   align-items: center;
-  // background-color: yellow;
 `;
 
 interface IconBoxProps {

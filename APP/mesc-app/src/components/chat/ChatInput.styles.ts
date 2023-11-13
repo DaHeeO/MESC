@@ -20,6 +20,7 @@ export const OtherContainer = styled.View<InputProps>`
   align-content: center;
   align-items: center;
   margin-top: ${({marginTop}) => (marginTop ? marginTop : '0px')};
+  // background-color: pink;
 `;
 
 export const HiddenContainer = styled.View<InputProps>`
@@ -43,19 +44,21 @@ export const ChatInput = styled.View<InputProps>`
   justify-content: ${({justifyContent}) =>
     justifyContent ? justifyContent : 'center'};
   // justify-content: center;
+  // background-color: yellow;
 `;
 
 export const PlusBox = styled.TouchableOpacity`
   // background-color: gray;
   width: 24px;
   height: 24px;
-  margin-left: 10px;
+  margin-left: 15px;
+  // background-color: yellow;
 `;
 
 export const InputBox = styled.TextInput`
-  background-color: #ebecef;
+  background-color: #ececec;
   width: 80%;
-  height: auto;
+  height: 40px;
   max-height: 100px;
   padding-left: 15px;
   display: flex;
@@ -63,12 +66,15 @@ export const InputBox = styled.TextInput`
   color: grey;
   border-radius: 20px;
   line-height: 18px;
+  margin-left: 15px;
+  margin-right: 15px;
 `;
 
 export const SendBox = styled.View`
   width: 24px;
   height: 24px;
-  margin-right: 10px;
+  margin-right: 15px;
+  // background-color: green;
 `;
 
 // input 묶음
@@ -82,6 +88,8 @@ export const Input = styled.View`
   align-items: flex-end;
   justify-content: flex-end;
   // align-content: space-between;
+  // border: 1px solid red;
+  // background-color: pink;
 `;
 
 // 자동완성 구역
@@ -94,6 +102,7 @@ export const SuggestionsBox = styled.View`
   border-bottom-color: #dcd9d9;
   flex-direction: row;
   align-items: center;
+  // border: 1px solid red;
 `;
 
 export const WordBox = styled.View<{length?: number}>`
@@ -120,12 +129,13 @@ export const WordText = styled.Text`
 
 export const MenuBox = styled.TouchableOpacity<InputProps>`
   // border: 1px solid red;
-  width: ${({width}) => (width ? width : '80px')};
-  height: ${({height}) => (height ? height : '80px')};
+  width: ${({width}) => (width ? width : '70px')};
+  height: ${({height}) => (height ? height : '70px')};
   margin: ${({margin}) => (margin ? margin : '0px')};
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  // background-color: skyblue;
 `;
 
 export const Img = styled.Image`

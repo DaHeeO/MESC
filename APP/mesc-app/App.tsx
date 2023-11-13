@@ -10,7 +10,7 @@ import Success from './src/screens/login/Success';
 import Intro from './src/screens/intro/Intro';
 import BottomTab from './src/components/common/bottomTab/BottomTab';
 import Main from './src/screens/main/Main';
-import Chat from './src/screens/chat/Chat2';
+import Chat from './src/screens/chat/Chat';
 import {RecoilRoot} from 'recoil';
 
 const Stack = createStackNavigator();

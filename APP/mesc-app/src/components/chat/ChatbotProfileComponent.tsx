@@ -1,13 +1,14 @@
 import React from 'react';
 import {TextBox} from '../common/about/AboutText';
-import RobotIcon from '../../assets/images/RobotIcon.png';
+// import RobotIcon from '../../assets/images/RobotIcon.png';
+import Profile from '../../assets/icons/profile.svg';
 import * as S from './ChatbotProfileComponent.styles';
 
 function ChatbotProfile() {
   return (
     <S.Container>
       <S.ImgBox>
-        <S.Img source={RobotIcon}></S.Img>
+        <Profile />
       </S.ImgBox>
       <S.NameBox style={{pointerEvents: 'none'}}>
         <TextBox

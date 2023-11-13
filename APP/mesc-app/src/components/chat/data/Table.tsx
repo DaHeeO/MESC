@@ -13,7 +13,7 @@ import * as S from './Teble.styles';
 import {AboutChatBtn} from '../../../components/message/Btn/ChatChooseBtn';
 //Recoil
 import {useRecoilState, useRecoilValue} from 'recoil';
-import {ConditionModify, CloseModal} from '../../common/id/ChatChooseId';
+import {ConditionModify} from '../../common/id/ChatChooseId';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {modalIdState} from '../../../states/ModalIdState';
 import ModalBox from './ModalBox';
@@ -52,6 +52,7 @@ const Table: React.FC<TableProps> = ({
     content: string[];
   } | null>(null);
   const [dropdown, setDropdown] = useRecoilState(DropdownState);
+  const [touchedRow, setTouchedRow] = useState(null);
 
   const minColumnWidth = 75;
   const maxColumnWidth = 200;
@@ -73,6 +74,21 @@ const Table: React.FC<TableProps> = ({
     ),
   );
 
+  // 터치 시작 이벤트 핸들러
+  const handleTouchStart = (rowIndex: any) => {
+    setTouchedRow(rowIndex);
+  };
+
+  // 터치 종료 이벤트 핸들러
+  const handleTouchEnd = () => {
+    setTouchedRow(null);
+  };
+
+  // 터치된 행에 대한 배경색 적용
+  const isTouched = (rowIndex: any) => {
+    return touchedRow === rowIndex;
+  };
+
   // 셀 클릭 이벤트 핸들러
   const handleRowPress = (rowIndex: any, row: any) => {
     if (isModal) return;
@@ -80,9 +96,10 @@ const Table: React.FC<TableProps> = ({
     setSelectedRow({rowIndex, content: row});
     setModalVisible(true);
   };
+
   // 모달 숨기는 함수
   const hideModal = () => {
-    console.log('hideModal 호출');
+    // console.log('hideModal 호출');
     setModalVisible(false);
   };
 
@@ -90,13 +107,13 @@ const Table: React.FC<TableProps> = ({
     setOpenCoditionForm(!openCoditionForm);
     setModalId('CF');
     const cardId = parseInt(conditionId, 10);
-    console.log('cardId', cardId);
+    // console.log('cardId', cardId);
     const card = await getCard(cardId, {});
 
     // console.log('card', card);
     const dropdownList = card.dropdown;
 
-    console.log('dropdownList', dropdownList);
+    // console.log('dropdownList', dropdownList);
     // 필요한 추가 작업을 수행합니다.
   };
 
@@ -151,7 +168,14 @@ const Table: React.FC<TableProps> = ({
                 {rowList.map((row, rowIndex) => (
                   <TouchableOpacity
                     key={`row-${rowIndex}`}
-                    style={{flexDirection: 'row'}}
+                    onPressIn={() => handleTouchStart(rowIndex)}
+                    onPressOut={handleTouchEnd}
+                    style={[
+                      {flexDirection: 'row'},
+                      isTouched(rowIndex) && {
+                        backgroundColor: 'rgba(123, 178, 233, 0.5)',
+                      }, // 터치된 행에 배경색 적용
+                    ]}
                     onPress={() => handleRowPress(rowIndex, row)}>
                     {row.map((cell, cellIndex) => (
                       <S.CellBox

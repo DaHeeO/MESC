@@ -1,15 +1,21 @@
 import styled from 'styled-components/native';
 import {colors} from '../../common/Theme';
 
+export const Container = styled.View`
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.9);
+`;
+
 export const MadalContainer = styled.View`
   padding: 20px;
   border-radius: 6px;
   width: 100%;
-  height: 82%;
-  margin-top: 58px;
+  height: 80%;
+  margin-top: 78px;
   background-color: ${colors.icy};
   flex-direction: column;
   justify-content: center;
+  // align-items: center;
 `;
 
 export const Header = styled.View`

@@ -9,24 +9,23 @@ export const ChatChooseSection1 = () => {
   return (
     <SectionBody>
       <SectionContainer
-        backgroundColor="yellow"
         height="30px"
         // marginBottom="10px"
         // width="220px"
         // height="50%"
         // justify="space-between"
         align="center">
-        <SectionContainer width="110px" height="30px" backgroundColor="blue">
+        <SectionContainer width="110px" height="30px">
           <GoStartChat />
         </SectionContainer>
-        <SectionContainer width="110px" height="30px" backgroundColor="red">
+        <SectionContainer width="110px" height="30px">
           <GoReport />
         </SectionContainer>
       </SectionContainer>
       <SectionContainer
         width="110px"
         height="30px"
-        backgroundColor="green"
+
         // width="200px"
         // height="50%"
         // justify="space-between"

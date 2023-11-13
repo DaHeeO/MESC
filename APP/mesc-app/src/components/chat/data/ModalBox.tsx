@@ -3,7 +3,6 @@ import {PanResponder} from 'react-native';
 import * as S from './ModalBox.styles';
 import Table from './Table';
 import Query from './Query';
-import {CloseModal} from '../../common/id/ChatChooseId';
 import Close from '../../../assets/icons/close.svg';
 import {vi} from 'date-fns/locale';
 
@@ -68,16 +67,18 @@ const ModalBox: React.FC<ModalBoxProps> = ({
   };
 
   return (
-    <S.MadalContainer>
-      <S.Header>
-        <S.Button>
-          <Close onPress={onPress} />
-        </S.Button>
-      </S.Header>
-      <S.DataContainer {...panResponder.panHandlers}>
-        {renderContent()}
-      </S.DataContainer>
-    </S.MadalContainer>
+    <S.Container>
+      <S.MadalContainer>
+        <S.Header>
+          <S.Button>
+            <Close onPress={onPress} />
+          </S.Button>
+        </S.Header>
+        <S.DataContainer {...panResponder.panHandlers}>
+          {renderContent()}
+        </S.DataContainer>
+      </S.MadalContainer>
+    </S.Container>
   );
 };
 
