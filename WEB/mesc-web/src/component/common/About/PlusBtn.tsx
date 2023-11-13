@@ -25,13 +25,13 @@ export default function BasicSpeedDial(props: BasicSpeedDialProps) {
       icon={<SpeedDialIcon />}
       onClick={props.onClick}
     >
-      {actions.map((action) => (
+      {/* {actions.map((action) => (
         <SpeedDialAction
           key={action.name}
           icon={action.icon}
           tooltipTitle={action.name}
         />
-      ))}
+      ))} */}
     </SpeedDial>
   );
 }
