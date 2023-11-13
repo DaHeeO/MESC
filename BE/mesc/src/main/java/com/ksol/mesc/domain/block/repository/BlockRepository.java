@@ -1,5 +1,6 @@
 package com.ksol.mesc.domain.block.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,6 +12,9 @@ import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.common.EntityState;
 
 public interface BlockRepository extends JpaRepository<Block, Integer> {
+	@Query("select b from Block b where b.state=:state")
+	List<Block> findAllByActive(@Param("state") EntityState state);
+
 	Block save(Block block);
 
 	@Query("select b from Block b where b.id=:id and b.state=:state")

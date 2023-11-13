@@ -3,6 +3,7 @@ package com.ksol.mesc.domain.user.service;
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
+import com.ksol.mesc.domain.user.dto.UserResponse;
 import com.ksol.mesc.domain.user.entity.User;
 import com.ksol.mesc.global.config.jwt.TokenInfo;
 
@@ -19,5 +20,5 @@ public interface UserService {
 
 	Object selectAllUser();
 
-	User findById(Integer userId);
+	UserResponse findById(Integer userId);
 }

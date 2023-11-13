@@ -1,6 +1,7 @@
 package com.ksol.mesc.domain.component.type.dropdown.entity;
 
 import com.ksol.mesc.domain.common.EntityState;
+import com.ksol.mesc.domain.component.type.dropdown.dto.response.DropdownRes;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,12 +11,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Table(name = "DROPDOWN")
+@ToString
 // @DiscriminatorValue("DD")
 public class Dropdown {
 	@Id
@@ -33,4 +41,18 @@ public class Dropdown {
 	@Enumerated(EnumType.STRING)
 	@Builder.Default
 	private EntityState state = EntityState.ACTIVE;
+
+	public static Dropdown toEntity(DropdownRes dropdownRes) {
+		if (dropdownRes.getState() == null)
+			dropdownRes.setState(EntityState.ACTIVE);
+
+		return Dropdown.builder()
+			.id(dropdownRes.getId())
+			.name(dropdownRes.getName())
+			.columnName(dropdownRes.getColumnName())
+			.tableName(dropdownRes.getTableName())
+			.type(dropdownRes.getType())
+			.state(dropdownRes.getState())
+			.build();
+	}
 }

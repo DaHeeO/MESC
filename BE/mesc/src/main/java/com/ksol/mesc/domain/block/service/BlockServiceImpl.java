@@ -21,6 +21,7 @@ import com.ksol.mesc.domain.api.service.ApiService;
 import com.ksol.mesc.domain.block.dto.request.BlockInfoDto;
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
+import com.ksol.mesc.domain.block.dto.response.BlockRes;
 import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.block.repository.BlockRepository;
 import com.ksol.mesc.domain.card.dto.request.CardReq;
@@ -78,6 +79,18 @@ public class BlockServiceImpl implements BlockService {
 	//export lib
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 	private final WebClient webClient;
+
+	//전체 블록 조회
+	public List<BlockRes> selectAllBlock() {
+		List<Block> blockList = blockRepository.findAllByActive(EntityState.ACTIVE);
+		List<BlockRes> blockRes = new ArrayList<>();
+
+		for (Block block : blockList) {
+			blockRes.add(BlockRes.toResponse(block));
+		}
+
+		return blockRes;
+	}
 
 	//블록 조회
 	@Override
@@ -246,6 +259,13 @@ public class BlockServiceImpl implements BlockService {
 				break;
 			case DD:
 				dropdownRepository.updateState(id, EntityState.DELETE);
+				Dropdown dropdown = dropdownRepository.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("Dropdown Not Found"));
+				List<ComponentValue> cValueList = valuesRepository.findByDropdown(dropdown, EntityState.ACTIVE);
+				for (ComponentValue cv : cValueList) {
+					valuesRepository.updateState(cv.getId(), EntityState.DELETE);
+				}
+
 				break;
 			default:
 				throw new IllegalArgumentException("Invalid ComponentType");
@@ -315,8 +335,17 @@ public class BlockServiceImpl implements BlockService {
 					componentReq.setLinkId(checkbox.getId());
 					break;
 				case DD:
-					Dropdown dropdown = saveEntity(json, Dropdown.class, dropdownRepository);
+					DropdownRes dropdownRes = objectMapper.readValue(json, DropdownRes.class);
+					Dropdown dropdown = Dropdown.toEntity(dropdownRes);
+					dropdownRepository.save(dropdown);
 					componentReq.setLinkId(dropdown.getId());
+
+					//value 추가
+					List<ValuesRes> cValueList = dropdownRes.getValuesList();
+					for (ValuesRes cv : cValueList) {
+						cv.setDropdown(dropdown);
+						valuesRepository.save(ComponentValue.toEntity(cv));
+					}
 					break;
 				default:
 					throw new IllegalArgumentException("Invalid ComponentType");
@@ -387,7 +416,7 @@ public class BlockServiceImpl implements BlockService {
 				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery());
 				Boolean result = (Boolean)tableByQuery.get("result");
 				cardMap.put("result", result);
-				if(result) {
+				if (result) {
 					tableByQuery.remove("result");
 					cardMap.put("table", tableByQuery);
 				} else {

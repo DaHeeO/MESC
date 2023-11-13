@@ -10,6 +10,7 @@ import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.user.dto.LoginReq;
 import com.ksol.mesc.domain.user.dto.LoginResponseDto;
 import com.ksol.mesc.domain.user.dto.SendEmailReq;
+import com.ksol.mesc.domain.user.dto.UserResponse;
 import com.ksol.mesc.domain.user.entity.User;
 import com.ksol.mesc.domain.user.exception.EmailMessagingException;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
@@ -100,12 +101,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findById(Integer userId) {
+	public UserResponse findById(Integer userId) {
 		System.out.println("userId = " + userId);
 		return webClient.get()
 			.uri("/user/findById/" + userId)
 			.retrieve()
-			.toEntity(User.class)
+			.toEntity(UserResponse.class)
 			// .toEntity(User.class)
 			.onErrorMap(e -> new MesServerException(e.getMessage()))
 			.block()

@@ -39,7 +39,7 @@ public class ApiController {
 	@GetMapping("/start-message")
 	public ResponseEntity<CommonResponseDto<MessageResponseDto>> getStartMessage(Authentication authentication) {
 		Integer userId = Integer.parseInt(authentication.getName());
-		String name = userService.findById(userId).getRealName();
+		String name = userService.findById(userId).getName();
 		String message = apiService.getStartMessage(name);
 		MessageResponseDto messageDto = new MessageResponseDto(message);
 		return new ResponseEntity<>(CommonResponseDto.success(messageDto), HttpStatus.OK);

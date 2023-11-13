@@ -1,11 +1,13 @@
 package com.ksol.mesc.domain.block.controller;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
+import com.ksol.mesc.domain.block.dto.response.BlockRes;
 import com.ksol.mesc.domain.block.service.BlockServiceImpl;
 import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 
@@ -30,6 +33,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BlockController {
 	private final BlockServiceImpl blockService;
+
+	@Operation(summary = "블록 전체 조회 API", description = "전체 블록을 조회한다.")
+	@GetMapping("/admin")
+	public ResponseEntity<CommonResponseDto<?>> selectAllBlock() {
+		List<BlockRes> blockResList = blockService.selectAllBlock();
+
+		return ResponseEntity.ok(CommonResponseDto.success(blockResList));
+	}
 
 	@Operation(summary = "블록 추가 API", description = "새로운 블록을 DB에 저장한다.")
 	@PostMapping("/admin")
