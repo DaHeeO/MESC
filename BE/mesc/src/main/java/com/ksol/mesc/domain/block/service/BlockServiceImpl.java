@@ -133,19 +133,28 @@ public class BlockServiceImpl implements BlockService {
 		return objMap;
 	}
 
+	@Transactional
+	public BlockRes addBlock(BlockReqDto blockReqDto) {
+		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
+		Block block = blockRepository.save(Block.toEntity(blockInfoDto));
+		BlockRes blockRes = BlockRes.toResponse(block);
+
+		return blockRes;
+	}
+
 	//블록 추가
 	@Override
 	@Transactional
 	public void addBlockContent(BlockReqDto blockReqDto) {
-		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
+		// BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
 		List<CardReq> cardReqList = blockReqDto.getCardReqList();
 		List<ComponentReq> componentReqs = blockReqDto.getComponentList();
 		log.info("block 정보 : {}", blockReqDto);
-		//1. 블록 추가
-		if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
-			log.info("block 추가");
-			cardReqList = saveBlock(blockInfoDto, cardReqList);
-		}
+		// //1. 블록 추가
+		// if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
+		// 	log.info("block 추가");
+		// 	cardReqList = saveBlock(blockInfoDto, cardReqList);
+		// }
 
 		//2. 카드 추가 + 관련 컴포넌트 추가
 		if (cardReqList != null) {
@@ -177,16 +186,19 @@ public class BlockServiceImpl implements BlockService {
 		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
 			.orElseThrow(() -> new EntityNotFoundException("Active Block Not Found"));
 
+		blockRepository.save(block);
+
 		//1. 블록 수정
-		if (blockInfoDto.getIsEditable()) {
-			cardReqList = saveBlock(blockInfoDto, cardReqList);
-		} else {
-			if (cardReqList != null) {
-				for (CardReq cardReq : cardReqList) {
-					cardReq.setBlock(block);
-				}
-			}
-		}
+		blockRepository.save(block);
+		// if (blockInfoDto.getIsEditable()) {
+		// 	cardReqList = saveBlock(blockInfoDto, cardReqList);
+		// } else {
+		// 	if (cardReqList != null) {
+		// 		for (CardReq cardReq : cardReqList) {
+		// 			cardReq.setBlock(block);
+		// 		}
+		// 	}
+		// }
 
 		//2. 카드 수정
 		if (cardReqList != null) {

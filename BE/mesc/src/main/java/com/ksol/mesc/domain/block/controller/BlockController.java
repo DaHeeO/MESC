@@ -45,6 +45,15 @@ public class BlockController {
 	@Operation(summary = "블록 추가 API", description = "새로운 블록을 DB에 저장한다.")
 	@PostMapping("/admin")
 	public ResponseEntity<CommonResponseDto<?>> addBlock(@Parameter(description = "블록명", required = true)
+	@RequestBody BlockReqDto blockReqDto) {
+		BlockRes blockRes = blockService.addBlock(blockReqDto);
+
+		return ResponseEntity.ok(CommonResponseDto.success(blockRes));
+	}
+
+	@Operation(summary = "카드, 컴포넌트 추가 API", description = "새로운 카드, 컴포넌트을 DB에 저장한다.")
+	@PostMapping("/admin")
+	public ResponseEntity<CommonResponseDto<?>> addBlockInfo(@Parameter(description = "블록명", required = true)
 	@RequestBody BlockReqDto blockReqDto, Authentication authentication) {
 		blockService.addBlockContent(blockReqDto);
 

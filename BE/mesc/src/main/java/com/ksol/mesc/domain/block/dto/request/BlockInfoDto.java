@@ -16,7 +16,7 @@ public class BlockInfoDto {
 	private Integer id;
 	private String name;
 	private EntityState state;
-	private Boolean isEditable;
+	// private Boolean isEditable;
 
 	public static BlockInfoDto toResponse(Block block) {
 		return BlockInfoDto.builder()
