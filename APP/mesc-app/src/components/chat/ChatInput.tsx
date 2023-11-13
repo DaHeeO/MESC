@@ -141,6 +141,7 @@ function ChatInput() {
   // 전송 버튼을 눌렀을 때 처리하는 함수
   const handleSendButtonPress = async () => {
     const userMessage = input.trim();
+    if (userMessage === '') return;
 
     setChatbotHistory(prev => [...prev, <UserMessage message={userMessage} />]);
     if (userMessage === '/로그' || userMessage === '/쿼리') {
