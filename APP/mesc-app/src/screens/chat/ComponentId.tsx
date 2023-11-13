@@ -16,6 +16,7 @@ import customAxios from '../../../Api';
 import {useRecoilState} from 'recoil';
 import {Card, cardState} from '../../states/CardState';
 import QueryResultMessage from '../../components/chat/QueryResultMessage';
+import SearchDataForm from '../../components/chat/data/SearchDataForm';
 import {DataSection} from 'src/components/chat/data/DataComponent.styles';
 
 interface ChatComponentIdSwitchProps {
@@ -54,20 +55,13 @@ export function ChatComponentIdSwitch(card: Card) {
       return <DataComponent card={card}></DataComponent>;
 
     // case 'ML': // 데이터 조회 시 공정 리스트
-    //   return (
-    //     <AboutBottomSheetModal
-    //       btnTitle={''}
-    //       modalHeight={''}
-    //       modalBreakPoint={''}
-    //       component={undefined}
-    //     />
-    //   );
+    //   return <SearchDataForm />;
 
     // // case 'MC': // 테이블 조회 시 조건 변경 리스트
     // //   return < />;
 
-    // case 'LO': // 로그
-    //   return <Log />;
+    case 'LO': // 로그
+      return <Log card={card} />;
 
     // // case 'RE': // 보고 눌렀을 때 나오는 창
     // //   return < />;

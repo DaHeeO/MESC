@@ -6,16 +6,26 @@ import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
-import {customAxios, getBlock} from '../../../Api';
+import {customAxios, getBlock, getUserRole} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import UserMessage from '../../components/chat/UserMessage';
 import {InputState} from '../../states/InputState';
 import {BlockResponseData} from '../../states/BlockResponseState';
+import {LogSearchOption} from '../../states/LogSearchOption';
+import {BlockType} from '../../const/constants';
+import {ConditionModifyState} from '../../states/BottomSheetState';
+import {modalIdState} from '../../states/ModalIdState';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+
+  // 모달 띄우기 관련
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(ConditionModifyState);
+  // 모달 id 관련
+  const [modalId, setModalId] = useRecoilState(modalIdState);
 
   // plus 버튼 눌렀을 때 효과
   const [inputShow, setInputShow] = useState(false);
@@ -40,6 +50,7 @@ function ChatInput() {
   const [block, setBlock] = useRecoilState(BlockResponseData);
 
   const [inputState, setInputState] = useRecoilState(InputState);
+  const [logSearchOption, setLogSearchOption] = useRecoilState(LogSearchOption);
 
   const [input, setInput] = useState('');
   const [keyword, setKeyword] = useState('');
@@ -115,7 +126,6 @@ function ChatInput() {
   const handleInputChange = (text: string) => {
     setInput(text);
     const lastWord = text.split(' ').pop() || '';
-    // console.log(lastWord);
     if (lastWord.trim() !== '') {
       setKeyword(lastWord);
       setIsWordSelected(false);
@@ -127,51 +137,109 @@ function ChatInput() {
 
   // 전송 버튼을 눌렀을 때 처리하는 함수
   const handleSendButtonPress = async () => {
-    if (input.trim() !== '') {
-      //토큰
+    const userMessage = input.trim();
 
-      const userMessage = input.trim().toUpperCase();
+    setChatbotHistory(prev => [...prev, <UserMessage message={userMessage} />]);
+    if (userMessage === '/로그' || userMessage === '/쿼리') {
+      // 혹시라도 데이터 조작 버튼을 누르고 바로 그냥 명령문을 누르고 싶을 때
+      defaultInput(userMessage);
 
-      setChatbotHistory(prev => [
-        ...prev,
-        <UserMessage message={userMessage} />,
-      ]);
+      setInput(''); // 입력 필드 지우기.
+      return;
+    }
 
-      if (userMessage === '/로그') {
-        const response = await getBlock(5, {});
-        setBlock(response);
-      }
+    if (userMessage !== '') {
+      const blockId = block.blockId;
+      // recoil에서 block가져와서 blockId에 따라 처리
+      if (blockId == BlockType.QueryInput) {
+        // 직접입력 티카타카 하드코딩 하도록...
+        // 명령어 or select, update, insert, delete
+        queryInput(userMessage);
+      } else if (blockId == BlockType.LogKeyword) {
+        const keyword = userMessage;
+        // 리코일에 추가
+        setLogSearchOption(prev => ({...prev, keyword: keyword}));
+        // setLogSearchOption({keyword: keyword, date: '', levelList: []});
+        putBlockToRecoil(BlockType.LogDate, {});
+      } else if (blockId == BlockType.LogDate) {
+        const date = userMessage;
+        // 리코일에 추가
+        setLogSearchOption(prev => ({...prev, date: date}));
 
-      if (userMessage === '/쿼리') {
-        const response = await getBlock(7, {});
-        setBlock(response);
-      }
+        // 모달 띄우기
+        setIsModalVisible(true);
 
-      // 조회
-      if (userMessage.startsWith('SELECT')) {
-        const response = await getBlock(9, {query: userMessage});
-        setBlock(response);
-      }
+        // 로그레벨에 맞는 modalId 설정
+        setModalId('LF');
 
-      // 수정, 추가, 삭제
-      else if (
-        userMessage.startsWith('UPDATE') ||
-        userMessage.startsWith('INSERNT') ||
-        userMessage.startsWith('DELETE')
-      ) {
-        const response = await getBlock(8, {query: userMessage});
-        setBlock(response);
-
-        // 쿼리 에러 발생 했을 때 처리
-        // 인풋창에 그대로 두기
-        if (response.cardList[1].content.toLowerCase().includes('error')) {
-          setInput(input);
-        }
+        putBlockToRecoil(BlockType.LogLevel, {});
+      } else {
+        defaultInput(userMessage);
       }
       setInput(''); // 입력 필드 지우기.
     } else {
-      Alert.alert('데이터 조작일 때만 사용 가능합니다.');
+      // 아무것도 입력하지 않고 전송할 경우
+      Alert.alert('명령어 또는 데이터 조작의 쿼리문을 입력해주세요.');
     }
+  };
+
+  const defaultInput = async (userMessage: String) => {
+    const role = await getRoleBlockId();
+    if (userMessage === '/로그' && role === BlockType.DEVELOPER) {
+      putBlockToRecoil(BlockType.LogKeyword, {});
+    } else if (userMessage === '/쿼리' && role === BlockType.DEVELOPER) {
+      putBlockToRecoil(BlockType.QueryInput, {});
+    } else {
+      putBlockToRecoil(role, {});
+    }
+  };
+
+  const getRoleBlockId = async () => {
+    const roleType = await getUserRole();
+    if (roleType === 'DEVELOPER') {
+      return BlockType.DEVELOPER;
+    }
+    return BlockType.WORKER;
+  };
+
+  const queryInput = async (userMessage: String) => {
+    const upperQuery = userMessage.toUpperCase();
+
+    if (upperQuery.startsWith('SELECT ')) {
+      // 조회
+      const nextBlock: any = putBlockToRecoil(BlockType.SelectOutput, {
+        query: userMessage,
+      });
+      // 에러처리 추가해줘야함
+      if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
+        setInput(input);
+      }
+    } else if (
+      // 수정, 추가, 삭제
+      upperQuery.startsWith('UPDATE ') ||
+      upperQuery.startsWith('INSERNT ') ||
+      upperQuery.startsWith('DELETE ')
+    ) {
+      const nextBlock: any = putBlockToRecoil(BlockType.OperationOutput, {
+        query: userMessage,
+      });
+
+      // 쿼리 에러 발생 했을 때 처리
+      // 인풋창에 그대로 두기
+      if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
+        setInput(input);
+      }
+    } else {
+      Alert.alert('쿼리문을 정확하게 작성해주세요');
+      putBlockToRecoil(BlockType.QueryInput, {});
+    }
+  };
+
+  const putBlockToRecoil = async (blockId: number, body: object) => {
+    const newBlock = await getBlock(blockId, body);
+
+    if (newBlock) setBlock(newBlock);
+    return newBlock;
   };
 
   return (

@@ -34,7 +34,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       blockId = 12;
     } else if (props.btnTitle === '보고하기') {
       blockId = 6;
-    } else if (props.btnTitle === '데이터조작') {
+    } else if (props.btnTitle === '데이터 조작') {
       blockId = 7;
     }
     putBlockToRecoil(blockId);
@@ -44,6 +44,8 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
     const newBlock = await getBlock(blockId, {});
     if (newBlock) setBlock(newBlock);
   };
+
+  // onPress 가 지금 props. 으로 안되어있는데 혹시 문제 있으면 확인하기
 
   return (
     /* bottomSheet를 띄우기 위한 Btn */

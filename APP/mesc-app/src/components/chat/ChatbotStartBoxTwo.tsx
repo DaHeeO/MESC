@@ -11,12 +11,21 @@ import {AboutBottomSheetModal} from '../common/bottomSheet/AboutBottomModal';
 import SearchDataForm from '../../components/chat/data/SearchDataForm';
 import {getBlock} from '../../../Api';
 import {BlockResponseData} from '../../states/BlockResponseState';
+import {ConditionModifyState} from '../../states/BottomSheetState';
+import {modalIdState} from '../../states/ModalIdState';
+import {set} from 'lodash';
 
 export const ChatbotStartBoxTwo = (props: {card: Card}) => {
   const [block, setBlock] = useRecoilState(BlockResponseData);
   const [isModalVisible, setModalVisible] = useState(false);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+
+  const [isModalPossible, setIsModalVisible] =
+    useRecoilState(ConditionModifyState);
+
+  const [modalId, setModalId] = useRecoilState(modalIdState);
+
   const {card} = props;
   let buttonName0: any;
   let buttonName1: any;
@@ -34,10 +43,12 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
           ...prev,
           <Usermessage message={button.name} />,
         ]);
+
         putBlockToRecoil(link);
 
         if (buttonIndex === 0) {
-          setModalVisible(true);
+          setIsModalVisible(true);
+          setModalId('SF');
         }
       }
     }
@@ -86,7 +97,7 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
           optionTitle={buttonName1}
         />
       </S.BottomBox>
-      {isModalVisible && (
+      {/* {isModalVisible && (
         <AboutBottomSheetModal
           btnTitle="모달 버튼"
           modalHeight="50%"
@@ -94,7 +105,7 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
           component={<SearchDataForm />} // 모달에 표시할 컴포넌트
           onModalHide={hideBottomSheetModal}
         />
-      )}
+      )} */}
     </S.ChatbotBox>
   );
 };

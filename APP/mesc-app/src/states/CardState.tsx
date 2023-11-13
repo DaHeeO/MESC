@@ -20,6 +20,7 @@ export interface Card {
   labels?: LabelItem[] | null | undefined;
   table?: TableData | null | undefined;
   button?: ButtonItem[] | null | undefined;
+  logs?: string | null | undefined;
 }
 
 type LabelItem = {

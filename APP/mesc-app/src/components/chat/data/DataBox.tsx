@@ -45,8 +45,6 @@ const DataBox: React.FC<DataBoxProps> = ({
 
   const renderContent = () => {
     if (table) {
-      // console.log('table=========================================');
-      // console.log(table);
       return (
         <Table
           title={title}

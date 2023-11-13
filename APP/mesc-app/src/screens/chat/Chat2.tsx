@@ -9,13 +9,12 @@ import {ModalIdSwitch} from '../../components/common/id/ModalId';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
 import SearchDataForm from '../../components/chat/data/SearchDataForm';
-//API
-import {getBlock} from '../../../Api';
-//Recoil
+import {customAxios, getBlock, getUserRole} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
 import {BlockResponseData} from '../../states/BlockResponseState';
 import {InputState} from '../../states/InputState';
+import {BlockType} from '../../const/constants';
 // Switch
 import {ChatComponentIdSwitch} from './ComponentId';
 // BottomSheet 모달
@@ -42,11 +41,12 @@ function Chat() {
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
   useEffect(() => {
-    const role = 11;
-    putBlockToRecoil(role);
+    putStartBlockToRecoil();
   }, []);
 
   useEffect(() => {
+    console.log(block);
+
     if (block.blockId === 0) return;
     const chatbotBlock = makeChatbotBlock(block);
     setChatbotHistory(prev => [...prev, chatbotBlock]);
@@ -88,9 +88,18 @@ function Chat() {
     }, 10);
   };
 
-  const putBlockToRecoil = async (blockId: number) => {
-    const newBlock = await getBlock(blockId, {});
+  const putStartBlockToRecoil = async () => {
+    const role = await getRoleBlockId();
+    const newBlock = await getBlock(role, {});
     if (newBlock) setBlock(newBlock);
+  };
+
+  const getRoleBlockId = async () => {
+    const roleType = await getUserRole();
+    if (roleType === 'DEVELOPER') {
+      return BlockType.DEVELOPER;
+    }
+    return BlockType.WORKER;
   };
 
   return (
@@ -106,18 +115,18 @@ function Chat() {
       </S.ChatLayout>
 
       <BottomSheet
-        isModalVisible={!isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
+        isModalVisible={isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
         modalHeight={'70%'}
         modalBreakPoint={'20%'}
         component={realModalId} // 여기를 ID값을 받을 수 있도록
       />
       <ChatInput />
-      <AboutBottomSheetModal
+      {/* <AboutBottomSheetModal
         btnTitle={'데이터조회'}
         modalHeight={'70%'}
         modalBreakPoint={'30%'}
         component={<SearchDataForm />}
-      />
+      /> */}
     </S.Container>
   );
 }

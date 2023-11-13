@@ -80,7 +80,6 @@ const Table: React.FC<TableProps> = ({
     setSelectedRow({rowIndex, content: row});
     setModalVisible(true);
   };
-
   // 모달 숨기는 함수
   const hideModal = () => {
     console.log('hideModal 호출');
