@@ -19,15 +19,15 @@ function ChatbotMessage(props: {card: Card}) {
     const maxLength =
       lines.length === 0 ? 10 : Math.max(...lines.map(line => line.length));
 
-    if (maxLength * 10 < 250) {
+    if (maxLength * 10 < 230) {
       // 만약 가장 긴 줄의 길이가 width 미만이라면 동적으로 width를 재설정
-      if (maxLength * 10 < 250) {
+      if (maxLength * 10 < 230) {
         setDynamicWidth(maxLength * 10);
       } else {
-        setDynamicWidth(250);
+        setDynamicWidth(230);
       }
     } else {
-      setDynamicWidth(250);
+      setDynamicWidth(230);
     }
   }, [context]);
 
@@ -36,7 +36,7 @@ function ChatbotMessage(props: {card: Card}) {
       <S.MescContainer style={{width: dynamicWidth + 30}}>
         <View
           style={{
-            backgroundColor: 'blue',
+            // backgroundColor: 'blue',
             marginLeft: 5,
             marginRight: 5,
             marginTop: 5,

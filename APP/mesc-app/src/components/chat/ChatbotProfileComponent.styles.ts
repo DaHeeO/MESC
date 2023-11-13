@@ -7,7 +7,8 @@ export const Container = styled.View`
   align-items: center;
   margin-top: 10px;
   // margin-bottom: 10px;
-  background-color: yellow;
+  // background-color: yellow;
+  height: 40px;
 `;
 
 export const ImgBox = styled.View`
