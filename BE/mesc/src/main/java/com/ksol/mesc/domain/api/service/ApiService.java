@@ -14,5 +14,5 @@ public interface ApiService {
 
 	LinkedHashMap<String, Object> getCountsByActionId(Integer actionId, String conditions);
 
-	LinkedHashMap<String, Object> getTableByQueryRollback(String query);
+	LinkedHashMap<String, Object> getTableByQueryRollback(String query, Integer page);
 }
