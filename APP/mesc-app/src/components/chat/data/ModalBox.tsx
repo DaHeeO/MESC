@@ -1,10 +1,13 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {PanResponder} from 'react-native';
-import * as S from './DataBox.styles';
+import * as S from './ModalBox.styles';
 import Table from './Table';
 import Query from './Query';
+import {CloseModal} from '../../common/id/ChatChooseId';
+import Close from '../../../assets/icons/close.svg';
+import {vi} from 'date-fns/locale';
 
-type DataBoxProps = {
+type ModalBoxProps = {
   title?: string;
   table?:
     | {
@@ -15,17 +18,16 @@ type DataBoxProps = {
     | undefined
     | null;
   query?: string;
-  onPress?: () => void;
+  onPress: () => void;
   isModal?: boolean;
-  showButton?: boolean;
 };
 
-const DataBox: React.FC<DataBoxProps> = ({
+const ModalBox: React.FC<ModalBoxProps> = ({
   title,
   table,
   query,
   onPress,
-  showButton,
+  isModal,
 }) => {
   const panResponder = useRef(
     PanResponder.create({
@@ -43,6 +45,10 @@ const DataBox: React.FC<DataBoxProps> = ({
     }),
   ).current;
 
+  const handleRowPress = (rowIndex: any, row: any) => {
+    if (isModal) return;
+  };
+
   const renderContent = () => {
     if (table) {
       // console.log('table=========================================');
@@ -53,20 +59,26 @@ const DataBox: React.FC<DataBoxProps> = ({
           columnName={table.columnNameList}
           columnType={table.columnTypeList}
           rowList={table.rowList}
-          isModal={false}
-          showButton={showButton}
+          isModal={true}
         />
       );
     } else if (query) {
-      return <Query title="조회 쿼리" query={query} isModal={false} />;
+      return <Query title={title} query={query} isModal={true} />;
     }
   };
 
   return (
-    <S.DataBoxContainer {...panResponder.panHandlers}>
-      {renderContent()}
-    </S.DataBoxContainer>
+    <S.MadalContainer>
+      <S.Header>
+        <S.Button>
+          <Close onPress={onPress} />
+        </S.Button>
+      </S.Header>
+      <S.DataContainer {...panResponder.panHandlers}>
+        {renderContent()}
+      </S.DataContainer>
+    </S.MadalContainer>
   );
 };
 
-export default DataBox;
+export default ModalBox;

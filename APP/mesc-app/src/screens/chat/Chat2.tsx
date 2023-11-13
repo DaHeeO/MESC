@@ -35,13 +35,14 @@ function Chat() {
     useRecoilState(ConditionModifyState); // 해당 모달State값 넣기
   const modalId = useRecoilValue(modalIdState);
   const realModalId = ModalIdSwitch({modalId});
+
   const [buttonComponent, setButtonComponent] =
     useState<React.JSX.Element | null>(null);
 
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
 
   useEffect(() => {
-    const role = 12;
+    const role = 11;
     putBlockToRecoil(role);
   }, []);
 

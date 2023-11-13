@@ -16,6 +16,7 @@ import customAxios from '../../../Api';
 import {useRecoilState} from 'recoil';
 import {Card, cardState} from '../../states/CardState';
 import QueryResultMessage from '../../components/chat/QueryResultMessage';
+import {DataSection} from 'src/components/chat/data/DataComponent.styles';
 
 interface ChatComponentIdSwitchProps {
   chatComponentId?: string;
@@ -50,7 +51,7 @@ export function ChatComponentIdSwitch(card: Card) {
     // case 'QTA': // 쿼리입력(SELECT)에 따른 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
     case 'QU':
-      return <DataBox table={card.table} />;
+      return <DataComponent card={card}></DataComponent>;
 
     // case 'ML': // 데이터 조회 시 공정 리스트
     //   return (

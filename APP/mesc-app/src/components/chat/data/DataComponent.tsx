@@ -5,11 +5,10 @@ import DataBox from './DataBox';
 import Label from './Label';
 import * as S from './DataComponent.styles';
 import {useRecoilState} from 'recoil';
-import {
-  TableTitleState,
-  SingleTableTitleState,
-} from '../../../states/DataTitleState';
+import {SingleTableTitleState} from '../../../states/DataTitleState';
 import {Card} from '../../../states/CardState';
+import {ConditionIdState} from '../../../states/ConditionIdState';
+import {cond} from 'lodash';
 
 type LabelItem = {
   name: string;
@@ -35,18 +34,25 @@ type ButtonItem = {
 
 function DataComponent(props: {card: Card}) {
   const {card} = props;
-  const [data1, setData1] = useState<TableData>();
   const [data2, setData2] = useState<String | TableData>();
-  // const [labels, setLabels] = useState<LabelItem[]>([]);
   const [query, setQuery] = useState<string>();
   const [selectedLabel, setSelectedLabel] = useState<LabelItem>();
-  const [dataTitle, setDataTitle] = useRecoilState(TableTitleState);
   const [singleTableTitle, setSingleTableTitle] = useRecoilState(
     SingleTableTitleState,
   );
+  const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
+  const TableTitle = card.title;
 
   // 카드 테이블이 존재하면(select문 성공 시)
   const tableData: TableData | null | undefined = card.table;
+  if (card.button) {
+    console.log('card.button', card.button);
+    console.log('card.button[0].link', card.button[0].link);
+  }
+  if (card.button?.[0].link !== undefined) {
+    setConditionId(card.button?.[0].link); // conditionId 저장
+  }
+  console.log('conditionId=============', conditionId);
 
   // 'TA' labels 데이터 저장
   let LabelSection = makeLableSection(card.labels);
@@ -100,22 +106,37 @@ function DataComponent(props: {card: Card}) {
   function makeLableSection(labelItems: LabelItem[] | null | undefined) {
     if (!labelItems) return <></>;
     return (
-      <S.DataSection>
-        {/* 두 번째 섹션: Label을 렌더링합니다. */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <S.LabelContainer>
-            {labelItems.map((labelItem, index) => (
-              <Label
-                key={index}
-                isSelected={selectedLabel?.name === labelItem.name}
-                onSelect={() => handleSelectLabel(labelItem)}
-                label={labelItem}
-                // Style might need to be added here to ensure label width is dynamic
-              />
-            ))}
-          </S.LabelContainer>
-        </ScrollView>
-      </S.DataSection>
+      <>
+        <S.DataSection>
+          {/* 두 번째 섹션: Label을 렌더링합니다. */}
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <S.LabelContainer>
+              {labelItems.map((labelItem, index) => (
+                <Label
+                  key={index}
+                  isSelected={selectedLabel?.name === labelItem.name}
+                  onSelect={() => handleSelectLabel(labelItem)}
+                  label={labelItem}
+                  // Style might need to be added here to ensure label width is dynamic
+                />
+              ))}
+            </S.LabelContainer>
+          </ScrollView>
+        </S.DataSection>
+        <S.DataSection style={{height: 230}}>
+          {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox 렌더링*/}
+          {/* data2가 string 타입면 query prop, 아니면 table prop으로 */}
+          {typeof data2 === 'string' ? (
+            <DataBox query={data2} />
+          ) : (
+            <DataBox
+              table={data2 as TableData}
+              title={singleTableTitle}
+              showButton={false}
+            />
+          )}
+        </S.DataSection>
+      </>
     );
   }
 
@@ -124,20 +145,14 @@ function DataComponent(props: {card: Card}) {
       <S.DataContainer>
         <S.DataSection style={{height: 230}}>
           {/* 첫 번째 섹션: data1 렌더링 */}
-          <DataBox table={tableData} title={dataTitle} />
+          <DataBox
+            table={tableData}
+            title={TableTitle || ''}
+            showButton={true}
+          />
         </S.DataSection>
 
         {LabelSection}
-
-        <S.DataSection style={{height: 230}}>
-          {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox 렌더링*/}
-          {/* data2가 string 타입면 query prop, 아니면 table prop으로 */}
-          {typeof data2 === 'string' ? (
-            <DataBox query={data2} />
-          ) : (
-            <DataBox table={data2 as TableData} title={singleTableTitle} />
-          )}
-        </S.DataSection>
       </S.DataContainer>
     </View>
   );

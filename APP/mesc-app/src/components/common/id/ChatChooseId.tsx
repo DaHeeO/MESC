@@ -5,6 +5,7 @@ import Report from '../../../assets/icons/reportIcon.svg';
 import DataControll from '../../../assets/icons/dbIcon.svg';
 import Filter from '../../../assets/icons/filterIcon.svg';
 import {AboutChatBtn} from '../../message/Btn/ChatChooseBtn';
+import Close from '../../../assets/icons/close.svg';
 //recoil
 import {useRecoilState} from 'recoil';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
@@ -22,7 +23,22 @@ export const GoReport = () => {
 };
 
 export const GoDataControll = () => {
-  return <AboutChatBtn btnTitle={'데이터 조작'} icon={<DataControll />} />;
+  return <AboutChatBtn btnTitle={'데이터조작'} icon={<DataControll />} />;
+};
+
+export const CloseModal = (props: chatBtnprops) => {
+  return (
+    <AboutChatBtn
+      bordercolor="1px solid black"
+      // width="100px"
+      // height="30px"
+      btnTitle={'창 닫기'}
+      icon={<Close />}
+      onPress={() => {
+        props.onPress();
+      }}
+    />
+  );
 };
 
 export const ConditionModify = (props: chatBtnprops) => {
@@ -30,9 +46,10 @@ export const ConditionModify = (props: chatBtnprops) => {
     useRecoilState(ConditionModifyState);
   return (
     <AboutChatBtn
+      height="30px"
+      width="105px"
       bordercolor="1px solid black"
-      height="35px"
-      btnTitle={'조건변경'}
+      btnTitle={'조건 변경'}
       icon={<Filter />}
       onPress={() => {
         props.onPress();

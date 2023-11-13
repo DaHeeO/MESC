@@ -57,7 +57,6 @@ export const LogItem = styled.View`
 // 로거 텍스트 스타일 정의, 로거 이름에 대한 텍스트는 파란색으로 표시합니다.
 export const LoggerText = styled.Text`
   color: #00a3a3;
-  // border: 1px solid red;
   margin-left: 5px;
   margin-right: 5px;
 `;

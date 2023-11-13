@@ -26,7 +26,6 @@ interface TextBoxProps {
   color?: string;
 }
 export const TextBox = styled.Text`
-  // background-color: red;
   font-weight: bold;
   font-size: 20;
   color: ${(props: TextBoxProps) => props.color || 'black'};
