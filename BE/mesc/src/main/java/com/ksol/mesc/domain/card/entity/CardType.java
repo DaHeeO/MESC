@@ -34,5 +34,7 @@ public enum CardType {
 	//Label
 	LA,
 	// update/insert/delete result
-	QTX
+	QTX,
+	QR
+	// query rollback
 }
