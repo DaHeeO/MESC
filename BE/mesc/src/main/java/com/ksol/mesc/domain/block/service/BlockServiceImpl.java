@@ -425,7 +425,7 @@ public class BlockServiceImpl implements BlockService {
 				break;
 			case QR:
 				String query = cardReqDto.getQuery();
-				cardMap.putAll(apiService.getTableByQueryRollback(query));
+				cardMap.put("table", apiService.getTableByQueryRollback(query));
 				break;
 			case QTX:    // insert,update,delete 결과
 				cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
