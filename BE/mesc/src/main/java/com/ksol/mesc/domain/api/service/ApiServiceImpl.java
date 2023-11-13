@@ -35,10 +35,11 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getTableByQuery(String query) {
+	public LinkedHashMap<String, Object> getTableByQuery(String query, Integer page) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 		Object data = webClient.post()
-			.uri("/developer/data")
+			// .uri("/developer/data")
+			.uri("/developer/data/" + page)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue(new DeveloperDataRequestDto(query))

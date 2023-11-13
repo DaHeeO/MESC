@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BlockController {
 	private final BlockServiceImpl blockService;
 
-	@Operation(summary = "블록 전체 조회 API", description = "전체 블록을 조회한다.")
+	@Operation(summary = "전체 블록 조회 API", description = "전체 블록을 조회한다.")
 	@GetMapping("/admin")
 	public ResponseEntity<CommonResponseDto<?>> selectAllBlock() {
 		List<BlockRes> blockResList = blockService.selectAllBlock();

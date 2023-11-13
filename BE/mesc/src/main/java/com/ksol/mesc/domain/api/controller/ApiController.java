@@ -25,6 +25,7 @@ import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mesc.domain.user.service.UserService;
 import com.ksol.mesc.global.error.exception.InvalidValueException;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,12 +46,14 @@ public class ApiController {
 		return new ResponseEntity<>(CommonResponseDto.success(messageDto), HttpStatus.OK);
 	}
 
-	@PostMapping("/developer/data")
-	public ResponseEntity<?> getDeveloperData(@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto,
+	@PostMapping("/developer/data/{page}")
+	public ResponseEntity<?> getDeveloperData(
+		@PathVariable @Valid Integer page,
+		@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto,
 		BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		String query = developerDataRequestDto.getQuery();
-		LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query);
+		LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query, page);
 		System.out.println(tableByQuery.keySet().stream().collect(Collectors.toList()));
 		if (tableByQuery.containsKey("message")) {
 			return new ResponseEntity<>(

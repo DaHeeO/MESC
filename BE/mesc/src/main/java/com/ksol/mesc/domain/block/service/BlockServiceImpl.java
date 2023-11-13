@@ -413,7 +413,7 @@ public class BlockServiceImpl implements BlockService {
 				cardMap.put("singleTable", requestPostToMes("/developer/data", cardReqDto, cardType));
 				break;
 			case QU:    //select 쿼리 입력
-				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery());
+				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(), 1);
 				Boolean result = (Boolean)tableByQuery.get("result");
 				cardMap.put("result", result);
 				if (result) {
@@ -528,7 +528,7 @@ public class BlockServiceImpl implements BlockService {
 			url += cardReqDto.getActionId();
 
 		return webClient.post()
-			.uri(url)
+			.uri(url + "/1")
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(BodyInserters.fromValue(cardReqDto))

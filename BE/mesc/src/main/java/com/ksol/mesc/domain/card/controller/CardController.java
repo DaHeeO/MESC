@@ -31,8 +31,9 @@ public class CardController {
 
 	@Operation(summary = "카드 조회 API", description = "요청한 카드와 엮여 있는 정보를 조회한다.")
 	@PostMapping("/{cardId}")
-	public ResponseEntity<CommonResponseDto<?>> selectCard(@Parameter(description = "카드 id", required = true)
-	@PathVariable @Valid Integer cardId, @Parameter(description = "카드 정보")
+	public ResponseEntity<CommonResponseDto<?>> selectCard(
+		@Parameter(description = "카드 id", required = true)
+		@PathVariable @Valid Integer cardId, @Parameter(description = "카드 정보")
 	@RequestBody @Validated CardReqDto cardReqDto, Principal principal) {
 		Integer userId = Integer.parseInt(principal.getName());
 		Card card = cardService.selectCard(cardId);

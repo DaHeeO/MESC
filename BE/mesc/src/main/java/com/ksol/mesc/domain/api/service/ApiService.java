@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 public interface ApiService {
 	String getStartMessage(String name);
 
-	LinkedHashMap<String, Object> getTableByQuery(String query);
+	LinkedHashMap<String, Object> getTableByQuery(String query, Integer page);
 
 	LinkedHashMap<String, Object> getCountsByQuery(String query);
 
