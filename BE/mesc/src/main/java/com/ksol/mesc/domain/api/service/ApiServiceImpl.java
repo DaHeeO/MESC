@@ -109,10 +109,10 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getTableByQueryRollback(String query) {
+	public LinkedHashMap<String, Object> getTableByQueryRollback(String query, Integer page) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 		Object data = webClient.post()
-				.uri("/developer/query/rollback")
+				.uri("/developer/query/rollback/" + page)
 				.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 				.contentType(MediaType.APPLICATION_JSON)
 				.bodyValue(new DeveloperQueryRequestDto(query))
