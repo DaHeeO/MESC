@@ -19,14 +19,18 @@ import lombok.extern.slf4j.Slf4j;
 public class DeveloperServiceImpl implements DeveloperService {
 
 	private final JdbcUtil jdbcUtil;
+	private final static Integer PAGE_SIZE = 10;
 
 	@Override
 	public Table getTable(String query, Integer page) throws SQLException {
-		Integer pageSize = 10;
-		query = getOnlyOneQuery(query) + " LIMIT " + pageSize + " OFFSET " + pageSize * (page - 1);
-		System.out.println("query = " + getOnlyOneQuery(query));
+		query = getPaginationQuery(getOnlyOneQuery(query), page);
 		return jdbcUtil.select(query);
 	}
+
+	private String getPaginationQuery(String query, Integer page) {
+		return query + " LIMIT " + PAGE_SIZE + " OFFSET " + PAGE_SIZE * (page - 1);
+	}
+
 
 	private static String getOnlyOneQuery(String query) {
 		return query.split(";")[0];
@@ -34,13 +38,13 @@ public class DeveloperServiceImpl implements DeveloperService {
 
 	@Override
 	@Transactional
-	public Integer executeQuery(String query, Integer page) throws SQLException {
+	public Integer executeQuery(String query) throws SQLException {
 		return jdbcUtil.execute(getOnlyOneQuery(query));
 	}
 
 	@Override
-	public Table executeQueryWithRollback(String query) throws SQLException {
-		String selectQuery = getSelectQuery(query);
+	public Table executeQueryWithRollback(String query, Integer page) throws SQLException {
+		String selectQuery = getPaginationQuery(getSelectQuery(query), page);
 		String upperCase = query.toUpperCase();
 		if (upperCase.startsWith("INSERT") || upperCase.startsWith("UPDATE")) {
 			return jdbcUtil.selectAfterUpdate(query, selectQuery);
