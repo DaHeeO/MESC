@@ -1,4 +1,3 @@
-import React from "react";
 //style
 import * as S from "./FormStyle";
 import * as C from "../../pages/AddBlock/AddStyle";

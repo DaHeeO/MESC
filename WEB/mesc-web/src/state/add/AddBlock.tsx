@@ -5,38 +5,30 @@ export const BlockNameState = atom<String>({
   default: "",
 });
 
-interface BlockInfo {
-  name: string;
-  isEditable: boolean;
+interface CreateBlock {
+  blockInfo: {
+    name: string;
+    isEditable: boolean;
+  };
+  cardReqList: {
+    name: string;
+    sequence: number;
+    cardType: string;
+    content: string;
+    componentList: {
+      type: string;
+      sequence: string;
+      object: {
+        name: string;
+        linkType: string;
+        link: string;
+      };
+    }[];
+  }[];
 }
 
-interface ComponentObject {
-  name: string;
-  linkType: string;
-  link: string;
-}
-
-interface ComponentListItem {
-  type: string;
-  sequence: string;
-  object: ComponentObject;
-}
-
-interface CardReqListItem {
-  name: string;
-  sequence: number;
-  cardType: string;
-  content: string;
-  componentList: ComponentListItem[];
-}
-
-interface CreateTX {
-  blockInfo: BlockInfo;
-  cardReqList: CardReqListItem[];
-}
-
-export const CreateTXState = atom<CreateTX>({
-  key: "CreateTXState",
+export const CreatBlockState = atom<CreateBlock>({
+  key: "CreatBlockState",
   default: {
     blockInfo: {
       name: "",
@@ -63,16 +55,3 @@ export const CreateTXState = atom<CreateTX>({
     ],
   },
 });
-// =================================================================
-//  블럭만 생성
-export const CreatBlockState = atom<CreateTX>({
-  key: "CreatBlockState",
-  default: {
-    blockInfo: {
-      name: "",
-      isEditable: false,
-    },
-    cardReqList: [],
-  },
-});
-// =================================================================

@@ -9,7 +9,8 @@ import * as S from "./AddStyle";
 import Button from "@mui/material/Button";
 import BasicSpeedDial from "../../component/common/About/PlusBtn";
 import { AddCardComponent } from "../../component/page/AddCard";
-import { AddMeun } from "./AddMeun";
+// Api
+import { api } from "../../apis/Api";
 
 export const Menu1 = () => {
   // Block 이름 지정 ============================>
@@ -23,18 +24,20 @@ export const Menu1 = () => {
       blockInfo: {
         ...prevBlockState.blockInfo,
         name: newName,
+        isEditable: true,
       },
     }));
+    // ======== // Block 생성 API ============================>
+    api
+      .post("block/admin", { blockInfo: { name: blockState.blockInfo.name } })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // ==========================================>
   };
-  // console.log("blockState", blockState);
-
-  // // blockInfo의 name 변경
-  // useEffect(() => {
-  //   // useEffect 내에서도 함수 호출이 가능하도록 수정
-  //   if (blockTitleTyping) {
-  //     updateBlockName(blockTitleTyping);
-  //   }
-  // }, [blockTitleTyping, setBlockState]);
 
   // 화면에 보여지는 카드
   const [cards, setCards] = useState<{ id: number; content: string }[]>([]);
