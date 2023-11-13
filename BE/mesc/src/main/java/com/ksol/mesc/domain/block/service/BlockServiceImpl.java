@@ -140,7 +140,7 @@ public class BlockServiceImpl implements BlockService {
 		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
 		List<CardReq> cardReqList = blockReqDto.getCardReqList();
 		List<ComponentReq> componentReqs = blockReqDto.getComponentList();
-
+		log.info("block 정보 : {}", blockReqDto);
 		//1. 블록 추가
 		if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
 			log.info("block 추가");
