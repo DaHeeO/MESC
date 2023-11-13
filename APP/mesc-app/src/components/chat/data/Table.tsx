@@ -18,8 +18,9 @@ import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {modalIdState} from '../../../states/ModalIdState';
 import ModalBox from './ModalBox';
 import {getCard} from '../../../../Api';
-import {get} from 'lodash';
+import {drop, get} from 'lodash';
 import {ConditionIdState} from '../../../states/ConditionIdState';
+import {DropdownState} from '../../../states/DropdownState';
 
 type TableProps = {
   title?: string;
@@ -50,6 +51,7 @@ const Table: React.FC<TableProps> = ({
     rowIndex: number;
     content: string[];
   } | null>(null);
+  const [dropdown, setDropdown] = useRecoilState(DropdownState);
 
   const minColumnWidth = 75;
   const maxColumnWidth = 200;
@@ -90,8 +92,12 @@ const Table: React.FC<TableProps> = ({
     setModalId('CF');
     const cardId = parseInt(conditionId, 10);
     console.log('cardId', cardId);
-    const response = await getCard(cardId, {});
-    console.log(response);
+    const card = await getCard(cardId, {});
+
+    // console.log('card', card);
+    const dropdownList = card.dropdown;
+
+    console.log('dropdownList', dropdownList);
     // 필요한 추가 작업을 수행합니다.
   };
 
