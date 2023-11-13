@@ -143,6 +143,7 @@ public class BlockServiceImpl implements BlockService {
 
 		//1. 블록 추가
 		if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
+			log.info("block 추가");
 			cardReqList = saveBlock(blockInfoDto, cardReqList);
 		}
 
@@ -274,7 +275,9 @@ public class BlockServiceImpl implements BlockService {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public List<CardReq> saveBlock(BlockInfoDto blockInfoDto, List<CardReq> cardReqList) {
+		log.info("block 추가2");
 		Block savedBlock = blockRepository.save(Block.toEntity(blockInfoDto));
+		log.info("block : {}", savedBlock);
 		for (CardReq cardReq : cardReqList) {
 			cardReq.setBlock(savedBlock);
 		}
