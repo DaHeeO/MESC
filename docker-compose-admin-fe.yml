@@ -1,0 +1,18 @@
+version: "3" #Compose 파일의 버전
+services: # 서비스 정의를 시작합니다. 각 서비스는 별도의 컨테이너로 실행
+  client:
+    image: admin_fe:latest # 이미지 이름
+    container_name: admin_fe # 컨테이너 이름
+    build:
+      context: ./WEB/mesc-web # 컨테이너와 호스트 간의 포트 매핑을 설정합니다. 
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - default
+
+networks:
+  default:
+    external:
+      name: chatbot_net
+
