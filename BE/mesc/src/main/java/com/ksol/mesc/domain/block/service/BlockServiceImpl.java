@@ -383,6 +383,10 @@ public class BlockServiceImpl implements BlockService {
 			case QU:    //select 쿼리 입력
 				cardMap.putAll(apiService.getTableByQuery(cardReqDto.getQuery()));
 				break;
+			case QR:
+				String query = cardReqDto.getQuery();
+				cardMap.putAll(apiService.getTableByQueryRollback(query));
+				break;
 			case QTX:    // insert,update,delete 결과
 				cardMap.putAll(apiService.getCountsByQuery(cardReqDto.getQuery()));
 				cardMap.put("cardType", CardType.TX);
