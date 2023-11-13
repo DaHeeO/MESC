@@ -9,6 +9,7 @@ import * as S from "./AddStyle";
 import Button from "@mui/material/Button";
 import BasicSpeedDial from "../../component/common/About/PlusBtn";
 import { AddCardComponent } from "../../component/page/AddCard";
+import { AddMeun } from "./AddMeun";
 
 export const Menu1 = () => {
   // Block 이름 지정
@@ -19,16 +20,16 @@ export const Menu1 = () => {
     console.log(blockName);
   };
 
-  const [cards, setCards] = useState<{ id: string; content: string }[]>([]);
+  const [cards, setCards] = useState<{ id: number; content: string }[]>([]);
 
   const addCard = () => {
     setCards((prevCards) => [
       ...prevCards,
-      { id: Math.random().toString(), content: cards.length + "번째 카드" },
+      { id: cards.length, content: "카드 이름을 작성해주세요." },
     ]);
   };
 
-  const deleteCard = (id: string) => {
+  const deleteCard = (id: number) => {
     setCards((prevCards) => prevCards.filter((card) => card.id !== id));
   };
 
@@ -56,12 +57,15 @@ export const Menu1 = () => {
         flexDirection="row"
         style={{ flexWrap: "wrap", overflow: "auto" }}
       >
+        {/* 카드를 종류별로 추가하는 메뉴판 */}
+        <AddMeun />
         {/* 저장된 카드들을 동적으로 렌더링 */}
         {cards.map((card) => (
           <AddCardComponent
             key={card.id}
             clickDelete={() => deleteCard(card.id)}
             content={card.content}
+            id={card.id}
           />
         ))}
       </AboutContainer>
