@@ -12,6 +12,8 @@ import {TableTitleState} from '../../../states/DataTitleState';
 import {Table} from '@mui/material';
 import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import UserMessage from '../UserMessage';
+import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {is} from 'date-fns/locale';
 
 type ButtonItem = {
   id: number;
@@ -25,11 +27,14 @@ const SearchDataForm = () => {
   const [tableTitle, setTataTitle] = useRecoilState(TableTitleState);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
-  // console.log('block', block);
+  // 모달 띄우기 관련
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(ConditionModifyState);
   const cardList = block.cardList;
   const mlCard = cardList.find(card => card.cardType === 'ML');
 
   const handleButtonClick = async (button: ButtonItem) => {
+    setIsModalVisible(false);
     setChatbotHistory([
       ...chatbotHistory,
       <UserMessage message={button.name} />,
@@ -38,8 +43,8 @@ const SearchDataForm = () => {
       actionId: 23,
       conditions: '',
     };
+
     const block = await getBlock(4, body);
-    console.log(block);
     setBlock(block);
     setTataTitle(button.name);
   };

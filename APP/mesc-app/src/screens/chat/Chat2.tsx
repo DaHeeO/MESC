@@ -44,6 +44,8 @@ function Chat() {
   }, []);
 
   useEffect(() => {
+    console.log(block);
+
     if (block.blockId === 0) return;
     const chatbotBlock = makeChatbotBlock(block);
     setChatbotHistory(prev => [...prev, chatbotBlock]);
@@ -112,18 +114,18 @@ function Chat() {
       </S.ChatLayout>
 
       <BottomSheet
-        isModalVisible={!isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
+        isModalVisible={isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
         modalHeight={'70%'}
         modalBreakPoint={'20%'}
         component={realModalId} // 여기를 ID값을 받을 수 있도록
       />
       <ChatInput />
-      <AboutBottomSheetModal
+      {/* <AboutBottomSheetModal
         btnTitle={'데이터조회'}
         modalHeight={'70%'}
         modalBreakPoint={'30%'}
         component={<SearchDataForm />}
-      />
+      /> */}
     </S.Container>
   );
 }

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView} from 'react-native';
+import {Card} from '../../../states/CardState';
 
 import axios from 'axios';
 import * as S from './Log.styles';
@@ -13,46 +14,34 @@ interface LogEntry {
   message: string;
 }
 
-const Log = () => {
+const Log = (props: {card: Card}) => {
+  const {card} = props;
   const [logs, setLogs] = useState<LogEntry[]>([]);
 
   useEffect(() => {
-    axios
-      .post('https://www.mesc.kr/api/log', {
-        keyword: 'log',
-        date: '2023103116',
-        levelList: ['error', 'info', 'debug', 'error', 'warn'],
+    const logData: string | null | undefined = card.logs;
+    const logEntries = logData ? logData.trim().split('\n') : [];
+
+    const logDetails = logEntries
+      .map((entry: string) => {
+        const pattern =
+          /(\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}\.\d{3}) (\w+)  \[(.*?)\] (\S+)\[(.*?) : (\d+)\] - (.*)/;
+        const match = entry.match(pattern);
+
+        if (match) {
+          return {
+            timestamp: match[1],
+            level: match[2],
+            thread: match[3],
+            logger: `${match[4]}[${match[5]} : ${match[6]}]`,
+            message: match[7],
+          };
+        }
+        return null; // 패턴과 맞지 않거나 필요하지 않은 경우 null을 반환합니다.
       })
-      .then(response => {
-        const logData = response.data.data.logs;
-        const logEntries = logData.trim().split('\n');
+      .filter((entry: LogEntry | null): entry is LogEntry => entry !== null); // null 값을 제거합니다.
 
-        const logDetails = logEntries
-          .map((entry: string) => {
-            const pattern =
-              /(\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}\.\d{3}) (\w+)  \[(.*?)\] (\S+)\[(.*?) : (\d+)\] - (.*)/;
-            const match = entry.match(pattern);
-
-            if (match) {
-              return {
-                timestamp: match[1],
-                level: match[2],
-                thread: match[3],
-                logger: `${match[4]}[${match[5]} : ${match[6]}]`,
-                message: match[7],
-              };
-            }
-            return null; // 패턴과 맞지 않거나 필요하지 않은 경우 null을 반환합니다.
-          })
-          .filter((entry: string) => entry !== null); // null 값을 제거합니다.
-
-        console.log('Parsed Log Details:', logDetails);
-        console.log('Size of log details:', logDetails.length); // 로그 디테일의 사이즈를 출력합니다.
-        setLogs(logDetails); // 상태를 업데이트합니다.
-      })
-      .catch(error => {
-        console.error('Error fetching logs:', error);
-      });
+    setLogs(logDetails); // 상태를 업데이트합니다.
   }, []);
 
   return (

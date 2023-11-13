@@ -14,10 +14,18 @@ import {InputState} from '../../states/InputState';
 import {BlockResponseData} from '../../states/BlockResponseState';
 import {LogSearchOption} from '../../states/LogSearchOption';
 import {BlockType} from '../../const/constants';
+import {ConditionModifyState} from '../../states/BottomSheetState';
+import {modalIdState} from '../../states/ModalIdState';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+
+  // 모달 띄우기 관련
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(ConditionModifyState);
+  // 모달 id 관련
+  const [modalId, setModalId] = useRecoilState(modalIdState);
 
   // plus 버튼 눌렀을 때 효과
   const [inputShow, setInputShow] = useState(false);
@@ -118,7 +126,6 @@ function ChatInput() {
   const handleInputChange = (text: string) => {
     setInput(text);
     const lastWord = text.split(' ').pop() || '';
-    // console.log(lastWord);
     if (lastWord.trim() !== '') {
       setKeyword(lastWord);
       setIsWordSelected(false);
@@ -158,6 +165,13 @@ function ChatInput() {
         const date = userMessage;
         // 리코일에 추가
         setLogSearchOption(prev => ({...prev, date: date}));
+
+        // 모달 띄우기
+        setIsModalVisible(true);
+
+        // 로그레벨에 맞는 modalId 설정
+        setModalId('LF');
+
         putBlockToRecoil(BlockType.LogLevel, {});
       } else {
         defaultInput(userMessage);

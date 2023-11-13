@@ -9,7 +9,6 @@ export const AboutSelect = () => {
     {label: 'Apple', value: 'apple'},
     {label: 'Banana', value: 'banana'},
   ]);
-  // console.log(open);
   return (
     <DropDownPicker
       open={open}

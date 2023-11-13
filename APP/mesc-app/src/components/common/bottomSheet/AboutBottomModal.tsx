@@ -39,7 +39,6 @@ export const AboutBottomSheetModal = (props: BottomSheetProps) => {
 
   const handleSheetChanges = useCallback(
     (index: number) => {
-      // console.log('handleSheetChanges', index);
       // 모달이 완전히 닫혔을 때
       if (index === 0) {
         props.onModalHide?.();

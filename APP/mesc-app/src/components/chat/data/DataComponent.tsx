@@ -73,10 +73,6 @@ function DataComponent(props: {card: Card}) {
   };
 
   const fetchData = async (query: string) => {
-    // console.log(
-    //   '================================================================',
-    // );
-    // console.log('query', query);
     if (!query) return;
 
     try {
@@ -87,10 +83,6 @@ function DataComponent(props: {card: Card}) {
       const singleTableData = response.cardList.filter(
         (card: Card) => card.cardType === 'QU',
       );
-      // console.log(
-      //   'singleTableData================================================================',
-      // );
-      // console.log('singleTableData.table', singleTableData[0].table);
       setData2(singleTableData[0].table);
     } catch (error) {
       console.error('Fetching data failed: ', error);

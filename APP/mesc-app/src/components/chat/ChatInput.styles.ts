@@ -53,12 +53,8 @@ export const PlusBox = styled.TouchableOpacity`
 `;
 
 export const InputBox = styled.TextInput`
-<<<<<<< HEAD
   background-color: #ebecef;
   width: 80%;
-=======
-  width: 90%;
->>>>>>> 0b60989669581405e27b55b3a4dd79ce5e5782f3
   height: auto;
   max-height: 100px;
   padding-left: 15px;
@@ -134,7 +130,6 @@ export const MenuBox = styled.TouchableOpacity<InputProps>`
 `;
 
 export const Img = styled.Image`
-  // background-color: red;
   width: 60%;
   height: 92%;
 `;

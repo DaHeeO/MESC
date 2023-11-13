@@ -39,7 +39,6 @@ const Table: React.FC<TableProps> = ({
     setSelectedRow({rowIndex, content: row});
     setModalVisible(true);
   };
-  console.log('table4');
   // 모달 숨기는 함수
   const hideModal = () => setModalVisible(false);
   const tableHeader = makeHeader(title);
@@ -62,7 +61,6 @@ const Table: React.FC<TableProps> = ({
       </S.Header>
     );
   }
-  console.log('table7');
 
   return (
     <S.Container>
