@@ -1,5 +1,5 @@
 import React from "react";
-import { MainPage } from "./MainStyle";
+import { MainPage } from "./MainPage";
 
 function Main() {
   return <MainPage />;

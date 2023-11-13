@@ -13,10 +13,10 @@ function SideBar() {
     navigate("/Menu2");
   };
   const goMenu3 = () => {
-    navigate("/Menu3");
+    navigate("/MyPage");
   };
   const goMenu4 = () => {
-    navigate("/Menu4");
+    navigate("/Faq");
   };
 
   return (
@@ -29,10 +29,10 @@ function SideBar() {
       style={{ borderRight: "1px solid #dddddd" }}
     >
       {/* sideBar 메뉴들 */}
-      <HoverContainer onClick={goMenu1}>메뉴 1</HoverContainer>
-      <HoverContainer onClick={goMenu2}>메뉴 2</HoverContainer>
-      <HoverContainer onClick={goMenu3}>메뉴 3</HoverContainer>
-      <HoverContainer onClick={goMenu4}>메뉴 4</HoverContainer>
+      <HoverContainer onClick={goMenu1}>추가하기</HoverContainer>
+      <HoverContainer onClick={goMenu2}>수정하기</HoverContainer>
+      <HoverContainer onClick={goMenu3}>마이페이지</HoverContainer>
+      <HoverContainer onClick={goMenu4}>FAQ</HoverContainer>
     </AboutContainer>
   );
 }
