@@ -25,6 +25,7 @@ import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mesc.domain.user.service.UserService;
 import com.ksol.mesc.global.error.exception.InvalidValueException;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,7 @@ public class ApiController {
 		return new ResponseEntity<>(CommonResponseDto.success(messageDto), HttpStatus.OK);
 	}
 
+	@Operation(summary = "쿼리 데이터 조회 API", description = "쿼리를 통해 데이터를 조회한다.")
 	@PostMapping("/developer/data/{page}")
 	public ResponseEntity<?> getDeveloperData(
 		@PathVariable @Valid Integer page,
@@ -63,6 +65,7 @@ public class ApiController {
 		return ResponseEntity.ok(CommonResponseDto.success(tableByQuery));
 	}
 
+	@Operation(summary = "쿼리 데이터 삽입, 수정, 삭제 API", description = "쿼리를 통해 데이터를 삽입, 수정, 삭제한다.")
 	@PostMapping("/developer/query")
 	public ResponseEntity<CommonResponseDto> getDeveloperQuery(
 		@RequestBody @Validated DeveloperQueryRequestDto DeveloperQueryRequestDto, BindingResult bindingResult) {
@@ -77,6 +80,7 @@ public class ApiController {
 		return ResponseEntity.ok(CommonResponseDto.success(countsByQuery));
 	}
 
+	@Operation(summary = "액션ID 데이터 조회 API", description = "액션ID를 통해 데이터를 조회한다.")
 	@PostMapping("/worker/data/{actionId}")
 	public ResponseEntity<?> getWorkerData(@PathVariable(required = true) Integer actionId,
 		@RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
@@ -92,6 +96,7 @@ public class ApiController {
 		return ResponseEntity.ok(CommonResponseDto.success(tableByActionId));
 	}
 
+	@Operation(summary = "액션ID 데이터 추가, 수정, 삭제 API", description = "액션ID를 통해 데이터를 추가, 수정, 삭제한다.")
 	@PostMapping("/worker/query/{actionId}")
 	public ResponseEntity<?> getWorkerQuery(@PathVariable(required = true) Integer actionId,
 		@RequestBody @Validated WorkerQueryRequestDto workerQueryRequestDto,

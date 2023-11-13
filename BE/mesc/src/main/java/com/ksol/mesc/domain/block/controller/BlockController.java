@@ -50,8 +50,7 @@ public class BlockController {
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}
-
-	//
+	
 	@Operation(summary = "블록 내용 수정 API", description = "수정된 블록과 엮여 있는 정보를 DB에 저장한다.")
 	@PatchMapping("/admin/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
