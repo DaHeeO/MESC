@@ -5,6 +5,7 @@ import ChatbotStartBoxOne from '../../components/chat/ChatbotStartBoxOne';
 import ChatbotStartBoxTwo from '../../components/chat/ChatbotStartBoxTwo';
 import ChatbotOptionBox from '../../components/chat/ChatbotOptionBox';
 import DataComponent from '../../components/chat/data/DataComponent';
+import PreViewComponent from '../../components/chat/data/PreViewComponent';
 import DataBox from '../../components/chat/data/DataBox';
 import Label from '../../components/chat/data/Label';
 import Query from '../../components/chat/data/Query';
@@ -53,6 +54,10 @@ export function ChatComponentIdSwitch(card: Card) {
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
     case 'QU':
       return <DataComponent card={card}></DataComponent>;
+
+    // 직접입력 미리보기
+    case 'QR': // 데이터 조회 테이블
+      return <PreViewComponent card={card} />;
 
     // case 'ML': // 데이터 조회 시 공정 리스트
     //   return <SearchDataForm />;

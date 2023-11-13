@@ -1,11 +1,10 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {ScrollView, TouchableOpacity, Alert, View, Text} from 'react-native';
-import axios, {Axios, AxiosResponse} from 'axios';
 import _, {set} from 'lodash';
 import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
-import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
+
 import {customAxios, getBlock, getUserRole} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
@@ -16,6 +15,7 @@ import {LogSearchOption} from '../../states/LogSearchOption';
 import {BlockType} from '../../const/constants';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
+import {CommitQuery} from '../../states/CommitQuery';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
@@ -26,6 +26,9 @@ function ChatInput() {
     useRecoilState(ConditionModifyState);
   // 모달 id 관련
   const [modalId, setModalId] = useRecoilState(modalIdState);
+
+  // commitQuery 관련
+  const [commitQuery, setCommitQuery] = useRecoilState(CommitQuery);
 
   // plus 버튼 눌렀을 때 효과
   const [inputShow, setInputShow] = useState(false);
@@ -220,9 +223,11 @@ function ChatInput() {
       upperQuery.startsWith('INSERNT ') ||
       upperQuery.startsWith('DELETE ')
     ) {
-      const nextBlock: any = putBlockToRecoil(BlockType.OperationOutput, {
+      const nextBlock: any = putBlockToRecoil(BlockType.RollbackOutput, {
         query: userMessage,
       });
+
+      setCommitQuery(userMessage);
 
       // 쿼리 에러 발생 했을 때 처리
       // 인풋창에 그대로 두기
