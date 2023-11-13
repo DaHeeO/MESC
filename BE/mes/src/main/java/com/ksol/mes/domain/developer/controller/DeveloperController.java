@@ -53,16 +53,15 @@ public class DeveloperController {
 		return new ResponseEntity<>(CommonResponseDto.success(developerDataResponseDto), HttpStatus.OK);
 	}
 
-	@PostMapping("/query/{page}")
+	@PostMapping("/query")
 	public ResponseEntity<CommonResponseDto<?>> executeQuery(
-		@PathVariable(required = false) Integer page,
 		@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		DeveloperQueryResponseDto developerQueryResponseDto = new DeveloperQueryResponseDto();
 		log.info("query : {}", developerQueryRequestDto.getQuery());
 		try {
 			String query = developerQueryRequestDto.getQuery();
-			Integer modifiedCount = developerService.executeQuery(query, page);
+			Integer modifiedCount = developerService.executeQuery(query);
 			String method = "추가";
 			if (query.startsWith("update")) {
 				method = "수정";
@@ -79,15 +78,16 @@ public class DeveloperController {
 		return new ResponseEntity<>(CommonResponseDto.success(developerQueryResponseDto), HttpStatus.OK);
 	}
 
-	@PostMapping("/query/rollback")
+	@PostMapping("/query/rollback/{page}")
 	public ResponseEntity<CommonResponseDto<?>> executeQueryWithRollback(
+			@PathVariable(required = true) Integer page,
 		@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		DeveloperDataResponseDto developerDataResponseDto;
 		log.info("query : {}", developerQueryRequestDto.getQuery());
 		try {
 			String query = developerQueryRequestDto.getQuery();
-			Table table = developerService.executeQueryWithRollback(query);
+			Table table = developerService.executeQueryWithRollback(query, page);
 			developerDataResponseDto = new DeveloperDataResponseDto(table);
 		} catch (SQLException e) {
 			log.error(e.getMessage());

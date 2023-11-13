@@ -15,11 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class JdbcUtil {
-	private static final String URL = "jdbc:mysql://k9b201a.p.ssafy.io:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true";
-	private static final String USER = "ksol";
-	private static final String PASSWORD = "ksol1117";
-	// private static final String USER = "root";
-	// private static final String PASSWORD = "root";
 	private static final String catalog = "mes";
 	private final DataSource dataSource;
 
@@ -113,19 +108,6 @@ public class JdbcUtil {
 		Statement statement = null;
 		Integer counts = 0;
 		try {
-			//            DataSource dataSource = jdbcTemplate.getDataSource();
-			//            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			//            connection.setAutoCommit(false);
-			//            System.out.println("세이브포인트 만들기 전");
-			//            Savepoint first = connection.setSavepoint("first");
-			//            System.out.println("세이브포인트못만드나??");
-			//            System.out.println("first = " + first);
-			//            String savepointName = first.getSavepointName();
-			//            System.out.println("savepointName = " + savepointName);
-			//            int savepointId = first.getSavepointId();
-			//            System.out.println("savepointId = " + savepointId);
-			//            statement = connection.createStatement();
-			//            counts = statement.executeUpdate(query);
 			connection = dataSource.getConnection();
 			statement = connection.createStatement();
 			counts = statement.executeUpdate(query);
