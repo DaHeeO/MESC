@@ -12,7 +12,7 @@ interface AddProps {
 }
 
 export const InnerContainer = styled.div<AddProps>`
-  border: 1px solid blue;
+  // border: 1px solid blue;
   box-sizing: border-box;
   width: ${(props) => props.width};
   height: ${(props) => props.height};

@@ -18,9 +18,9 @@ export const AddMeun = () => {
       }}
     >
       {/* 카드 선택 메뉴 */}
-      <S.AddCardMenu content="카드" />
-      <S.AddCardMenu content="버튼1개 시작" />
-      <S.AddCardMenu content="버튼2개 시작" />
+      <S.AddCardMenu content="말풍선" />
+      <S.AddCardMenu content="버튼1개" />
+      <S.AddCardMenu content="버튼2개" />
       <S.AddCardMenu content="스크롤박스" />
       <S.AddCardMenu content="모달" />
     </AboutContainer>
