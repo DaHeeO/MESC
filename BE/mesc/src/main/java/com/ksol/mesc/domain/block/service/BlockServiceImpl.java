@@ -433,7 +433,7 @@ public class BlockServiceImpl implements BlockService {
 				cardMap.put("result", result);
 				tableByQueryRollback.remove("result");
 				if (result) {
-					cardMap.put("title", ((String[])tableByQueryRollback.get("tableList"))[0]);
+					cardMap.put("title", ((List<String>)tableByQueryRollback.get("tableList")).get(0));
 					tableByQueryRollback.remove("tableList");
 					cardMap.put("table", tableByQueryRollback);
 				} else {
