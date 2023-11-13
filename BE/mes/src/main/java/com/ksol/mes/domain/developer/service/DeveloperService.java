@@ -1,12 +1,11 @@
 package com.ksol.mes.domain.developer.service;
 
-import com.ksol.mes.global.util.jdbc.Table;
-
 import java.sql.SQLException;
 
-public interface DeveloperService {
-    Table getTable(String query) throws SQLException;
-    Integer executeQuery(String query) throws SQLException;
+import com.ksol.mes.global.util.jdbc.Table;
 
-    void commitTransation();
+public interface DeveloperService {
+	Table getTable(String query, Integer page) throws SQLException;
+
+	Integer executeQuery(String query, Integer page) throws SQLException;
 }
