@@ -8,5 +8,7 @@ public interface DeveloperService {
     Table getTable(String query) throws SQLException;
     Integer executeQuery(String query) throws SQLException;
 
+    Table executeQueryWithRollback(String query) throws SQLException;
+
     void commitTransation();
 }

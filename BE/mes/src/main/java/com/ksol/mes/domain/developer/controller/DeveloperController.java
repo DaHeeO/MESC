@@ -67,6 +67,22 @@ public class DeveloperController {
         return new ResponseEntity<>(CommonResponseDto.success(developerQueryResponseDto), HttpStatus.OK);
     }
 
+    @PostMapping("/query/rollback")
+    public ResponseEntity<CommonResponseDto<?>> executeQueryWithRollback (@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
+        checkValidates(bindingResult);
+        DeveloperDataResponseDto developerDataResponseDto;
+        log.info("query : {}", developerQueryRequestDto.getQuery());
+        try {
+            String query = developerQueryRequestDto.getQuery();
+            Table table = developerService.executeQueryWithRollback(query);
+            developerDataResponseDto = new DeveloperDataResponseDto(table);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())), HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(CommonResponseDto.success(developerDataResponseDto), HttpStatus.OK);
+    }
+
     //커밋 수행
     @GetMapping("/commit")
     public ResponseEntity<CommonResponseDto<?>> confirmCommit () {

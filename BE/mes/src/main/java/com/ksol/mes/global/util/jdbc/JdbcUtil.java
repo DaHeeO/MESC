@@ -3,24 +3,24 @@ package com.ksol.mes.global.util.jdbc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 @Component
 @Slf4j
 public class JdbcUtil {
-
-    private static final String URL = "jdbc:mysql://k9b201a.p.ssafy.io:3306/mes?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=yes&characterEncoding=UTF-8&allowPublicKeyRetrieval=true";
-    private static final String USER = "ksol";
-    private static final String PASSWORD = "ksol1117";
-    // private static final String USER = "root";
-    // private static final String PASSWORD = "root";
     private static final String catalog = "mes";
+    private final DataSource dataSource;
+
+    public JdbcUtil(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     public Table getTables() throws SQLException {
         Connection connection = null;
         Table table;
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = dataSource.getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet tables = metaData.getTables(catalog, null, null, null);
             table = new Table(tables);
@@ -39,7 +39,7 @@ public class JdbcUtil {
         Connection connection = null;
         Table table;
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = dataSource.getConnection();
             DatabaseMetaData metaData = connection.getMetaData();
             ResultSet columns = metaData.getColumns(catalog, null, tableName, null);
             table = new Table(columns);
@@ -54,15 +54,16 @@ public class JdbcUtil {
         return table;
     }
 
-    public Table select(String query) throws SQLException {
+    public Table selectAfterUpdate(String modifyQuery, String selectQuery) throws SQLException {
         Connection connection = null;
         Statement statement = null;
         Table table;
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = dataSource.getConnection();
             connection.setAutoCommit(false);
             statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
+            statement.executeUpdate(modifyQuery);
+            ResultSet resultSet = statement.executeQuery(selectQuery);
             table = new Table(resultSet);
             statement.close();
             connection.close();
@@ -79,12 +80,42 @@ public class JdbcUtil {
         return table;
     }
 
+    public Table select(String query) throws SQLException {
+        Table table;
+        try {
+            Connection connection = dataSource.getConnection();
+            connection.setAutoCommit(false);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+            table = new Table(resultSet);
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            log.info(e.getMessage());
+            throw new SQLException(e);
+        }
+        return table;
+    }
+
     public Integer execute(String query) throws SQLException {
         Connection connection = null;
         Statement statement = null;
-        Integer counts;
+        Integer counts = 0;
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+//            DataSource dataSource = jdbcTemplate.getDataSource();
+//            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+//            connection.setAutoCommit(false);
+//            System.out.println("세이브포인트 만들기 전");
+//            Savepoint first = connection.setSavepoint("first");
+//            System.out.println("세이브포인트못만드나??");
+//            System.out.println("first = " + first);
+//            String savepointName = first.getSavepointName();
+//            System.out.println("savepointName = " + savepointName);
+//            int savepointId = first.getSavepointId();
+//            System.out.println("savepointId = " + savepointId);
+//            statement = connection.createStatement();
+//            counts = statement.executeUpdate(query);
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             counts = statement.executeUpdate(query);
             statement.close();
@@ -106,7 +137,7 @@ public class JdbcUtil {
     public void commitTransaction(){
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = dataSource.getConnection();
             connection.commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -116,7 +147,7 @@ public class JdbcUtil {
     public void rollbackTransaction(){
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = dataSource.getConnection();
             connection.rollback();
         } catch (SQLException e) {
             throw new RuntimeException(e);
