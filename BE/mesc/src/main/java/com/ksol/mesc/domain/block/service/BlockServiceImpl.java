@@ -101,6 +101,7 @@ public class BlockServiceImpl implements BlockService {
 		LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
 
 		objMap.put("blockId", block.getId());
+		objMap.put("blockName", block.getName());
 		objMap.put("isPossible", block.getIsPossible() ? true : false);
 
 		//블록과 연결된 카드 조회
