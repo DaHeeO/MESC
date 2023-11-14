@@ -5,6 +5,7 @@ import ChatbotStartBoxOne from '../../components/chat/ChatbotStartBoxOne';
 import ChatbotStartBoxTwo from '../../components/chat/ChatbotStartBoxTwo';
 import ChatbotOptionBox from '../../components/chat/ChatbotOptionBox';
 import DataComponent from '../../components/chat/data/DataComponent';
+import PreViewComponent from '../../components/chat/data/PreViewComponent';
 import DataBox from '../../components/chat/data/DataBox';
 import Label from '../../components/chat/data/Label';
 import Query from '../../components/chat/data/Query';
@@ -16,6 +17,8 @@ import customAxios from '../../../Api';
 import {useRecoilState} from 'recoil';
 import {Card, cardState} from '../../states/CardState';
 import QueryResultMessage from '../../components/chat/QueryResultMessage';
+import SearchDataForm from '../../components/chat/data/SearchDataForm';
+import {DataSection} from 'src/components/chat/data/DataComponent.styles';
 
 interface ChatComponentIdSwitchProps {
   chatComponentId?: string;
@@ -50,23 +53,24 @@ export function ChatComponentIdSwitch(card: Card) {
     // case 'QTA': // 쿼리입력(SELECT)에 따른 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
     case 'QU':
-      return <DataBox table={card.table} />;
+      return <DataComponent card={card}></DataComponent>;
+
+    // 직접입력 미리보기
+    case 'QR': // 데이터 조회 테이블
+      return card.table ? (
+        <PreViewComponent card={card} />
+      ) : (
+        <ChatbotMessage card={card} />
+      );
 
     // case 'ML': // 데이터 조회 시 공정 리스트
-    //   return (
-    //     <AboutBottomSheetModal
-    //       btnTitle={''}
-    //       modalHeight={''}
-    //       modalBreakPoint={''}
-    //       component={undefined}
-    //     />
-    //   );
+    //   return <SearchDataForm />;
 
     // // case 'MC': // 테이블 조회 시 조건 변경 리스트
     // //   return < />;
 
-    // case 'LO': // 로그
-    //   return <Log />;
+    case 'LO': // 로그
+      return <Log card={card} />;
 
     // // case 'RE': // 보고 눌렀을 때 나오는 창
     // //   return < />;

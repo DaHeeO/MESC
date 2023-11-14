@@ -33,6 +33,19 @@ export async function getBlock(blockId: number, body: {}) {
   return block;
 }
 
+export async function getCard(cardId: number, body: {}) {
+  let card: any;
+  await customAxios
+    .post(`card/${cardId}`, body)
+    .then(response => {
+      card = response.data.data;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return card;
+}
+
 // baseURL 설정
 export const customAxios = axios.create({
   baseURL: `https://www.mesc.kr/api/`,

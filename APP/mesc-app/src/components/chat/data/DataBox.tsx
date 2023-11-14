@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, GestureResponderEvent, PanResponder} from 'react-native';
+import {PanResponder} from 'react-native';
 import * as S from './DataBox.styles';
 import Table from './Table';
 import Query from './Query';
@@ -17,9 +17,16 @@ type DataBoxProps = {
   query?: string;
   onPress?: () => void;
   isModal?: boolean;
+  showButton?: boolean;
 };
 
-const DataBox: React.FC<DataBoxProps> = ({title, table, query, onPress}) => {
+const DataBox: React.FC<DataBoxProps> = ({
+  title,
+  table,
+  query,
+  onPress,
+  showButton,
+}) => {
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -45,10 +52,11 @@ const DataBox: React.FC<DataBoxProps> = ({title, table, query, onPress}) => {
           columnType={table.columnTypeList}
           rowList={table.rowList}
           isModal={false}
+          showButton={showButton}
         />
       );
     } else if (query) {
-      return <Query query={query} isModal={false} />;
+      return <Query title="조회 쿼리" query={query} isModal={false} />;
     }
   };
 

@@ -19,26 +19,24 @@ export async function handleFingerPrint() {
 
   try {
     const isSupported = await TouchID.isSupported(optionalConfigObject);
-    console.log(`타입: ${isSupported}`); // faceid, touchid
-    message = '지문인식을 지원합니다.';
   } catch (err) {
-    console.log(err);
     message = '지문인식을 지원하지 않습니다.';
     return;
   }
 
   try {
+    console.log('44');
     const res = await TouchID.authenticate(
       '지문을 인식해주세요.',
       optionalConfigObject,
     );
+
     // 성공 했을 때
-    console.log('인식성공', res);
     message = '지문인식 성공';
+    return res;
   } catch (err) {
-    console.log('인식실패', err);
     message = '지문인식 실패';
   }
 
-  return message;
+  return false;
 }

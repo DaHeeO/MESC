@@ -3,34 +3,38 @@ import {Image} from 'react-native';
 import {colors} from '../common/Theme';
 
 export const Container = styled.View`
-  flex: 1;
   align-items: center;
   justify-content: center;
   // background-color: red;
+  height: 350px;
+  width: 370px;
 `;
 
 export const Img = styled(Image)`
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
+  // background-color: blue;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const View = styled.View`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  height: 35%;
-  // background-color: blue;
+  height: 90px;
+  // background-color: green;
 `;
 
 export const MainText = styled.Text`
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   color: ${colors.primary};
   text-align: center;
 `;
 
 export const SubText = styled.Text`
-  font-size; 16px;
+  font-size; 15px;
   color: ${colors.secondary}
   text-align: center;
 `;

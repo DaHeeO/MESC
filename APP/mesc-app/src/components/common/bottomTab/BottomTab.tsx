@@ -12,7 +12,8 @@ import * as S from './BottomTab.styles';
 import Main from '../../../screens/main/Main';
 import ContactStack from '../../../screens/contacts/Stack';
 import SettingStack from '../../../screens/settings/Stack';
-import Chat from '../../../screens/chat/Chat2';
+import Test from '../../../screens/settings/test';
+import Chat from '../../../screens/chat/Chat';
 
 // icon
 import BottomTabIcon from './NavIcon';
@@ -128,18 +129,9 @@ function BottompTab() {
         }}
       />
       <Tab.Screen
-        name="Contact"
-        component={ContactStack}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <BottomTabIcon focused={focused} type="Contact" />
-          ),
-          tabBarLabel: () => <S.Text>연락처</S.Text>,
-        }}
-      />
-      <Tab.Screen
         name="Chat"
         component={Chat}
+        // component={Test}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Message" />
@@ -161,6 +153,17 @@ function BottompTab() {
         //   },
         // })}
       />
+      <Tab.Screen
+        name="Contact"
+        component={ContactStack}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <BottomTabIcon focused={focused} type="Contact" />
+          ),
+          tabBarLabel: () => <S.Text>연락처</S.Text>,
+        }}
+      />
+
       <Tab.Screen
         name="Setting"
         component={SettingStack}

@@ -7,13 +7,14 @@ export const Container = styled.View`
   align-items: center;
   margin-top: 10px;
   // margin-bottom: 10px;
-  background-color: yellow;
+  // background-color: yellow;
+  height: 40px;
 `;
 
 export const ImgBox = styled.View`
   width: 40px;
   height: 40px;
-  background-color: ${colors.lightiris};
+  background-color: #3c56a0;
   border-radius: 20px;
   align-items: center;
   justify-content: center;

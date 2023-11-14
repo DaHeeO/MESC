@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text} from 'react-native';
-import * as S from './ChatbotStartBoxTwo.styles';
+import * as S from './ChatbotStartBoxOne.styles';
 import RobotIcon2 from '../../assets/images/RobotIcon2.png';
 import ChatbotOptionBox from './ChatbotOptionBox';
 import {useRecoilState} from 'recoil';

@@ -17,7 +17,6 @@ export const Title = styled.Text`
   margin-left: 20px;
   margin-top: 20px;
   margin-right: 20px;
-  // height: 30px;
   border-bottom-width: 1px;
   border-bottom-color: black;
   padding-bottom: 10px;
@@ -31,7 +30,7 @@ export const ButtonBox = styled.View`
 `;
 
 export const Button = styled.View`
-  background-color: #5d5fef;
+  background-color: #3c56a0;
   height: 30px;
   width: 60px;
   border-radius: 14px; // 라운드 모양을 주기 위해 border-radius 추가

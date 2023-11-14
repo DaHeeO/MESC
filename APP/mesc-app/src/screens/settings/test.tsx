@@ -1,27 +1,42 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import * as S from './Chat.styles';
+// React
+import React, {useEffect, useCallback, useRef} from 'react';
+//Styled
+import {View, ScrollView} from 'react-native';
+import * as S from '../chat/Chat.styles';
 import Header from '../../components/common/chatHeader/ChatHeader';
+// Components
 import ChatbotProfile from '../../components/chat/ChatbotProfileComponent';
-import ChatInput from '../../components/chat/ChatInput';
-import {ConditionForm} from '../../components/message/Condition/ConditionForm';
-import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
-import LogLevelForm from '../../components/chat/log/LogLevelForm';
-import {ModalIdSwitch} from '../../components/common/ModalId';
-import {IconSwitch} from '../../components/common/ChatIcon';
 import {ChatChooseSection1} from '../../components/message/Btn/ChatChooseSection1';
 import {ChatChooseSection2} from '../../components/message/Btn/ChatChooseSection2';
-import SearchDataForm from '../../components/chat/data/SearchDataForm';
-import {customAxios, getBlock} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
-import {ChatComponentIdSwitch} from './ComponentId';
-import {AboutContainer} from '../../components/common/about/AboutContainer';
+import {ChatComponentIdSwitch} from '../chat/ComponentId';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
+import {Card} from '../../states/CardState';
+import DataComponent from '../../components/chat/data/DataComponent';
+import ChatInput from '../../components/chat/ChatInput';
 import {BlockResponseData} from '../../states/BlockResponseState';
-import {AboutBottomSheetModal} from '../../components/common/bottomSheet/AboutBottomModal';
 import {InputState} from '../../states/InputState';
 
-function Chat() {
+//BottomSheet
+import {ModalIdSwitch} from '../../components/common/id/ModalId';
+import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal';
+import {ConditionModifyState} from '../../states/BottomSheetState';
+import {modalIdState} from '../../states/ModalIdState';
+
+//Api
+import {getBlock} from '../../../Api';
+
+function Test() {
+  // 원하는 모달 띄우기 (모달은 채팅 하단에 있음)
+  const modalId = useRecoilValue(modalIdState);
+  const realModalId = ModalIdSwitch({modalId});
+  // console.log('realModalId', realModalId);
+
+  // const ModalState: RecoilState<string> = 'ConditionModifyState';
+
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(ConditionModifyState); // 해당 모달State값 넣기
+
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   const [block, setBlock] = useRecoilState(BlockResponseData);
@@ -41,7 +56,7 @@ function Chat() {
     setChatbotHistory(prev => [...prev, chatbotBlock]);
   }, [block]);
 
-  const makeChatbotBlock = (data: any) => {
+  const makeChatbotBlock = useCallback((data: any) => {
     // section 값에 따라 조건부 렌더링
     let buttonComponent;
     if (data.section === 1) {
@@ -50,8 +65,7 @@ function Chat() {
       buttonComponent = <ChatChooseSection2 />;
     }
 
-    // setInputState(data.isPossible);
-    setInputState(true);
+    setInputState(data.isPossible);
 
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
     const cardComponents = data.cardList.map((card: any, index: any) => (
@@ -65,7 +79,7 @@ function Chat() {
         {buttonComponent}
       </>
     );
-  };
+  }, []);
 
   // chatbotHistory 변경될 때마다 스크롤
   useEffect(() => {
@@ -92,15 +106,15 @@ function Chat() {
           ))}
         </ScrollView>
       </S.ChatLayout>
-      <ChatInput />
-      <AboutBottomSheetModal
-        btnTitle={'데이터조회'}
+      <BottomSheet
+        isModalVisible={!isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
         modalHeight={'70%'}
-        modalBreakPoint={'30%'}
-        component={<SearchDataForm />}
+        modalBreakPoint={'20%'}
+        component={realModalId} // 여기를 ID값을 받을 수 있도록
       />
+      <ChatInput />
     </S.Container>
   );
 }
 
-export default Chat;
+export default Test;
