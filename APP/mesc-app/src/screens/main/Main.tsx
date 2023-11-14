@@ -13,64 +13,93 @@ import Group2 from '../../assets/images/group/group2.png';
 import Group3 from '../../assets/images/group/group3.png';
 import Group4 from '../../assets/images/group/group4.png';
 
+import Intro from '../intro/Intro';
+import Intro1 from '../../assets/images/intro1.png';
+import Intro2 from '../../assets/images/intro2.png';
+import Intro3 from '../../assets/images/intro3.png';
+
+import OnBoarding from '../../components/introComponent/OnBoarding';
+import BackgroundImg from '../../assets/images/background-intro.png';
+
 function Main({navigation}: any) {
-  const DATA = [
+  // const DATA = [
+  //   {
+  //     img: Group1,
+  //     color: '#E7F4FF',
+  //     name: '그룹1',
+  //     count: 5,
+  //   },
+  //   {
+  //     img: Group2,
+  //     color: '#EEE7FF',
+  //     name: '그룹2',
+  //     count: 5,
+  //   },
+  //   {
+  //     img: Group3,
+  //     color: '#E2FFF7',
+  //     name: '그룹3',
+  //     count: 5,
+  //   },
+  //   {
+  //     img: Group4,
+  //     color: '#FFF8E4',
+  //     name: '그룹4',
+  //     count: 5,
+  //   },
+  // ];
+
+  const PAGES = [
     {
-      img: Group1,
-      color: '#E7F4FF',
-      name: '그룹1',
-      count: 5,
+      num: 1,
+      maintext: '공장 데이터 조회',
+      subtext: '복잡한 데이터를 실시간으로 파악할 수 있습니다.',
+      image: Intro1,
     },
     {
-      img: Group2,
-      color: '#EEE7FF',
-      name: '그룹2',
-      count: 5,
+      num: 2,
+      maintext: 'DML 조작',
+      subtext: '데이터 CRUD가 가능합니다.',
+      image: Intro2,
     },
     {
-      img: Group3,
-      color: '#E2FFF7',
-      name: '그룹3',
-      count: 5,
-    },
-    {
-      img: Group4,
-      color: '#FFF8E4',
-      name: '그룹4',
-      count: 5,
+      num: 3,
+      maintext: '보고 간편화',
+      subtext: '위급상황 발생 시 간편하게 보고할 수 있습니다.',
+      image: Intro3,
     },
   ];
 
-  function renderItem({item}: any) {
-    return (
-      <S.ItemContainer>
-        <S.ItemTop>
-          <S.ItemBackground bgColor={item.color}>
-            <S.Image source={item.img} />
-          </S.ItemBackground>
-          <TouchableOpacity>
-            <Dots />
-          </TouchableOpacity>
-        </S.ItemTop>
-        <S.ItemBody>
-          <S.BoldText
-            size={17}
-            color={C.colors.primary}
-            style={{marginBottom: 6}}>
-            {item.name}
-          </S.BoldText>
-          <S.Text size={13} color={C.colors.tertiary}>
-            {item.count} 명
-          </S.Text>
-        </S.ItemBody>
-        <S.Bottom onPress={() => navigation.navigate('Contact')}>
-          <S.BoldText size={15} color={C.colors.primary}>
-            그룹 편집
-          </S.BoldText>
-        </S.Bottom>
-      </S.ItemContainer>
-    );
-  }
+  // function renderItem({item}: any) {
+  //   return (
+  //     <S.ItemContainer>
+  //       <S.ItemTop>
+  //         <S.ItemBackground bgColor={item.color}>
+  //           <S.Image source={item.img} />
+  //         </S.ItemBackground>
+  //         <TouchableOpacity>
+  //           <Dots />
+  //         </TouchableOpacity>
+  //       </S.ItemTop>
+  //       <S.ItemBody>
+  //         <S.BoldText
+  //           size={17}
+  //           color={C.colors.primary}
+  //           style={{marginBottom: 6}}>
+  //           {item.name}
+  //         </S.BoldText>
+  //         <S.Text size={13} color={C.colors.tertiary}>
+  //           {item.count} 명
+  //         </S.Text>
+  //       </S.ItemBody>
+  //       <S.Bottom onPress={() => navigation.navigate('Contact')}>
+  //         <S.BoldText size={15} color={C.colors.primary}>
+  //           그룹 편집
+  //         </S.BoldText>
+  //       </S.Bottom>
+  //     </S.ItemContainer>
+  //   );
+  // }
 
   return (
     <S.Container>
@@ -110,16 +139,18 @@ function Main({navigation}: any) {
           <S.GroupContainer>
             <S.GroupNav>
               <S.BoldText size={17} color={C.colors.primary}>
-                그룹 관리
+                MESC 소개
               </S.BoldText>
               <S.SeeMore onPress={() => navigation.navigate('Contact')}>
-                <Plus width={20} height={20} />
+                {/* <Plus width={20} height={20} />
                 <S.Text size={16} color={C.colors.primary}>
                   더보기
-                </S.Text>
+                </S.Text> */}
               </S.SeeMore>
             </S.GroupNav>
-            <S.GroupList data={DATA} renderItem={renderItem} numColumns={2} />
+            <OnBoarding pages={PAGES} />
+
+            {/* <S.GroupList data={DATA} renderItem={renderItem} numColumns={2} /> */}
           </S.GroupContainer>
         </S.Body>
       </S.Div>

@@ -3,8 +3,8 @@ import {Image} from 'react-native';
 import {colors} from '../common/Theme';
 
 export const ChatbotBox = styled.View`
-  width: 250px;
-  height: 220px;
+  width: 260px;
+  height: 230px;
   display: flex;
   border-radius: 10px;
   margin-top: 10px;
@@ -22,7 +22,7 @@ export const TopBox = styled.View`
 
 export const NameBox = styled.View`
   width: 45%;
-  //background-color: green;
+  // background-color: green;
   heigth: 100%;
 `;
 
@@ -46,6 +46,7 @@ export const MidBox = styled.View`
   background-color: ${colors.icy};
   justify-content: center;
   margin-left: 10px;
+  // background-color: yellow;
 `;
 
 export const BottomBox = styled.View`
@@ -54,4 +55,5 @@ export const BottomBox = styled.View`
   background-color: ${colors.icy};
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  // background-color: aqua;
 `;

@@ -13,6 +13,17 @@ export const FormContainer = styled.View`
   flex-direction: ${(props: FormContainerProps) => props.direction || 'row'};
   justify-content: ${(props: FormContainerProps) => props.justify || 'center'};
   align-items: ${(props: FormContainerProps) => props.align || 'center'};
+  border: 1px solid green;
+`;
+
+export const Header = styled.View`
+  width: 95%
+  height: 50px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 5px;
+  margin-right: 5px;
 `;
 
 export const TextBtn = styled.TouchableOpacity`
@@ -27,7 +38,7 @@ interface TextBoxProps {
 }
 export const TextBox = styled.Text`
   font-weight: bold;
-  font-size: 20;
+  font-size: 16;
   color: ${(props: TextBoxProps) => props.color || 'black'};
 `;
 
@@ -39,9 +50,9 @@ interface SelectBoxProps {
 // 버튼 Style
 export const ButtonContainer = styled.TouchableOpacity<SelectBoxProps>`
   background-color: ${(props: SelectBoxProps) =>
-    props.backgroundColor || '#7879f1'};
-  width: 50%;
-  height: ${(props: SelectBoxProps) => props.height || '80%'};
+    props.backgroundColor || '#3C56A0'};
+  width: 70%;
+  height: ${(props: SelectBoxProps) => props.height || '100%'};
   justify-content: center;
   align-items: center;
   border-radius: 12px;

@@ -16,6 +16,7 @@ interface ChatBtnProps {
   icon?: React.ReactNode;
   bordercolor?: string;
   onPress?: () => void;
+  backgroundColor?: string;
 }
 
 export const AboutChatBtn = (props: ChatBtnProps) => {
@@ -71,7 +72,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       </BtnContainer>
       {/* 버튼 내용 자리 */}
       <BtnContainer width="70px">
-        <Text style={{color: 'gray'}}>{props.btnTitle}</Text>
+        <Text style={{color: '#323639'}}>{props.btnTitle}</Text>
       </BtnContainer>
     </ChooseBtnBody>
   );

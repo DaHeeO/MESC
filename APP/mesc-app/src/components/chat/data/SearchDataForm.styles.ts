@@ -2,58 +2,72 @@ import styled from 'styled-components/native';
 import {colors} from '../../common/Theme';
 
 export const Container = styled.View`
-  //   border: 3px solid blue;
+  // border: 3px solid blue;
   box-sizing: border-box;
   width: 100%;
   flex: 1;
 `;
 
+export const InputContainer = styled.View`
+  // border: 3px solid aqua;
+  width: 100%;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const SearchInput = styled.View`
-  //   border: 3px solid red;
+  // border: 3px solid red;
   width: 350px;
   height: 50px;
-  background-color: #d9d9d9;
+  background-color: ${colors.quaternary};
   border-radius: 20px;
   margin: 20px;
   flex-direction: row;
   align-items: center;
 `;
 
-export const ImageBox = styled.View`
-  justify-content: center;
-  align-items: center;
-  //   border: 3px solid aqua;
-  height: 50px;
-  width: 50px;
-  margin-left: 10px;
-`;
-
 export const SearchText = styled.TextInput`
+  flex: 1;
   height: 50px;
-  margin-left: 5px;
+  // margin-left: 10px;
   font-size: 15px;
+  // background-color: pink;
 `;
 
 export const ButtonContainer = styled.View`
-  //   border: 3px solid green;
+  // border: 3px solid green;
   height: 85%;
 `;
 
-export const ButtonRow = styled.View`
-  //   border-bottom-width: 0.7px;
-  //   border: 1px solid red;
-  //   width: 200px;
+export const ButtonRow = styled.TouchableOpacity`
+  border-bottom-width: 0.7px;
+  // border: 1px solid red;
+  width: 100%;
   height: 50px;
   flex-direction: row;
   justify-content: space-around;
+  // background-color: pink;
 `;
 
 export const ButtonName = styled.Text`
   height: 50px;
-  width: 250px;
+  width: 70%;
   font-size: 15px;
   font-weight: bold;
   color: black;
   line-height: 50px;
+  margin-left: 20px;
+  // border: 3px solid yellow;
+`;
+
+export const ImageBox = styled.View`
+  justify-content: center;
+  align-items: center;
+  // border: 3px solid aqua;
+  height: 50px;
+  width: 50px;
   margin-left: 10px;
+  // margin-right: 20px;
+  // background-color: aqua;
 `;

@@ -7,12 +7,13 @@ export const OptionBox = styled.View`
   display: flex;
   align-items: center;
   justify-content: center;
+  // background-color: pink;
 `;
 
 export const DataBox = styled.TouchableOpacity`
   width: 95%;
   height: 80%;
-  background-color: ${colors.backgroundGray};
+  background-color: #d1d4dd;
   border-radius: 5px;
   justify-content: center;
   align-items: center;

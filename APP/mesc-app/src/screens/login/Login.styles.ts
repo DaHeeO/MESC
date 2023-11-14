@@ -146,6 +146,8 @@ export const Selected = styled.TouchableOpacity`
   height: 40px;
   width: 45%;
   background-color: ${colors.lightiris};
+  background-color: aqua;
+
   border-radius: 30px;
 `;
 
@@ -174,6 +176,7 @@ export const Button = styled.TouchableOpacity`
   width: 100%;
   height: 56px;
   background-color: ${colors.backgroundIris};
+  // background-color: yellow;
   border-radius: 14px;
 `;
 

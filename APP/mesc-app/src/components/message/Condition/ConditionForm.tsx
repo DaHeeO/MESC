@@ -7,6 +7,7 @@ import {ProcessSelect} from '../../common/about/ProcessSelect';
 import {LineSelect} from '../../common/about/LineSelect';
 import {OkayBtn} from '../Btn/SaveBtn';
 import {DatePicker} from '../../common/about/AboutDate';
+import * as S from './ConditionFormStyle';
 
 export const ConditionForm = () => {
   // Recoil에서 조건과 Dropdown 꺼내오기
@@ -26,18 +27,29 @@ export const ConditionForm = () => {
   return (
     <FormContainer direction="column">
       {/* 조건초기화, 적용 버튼 Container */}
-      <FormContainer height="10%">
+      <S.Header style={{backgroundColor: 'yellow'}}>
         {/* 조건초기화 */}
-        <FormContainer width="50%" height="100%">
-          <TextBtn onPress={resetCondition}>
+        <FormContainer
+          width="100px"
+          height="70%"
+          // style={{backgroundColor: 'red'}}
+        >
+          <TextBtn
+            onPress={resetCondition}
+            // style={{backgroundColor: 'pink'}}
+          >
             <TextBox>조건초기화</TextBox>
           </TextBtn>
         </FormContainer>
         {/* 적용버튼 */}
-        <FormContainer width="50%" height="100%">
-          <OkayBtn content={'적용'} />
+        <FormContainer
+          width="100px"
+          height="70%"
+          // style={{backgroundColor: 'blue'}}
+        >
+          <OkayBtn content={'적용'} color="#ECECEC" />
         </FormContainer>
-      </FormContainer>
+      </S.Header>
 
       {/* 조건 Container */}
       <FormContainer height="90%" direction="column">
@@ -47,13 +59,18 @@ export const ConditionForm = () => {
           width="100%"
           direction="column"
           style={{
+            backgroundColor: 'gold',
             zIndex: 3000,
           }}>
           <FormContainer height="30%" width="100%">
             <TextBox>{dropdownList[1].columnName}</TextBox>
           </FormContainer>
 
-          <FormContainer height="70%" width="90%" align="flex-start">
+          <FormContainer
+            height="70%"
+            width="90%"
+            align="flex-start"
+            style={{backgroundColor: 'skyblue'}}>
             {/* AboutSelect 컴포넌트에 dropdownList를 props로 전달 */}
             <ProcessSelect valuesList={dropdownList[1].valuesList} />
           </FormContainer>
@@ -65,9 +82,13 @@ export const ConditionForm = () => {
           width="100%"
           direction="column"
           style={{
+            backgroundColor: 'pink',
             zIndex: 2900,
           }}>
-          <FormContainer height="20%" width="100%">
+          <FormContainer
+            height="20%"
+            width="100%"
+            style={{backgroundColor: 'gray'}}>
             <TextBox>기간설정</TextBox>
           </FormContainer>
 
@@ -75,8 +96,12 @@ export const ConditionForm = () => {
             height="80%"
             width="95%"
             align="flex-start"
-            direction="column">
-            <FormContainer width="100%" height="50%">
+            direction="column"
+            style={{backgroundColor: 'skyblue'}}>
+            <FormContainer
+              width="100%"
+              height="50%"
+              style={{backgroundColor: 'yellow'}}>
               <DatePicker />
             </FormContainer>
             <FormContainer width="100%" height="50%">

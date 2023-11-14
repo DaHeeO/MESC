@@ -12,6 +12,7 @@ import {ConditionModifyState} from '../../../states/BottomSheetState';
 
 interface chatBtnprops {
   onPress: () => void;
+  backgroundColor?: string;
 }
 
 export const GoStartChat = () => {
@@ -26,20 +27,20 @@ export const GoDataControll = () => {
   return <AboutChatBtn btnTitle={'데이터 조작'} icon={<DataControll />} />;
 };
 
-export const CloseModal = (props: chatBtnprops) => {
-  return (
-    <AboutChatBtn
-      bordercolor="1px solid black"
-      // width="100px"
-      // height="30px"
-      btnTitle={'창 닫기'}
-      icon={<Close />}
-      onPress={() => {
-        props.onPress();
-      }}
-    />
-  );
-};
+// export const CloseModal = (props: chatBtnprops) => {
+//   return (
+//     <AboutChatBtn
+//       bordercolor="1px solid black"
+//       // width="100px"
+//       // height="30px"
+//       btnTitle={'창 닫기'}
+//       icon={<Close />}
+//       onPress={() => {
+//         props.onPress();
+//       }}
+//     />
+//   );
+// };
 
 export const ConditionModify = (props: chatBtnprops) => {
   const [openCoditionForm, setOpenCoditionForm] =
@@ -48,12 +49,13 @@ export const ConditionModify = (props: chatBtnprops) => {
     <AboutChatBtn
       height="30px"
       width="105px"
-      bordercolor="1px solid black"
+      bordercolor="1px solid #323639"
       btnTitle={'조건 변경'}
       icon={<Filter />}
       onPress={() => {
         props.onPress();
       }}
+      backgroundColor="#FFFFFF"
     />
   );
 };

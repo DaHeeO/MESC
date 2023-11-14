@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 
 export const HeaderBody = styled.View`
   position: 'fixed';
-  background: #242529;
+  background: #182655;
   top: 0;
   height: 7%;
   display: flex;
@@ -52,7 +52,7 @@ function Header() {
           width: '10%',
           justifyContent: 'center',
         }}>
-        <Dots fill="white" width={24} height={24} style={{marginRight: 30}} />
+        {/* <Dots fill="white" width={24} height={24} style={{marginRight: 30}} /> */}
       </View>
     </HeaderBody>
   );

@@ -15,7 +15,7 @@ export default function OnBoardingItem({item}: IOnBoardingItem) {
   const {width} = useWindowDimensions();
 
   return (
-    <S.Container style={{width}}>
+    <S.Container>
       <S.Img source={item.image} />
       <S.View>
         <S.MainText>{item.maintext}</S.MainText>

@@ -14,17 +14,21 @@ function UserMessage(props: {message: string}) {
 
     const maxLength = Math.max(...lines.map(line => line.length));
 
-    if (maxLength * 10 < 200) {
-      // 만약 가장 긴 줄의 길이가 width 미만이라면 동적으로 width를 재설정
-      if (maxLength * 10 < 200) {
-        setDynamicWidth(maxLength * 10);
-      } else {
-        setDynamicWidth(200);
-      }
+    const minWidth = 80; // 최소 길이
+    const maxWidth = 250; // 최대 길이
+
+    const dynamicWidth = maxLength * 12;
+
+    // console.log('dynamicWidth', dynamicWidth);
+
+    if (dynamicWidth < minWidth) {
+      setDynamicWidth(minWidth);
+    } else if (dynamicWidth > maxWidth) {
+      setDynamicWidth(maxWidth);
     } else {
-      setDynamicWidth(200);
+      setDynamicWidth(dynamicWidth);
     }
-  }, []);
+  }, [props.message]);
 
   return (
     <S.UserMessage style={{width: dynamicWidth + 30}}>

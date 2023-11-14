@@ -32,13 +32,15 @@ const Query: React.FC<QueryProps> = ({query, isModal, title}) => {
           <S.Title>{title}</S.Title>
         </S.HeaderContainer>
       </S.Header> */}
-      <S.QueryBox onPress={showModal}>
+      <S.QueryBox>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <ScrollView
             nestedScrollEnabled={true}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{flexGrow: 1}}>
-            <S.Query>{query}</S.Query>
+            <TouchableOpacity onPress={showModal}>
+              <S.Query>{query}</S.Query>
+            </TouchableOpacity>
           </ScrollView>
         </ScrollView>
       </S.QueryBox>

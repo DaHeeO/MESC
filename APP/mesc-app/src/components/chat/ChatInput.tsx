@@ -4,7 +4,7 @@ import _, {set} from 'lodash';
 import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
-
+import Close from '../../assets/icons/x.svg';
 import {customAxios, getBlock, getUserRole} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
@@ -39,8 +39,8 @@ function ChatInput() {
 
   useEffect(() => {
     if (inputShow == true) {
-      setInputHeight('150px');
-      setInputJustify('space-around');
+      setInputHeight('145px');
+      setInputJustify('space-between');
       setShowBox('flex');
       setNoMargin('15px');
     } else {
@@ -191,7 +191,7 @@ function ChatInput() {
       }
     } else {
       // 아무것도 입력하지 않고 전송할 경우
-      Alert.alert('명령어 또는 데이터 조작의 쿼리문을 입력해주세요.');
+      Alert.alert('명령어 또는 쿼리문을 입력해주세요.');
     }
   };
 
@@ -249,7 +249,7 @@ function ChatInput() {
       }
     } else {
       Alert.alert('쿼리문을 정확하게 작성해주세요');
-      putBlockToRecoil(BlockType.QueryInput, {});
+      // putBlockToRecoil(BlockType.QueryInput, {});
     }
   };
 
@@ -288,7 +288,11 @@ function ChatInput() {
             onPress={() => {
               setInputShow(!inputShow);
             }}>
-            <Plus />
+            {inputShow ? (
+              <Close style={{width: 24, height: 24}} />
+            ) : (
+              <Plus style={{width: 24, height: 24}} />
+            )}
           </S.PlusBox>
           <S.InputBox
             value={input}
@@ -305,7 +309,7 @@ function ChatInput() {
           </S.SendBox>
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
-          <S.MenuBox margin="15px">
+          <S.MenuBox margin="5px">
             <S.MenuBox width="100%" height="65%">
               <S.Img source={require('../../assets/images/Gostart3.png')} />
             </S.MenuBox>
@@ -313,7 +317,7 @@ function ChatInput() {
               <Text style={{color: 'black'}}>처음으로</Text>
             </S.MenuBox>
           </S.MenuBox>
-          <S.MenuBox margin="15px">
+          <S.MenuBox margin="5px">
             <S.MenuBox width="100%" height="65%">
               <S.Img source={require('../../assets/images/GoDB.png')} />
             </S.MenuBox>
@@ -321,7 +325,7 @@ function ChatInput() {
               <Text style={{color: 'black'}}>데이터 조작</Text>
             </S.MenuBox>
           </S.MenuBox>
-          <S.MenuBox margin="15px">
+          <S.MenuBox margin="5px">
             <S.MenuBox width="100%" height="65%">
               <S.Img source={require('../../assets/images/Goreport3.png')} />
             </S.MenuBox>

@@ -1,7 +1,8 @@
 import styled from 'styled-components/native';
 
 export const Query = styled.Text`
-  font-size: 15px;
+  font-size: 17px;
+  // font-weight: bold;
 `;
 
 export const QueryContainer = styled.View`
@@ -13,7 +14,7 @@ export const QueryContainer = styled.View`
   align-items: center;
   align-content: center;
   justify-content: center;
-  // background-color: aqua;
+  background-color: aqua;
 `;
 
 export const HeaderContainer = styled.View`
@@ -42,7 +43,7 @@ export const Title = styled.Text`
   color: black;
 `;
 
-export const QueryBox = styled.TouchableOpacity`
+export const QueryBox = styled.View`
   // width: 100%;
   flex: 1;
   padding: 20px;

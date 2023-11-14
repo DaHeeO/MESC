@@ -41,7 +41,7 @@ export default LabelComponent;
 const styles = StyleSheet.create({
   activeLabelStyle: {
     backgroundColor: '#F5F8FC',
-    color: '#5D5FEF',
+    color: '#3C56A0',
     paddingVertical: 5, // 상하 패딩
     paddingHorizontal: 10, // 좌우 패딩
     borderRadius: 16, // 둥근 모서리
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
 
   labelStyle: {
-    backgroundColor: '#5D5FEF',
+    backgroundColor: '#3C56A0',
     color: '#F5F8FC',
     paddingVertical: 5, // 상하 패딩
     paddingHorizontal: 10, // 좌우 패딩
