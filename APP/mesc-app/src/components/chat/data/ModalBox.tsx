@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {PanResponder} from 'react-native';
 import * as S from './ModalBox.styles';
 import Table from './Table';
-import Query from './Query';
+import Query from '../../chat/data/Query';
 import {CloseModal} from '../../common/id/ChatChooseId';
 import Close from '../../../assets/icons/close.svg';
 import {vi} from 'date-fns/locale';
