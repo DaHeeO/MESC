@@ -50,7 +50,7 @@ export const Menu1 = () => {
   // plus 버튼 누를 때 새로운 카드 생성===================================
 
   // 화면에 보여지는 카드 useState
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useRecoilState(CardState);
   console.log("cards==================", cards);
 
   // 카드 타입을 저장하고 있는 recoil
@@ -75,32 +75,11 @@ export const Menu1 = () => {
     // Recoil을 사용하여 카드 상태 갱신
     // setCreateCard((prevCardState) => [...prevCardState, newCard]);
     setCards((prevCards) => [...prevCards, newCard]);
-    console.log("CardState================", createCard);
+    // console.log("CardState================", createCard);
+    console.log(cards);
   };
 
-  // 카드 삭제 함수========================================
-  const deleteCard = (id: number) => {
-    setCreateCard((prevCardState) =>
-      prevCardState.filter((card) => card.id !== id)
-    );
-    setCards((prevCards) => prevCards.filter((card) => card.id !== id));
-  };
-
-  const handleCardUpdate = (cardId: any, cardType: any) => {
-    console.log(cardId);
-    console.log(cardType);
-    const updatedCards = cards.map((card) => {
-      if (card.id === cardId) {
-        card.cardType = cardType;
-      }
-      return card;
-    });
-    setCards(updatedCards);
-  };
-
-  const showCards = cards.map((card) => (
-    <AddCardComponent card={card} onCardUpdate={handleCardUpdate} />
-  ));
+  const showCards = cards.map((card) => <AddCardComponent card={card} />);
 
   // =======================================================
 
