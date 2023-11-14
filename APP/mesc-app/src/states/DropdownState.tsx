@@ -11,7 +11,7 @@ type dropdown = {
   columnName: string;
   tableName: string;
   type: string;
-  valueList: value[];
+  valuesList: value[];
 };
 
 type value = {

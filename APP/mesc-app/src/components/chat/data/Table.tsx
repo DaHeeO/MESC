@@ -41,12 +41,13 @@ const Table: React.FC<TableProps> = ({
   showButton,
   onPress,
 }) => {
-  const [openCoditionForm, setOpenCoditionForm] =
+  // 모달 관련 여부
+  const [isModalVisible, setModalVisible] =
     useRecoilState(ConditionModifyState);
   const [modalId, setModalId] = useRecoilState(modalIdState);
-  // const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
-  const conditionId = useRecoilValue(ConditionIdState);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
+  // const conditionId = useRecoilValue(ConditionIdState);
+  // const [isModalVisible, setModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
     rowIndex: number;
     content: string[];
@@ -57,6 +58,9 @@ const Table: React.FC<TableProps> = ({
   const minColumnWidth = 75;
   const maxColumnWidth = 200;
   const calculateMaxColumnLengths = (rowList: string[][]) => {
+    if (rowList.length === 0) {
+      return columnType.map(col => col.length);
+    }
     return rowList[0].map((_, colIndex) =>
       Math.max(...rowList.map(row => String(row[colIndex]).length)),
     );
@@ -104,25 +108,24 @@ const Table: React.FC<TableProps> = ({
   };
 
   const handlePress = async () => {
-    setOpenCoditionForm(!openCoditionForm);
-    setModalId('CF');
-    const cardId = parseInt(conditionId, 10);
-    // console.log('cardId', cardId);
-    const card = await getCard(cardId, {});
+    // 여기서 modal true로 바꿔주기
+    setModalVisible(true);
 
-    // console.log('card', card);
+    const cardId = parseInt(conditionId, 10);
+    const card = await getCard(cardId, {});
     const dropdownList = card.dropdown;
 
-    // console.log('dropdownList', dropdownList);
+    // 리코일에 조건변경 데이터 담기
+    setDropdown(dropdownList);
+
     // 필요한 추가 작업을 수행합니다.
+    setModalId('CF');
   };
 
   const tableHeader = makeHeader(title);
   function makeHeader(title: String | undefined) {
     if (!title) return <></>;
-    // const [openCoditionForm, setOpenCoditionForm] =
-    //   useRecoilState(ConditionModifyState);
-    // const [modalId, setModalId] = useRecoilState(modalIdState);
+
     return (
       <S.Header>
         <S.HeaderContainer>

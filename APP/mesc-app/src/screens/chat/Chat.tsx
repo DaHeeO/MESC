@@ -31,6 +31,7 @@ function Chat() {
 
   const [isModalVisible, setIsModalVisible] =
     useRecoilState(ConditionModifyState); // 해당 모달State값 넣기
+
   const [showChatInput, setShowChatInput] = useState(true);
 
   const modalId = useRecoilValue(modalIdState);
@@ -71,7 +72,6 @@ function Chat() {
     }
     setButtonComponent(newButtonComponent);
     // setInputState(data.isPossible);
-    setInputState(true);
 
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
     const cardComponents = data.cardList.map((card: any, index: any) => (
@@ -99,7 +99,7 @@ function Chat() {
   };
 
   const putStartBlockToRecoil = async () => {
-    const role = 12;
+    const role = await getRoleBlockId();
     const newBlock = await getBlock(role, {});
     if (newBlock) setBlock(newBlock);
   };
@@ -125,7 +125,7 @@ function Chat() {
         </ScrollView>
       </S.ChatLayout>
       <BottomSheet
-        isModalVisible={isModalVisible} // 여기도 stateID값을 받을 수 있도록 해야함
+        isModalVisible={isModalVisible == true} // 여기도 stateID값을 받을 수 있도록 해야함
         modalHeight={'70%'}
         modalBreakPoint={'20%'}
         component={realModalId} // 여기를 ID값을 받을 수 있도록

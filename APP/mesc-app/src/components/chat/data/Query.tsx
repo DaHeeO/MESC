@@ -3,7 +3,7 @@ import {ScrollView, Modal, Text, TouchableOpacity, View} from 'react-native';
 import * as S from './Query.styles';
 import {useRecoilValue, useRecoilState} from 'recoil';
 import {ModalDataState} from '../../../states/ModalDataState';
-import ModalBox from './ModalBox';
+import ModalBox from '../../chat/data/ModalBox';
 
 interface QueryProps {
   query: string;
