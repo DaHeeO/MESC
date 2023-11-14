@@ -2,7 +2,7 @@
 import * as S from "../../pages/AddBlock/AddStyle";
 //recoil
 import { useRecoilValue } from "recoil";
-import { ComponentIdState } from "../../state/ComponentId";
+import { CardIdState } from "../../state/CardIdState";
 //mui
 import Button from "@mui/material/Button";
 import { AboutContainer } from "../common/About/AboutContainer";
@@ -13,14 +13,12 @@ import { ComponentIdSwitch } from "../form/SwitchForm";
 interface AddCardProps {
   key: number;
   content: string;
-  id: number;
+  id?: number;
   clickDelete: () => any;
 }
 
 export const AddCardComponent = (props: AddCardProps) => {
-  const componentId: string = useRecoilValue(ComponentIdState);
-  // console.log("typeof componentID==============", typeof componentId);
-  // console.log("componentId============", componentId); // string값이야
+  const componentId: string = useRecoilValue(CardIdState);
   // reactNode를 반환함
   const component = ComponentIdSwitch({ ComponentId: componentId });
 
@@ -63,6 +61,7 @@ export const AddCardComponent = (props: AddCardProps) => {
             justifyContent="center"
             alignItems="center"
           >
+            {/* 카드 type 선택 */}
             <SelectLabels />
           </S.InnerContainer>
         </AboutContainer>

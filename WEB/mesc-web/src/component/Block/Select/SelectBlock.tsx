@@ -7,7 +7,7 @@ import { CustomTable } from "./SelectBlockStyle";
 import { api } from "../../../apis/Api";
 // recoil
 import { useRecoilState } from "recoil";
-import { CreatBlockState } from "../../../state/add/AddBlock";
+import { CreatBlockState } from "../../../state/create/AddBlock";
 
 interface TableProps {
   data: {

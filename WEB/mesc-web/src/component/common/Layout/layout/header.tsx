@@ -1,7 +1,7 @@
 import React from "react";
-import { AboutContainer } from "../common/About/AboutContainer";
+import { AboutContainer } from "../../About/AboutContainer";
 import { useNavigate } from "react-router-dom";
-import BasicMenu from "../mypage/mypageMenu";
+import BasicMenu from "../../../mypage/mypageMenu";
 
 function Header() {
   const navigate = useNavigate();

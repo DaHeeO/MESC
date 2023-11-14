@@ -1,7 +1,7 @@
 // React
 import React from "react";
 // Components
-import Header from "../../component/layout/header";
+import Header from "../../component/common/Layout/layout/header";
 import { AboutBody } from "../../component/common/About/AboutBody";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
 import { ContainedBtn } from "../../component/common/About/AboutBtn";
