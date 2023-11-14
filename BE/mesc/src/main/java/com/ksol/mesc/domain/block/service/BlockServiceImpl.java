@@ -458,6 +458,7 @@ public class BlockServiceImpl implements BlockService {
 					cardMap.put("table", tableByQuery);
 				} else {
 					cardMap.putAll(tableByQuery);
+					cardMap.put("cardType", CardType.TX);
 				}
 				break;
 			case QR:
