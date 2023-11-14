@@ -30,6 +30,7 @@ type TableProps = {
   isModal: boolean;
   showButton?: boolean;
   onPress?: () => void;
+  query: string | undefined;
 };
 
 const Table: React.FC<TableProps> = ({
@@ -40,6 +41,7 @@ const Table: React.FC<TableProps> = ({
   isModal,
   showButton,
   onPress,
+  query,
 }) => {
   // 모달 관련 여부
   const [isModalVisible, setModalVisible] =
@@ -132,7 +134,7 @@ const Table: React.FC<TableProps> = ({
           <S.Title>{title}</S.Title>
           {showButton && (
             <S.Button>
-              <ConditionModify onPress={handlePress} />
+              <ConditionModify onPress={handlePress} query={query} />
             </S.Button>
           )}
         </S.HeaderContainer>

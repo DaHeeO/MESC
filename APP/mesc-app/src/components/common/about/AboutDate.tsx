@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useRecoilState} from 'recoil';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {format} from 'date-fns';
 import ko from 'date-fns/esm/locale/ko/index.js';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {ConditionState} from '../../../states/ConditionState';
 
-export const DatePicker = () => {
+export const DatePicker = (props: {date: string}) => {
   const styles = StyleSheet.create({
     center: {
       position: 'absolute',
@@ -22,6 +24,7 @@ export const DatePicker = () => {
     },
   });
   // useState Hook를 사용하여 날짜와 모달 유형, 노출 여부를 설정할 변수를 생성
+  const [condition, setCondition] = useRecoilState(ConditionState);
   const [date, onChangeDate] = useState(new Date()); // 선택 날짜
   const [mode, setMode] = useState('date'); // 모달 유형
   const [visible, setVisible] = useState(false); // 모달 노출 여부
@@ -42,7 +45,24 @@ export const DatePicker = () => {
     // 날짜 또는 시간 선택 시
     setVisible(false); // 모달 close
     onChangeDate(selectedDate); // 선택한 날짜 변경
+    // console.log(selectedDate);
+    const value = format(new Date(selectedDate), 'yyyyMMdd', {locale: ko});
+    if (props.date === 'start') {
+      setCondition(prevCondition => ({...prevCondition, startDate: value}));
+    } else if (props.date === 'end') {
+      setCondition(prevCondition => ({...prevCondition, endDate: value}));
+    }
+    // console.log(condition);
   };
+
+  useEffect(() => {
+    const value = format(new Date(), 'yyyyMMdd', {locale: ko});
+    if (props.date === 'start') {
+      setCondition(prevCondition => ({...prevCondition, startDate: value}));
+    } else if (props.date === 'end') {
+      setCondition(prevCondition => ({...prevCondition, endDate: value}));
+    }
+  }, []);
 
   const onCancel = () => {
     // 취소 시

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState} from 'recoil';
 import {ConditionState} from '../../../states/ConditionState';
 
 interface AboutSelectProps {
@@ -19,6 +19,7 @@ export const LineSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(null);
   const [items, setItems] = useState<{label: string; value: string}[]>([]);
+  const [defaultValue, setDefaultValue] = useState<string | null>(null);
 
   useEffect(() => {
     // valuesList가 존재하고 배열인 경우에만 변환
@@ -31,20 +32,23 @@ export const LineSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
         }),
       );
       setItems(formattedItems);
+
+      if (formattedItems.length > 0) {
+        setDefaultValue(formattedItems[0].value);
+        setValue(formattedItems[0].value);
+        setCondition(prevCondition => ({
+          ...prevCondition,
+          line: formattedItems[0].value,
+        }));
+      }
     }
   }, [valuesList]);
 
-  // DropDownPicker에서 항목을 선택할 때 호출되는 콜백 함수
-  const handleItemSelect = (itemValue: string | null) => {
-    // 선택한 값을 Recoil 상태에 저장
-    setCondition(prevCondition => ({
-      ...prevCondition,
-      line: itemValue ?? '', // 여기에 상태에 저장할 필드명을 넣어주세요
-    }));
-
-    // DropDownPicker에서 현재 선택한 값을 업데이트
-    setValue(itemValue);
-  };
+  useEffect(() => {
+    if (value) {
+      setCondition(prevCondition => ({...prevCondition, line: value}));
+    }
+  }, [value]);
 
   return (
     <DropDownPicker
@@ -55,7 +59,6 @@ export const LineSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
       setValue={setValue}
       setItems={setItems}
       maxHeight={300}
-      onChangeItem={item => handleItemSelect(item.value)}
     />
   );
 };

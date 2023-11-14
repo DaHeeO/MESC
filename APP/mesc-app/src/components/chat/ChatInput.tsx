@@ -223,9 +223,13 @@ function ChatInput() {
       const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, {
         query: userMessage,
       });
+
+      // console.log(nextBlock);
       // 에러처리 추가해줘야함
-      if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
+      if (nextBlock.cardList[1].content) {
         setInput(input);
+      } else {
+        setInput('');
       }
     } else if (
       // 수정, 추가, 삭제
