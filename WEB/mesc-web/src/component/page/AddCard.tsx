@@ -1,3 +1,5 @@
+//React
+import { useState } from "react";
 //style
 import * as S from "../../pages/AddBlock/AddStyle";
 //recoil
@@ -9,6 +11,7 @@ import { AboutContainer } from "../common/About/AboutContainer";
 import { SelectLabels } from "../../pages/AddBlock/CardSelect";
 // component
 import { ComponentIdSwitch } from "../form/SwitchForm";
+import { Card, CardState } from "../../state/create/CreateState";
 
 interface AddCardProps {
   key: number;
@@ -17,13 +20,33 @@ interface AddCardProps {
   clickDelete: () => any;
 }
 
-export const AddCardComponent = (props: AddCardProps) => {
-  const componentId: string = useRecoilValue(CardIdState);
+export const AddCardComponent = (props: {
+  card: Card;
+  onCardUpdate: (cardId: any, cardType: any) => void;
+}) => {
+  const [cards, setCards] = useState<Card[]>([]);
+  const card = props.card;
+
+  // const componentId: string = useRecoilValue(CardIdState);
   // reactNode를 반환함
-  const component = ComponentIdSwitch({ ComponentId: componentId });
+  const component = ComponentIdSwitch({ ComponentId: card.cardType });
+
+  const deleteCard = () => {
+    setCards((prevCards) =>
+      prevCards.filter((nowCard) => nowCard.id !== card.id)
+    );
+  };
+
+  const typeChange = (cardType: any) => {
+    console.log(cardType);
+    // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
+
+    // 부모 컴포넌트에 새로운 Card 객체를 전달
+    props.onCardUpdate(card.id, cardType);
+  };
 
   return (
-    <S.CardContainer key={props.key}>
+    <S.CardContainer>
       <S.InnerContainer width="100%" height="85%" flexDirection="column">
         {/* 카드 헤더 */}
         <AboutContainer
@@ -39,7 +62,7 @@ export const AddCardComponent = (props: AddCardProps) => {
             justifyContent="center"
             alignItems="center"
           >
-            {props.id}
+            {card.id}
           </S.InnerContainer>
           {/* 카드 이름 자리_name*/}
           <S.InnerContainer
@@ -50,7 +73,7 @@ export const AddCardComponent = (props: AddCardProps) => {
           >
             <input
               type="text"
-              placeholder={props.content}
+              placeholder={card.content}
               style={{ width: "90%", height: "90%" }}
             />
           </S.InnerContainer>
@@ -62,7 +85,7 @@ export const AddCardComponent = (props: AddCardProps) => {
             alignItems="center"
           >
             {/* 카드 type 선택 */}
-            <SelectLabels />
+            <SelectLabels onType={typeChange} />
           </S.InnerContainer>
         </AboutContainer>
         {/* 카드 내 contentForm */}
@@ -84,7 +107,7 @@ export const AddCardComponent = (props: AddCardProps) => {
           </Button>
         </S.InnerContainer>
         <S.InnerContainer width="50%" height="70%" justifyContent="center">
-          <Button variant="contained" size="small" onClick={props.clickDelete}>
+          <Button variant="contained" size="small" onClick={deleteCard}>
             삭제
           </Button>
         </S.InnerContainer>
