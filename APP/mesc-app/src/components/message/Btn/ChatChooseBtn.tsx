@@ -6,6 +6,8 @@ import {useRecoilState} from 'recoil';
 import {getBlock} from '../../../../Api';
 import {BlockResponseData} from '../../../states/BlockResponseState';
 import UserMessage from '../../chat/UserMessage';
+import {BlockType} from '../../../const/constants';
+import {getUserRole} from '../../../../Api';
 
 interface ChatBtnProps {
   btnTitle: string;
@@ -31,11 +33,11 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
 
     if (props.btnTitle === '처음으로') {
       // 개발자인지, 작업자인지 구분해야함
-      blockId = 12;
+      blockId = await getRoleBlockId();
     } else if (props.btnTitle === '보고하기') {
-      blockId = 6;
+      blockId = BlockType.Report;
     } else if (props.btnTitle === '데이터 조작') {
-      blockId = 7;
+      blockId = BlockType.QueryInput;
     }
     putBlockToRecoil(blockId);
   }
@@ -43,6 +45,14 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
   const putBlockToRecoil = async (blockId: number) => {
     const newBlock = await getBlock(blockId, {});
     if (newBlock) setBlock(newBlock);
+  };
+
+  const getRoleBlockId = async () => {
+    const roleType = await getUserRole();
+    if (roleType === 'DEVELOPER') {
+      return BlockType.DEVELOPER;
+    }
+    return BlockType.WORKER;
   };
 
   // onPress 가 지금 props. 으로 안되어있는데 혹시 문제 있으면 확인하기

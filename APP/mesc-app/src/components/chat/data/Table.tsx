@@ -41,12 +41,13 @@ const Table: React.FC<TableProps> = ({
   showButton,
   onPress,
 }) => {
-  const [openCoditionForm, setOpenCoditionForm] =
+  // 모달 관련 여부
+  const [isModalVisible, setModalVisible] =
     useRecoilState(ConditionModifyState);
   const [modalId, setModalId] = useRecoilState(modalIdState);
-  // const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
-  const conditionId = useRecoilValue(ConditionIdState);
-  const [isModalVisible, setModalVisible] = useState(false);
+  const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
+  // const conditionId = useRecoilValue(ConditionIdState);
+  // const [isModalVisible, setModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
     rowIndex: number;
     content: string[];
@@ -56,6 +57,9 @@ const Table: React.FC<TableProps> = ({
   const minColumnWidth = 75;
   const maxColumnWidth = 200;
   const calculateMaxColumnLengths = (rowList: string[][]) => {
+    if (rowList.length === 0) {
+      return columnType.map(col => col.length);
+    }
     return rowList[0].map((_, colIndex) =>
       Math.max(...rowList.map(row => String(row[colIndex]).length)),
     );
@@ -87,7 +91,8 @@ const Table: React.FC<TableProps> = ({
   };
 
   const handlePress = async () => {
-    setOpenCoditionForm(!openCoditionForm);
+    // 여기서 modal true로 바꿔주기
+    setModalVisible(true);
     setModalId('CF');
     const cardId = parseInt(conditionId, 10);
     console.log('cardId', cardId);

@@ -1,11 +1,10 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {ScrollView, TouchableOpacity, Alert, View, Text} from 'react-native';
-import axios, {Axios, AxiosResponse} from 'axios';
 import _, {set} from 'lodash';
 import * as S from './ChatInput.styles';
 import Plus from '../../assets/icons/plus.svg';
 import Send from '../../assets/icons/send.svg';
-import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
+
 import {customAxios, getBlock, getUserRole} from '../../../Api';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ChatbotHistoryState} from '../../states/ChatbotHistoryState';
@@ -16,6 +15,7 @@ import {LogSearchOption} from '../../states/LogSearchOption';
 import {BlockType} from '../../const/constants';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
+import {CommitQuery} from '../../states/CommitQuery';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
@@ -26,6 +26,9 @@ function ChatInput() {
     useRecoilState(ConditionModifyState);
   // 모달 id 관련
   const [modalId, setModalId] = useRecoilState(modalIdState);
+
+  // commitQuery 관련
+  const [commitQuery, setCommitQuery] = useRecoilState(CommitQuery);
 
   // plus 버튼 눌렀을 때 효과
   const [inputShow, setInputShow] = useState(false);
@@ -137,7 +140,12 @@ function ChatInput() {
 
   // 전송 버튼을 눌렀을 때 처리하는 함수
   const handleSendButtonPress = async () => {
+    setInputState(false);
+    setTimeout(() => {
+      setInputState(true);
+    }, 2000);
     const userMessage = input.trim();
+    if (userMessage === '') return;
 
     setChatbotHistory(prev => [...prev, <UserMessage message={userMessage} />]);
     if (userMessage === '/로그' || userMessage === '/쿼리') {
@@ -151,7 +159,10 @@ function ChatInput() {
     if (userMessage !== '') {
       const blockId = block.blockId;
       // recoil에서 block가져와서 blockId에 따라 처리
-      if (blockId == BlockType.QueryInput) {
+      if (
+        blockId == BlockType.QueryInput ||
+        (blockId == BlockType.RollbackOutput && !block.cardList[1].table)
+      ) {
         // 직접입력 티카타카 하드코딩 하도록...
         // 명령어 or select, update, insert, delete
         queryInput(userMessage);
@@ -161,6 +172,7 @@ function ChatInput() {
         setLogSearchOption(prev => ({...prev, keyword: keyword}));
         // setLogSearchOption({keyword: keyword, date: '', levelList: []});
         putBlockToRecoil(BlockType.LogDate, {});
+        setInput(''); // 입력 필드 지우기.
       } else if (blockId == BlockType.LogDate) {
         const date = userMessage;
         // 리코일에 추가
@@ -173,10 +185,10 @@ function ChatInput() {
         setModalId('LF');
 
         putBlockToRecoil(BlockType.LogLevel, {});
+        setInput(''); // 입력 필드 지우기.
       } else {
         defaultInput(userMessage);
       }
-      setInput(''); // 입력 필드 지우기.
     } else {
       // 아무것도 입력하지 않고 전송할 경우
       Alert.alert('명령어 또는 데이터 조작의 쿼리문을 입력해주세요.');
@@ -192,6 +204,7 @@ function ChatInput() {
     } else {
       putBlockToRecoil(role, {});
     }
+    setInput(''); // 입력 필드 지우기.
   };
 
   const getRoleBlockId = async () => {
@@ -207,7 +220,7 @@ function ChatInput() {
 
     if (upperQuery.startsWith('SELECT ')) {
       // 조회
-      const nextBlock: any = putBlockToRecoil(BlockType.SelectOutput, {
+      const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, {
         query: userMessage,
       });
       // 에러처리 추가해줘야함
@@ -217,17 +230,22 @@ function ChatInput() {
     } else if (
       // 수정, 추가, 삭제
       upperQuery.startsWith('UPDATE ') ||
-      upperQuery.startsWith('INSERNT ') ||
+      upperQuery.startsWith('INSERT ') ||
       upperQuery.startsWith('DELETE ')
     ) {
-      const nextBlock: any = putBlockToRecoil(BlockType.OperationOutput, {
+      console.log(userMessage);
+      const nextBlock: any = await putBlockToRecoil(BlockType.RollbackOutput, {
         query: userMessage,
       });
 
+      setCommitQuery(userMessage);
+
       // 쿼리 에러 발생 했을 때 처리
       // 인풋창에 그대로 두기
-      if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
+      if (!nextBlock.cardList[1].table) {
         setInput(input);
+      } else {
+        setInput('');
       }
     } else {
       Alert.alert('쿼리문을 정확하게 작성해주세요');
@@ -236,8 +254,10 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
+    console.log(blockId);
+    console.log(body);
     const newBlock = await getBlock(blockId, body);
-
+    console.log(newBlock.cardList[1].table);
     if (newBlock) setBlock(newBlock);
     return newBlock;
   };
@@ -278,10 +298,10 @@ function ChatInput() {
             placeholder="검색어를 입력해주세요."
             multiline={true}
             returnKeyType="go"
-            editable={inputState ? true : false}
+            editable={true}
           />
           <S.SendBox>
-            <Send onPress={handleSendButtonPress} />
+            <Send onPress={inputState ? handleSendButtonPress : undefined} />
           </S.SendBox>
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
