@@ -41,8 +41,10 @@ function Login() {
 
     api
       .post("/mesc/user/login", {
-        email: email,
-        password: password,
+        // email: email,
+        // password: password,
+        email: "admin@admin.com",
+        password: "admin1234!",
       })
       .then((res) => {
         const accessToken = res.data.tokenInfo.accessToken;
@@ -105,7 +107,7 @@ function Login() {
               <S.Input
                 type="text"
                 placeholder="이메일을 입력하세요"
-                value={email}
+                // value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <img src={Circle} alt="Circle" onClick={clearEmail} />
@@ -114,7 +116,7 @@ function Login() {
               <S.Input
                 type={showPassword ? "text" : "password"}
                 placeholder="비밀번호를 입력하세요"
-                value={password}
+                // value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <img

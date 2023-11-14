@@ -20,6 +20,7 @@ function App() {
     <>
       <RecoilRoot>
         <Routes>
+          <Route path="/Login" element={<Login />} />
           <Route path="/*" element={<Layout />}>
             <Route path="Mypage" element={<Mypage />} />
             <Route path="Add" element={<Add />} />
@@ -35,7 +36,6 @@ function App() {
               element={<Navigate replace to="../Modify/1" />}
             />
           </Route>
-          <Route path="/Login" element={<Login />} />
         </Routes>
       </RecoilRoot>
     </>
