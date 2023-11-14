@@ -6,7 +6,7 @@ import { atom } from "recoil";
 
 export interface Block {
   name: string;
-  // isEditable: boolean;
+  id?: number;
 }
 
 export const BlockState = atom<Record<string, Block>>({
@@ -16,7 +16,7 @@ export const BlockState = atom<Record<string, Block>>({
 
 // cart state
 export interface Card {
-  id?: number;
+  // id?: number;
   name: string;
   sequence: number;
   cardType: string;

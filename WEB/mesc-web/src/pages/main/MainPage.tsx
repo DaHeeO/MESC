@@ -15,7 +15,7 @@ export const MainPage = () => {
   const navigate = useNavigate();
 
   const goMeun1 = () => {
-    navigate(`/Menu1`);
+    navigate(`/Add`);
   };
   const goFAQ = () => {
     navigate(`/Faq`);
@@ -28,8 +28,6 @@ export const MainPage = () => {
     // 메인페이지 전체
     <AboutBody>
       {/* 헤더 height: 10% */}
-      <Header />
-      {/* MainBody height: 90% */}
       <AboutContainer height="90%" width="100%">
         {/* MainBody의 오른쪽 */}
         <AboutContainer

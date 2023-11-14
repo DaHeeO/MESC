@@ -8,12 +8,38 @@ import { useRecoilState } from "recoil";
 //Recoil State
 import { CardState } from "../../state/create/CreateState";
 //imgae
-import chatbot from "../../assest/image/chatbot.png";
+// import chatbot from "../../assest/image/chatbot.png";
 
-export const CH1Form = () => {
+import { Card } from "../../state/create/CreateState";
+
+export const CH1Form = (props: { card: Card }) => {
   //카드 recoil
-  const [createCard, setCreateCard] = useRecoilState(CardState);
+  const [cards, setCards] = useRecoilState(CardState);
+  console.log("cards===========", cards);
   // 카드 input창 변화 값 저장하는 useState
+
+  // {
+  //   setCreateCard((prevCardState) => {
+  //     const updatedCardState = [...prevCardState];
+  //     if (updatedCardState.length > 0) {
+  //       updatedCardState[0].content = e.target.value;
+  //     }
+  //     console.log(updatedCardState);
+  //     return updatedCardState;
+  //   });
+  // }}
+
+  // const Content1Change = (cardType: any) => {
+  // console.log(cardType);
+  // // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
+  // setCards((prevCards) =>
+  //   prevCards.map((nowCard) =>
+  //     nowCard.id === props.card.id
+  //       ? { ...nowCard, content: e.target.value }
+  //       : nowCard
+  //   )
+  // );
+  // };
 
   return (
     <S.ComponentContainer height="85%" width="100%" radius="30px">
@@ -37,34 +63,48 @@ export const CH1Form = () => {
           <S.FormInput
             height="20%"
             width="60%"
-            placeholder="내용 1"
+            placeholder="카드 이름"
             onChange={(e) => {
-              setCreateCard((prevCardState) => {
-                const updatedCardState = [...prevCardState];
-                if (updatedCardState.length > 0) {
-                  updatedCardState[0].content = e.target.value;
-                }
-                console.log(updatedCardState);
-                return updatedCardState;
-              });
+              // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
+              setCards((prevCards) =>
+                prevCards.map((nowCard) =>
+                  nowCard.sequence === props.card.sequence
+                    ? { ...nowCard, name: e.target.value }
+                    : nowCard
+                )
+              );
             }}
           />
           <C.InnerContainer
             width="40%"
             height="100%"
             style={{
-              backgroundImage: `url(${chatbot})`,
+              // backgroundImage: `url(${chatbot})`,
               backgroundSize: "80% 80%",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center bottom",
             }}
-          ></C.InnerContainer>
+          />
         </C.InnerContainer>
         {/* 하단 공간  */}
         <C.InnerContainer width="100%" height="50%" flexDirection="column">
           {/* 버튼 위 text 공간 */}
           <C.InnerContainer width="100%" height="30%" alignItems="center">
-            <S.FormInput width="60%" height="30%" placeholder="내용 2" />
+            <S.FormInput
+              width="60%"
+              height="30%"
+              placeholder="내용 1"
+              onChange={(e) => {
+                // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
+                setCards((prevCards) =>
+                  prevCards.map((nowCard) =>
+                    nowCard.sequence === props.card.sequence
+                      ? { ...nowCard, content: e.target.value }
+                      : nowCard
+                  )
+                );
+              }}
+            />
           </C.InnerContainer>
           <C.InnerContainer
             width="100%"
@@ -73,7 +113,21 @@ export const CH1Form = () => {
             alignItems="center"
           >
             <S.FormBtn height="50%">
-              <S.FormInput width="80%" height="30%" placeholder="버튼 1" />
+              <S.FormInput
+                width="80%"
+                height="30%"
+                placeholder="버튼 1"
+                onChange={(e) => {
+                  // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
+                  setCards((prevCards) =>
+                    prevCards.map((nowCard) =>
+                      nowCard.sequence === props.card.sequence
+                        ? { ...nowCard, name: e.target.value }
+                        : nowCard
+                    )
+                  );
+                }}
+              />
             </S.FormBtn>
           </C.InnerContainer>
 
