@@ -25,7 +25,7 @@ public class WorkerServiceImpl implements WorkerService {
 	@Override
 	public String getQuery(Integer actionId, String conditions, Integer page) throws SQLException {
 		String query = null;
-		Integer pageSize = 10;    //한 페이지에 보여줄 사이즈
+		Integer pageSize = 20;    //한 페이지에 보여줄 사이즈
 		try {
 			Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId);
 			query =
