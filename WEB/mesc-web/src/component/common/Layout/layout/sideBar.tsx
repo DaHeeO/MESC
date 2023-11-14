@@ -1,16 +1,15 @@
-import React from "react";
-import { AboutContainer } from "../../About/AboutContainer";
-import { HoverContainer } from "../sideBarHover";
 import { useNavigate } from "react-router-dom";
+import { HoverContainer } from "../sideBarHover";
+import { AboutContainer } from "../../About/AboutContainer";
 
 function SideBar() {
   const navigate = useNavigate();
 
-  const goMenu1 = () => {
-    navigate("/Menu1");
+  const goAdd = () => {
+    navigate("/Add");
   };
   const goMenu2 = () => {
-    navigate("/Menu2");
+    navigate("/Modify");
   };
   const goMenu3 = () => {
     navigate("/MyPage");
@@ -29,7 +28,7 @@ function SideBar() {
       style={{ borderRight: "1px solid #dddddd" }}
     >
       {/* sideBar 메뉴들 */}
-      <HoverContainer onClick={goMenu1}>추가하기</HoverContainer>
+      <HoverContainer onClick={goAdd}>추가하기</HoverContainer>
       <HoverContainer onClick={goMenu2}>수정하기</HoverContainer>
       <HoverContainer onClick={goMenu3}>마이페이지</HoverContainer>
       <HoverContainer onClick={goMenu4}>FAQ</HoverContainer>
