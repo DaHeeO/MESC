@@ -171,7 +171,7 @@ function ChatInput() {
         // 리코일에 추가
         setLogSearchOption(prev => ({...prev, keyword: keyword}));
         // setLogSearchOption({keyword: keyword, date: '', levelList: []});
-        putBlockToRecoil(BlockType.LogDate, {});
+        const bl = await putBlockToRecoil(BlockType.LogDate, {});
         setInput(''); // 입력 필드 지우기.
       } else if (blockId == BlockType.LogDate) {
         const date = userMessage;
@@ -233,7 +233,6 @@ function ChatInput() {
       upperQuery.startsWith('INSERT ') ||
       upperQuery.startsWith('DELETE ')
     ) {
-      console.log(userMessage);
       const nextBlock: any = await putBlockToRecoil(BlockType.RollbackOutput, {
         query: userMessage,
       });
@@ -254,10 +253,7 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
-    console.log(blockId);
-    console.log(body);
     const newBlock = await getBlock(blockId, body);
-    console.log(newBlock.cardList[1].table);
     if (newBlock) setBlock(newBlock);
     return newBlock;
   };
