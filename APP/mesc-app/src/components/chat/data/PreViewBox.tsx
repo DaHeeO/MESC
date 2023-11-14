@@ -11,6 +11,8 @@ import {getBlock} from '../../../../Api';
 import {BlockType} from '../../../const/constants';
 import {BlockResponseData} from '../../../states/BlockResponseState';
 import {handleFingerPrint} from '../../../components/figerprint/FingerPrint';
+import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
+import UserMessage from '../../../components/chat/UserMessage';
 
 type PreViewBoxProps = {
   title?: string;
@@ -36,6 +38,8 @@ const PreViewBox: React.FC<PreViewBoxProps> = ({
   // commitQuery 관련
   const [commitQuery, setCommitQuery] = useRecoilState(CommitQuery);
   const [block, setBlock] = useRecoilState(BlockResponseData);
+  const [chatbotHistory, setChatbotHistory] =
+    useRecoilState(ChatbotHistoryState);
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
     const newBlock = await getBlock(blockId, body);
@@ -83,8 +87,10 @@ const PreViewBox: React.FC<PreViewBoxProps> = ({
         height: '30px',
         onPress: async () => {
           if (await handleFingerPrint()) {
-            console.log('type: ', BlockType.OperationOutput);
-            console.log('query: ', commitQuery);
+            setChatbotHistory(prev => [
+              ...prev,
+              <UserMessage message={commitQuery as string} />,
+            ]);
             putBlockToRecoil(BlockType.OperationOutput, {query: commitQuery});
           }
         },
@@ -93,6 +99,10 @@ const PreViewBox: React.FC<PreViewBoxProps> = ({
         content: 'Rollback',
         height: '30px',
         onPress: () => {
+          setChatbotHistory(prev => [
+            ...prev,
+            <UserMessage message={'Rollback'} />,
+          ]);
           putBlockToRecoil(BlockType.QueryInput, {});
         },
       })}

@@ -57,6 +57,9 @@ const Table: React.FC<TableProps> = ({
   const minColumnWidth = 75;
   const maxColumnWidth = 200;
   const calculateMaxColumnLengths = (rowList: string[][]) => {
+    if (rowList.length === 0) {
+      return columnType.map(col => col.length);
+    }
     return rowList[0].map((_, colIndex) =>
       Math.max(...rowList.map(row => String(row[colIndex]).length)),
     );

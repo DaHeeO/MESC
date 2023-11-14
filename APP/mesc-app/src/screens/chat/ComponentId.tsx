@@ -57,7 +57,11 @@ export function ChatComponentIdSwitch(card: Card) {
 
     // 직접입력 미리보기
     case 'QR': // 데이터 조회 테이블
-      return <PreViewComponent card={card} />;
+      return card.table ? (
+        <PreViewComponent card={card} />
+      ) : (
+        <ChatbotMessage card={card} />
+      );
 
     // case 'ML': // 데이터 조회 시 공정 리스트
     //   return <SearchDataForm />;

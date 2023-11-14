@@ -37,10 +37,6 @@ type ButtonItem = {
 function PreViewComponent(props: {card: Card}) {
   const {card} = props;
   const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
-  const TableTitle = card.title;
-
-  // 카드 테이블이 존재하면(select문 성공 시)
-  const tableData: TableData | null | undefined = card.table;
 
   return (
     <View>
@@ -48,9 +44,9 @@ function PreViewComponent(props: {card: Card}) {
         <S.DataSection style={{height: 230}}>
           {/* 첫 번째 섹션: data1 렌더링 */}
           <PreViewBox
-            table={tableData}
-            title={TableTitle || ''}
-            showButton={true}
+            table={card.table}
+            title={card.title || ''}
+            showButton={false}
           />
         </S.DataSection>
       </S.DataContainer>
