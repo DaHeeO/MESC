@@ -1,5 +1,5 @@
 // React
-import React from "react";
+import React, { useEffect } from "react";
 // Components
 import Header from "../../component/common/Layout/layout/header";
 import { AboutBody } from "../../component/common/About/AboutBody";
@@ -23,6 +23,12 @@ export const MainPage = () => {
   const goMyPage = () => {
     navigate(`/Mypage`);
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("acessToken") === undefined) {
+      navigate(`/Login`);
+    }
+  });
 
   return (
     // 메인페이지 전체
