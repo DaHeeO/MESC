@@ -1,6 +1,6 @@
 import React from "react";
-import { AboutContainer } from "../common/About/AboutContainer";
-import { HoverContainer } from "../common/Layout/sideBarHover";
+import { AboutContainer } from "../../About/AboutContainer";
+import { HoverContainer } from "../sideBarHover";
 import { useNavigate } from "react-router-dom";
 
 function SideBar() {

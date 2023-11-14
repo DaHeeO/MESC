@@ -17,7 +17,11 @@ export const ContainedBtn = (props: BtnProps) => {
 };
 
 export const OutlinedBtn = (props: BtnProps) => {
-  return <Button variant="outlined">{props.content}</Button>;
+  return (
+    <Button variant="outlined" onClick={props.onClick}>
+      {props.content}
+    </Button>
+  );
 };
 
 export const TextBtn = (props: BtnProps) => {

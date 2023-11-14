@@ -1,19 +1,22 @@
-import * as React from "react";
 // style component
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 // recoil
 import { useRecoilState } from "recoil";
-import { ComponentIdState } from "../../state/ComponentId";
+import { CardIdState } from "../../state/CardIdState";
 
 export const SelectLabels = () => {
-  const [cardType, setcardType] = useRecoilState(ComponentIdState);
+// export const SelectLabels = (CardType: string) => {
+
+  // select box에서 선택된 값 저장하기
+  const [cardType, setcardType] = useRecoilState(CardIdState);
 
   const handleChange = (event: SelectChangeEvent) => {
     setcardType(event.target.value);
-    console.log("cardType", cardType);
+    console.log("cardType===================", cardType);
   };
+  const CardType = cardType;
 
   return (
     <FormControl
@@ -25,7 +28,7 @@ export const SelectLabels = () => {
       }}
     >
       <Select
-        value={cardType}
+        value={CardType}
         onChange={handleChange}
         inputProps={{ "aria-label": "Without label" }}
         sx={{ height: "90%" }}

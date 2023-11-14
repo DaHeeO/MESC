@@ -1,7 +1,7 @@
 // React
 import React from "react";
 // Components
-import Header from "../../component/layout/header";
+import Header from "../../component/common/Layout/layout/header";
 import { AboutBody } from "../../component/common/About/AboutBody";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
 import { ContainedBtn } from "../../component/common/About/AboutBtn";
@@ -152,15 +152,19 @@ export const MainPage = () => {
           <AboutContainer height="90%" width="90%" flexDirection="column">
             <AboutContainer
               width="100%"
-              height="10%"
+              height="5%"
               style={{ border: "1px solid gray" }}
             >
               현재 있는 챗봇
             </AboutContainer>
             <AboutContainer
               width="100%"
-              height="80%"
-              style={{ border: "1px solid gray" }}
+              height="90%"
+              style={{
+                border: "1px solid gray",
+                overflowY: "auto",
+                paddingTop: "5%",
+              }}
             >
               <SelectBlock data={[]} />
             </AboutContainer>
