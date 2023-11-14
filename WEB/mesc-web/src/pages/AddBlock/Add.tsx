@@ -73,7 +73,7 @@ export const Menu1 = () => {
     };
 
     // Recoil을 사용하여 카드 상태 갱신
-    setCreateCard((prevCardState) => [...prevCardState, newCard]);
+    // setCreateCard((prevCardState) => [...prevCardState, newCard]);
     setCards((prevCards) => [...prevCards, newCard]);
     console.log("CardState================", createCard);
   };
@@ -85,6 +85,22 @@ export const Menu1 = () => {
     );
     setCards((prevCards) => prevCards.filter((card) => card.id !== id));
   };
+
+  const handleCardUpdate = (cardId: any, cardType: any) => {
+    console.log(cardId);
+    console.log(cardType);
+    const updatedCards = cards.map((card) => {
+      if (card.id === cardId) {
+        card.cardType = cardType;
+      }
+      return card;
+    });
+    setCards(updatedCards);
+  };
+
+  const showCards = cards.map((card) => (
+    <AddCardComponent card={card} onCardUpdate={handleCardUpdate} />
+  ));
 
   // =======================================================
 
@@ -116,15 +132,12 @@ export const Menu1 = () => {
         flexDirection="row"
         style={{ flexWrap: "wrap", overflow: "auto" }}
       >
-        {cards.map((card) => (
-          <AddCardComponent
-            id={card.sequence}
-            name={card.name}
-            cardType={card.cardType}
-            clickSave={() => {}} // 카드 단일 저장
+        {showCards}
+        {/* <AddCardComponent
+            key={card.sequence}
             clickDelete={() => deleteCard(card.sequence)}
-          />
-        ))}
+            content="카드 내용을 작성해주세요."
+          /> */}
       </AboutContainer>
       <AboutContainer
         height="5%"
