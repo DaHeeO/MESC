@@ -59,8 +59,7 @@ public class JdbcUtil {
 		}
 		return table;
 	}
-
-	public Table selectAfterUpdate(String modifyQuery, String selectQuery) throws SQLException {
+	public Table selectAfterModify(String modifyQuery) throws SQLException {
 		Connection connection = null;
 		Statement statement = null;
 		Table table;
@@ -69,7 +68,14 @@ public class JdbcUtil {
 			connection.setAutoCommit(false);
 			statement = connection.createStatement();
 			statement.executeUpdate(modifyQuery);
+			String upperCase = modifyQuery.toUpperCase();
+			if (upperCase.startsWith("DELETE")) {
+				connection.rollback();
+			}
+			String selectQuery = getSelectQuery(modifyQuery);
 			ResultSet resultSet = statement.executeQuery(selectQuery);
+
+
 			table = new Table(resultSet);
 			statement.close();
 			connection.close();
@@ -145,5 +151,37 @@ public class JdbcUtil {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private String getSelectQuery(String modifyQuery) {
+		// update 테이블명 set ~~~ where 조건문
+		// UPDATE `mes`.`action_map` SET `ACTION_ID` = '21213', `QUERY` = 'select * from query_viewsdfsa', `QUERY_TYPE` = 'select123' WHERE (`ACTION_ID` = '21');
+		String upperModifyQuery = modifyQuery.toUpperCase();
+		int index = 0;
+		if (upperModifyQuery.startsWith("INSERT") || upperModifyQuery.startsWith("DELETE")) {
+			index = 2;
+		} else if (upperModifyQuery.startsWith("UPDATE")) {
+			index = 1;
+		}
+		String tableName = modifyQuery.split(" ")[index].split("\\(")[0];
+
+		// Extract the WHERE clause using a regular expression
+		int where = upperModifyQuery.indexOf("WHERE");
+		String whereClause = where == -1 ? "" : modifyQuery.substring(where);
+
+		// =을 찾고 그다음에
+		// 작은따옴표라면 다음 작은 따옴표를 찾아야함
+		// 다음 작은 따옴표
+		// 뒤에가 콤마 또는 공백('\n', '\t', '\r', ' ')
+		//
+		// 큰따옴표라면
+		// 문자(글자 또는 숫자)라면
+		String selectQuery = "select * from " + tableName + ' ' + whereClause;
+		if(selectQuery.charAt(selectQuery.length() - 1) == ';') {
+			System.out.println("selectQuery = " + selectQuery);
+			selectQuery = selectQuery.substring(0, selectQuery.length() - 1);
+			System.out.println("selectQuery = " + selectQuery);
+		}
+		return selectQuery;
 	}
 }
