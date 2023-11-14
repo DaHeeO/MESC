@@ -8,11 +8,13 @@ import EyeOff from "../assest/icon/eye-off.svg";
 import Eye from "../assest/icon/eye.svg";
 
 import { useNavigate } from "react-router-dom";
+import { api } from "../apis/Api";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
 
   const clearEmail = () => {
     setEmail("");
@@ -32,6 +34,33 @@ function Login() {
 
   const goToSDI = () => {
     window.location.href = "https://www.samsungsdi.co.kr/";
+  };
+
+  const doLogin = async () => {
+    let loginPass = false;
+
+    api
+      .post("/mesc/user/login", {
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        const accessToken = res.data.tokenInfo.accessToken;
+        const userName = res.data.name;
+        // console.log('usrName : ', userName);
+        const userRole = res.data.role;
+        console.log(res.data);
+        localStorage.clear();
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("userRole", userRole);
+        loginPass = true;
+        navigate("/");
+      })
+      .catch(() => {
+        alert("로그인 실패");
+      });
+    return loginPass;
   };
 
   return (
@@ -85,6 +114,8 @@ function Login() {
               <S.Input
                 type={showPassword ? "text" : "password"}
                 placeholder="비밀번호를 입력하세요"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <img
                 src={showPassword ? Eye : EyeOff}
@@ -96,7 +127,7 @@ function Login() {
             <S.InputBox
               color="#4461F2"
               style={{ marginTop: "8vh", justifyContent: "center" }}
-              onClick={goToMain}
+              onClick={doLogin}
             >
               <S.BoldText size={17} color={"white"}>
                 로그인

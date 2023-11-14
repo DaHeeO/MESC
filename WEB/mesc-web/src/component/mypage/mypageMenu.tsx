@@ -15,6 +15,7 @@ export default function BasicMenu() {
     setAnchorEl(null);
   };
   const Logout = () => {
+    localStorage.clear();
     alert("로그아웃 되었습니다.");
     navigate("/login");
   };
