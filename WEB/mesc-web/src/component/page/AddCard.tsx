@@ -3,7 +3,7 @@ import { useState } from "react";
 //style
 import * as S from "../../pages/AddBlock/AddStyle";
 //recoil
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { CardIdState } from "../../state/CardIdState";
 //mui
 import Button from "@mui/material/Button";
@@ -20,11 +20,8 @@ interface AddCardProps {
   clickDelete: () => any;
 }
 
-export const AddCardComponent = (props: {
-  card: Card;
-  onCardUpdate: (cardId: any, cardType: any) => void;
-}) => {
-  const [cards, setCards] = useState<Card[]>([]);
+export const AddCardComponent = (props: { card: Card }) => {
+  const [cards, setCards] = useRecoilState(CardState);
   const card = props.card;
 
   // const componentId: string = useRecoilValue(CardIdState);
@@ -32,17 +29,27 @@ export const AddCardComponent = (props: {
   const component = ComponentIdSwitch({ ComponentId: card.cardType });
 
   const deleteCard = () => {
-    setCards((prevCards) =>
-      prevCards.filter((nowCard) => nowCard.id !== card.id)
-    );
+    setCards(cards.filter((nowCard) => nowCard.id !== card.id));
   };
 
   const typeChange = (cardType: any) => {
     console.log(cardType);
     // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
-
-    // 부모 컴포넌트에 새로운 Card 객체를 전달
-    props.onCardUpdate(card.id, cardType);
+    setCards((prevCards) =>
+      prevCards.map((nowCard) =>
+        nowCard.id === props.card.id
+          ? { ...nowCard, cardType: cardType }
+          : nowCard
+      )
+    );
+    // setCards(
+    //   cards.map((nowCard) => {
+    //     if (nowCard.id == card.id) {
+    //       nowCard.cardType = cardType;
+    //     }
+    //     return nowCard;
+    //   })
+    // );
   };
 
   return (
