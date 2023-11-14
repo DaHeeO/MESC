@@ -29,7 +29,11 @@ const Login = ({navigation}: LoginProps) => {
     // 유지한다면, 한번 로그인하면 로그인 창이 다시 뜰 필요가 없음
     if (await doLogin()) {
       // console.log('aaa');
-      navigation.navigate('Intro');
+      // navigation.navigate('Intro');
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'BottomTab', params: {screen: 'Main'}}],
+      });
     }
   };
 

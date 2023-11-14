@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {ImageBackground} from 'react-native';
 import {colors} from '../common/Theme';
 
 export const Container = styled.View`
@@ -18,8 +19,10 @@ export const Indicator = styled.View<{focused: boolean}>`
 
 export const IndicatorWrapper = styled.View`
   flex-direction: row;
-  height: 10%;
+  height: 70px;
   // background-color: blue;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Bottom = styled.View`
@@ -44,4 +47,22 @@ export const ButtonText = styled.Text`
   font-size: 16px;
   font-weight: bold;
   color: white;
+`;
+
+export const Image = styled.Image`
+  width: 100%;
+  height: 100%;
+`;
+
+export const BackgroundImg = styled(Image)`
+  position: absolute;
+  object-fit: cover;
+  top: -10%;
+`;
+
+export const IntroContainer = styled.View`
+  flex: 1;
+  // background-color: yellow;
+  justify-content: center;
+  align-items: center;
 `;

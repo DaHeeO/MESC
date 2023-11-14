@@ -13,7 +13,7 @@ export const OptionBox = styled.View`
 export const DataBox = styled.TouchableOpacity`
   width: 95%;
   height: 80%;
-  background-color: #ececec;
+  background-color: #d1d4dd;
   border-radius: 5px;
   justify-content: center;
   align-items: center;

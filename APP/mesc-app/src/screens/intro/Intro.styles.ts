@@ -6,6 +6,7 @@ export const Container = styled.View`
   background-color: white;
   flex: 1;
   align-items: center;
+  background-color: pink;
 `;
 
 export const BackgroundImg = styled(Image)`
@@ -43,19 +44,20 @@ export const Body = styled.View`
   display: flex;
   align-items: center;
   height: 75%;
+  width: 100%;
   // background-color: blue;
 `;
 
 export const Img = styled(Image)`
-  width: 340px;
-  height: 340px;
+  width: 300px;
+  height: 300px;
 `;
 
 export const View = styled.View`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  height: 35%;
+  // height: 35%;
   // background-color: blue;
 `;
 

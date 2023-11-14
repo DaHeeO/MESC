@@ -129,16 +129,6 @@ function BottompTab() {
         }}
       />
       <Tab.Screen
-        name="Contact"
-        component={ContactStack}
-        options={{
-          tabBarIcon: ({focused}) => (
-            <BottomTabIcon focused={focused} type="Contact" />
-          ),
-          tabBarLabel: () => <S.Text>연락처</S.Text>,
-        }}
-      />
-      <Tab.Screen
         name="Chat"
         component={Chat}
         // component={Test}
@@ -163,6 +153,17 @@ function BottompTab() {
         //   },
         // })}
       />
+      <Tab.Screen
+        name="Contact"
+        component={ContactStack}
+        options={{
+          tabBarIcon: ({focused}) => (
+            <BottomTabIcon focused={focused} type="Contact" />
+          ),
+          tabBarLabel: () => <S.Text>연락처</S.Text>,
+        }}
+      />
+
       <Tab.Screen
         name="Setting"
         component={Setting}
