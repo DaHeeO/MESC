@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {ScrollView, Modal} from 'react-native';
 import {Card} from '../../../states/CardState';
-
-import axios from 'axios';
 import * as S from './Log.styles';
+import {TouchableOpacity} from '@gorhom/bottom-sheet';
+import ModalBox from '../../chat/data/ModalBox';
 
 // 모든 로그 레벨을 포함하도록 타입 정의 업데이트
 interface LogEntry {
@@ -12,11 +12,25 @@ interface LogEntry {
   thread: string;
   logger: string;
   message: string;
+  isModal?: boolean;
 }
 
 const Log = (props: {card: Card}) => {
   const {card} = props;
   const [logs, setLogs] = useState<LogEntry[]>([]);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [isModal, setisModal] = useState(false);
+
+  // 모달을 표시하는 함수
+  const showModal = () => {
+    if (isModal) return;
+    setModalVisible(true);
+  };
+
+  // 모달을 숨기는 함수
+  const hideModal = () => {
+    setModalVisible(false);
+  };
 
   useEffect(() => {
     const logData: string | null | undefined = card.logs;
@@ -47,25 +61,30 @@ const Log = (props: {card: Card}) => {
   return (
     <S.LogContainer>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {/* LogContainer에 가로 스크롤 추가 */}
-        <ScrollView showsVerticalScrollIndicator={false}>
-          {/* 기존의 세로 스크롤 */}
-          {logs.map((log, index) => (
-            <S.LogItem key={index}>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          nestedScrollEnabled={true}
+          showsVerticalScrollIndicator={false}>
+          <TouchableOpacity onPress={showModal}>
+            {logs.map((log, index) => (
+              <S.LogItem key={index}>
                 {/* 각 LogItem에 가로 스크롤 추가 */}
                 <S.DefaultText>{log.timestamp}</S.DefaultText>
                 <S.LogText level={log.level}>{log.level}</S.LogText>
                 <S.DefaultText>{log.thread}</S.DefaultText>
                 <S.LoggerText>{log.logger}</S.LoggerText>
                 <S.DefaultText>{log.message}</S.DefaultText>
-              </ScrollView>
-            </S.LogItem>
-          ))}
+              </S.LogItem>
+            ))}
+          </TouchableOpacity>
         </ScrollView>
       </ScrollView>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={hideModal}>
+        <ModalBox log={logs} onPress={hideModal} />
+      </Modal>
     </S.LogContainer>
   );
 };

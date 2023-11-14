@@ -16,7 +16,7 @@ interface ReportContainerProps {
 }
 
 export const ReportContainer = styled.View<ReportContainerProps>`
-  // border: 1px solid blue;
+  border: 1px solid blue;
   box-sizing: border-box;
   height: ${props => props.height || 'auto'};
   width: ${props => props.width || 'auto'};
@@ -25,6 +25,8 @@ export const ReportContainer = styled.View<ReportContainerProps>`
   align-items: ${props => props.alignItems || 'center'};
   flex-direction: ${props => props.direction || 'rows'};
   flex-shrink: 0;
+  padding-left: 5px;
+  padding-right: 5px;
 `;
 
 export const AddPersonBtn = styled.TouchableOpacity`
@@ -43,7 +45,7 @@ export const AddPersonBtn = styled.TouchableOpacity`
 
 export const ReportText = styled.Text`
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   padding: 10px;
   height: 100%;
   width: 100%;

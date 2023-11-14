@@ -22,6 +22,13 @@ export const Title = styled.Text`
   padding-bottom: 10px;
 `;
 
+export const ButtonText = styled.Text`
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  line-height: 35px;
+`;
+
 export const ButtonBox = styled.View`
   align-items: flex-end;
   justify-content: flex-end;
@@ -29,18 +36,19 @@ export const ButtonBox = styled.View`
   // background-color: red;
 `;
 
-export const Button = styled.View`
+export const Button = styled.TouchableOpacity`
   background-color: #3c56a0;
-  height: 30px;
-  width: 60px;
+  height: 35px;
+  width: 70px;
   border-radius: 14px; // 라운드 모양을 주기 위해 border-radius 추가
   align-self: flex-end; // 부모 컨테이너의 오른쪽에 붙이기 위해 align-self 추가
   justify-content: center; // 버튼 안의 내용물을 중앙 정렬하기 위해 justify-content 추가
   align-items: center; // 버튼 안의 내용물을 중앙 정렬하기 위해 align-items 추가
   margin-right: 10px;
+  // background-color: yellow;
 `;
 
-export const LogLevelItem = styled.View`
+export const LogLevelItem = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -53,6 +61,7 @@ export const LogLevelItem = styled.View`
   // border: 1px solid green;
   margin-left: 20px;
   margin-right: 20px;
+  // background-color: skyblue;
 `;
 
 export const LogLevelText = styled.Text`

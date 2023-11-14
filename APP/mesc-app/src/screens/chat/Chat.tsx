@@ -21,6 +21,7 @@ import {ChatComponentIdSwitch} from './ComponentId';
 import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
+import {ContactModalState} from '../../states/BottomSheetState';
 
 function Chat() {
   const [chatbotHistory, setChatbotHistory] =
@@ -30,7 +31,10 @@ function Chat() {
   const [inputState, setInputState] = useRecoilState(InputState);
 
   const [isModalVisible, setIsModalVisible] =
-    useRecoilState(ConditionModifyState); // 해당 모달State값 넣기
+    useRecoilState(ConditionModifyState);
+
+  const [isContactModalVisible, setIsContactModalVisible] =
+    useRecoilState(ContactModalState);
 
   const [showChatInput, setShowChatInput] = useState(true);
 
@@ -126,7 +130,7 @@ function Chat() {
       </S.ChatLayout>
       <BottomSheet
         isModalVisible={isModalVisible == true} // 여기도 stateID값을 받을 수 있도록 해야함
-        modalHeight={'70%'}
+        modalHeight={'60%'}
         modalBreakPoint={'20%'}
         component={realModalId} // 여기를 ID값을 받을 수 있도록
         onModalShow={handleModalShow}
