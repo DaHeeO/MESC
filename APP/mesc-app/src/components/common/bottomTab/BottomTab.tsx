@@ -11,7 +11,7 @@ import * as S from './BottomTab.styles';
 // components
 import Main from '../../../screens/main/Main';
 import ContactStack from '../../../screens/contacts/Stack';
-import Setting from '../../../screens/settings/Settings';
+import SettingStack from '../../../screens/settings/Stack';
 import Test from '../../../screens/settings/test';
 import Chat from '../../../screens/chat/Chat';
 
@@ -166,7 +166,7 @@ function BottompTab() {
 
       <Tab.Screen
         name="Setting"
-        component={Setting}
+        component={SettingStack}
         options={{
           tabBarIcon: ({focused}) => (
             <BottomTabIcon focused={focused} type="Setting" />
