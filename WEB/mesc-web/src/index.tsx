@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import "./index.css";
 import CreateDOM from "react-dom/client";
 
 const rootElement = document.getElementById("root");
