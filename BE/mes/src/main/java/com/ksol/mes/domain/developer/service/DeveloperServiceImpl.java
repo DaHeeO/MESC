@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DeveloperServiceImpl implements DeveloperService {
 
 	private final JdbcUtil jdbcUtil;
-	private final static Integer PAGE_SIZE = 10;
+	private final static Integer PAGE_SIZE = 20;
 
 	@Override
 	public Table getTable(String query, Integer page) throws SQLException {
@@ -30,7 +30,6 @@ public class DeveloperServiceImpl implements DeveloperService {
 	private String getPaginationQuery(String query, Integer page) {
 		return query + " LIMIT " + PAGE_SIZE + " OFFSET " + PAGE_SIZE * (page - 1);
 	}
-
 
 	private static String getOnlyOneQuery(String query) {
 		return query.split(";")[0];
