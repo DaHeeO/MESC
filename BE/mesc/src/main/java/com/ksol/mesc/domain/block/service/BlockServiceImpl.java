@@ -190,16 +190,13 @@ public class BlockServiceImpl implements BlockService {
 			.orElseThrow(() -> new EntityNotFoundException("Active Block Not Found"));
 
 		//1. 블록 수정
-		blockRepository.save(block);
-		// if (blockInfoDto.getIsEditable()) {
-		// 	cardReqList = saveBlock(blockInfoDto, cardReqList);
-		// } else {
-		// 	if (cardReqList != null) {
-		// 		for (CardReq cardReq : cardReqList) {
-		// 			cardReq.setBlock(block);
-		// 		}
-		// 	}
-		// }
+		Block updateBlock = blockRepository.save(block);
+
+		if (cardReqList != null) {
+			for (CardReq cardReq : cardReqList) {
+				cardReq.setBlock(updateBlock);
+			}
+		}
 
 		//2. 카드 수정
 		if (cardReqList != null) {
