@@ -49,10 +49,10 @@ export const BottomSheet = (props: BottomSheetProps) => {
 
   const handleSheetChanges = useCallback(
     (index: number) => {
-      // console.log('handleSheetChanges', index);
       // 모달이 완전히 닫혔을 때
-      if (index === 0) {
+      if (index === -1) {
         props.onModalHide?.();
+        setIsModalVisible(false);
       }
     },
     [snapPoints, props.onModalHide],

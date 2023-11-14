@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import {getBlock} from '../../../../Api';
-import DataBox from './DataBox';
+import DataBox from '../../chat/data/DataBox';
 import Label from './Label';
 import * as S from './DataComponent.styles';
 import {useRecoilState} from 'recoil';
