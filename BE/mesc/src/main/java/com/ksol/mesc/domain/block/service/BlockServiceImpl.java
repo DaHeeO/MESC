@@ -95,7 +95,6 @@ public class BlockServiceImpl implements BlockService {
 	//블록 조회
 	@Override
 	public LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, CardReqDto cardReqDto, Integer userId) {
-		log.info("blockId : {}", blockId);
 		//블록 조회
 		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
 			.orElseThrow(() -> new EntityNotFoundException("Active Block Not Found"));
@@ -189,8 +188,6 @@ public class BlockServiceImpl implements BlockService {
 		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
 			.orElseThrow(() -> new EntityNotFoundException("Active Block Not Found"));
 
-		blockRepository.save(block);
-
 		//1. 블록 수정
 		blockRepository.save(block);
 		// if (blockInfoDto.getIsEditable()) {
@@ -217,7 +214,7 @@ public class BlockServiceImpl implements BlockService {
 	//블록 삭제
 	@Transactional
 	public void deleteBlock(Integer blockId) {
-		Block block = blockRepository.findById(blockId)
+		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
 			.orElseThrow(() -> new EntityNotFoundException("Block Not Found"));
 		blockRepository.updateState(blockId, EntityState.DELETE);
 
@@ -316,7 +313,7 @@ public class BlockServiceImpl implements BlockService {
 		if (blockInfoDto.getId() == null) {
 			return blockRepository.save(Block.toEntity(blockInfoDto));
 		} else {
-			return blockRepository.findById(blockInfoDto.getId()).orElseThrow(
+			return blockRepository.findActiveById(blockInfoDto.getId(), EntityState.ACTIVE).orElseThrow(
 				() -> new EntityNotFoundException("Block Not Found")
 			);
 		}
@@ -325,8 +322,6 @@ public class BlockServiceImpl implements BlockService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveCardAndComponent(List<CardReq> cardReqList) {
 		for (CardReq cardReq : cardReqList) {
-			log.info("blockId : {}", cardReq.getBlockId());
-			log.info("block : {}", cardReq.getBlock());
 			Card savedCard = cardRepository.save(Card.toEntity(cardReq));
 			List<ComponentReq> componentReqList = cardReq.getComponentList();
 			if (componentReqList == null)
