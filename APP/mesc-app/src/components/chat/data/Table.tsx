@@ -47,7 +47,7 @@ const Table: React.FC<TableProps> = ({
   const [modalId, setModalId] = useRecoilState(modalIdState);
   const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
   // const conditionId = useRecoilValue(ConditionIdState);
-  // const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalBoxVisible, setModalBoxVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
     rowIndex: number;
     content: string[];
@@ -98,13 +98,13 @@ const Table: React.FC<TableProps> = ({
     if (isModal) return;
     // console.log(`Row ${rowIndex} was pressed`, row);
     setSelectedRow({rowIndex, content: row});
-    setModalVisible(true);
+    setModalBoxVisible(true);
   };
 
   // 모달 숨기는 함수
   const hideModal = () => {
     // console.log('hideModal 호출');
-    setModalVisible(false);
+    setModalBoxVisible(false);
   };
 
   const handlePress = async () => {
@@ -197,7 +197,7 @@ const Table: React.FC<TableProps> = ({
       <Modal
         animationType="slide"
         transparent={true}
-        visible={isModalVisible}
+        visible={isModalBoxVisible}
         onRequestClose={hideModal}>
         <ModalBox
           title={title}
