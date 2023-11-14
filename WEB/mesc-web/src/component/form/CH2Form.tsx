@@ -28,7 +28,7 @@ export const CH2Form = () => {
             borderRadius: "10px 10px 0px 0px",
           }}
         >
-          <S.FormInput height="30%" width="60%" placeholder="내용 1" />
+          <S.FormInput height="20%" width="60%" placeholder="내용 1" />
           <C.InnerContainer
             width="40%"
             height="100%"
@@ -38,22 +38,22 @@ export const CH2Form = () => {
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center bottom",
             }}
-          ></C.InnerContainer>
+          />
         </C.InnerContainer>
         {/* 하단 공간  */}
         <C.InnerContainer width="100%" height="50%" flexDirection="column">
           {/* 버튼 위 text 공간 */}
           <C.InnerContainer width="100%" height="30%" alignItems="center">
-            <S.FormInput width="60%" height="70%" placeholder="내용 2" />
+            <S.FormInput width="60%" height="30%" placeholder="내용 2" />
           </C.InnerContainer>
           <C.InnerContainer width="100%" height="35%" justifyContent="center">
             <S.FormBtn>
-              <S.FormInput width="80%" height="70%"></S.FormInput>
+              <S.FormInput width="80%" height="30%" placeholder="버튼 1" />
             </S.FormBtn>
           </C.InnerContainer>
           <C.InnerContainer width="100%" height="35%" justifyContent="center">
             <S.FormBtn>
-              <S.FormInput width="80%" height="70%"></S.FormInput>
+              <S.FormInput width="80%" height="30%" placeholder="버튼 2" />
             </S.FormBtn>
           </C.InnerContainer>
           {/* 버튼 있는 공간  */}

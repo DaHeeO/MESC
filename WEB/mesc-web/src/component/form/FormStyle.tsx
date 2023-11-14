@@ -19,6 +19,10 @@ export const FormTextarea = styled.textarea`
 export const FormInput = styled.input`
   width: ${(props) => props.width || "90%"};
   height: ${(props) => props.height || "90%"};
+  border: 1px solid #000; /* Set border style and color */
+  background-color: transparent; /* Set background color to transparent */
+  outline: none; /* Remove the default input outline */
+  padding: 8px; /* Adjust padding as needed */
 `;
 
 export const ComponentContainer = styled.div<FormProps>`
@@ -30,6 +34,8 @@ export const ComponentContainer = styled.div<FormProps>`
   justify-content: ${(props) => props.justify || "center"};
   align-items: ${(props) => props.align || "center"};
   flex-direction: ${(props) => props.flexDirection || "row"};
+  border: 1px solid #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 
 export const FormBtn = styled.div<FormProps>`

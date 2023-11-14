@@ -10,10 +10,12 @@ import { api } from "../../apis/Api";
 // style
 import * as S from "./AddStyle";
 import Button from "@mui/material/Button";
+
 // component
-import BasicSpeedDial from "../../component/common/About/PlusBtn";
+import BasicSpeedDial from "../../component/common/About/AboutBtn";
 import { AddCardComponent } from "../../component/page/AddCard";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
+import { SaveBtn } from "../../component/common/About/AboutBtn";
 
 export const Menu1 = () => {
   // =====================================================================
@@ -55,12 +57,17 @@ export const Menu1 = () => {
   const [createCard, setCreateCard] = useRecoilState(CardState);
   const CardType = useRecoilValue(CardIdState);
 
+  // 카드 저장 함수
+  const saveCard = () => {
+    console.log("saveCard================", "id");
+  };
+
   // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
       id: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
-      sequence: cards.length,
+      sequence: cards.length + 1,
       cardType: CardType, // 이 부분도 수정이 필요합니다.
       content: "카드 내용을 작성해주세요.",
     };
@@ -68,6 +75,7 @@ export const Menu1 = () => {
     // Recoil을 사용하여 카드 상태 갱신
     setCreateCard((prevCardState) => [...prevCardState, newCard]);
     setCards((prevCards) => [...prevCards, newCard]);
+    console.log("CardState================", createCard);
   };
 
   // 카드 삭제 함수========================================
@@ -110,13 +118,20 @@ export const Menu1 = () => {
       >
         {cards.map((card) => (
           <AddCardComponent
-            key={card.sequence}
+            id={card.sequence}
+            name={card.name}
+            cardType={card.cardType}
+            clickSave={() => {}} // 카드 단일 저장
             clickDelete={() => deleteCard(card.sequence)}
-            content="카드 내용을 작성해주세요."
           />
         ))}
       </AboutContainer>
-      <AboutContainer height="5%" width="100%">
+      <AboutContainer
+        height="5%"
+        width="100%"
+        // style={{ border: "1px solid black" }}
+      >
+        <SaveBtn onClick={saveCard} />
         <BasicSpeedDial onClick={addCard} />
       </AboutContainer>
     </AboutContainer>

@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { CardIdState } from "../../state/CardIdState";
 
 export const SelectLabels = () => {
-// export const SelectLabels = (CardType: string) => {
+  // export const SelectLabels = (CardType: string) => {
 
   // select box에서 선택된 값 저장하기
   const [cardType, setcardType] = useRecoilState(CardIdState);
@@ -21,10 +21,9 @@ export const SelectLabels = () => {
   return (
     <FormControl
       sx={{
-        minWidth: 100,
+        minWidth: 80,
         height: "40px",
         justifyContent: "center",
-        // alignItems: "center",
       }}
     >
       <Select
