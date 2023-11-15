@@ -163,7 +163,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
             <td>
               <OutlinedBtn
                 content={"삭제하기"}
-                // onClick={() => deleteBlock(item.id)}
+                onClick={() => deleteBlock(item.id)}
               />
             </td>
           </tr>

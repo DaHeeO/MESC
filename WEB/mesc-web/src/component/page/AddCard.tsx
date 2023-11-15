@@ -80,7 +80,16 @@ export const AddCardComponent = (props: { card: Card }) => {
           >
             <input
               type="text"
-              placeholder={card.content}
+              placeholder={card.name}
+              onChange={(e) => {
+                setCards((prevCards) =>
+                  prevCards.map((nowCard) =>
+                    nowCard.id === props.card.id
+                      ? { ...nowCard, name: e.target.value }
+                      : nowCard
+                  )
+                );
+              }}
               style={{ width: "90%", height: "90%" }}
             />
           </S.InnerContainer>

@@ -6,40 +6,23 @@ import { AboutContainer } from "../common/About/AboutContainer";
 //Recoil
 import { useRecoilState } from "recoil";
 //Recoil State
-import { CHState } from "../../state/create/CreateState";
+import { CHState, CardState } from "../../state/create/CreateState";
 import { Card } from "../../state/create/CreateState";
 // imgae
 import chatbot from "../../assest/image/chatbot.png";
+import { useEffect } from "react";
 
 export const CH1Form = (props: { card: Card }) => {
   //카드 recoil
   const [getCH1, setGetCH1] = useRecoilState(CHState);
-  // 카드 input창 변화 값 저장하는 useState
+  const [cards, setCards] = useRecoilState(CardState);
+  console.log(cards);
 
-  // {
-  //   setCreateCard((prevCardState) => {
-  //     const updatedCardState = [...prevCardState];
-  //     if (updatedCardState.length > 0) {
-  //       updatedCardState[0].content = e.target.value;
-  //     }
-  //     console.log(updatedCardState);
-  //     return updatedCardState;
-  //   });
-  // }}
-
-  // const Content1Change = (cardType: any) => {
-  // console.log(cardType);
-  // // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
-  // setCards((prevCards) =>
-  //   prevCards.map((nowCard) =>
-  //     nowCard.id === props.card.id
-  //       ? { ...nowCard, content: e.target.value }
-  //       : nowCard
-  //   )
-  // );
-  // };
-  // componentList에 추가하기 ============================================
-
+  useEffect(() => {
+    // setCards(
+    //   // cards.name: getCH1.name,
+    // )
+  }, [getCH1]);
   //=====================================================================
 
   return (
@@ -92,7 +75,6 @@ export const CH1Form = (props: { card: Card }) => {
               height="30%"
               placeholder="내용 1"
               onChange={(e) => {
-                // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
                 setGetCH1({
                   ...getCH1,
                   content: e.target.value,

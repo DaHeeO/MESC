@@ -9,7 +9,6 @@ import { CardIdState } from "../../state/CardIdState";
 import { api } from "../../apis/Api";
 // style
 import * as S from "./AddStyle";
-import Button from "@mui/material/Button";
 // component
 import { AddCardComponent } from "../../component/page/AddCard";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
@@ -21,6 +20,7 @@ export const Add = () => {
   // 블록 이름 저장을 위한
   const [blockTitleTyping, setBlockTitleTyping] = useState<string>("");
   const [blockState, setBlockState] = useRecoilState(CreatBlockState);
+  const [cards, setCards] = useRecoilState(CardState);
 
   // Block 이름 변경 및 API 호출
   const updateBlockName = (newName: string) => {
@@ -29,14 +29,18 @@ export const Add = () => {
       blockInfo: {
         ...prevBlockState.blockInfo,
         name: newName,
-        isEditable: true,
+        // isEditable: true,
       },
     }));
 
     // Block 생성 API 호출===================================
     api
-      .post("block/admin", { blockInfo: { name: newName } })
+      .post("block/admin", {
+        blockInfo: { name: newName },
+        cards,
+      })
       .then((res) => {
+        console.log("card==================", cards);
         console.log(res);
       })
       .catch((err) => {
@@ -48,13 +52,13 @@ export const Add = () => {
   // plus 버튼 누를 때 새로운 카드 생성===================================
 
   // 화면에 보여지는 카드 useState
-  const [cards, setCards] = useRecoilState(CardState);
   console.log("cards==================", cards);
 
   // 카드 타입을 저장하고 있는 recoil
   const [createCard, setCreateCard] = useRecoilState(CardState);
   const CardType = useRecoilValue(CardIdState);
 
+  // 카드 추가 함수
   // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
@@ -85,17 +89,7 @@ export const Add = () => {
             onChange={(e) => setBlockTitleTyping(e.target.value)}
           />
         </AboutContainer>
-        <AboutContainer height="100%" width="10%">
-          <Button
-            variant="contained"
-            size="large"
-            onClick={() => {
-              updateBlockName(blockTitleTyping);
-            }}
-          >
-            저장
-          </Button>
-        </AboutContainer>
+        <AboutContainer height="100%" width="10%"></AboutContainer>
       </AboutContainer>
       <AboutContainer
         height="85%"
@@ -104,14 +98,9 @@ export const Add = () => {
         style={{ flexWrap: "wrap", overflow: "auto" }}
       >
         {showCards}
-        {/* <AddCardComponent
-            key={card.sequence}
-            clickDelete={() => deleteCard(card.sequence)}
-            content="카드 내용을 작성해주세요."
-          /> */}
       </AboutContainer>
       <AboutContainer height="5%" width="100%">
-        <SaveBtn />
+        <SaveBtn onClick={() => updateBlockName(blockTitleTyping)} />
         <BasicSpeedDial onClick={addCard} />
       </AboutContainer>
     </AboutContainer>
