@@ -56,6 +56,10 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
 
   const putBlockToRecoil = async (blockId: number) => {
     const newBlock = await getBlock(blockId, {});
+    console.log('============================');
+
+    console.log('새로운블럭', newBlock);
+
     setBlock(newBlock);
   };
 
@@ -97,7 +101,7 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
           optionTitle={buttonName1}
         />
       </S.BottomBox>
-      {/* {isModalVisible && (
+      {isModalVisible && (
         <AboutBottomSheetModal
           btnTitle="모달 버튼"
           modalHeight="50%"
@@ -105,7 +109,7 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
           component={<SearchDataForm />} // 모달에 표시할 컴포넌트
           onModalHide={hideBottomSheetModal}
         />
-      )} */}
+      )}
     </S.ChatbotBox>
   );
 };

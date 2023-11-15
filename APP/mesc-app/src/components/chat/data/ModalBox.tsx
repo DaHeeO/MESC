@@ -1,11 +1,11 @@
 import React, {useRef, useState} from 'react';
-import {PanResponder} from 'react-native';
+import {PanResponder, ScrollView, TouchableOpacity} from 'react-native';
 import * as S from './ModalBox.styles';
 import Table from './Table';
 import Query from '../../chat/data/Query';
 // import {CloseModal} from '../../common/id/ChatChooseId';
 import Close from '../../../assets/icons/close.svg';
-import {vi} from 'date-fns/locale';
+import Log from '../../../components/chat/log/Log';
 
 type ModalBoxProps = {
   title?: string;
@@ -20,6 +20,15 @@ type ModalBoxProps = {
   query?: string;
   onPress: () => void;
   isModal?: boolean;
+  log?: LogEntry[];
+};
+
+type LogEntry = {
+  timestamp: string;
+  level: string;
+  thread: string;
+  logger: string;
+  message: string;
 };
 
 const ModalBox: React.FC<ModalBoxProps> = ({
@@ -28,6 +37,7 @@ const ModalBox: React.FC<ModalBoxProps> = ({
   query,
   onPress,
   isModal,
+  log,
 }) => {
   const panResponder = useRef(
     PanResponder.create({
@@ -64,6 +74,32 @@ const ModalBox: React.FC<ModalBoxProps> = ({
       );
     } else if (query) {
       return <Query title={title} query={query} isModal={true} />;
+    } else if (log) {
+      // console.log('log=========================================');
+      // console.log(log);
+      return (
+        <S.LogContainer>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <ScrollView
+              nestedScrollEnabled={true}
+              showsVerticalScrollIndicator={false}>
+              <TouchableOpacity>
+                {log.map((logItem, index) => (
+                  <S.LogItem key={index}>
+                    {/* 각 LogItem에 가로 스크롤 추가 */}
+                    <S.DefaultText>{logItem.timestamp}</S.DefaultText>
+                    <S.LogText level={logItem.level}>{logItem.level}</S.LogText>
+                    <S.DefaultText>{logItem.thread}</S.DefaultText>
+                    <S.LoggerText>{logItem.logger}</S.LoggerText>
+                    <S.DefaultText>{logItem.message}</S.DefaultText>
+                  </S.LogItem>
+                ))}
+              </TouchableOpacity>
+            </ScrollView>
+          </ScrollView>
+        </S.LogContainer>
+      );
+      // showLog(log);
     }
   };
 

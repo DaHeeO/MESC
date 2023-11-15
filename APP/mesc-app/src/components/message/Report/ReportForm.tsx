@@ -1,5 +1,6 @@
 // React
 import React, {useCallback, useEffect, useState} from 'react';
+import {Alert} from 'react-native';
 import {useRecoilState, useRecoilValue} from 'recoil';
 // Api
 import customAxios, {getUserName} from '../../../../Api';
@@ -18,6 +19,12 @@ import {ScrollView, Text} from 'react-native';
 import {OkayBtn} from '../Btn/SaveBtn';
 import {checkContactState} from '../../../states/CheckContact';
 import {ContactListForm} from '../../contact/ContactList';
+import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {set} from 'lodash';
+//
+import Check from '../../../assets/icons/check.svg';
+import Close from '../../../assets/icons/x.svg';
+import * as S from './ReportForm.styles';
 
 //interface
 interface BottomSheetProps {
@@ -32,11 +39,18 @@ interface BottomSheetProps {
 }
 
 export const ReportForm = (props: BottomSheetProps) => {
+  // 모달 상태여부
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(ConditionModifyState);
   const checkContact = useRecoilValue(checkContactState);
   const [user, setUser] = useRecoilState(checkContactState);
   const [complite, setComplite] = useState(false);
-
   const userName = getUserName();
+
+  // useEffect(() => {
+  //   setUser({users: []});
+  // }, []);
+
   //다시 연락처 선택
   const reChooseContact = () => {
     // console.log('연락처가기');
@@ -56,6 +70,7 @@ export const ReportForm = (props: BottomSheetProps) => {
   const [emails, setemails] = useState<string[]>([]); //이메일 주소
   const [subject, setsubject] = useState(''); //이메일 제목
   const [content, setContent] = useState(emailExample); //이메일 내용
+
   useEffect(() => {
     checkContact.users.forEach(user => {
       if (user.email !== '') {
@@ -66,6 +81,7 @@ export const ReportForm = (props: BottomSheetProps) => {
 
   // 이메일 전송 post
   const sendEmail = () => {
+    setIsModalVisible(false);
     customAxios
       .post('mesc/user/email', {
         emails,
@@ -73,7 +89,9 @@ export const ReportForm = (props: BottomSheetProps) => {
         content,
       })
       .then(res => {
-        console.log('axios res: ', res);
+        // console.log('axios res: ', res);
+        Alert.alert('이메일 발송 완료');
+        setUser({users: []});
       })
       .catch(err => {
         console.log('axios err: ', err);
@@ -85,24 +103,36 @@ export const ReportForm = (props: BottomSheetProps) => {
       // console.log(item);
       if (item.name === '') return null;
       return (
-        <UserTag>
-          <ReportContainer width="70%">
-            <Text>{item.name}</Text>
-          </ReportContainer>
-          <ReportTouchContainer
-            width="30%"
+        <S.NameBox>
+          <UserTag>
+            <ReportContainer width="55px">
+              <Text>{item.name}</Text>
+            </ReportContainer>
+            <S.IconBox
+              onPress={() => {
+                // console.log(item.userId);
+                const array = checkContact.users.filter(user => {
+                  // console.log(user.userId !== item.userId);
+                  return user.userId !== item.userId;
+                });
+                setUser({users: array});
+              }}>
+              <Close />
+            </S.IconBox>
+            {/* <ReportTouchContainer
+            width="20px"
             onPress={() => {
               // console.log(item.userId);
               const array = checkContact.users.filter(user => {
                 // console.log(user.userId !== item.userId);
                 return user.userId !== item.userId;
               });
-
               setUser({users: array});
             }}>
-            <Text style={{color: 'black', fontWeight: 'bold'}}>X</Text>
-          </ReportTouchContainer>
-        </UserTag>
+            <Text style={{color: 'white'}}>X</Text>
+          </ReportTouchContainer> */}
+          </UserTag>
+        </S.NameBox>
       );
     },
     [checkContact.users],
@@ -115,21 +145,21 @@ export const ReportForm = (props: BottomSheetProps) => {
             height="10%"
             direction="row"
             // style={{backgroundColor: 'pink'}}
-          >
+            justifyContent="flex-end">
             <ReportContainer
-              width="40%"
+              width="110px"
               height="80%"
-              justifyContent="flex-end"
-              alignItems="flex-start"
+              // justifyContent="flex-end"
+              // alignItems="flex-start"
               // style={{backgroundColor: 'skyblue'}}
             >
-              <OkayBtn content={'전송'} height="90%" onPress={sendEmail} />
+              <OkayBtn content={'전송'} height="80%" onPress={sendEmail} />
             </ReportContainer>
-            <ReportContainer
+            {/* <ReportContainer
               width="55%"
               height="100%"
               justifyContent="flex-start"
-            />
+            /> */}
           </ReportContainer>
 
           {/* 보내는 사람 Container */}
@@ -138,14 +168,17 @@ export const ReportForm = (props: BottomSheetProps) => {
             <ReportContainer height="50%" style={{flexDirection: 'row'}}>
               <ReportContainer
                 height="100%"
-                width="50%"
-                alignItems="flex-start">
+                width="80%"
+                style={{backgroundColor: 'pink'}}>
                 <ReportText>받는 사람</ReportText>
               </ReportContainer>
-              {/* 보내는 사람 Btn */}
-              <ReportContainer height="100%" width="50%" alignItems="flex-end">
+              {/* 주소록 추가 Btn */}
+              <ReportContainer
+                height="100%"
+                width="20%"
+                justifyContent="center">
                 <AddPersonBtn onPress={reChooseContact}>
-                  <Text>+ 주소록</Text>
+                  <Text> + 주소록 </Text>
                 </AddPersonBtn>
               </ReportContainer>
             </ReportContainer>
@@ -156,7 +189,7 @@ export const ReportForm = (props: BottomSheetProps) => {
                 direction="row"
                 style={{
                   marginLeft: 5,
-                  // backgroundColor: 'gold',
+                  backgroundColor: 'gold',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>

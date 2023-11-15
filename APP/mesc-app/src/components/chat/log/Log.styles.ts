@@ -32,6 +32,7 @@ export const DefaultText = styled.Text`
 
 // 로그 컨테이너 스타일 정의
 export const LogContainer = styled.View`
+  flex: 1;
   margin-top: 10px;
   padding: 5px;
   border-radius: 6px;

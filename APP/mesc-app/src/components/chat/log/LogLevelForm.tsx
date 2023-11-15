@@ -65,19 +65,21 @@ const LogLevelForm = () => {
 
   return (
     <S.LogLevelFormContainer>
-      {/* <S.ButtonBox>
-        <S.Button></S.Button>
-      </S.ButtonBox> */}
+      <S.ButtonBox>
+        <S.Button onPress={submit}>
+          <S.ButtonText>완료</S.ButtonText>
+          {/* {OkayBtn({
+            content: '저장',
+            // height: '40px',
+            onPress: () => {
+              submit();
+            },
+          })} */}
+        </S.Button>
+      </S.ButtonBox>
       <S.Title>로그 레벨</S.Title>
-      {OkayBtn({
-        content: '저장',
-        height: '40px',
-        onPress: () => {
-          submit();
-        },
-      })}
       {logLevels.map(level => (
-        <S.LogLevelItem key={level}>
+        <S.LogLevelItem key={level} onPress={() => toggleLevel(level)}>
           <S.LogLevelText>{level}</S.LogLevelText>
           <S.CheckboxContainer onPress={() => toggleLevel(level)}>
             {selectedLevels.has(level) ? (

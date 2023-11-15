@@ -9,3 +9,8 @@ export const ConditionModifyState = atom<boolean>({
   key: 'ConditionModifyState',
   default: false,
 });
+
+export const ContactModalState = atom<boolean>({
+  key: 'ContactModalState',
+  default: false,
+});
