@@ -1,5 +1,5 @@
 //React
-import React, {useState} from 'react';
+import React, {useState, useRef, useCallback} from 'react';
 //Style
 import {
   View,
@@ -17,10 +17,12 @@ import {ConditionModify} from '../../common/id/ChatChooseId';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {modalIdState} from '../../../states/ModalIdState';
 import ModalBox from './ModalBox';
-import {getCard} from '../../../../Api';
+import {getBlock, getCard, customAxios} from '../../../../Api';
 import {drop, get} from 'lodash';
 import {ConditionIdState} from '../../../states/ConditionIdState';
 import {DropdownState} from '../../../states/DropdownState';
+import {ActionIdState} from '../../../states/ReadDataState';
+import {BlockType} from '../../../const/constants';
 
 type TableProps = {
   title?: string;
@@ -46,6 +48,7 @@ const Table: React.FC<TableProps> = ({
     useRecoilState(ConditionModifyState);
   const [modalId, setModalId] = useRecoilState(modalIdState);
   const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
+  const [actionId, setActionId] = useRecoilState(ActionIdState);
   // const conditionId = useRecoilValue(ConditionIdState);
   const [isModalBoxVisible, setModalBoxVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
@@ -53,21 +56,82 @@ const Table: React.FC<TableProps> = ({
     content: string[];
   } | null>(null);
   const [dropdown, setDropdown] = useRecoilState(DropdownState);
+  const [AnctionId, setAnctionId] = useRecoilState(ActionIdState);
   const [touchedRow, setTouchedRow] = useState(null);
+  const [data, setData] = useState(rowList);
+  const [hasMore, setHasMore] = useState(true);
 
+  // ///////////////////////////////////// 페이지네이션 코드 //////////////////////////////////
+  // const observer = useRef();
+  // const lastElementRef = useCallback(
+  //   (node:any) => {
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver(entries => {
+  //       if (entries[0].isIntersecting && hasMore) {
+  //         // 스크롤이 마지막 요소에 도달하면 새 데이터 로드
+  //         loadMoreData();
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [loading, hasMore],
+  // );
+
+  // // 데이터 로드 함수
+  // const loadMoreData = async () => {
+  //   // 데이터 로드 로직 (예: API 호출)
+  //   const newData = await fetchData();
+  //   setData(prevData => [...prevData, ...newData]);
+  //   setHasMore(newData.length > 0); // 새 데이터가 없으면 더 이상 로드하지 않음
+  // };
+
+  // const fetchData = async () => {
+  //   let num: number = 2;
+  //   let conditions ='';
+
+  //   await customAxios
+  //     .post(`worker/data/${actionId}/${num}`, conditions)
+  //     .then(response => {
+  //       console.log('response================', response.data);
+  //       const data = response.data;
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  //   return data;
+  // }/////////////////////////////////////////////////////////////////////////////////
+
+  // 셀 너비 설정
   const minColumnWidth = 75;
   const maxColumnWidth = 200;
-  const calculateMaxColumnLengths = (rowList: string[][]) => {
-    if (rowList.length === 0) {
-      return columnType.map(col => col.length);
+
+  const calculateMaxColumnLengths = (
+    columnName: string[],
+    columnType: string[],
+    rowList: string[][],
+  ) => {
+    let maxLengths = Array(columnName.length).fill(0);
+    for (let i = 0; i < columnName.length; i++) {
+      maxLengths[i] = Math.max(columnName[i].length, columnType[i].length);
     }
-    return rowList[0].map((_, colIndex) =>
-      Math.max(...rowList.map(row => String(row[colIndex]).length)),
-    );
+
+    // rowList의 각 행과 열을 순회하면서 최대 길이 업데이트
+    rowList.forEach(row => {
+      row.forEach((item, index) => {
+        maxLengths[index] = Math.max(maxLengths[index], String(item).length);
+      });
+    });
+
+    return maxLengths;
   };
 
   // 너비 계산 로직
-  const maxColumnLengths = calculateMaxColumnLengths(rowList);
+  const maxColumnLengths = calculateMaxColumnLengths(
+    columnName,
+    columnType,
+    rowList,
+  );
+
   const pixelsPerCharacter = 10; // 문자당 픽셀 값
 
   // 각 열의 동적 너비 계산

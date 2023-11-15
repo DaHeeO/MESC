@@ -1,7 +1,10 @@
 import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {
+  ConditionModifyState,
+  ContactModalState,
+} from '../../../states/BottomSheetState';
 import {useRecoilState} from 'recoil';
 import {set} from 'lodash';
 
@@ -24,6 +27,8 @@ interface BottomSheetProps {
 export const BottomSheet = (props: BottomSheetProps) => {
   const [isModalPossible, setIsModalVisible] =
     useRecoilState(ConditionModifyState);
+  const [isContactModalPossible, setIsContactModalVisible] =
+    useRecoilState(ContactModalState);
 
   // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);

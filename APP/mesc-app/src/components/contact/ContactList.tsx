@@ -33,9 +33,9 @@ export const ContactListForm = () => {
 
   const [Contacts, setContacts] = useState([]);
 
-  Contacts.map(contact => {
-    console.log(contact);
-  });
+  // Contacts.map(contact => {
+  //   console.log(contact);
+  // });
 
   const [checkContact, setCheckContact] = useRecoilState(checkContactState);
   const handleCheckBoxClick = (

@@ -11,16 +11,19 @@ import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import UserMessage from '../UserMessage';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {is} from 'date-fns/locale';
+import {ActionIdState} from '../../../states/ReadDataState';
 
 type ButtonItem = {
   id: number;
   name: string;
+  linkType: string;
   link: string;
-  actionId?: number;
+  actionId: number;
 };
 
 const SearchDataForm = () => {
   const [block, setBlock] = useRecoilState(BlockResponseData);
+  const [actionId, setActionId] = useRecoilState(ActionIdState);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   // 모달 띄우기 관련
@@ -35,12 +38,12 @@ const SearchDataForm = () => {
       ...chatbotHistory,
       <UserMessage message={button.name} />,
     ]);
+    setActionId(button.actionId);
     const body = {
-      actionId: 23,
+      actionId: button.actionId,
       title: button.name,
       conditions: '',
     };
-
     const block = await getBlock(4, body);
     setBlock(block);
   };

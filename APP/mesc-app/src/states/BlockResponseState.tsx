@@ -17,7 +17,7 @@ type Card = {
   cardType: string;
   labels?: LabelItem[] | null | undefined;
   table?: TableData | null | undefined;
-  button?: ButtonItem[] | null | undefined;
+  button?: ButtonItem[];
 };
 
 type LabelItem = {
@@ -39,5 +39,5 @@ type ButtonItem = {
   link: string;
   iconId?: any | null;
   response: string;
-  actionId?: number;
+  actionId: number;
 };

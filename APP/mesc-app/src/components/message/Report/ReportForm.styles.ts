@@ -25,8 +25,8 @@ export const ReportContainer = styled.View<ReportContainerProps>`
   align-items: ${props => props.alignItems || 'center'};
   flex-direction: ${props => props.direction || 'rows'};
   flex-shrink: 0;
-  padding-left: 5px;
-  padding-right: 5px;
+  // padding-left: 5px;
+  // padding-right: 5px;
 `;
 
 export const AddPersonBtn = styled.TouchableOpacity`
@@ -63,6 +63,7 @@ export const ReportTextInput = styled.TextInput`
   justify-content: space-between;
   padding-horizontal: 200px;
   background-color: #ffffff;
+  background-color: green;
 `;
 
 export const CustomTextArea = styled.TextInput`
@@ -74,6 +75,7 @@ export const CustomTextArea = styled.TextInput`
   border-radius: 12px;
   background-color: #fff;
   margin-top: 25px;
+  background-color: pink;
 `;
 
 export const UserTag = styled.TouchableOpacity`
@@ -82,9 +84,10 @@ export const UserTag = styled.TouchableOpacity`
   border-radius: 14px;
   width: 70px;
   height: 70%;
-  justify-content: center;
+  justify-content: display-start;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 17px;
+  background-color: gray;
 `;
 
 export const ReportTouchContainer = styled.TouchableOpacity<ReportContainerProps>`
@@ -97,4 +100,21 @@ export const ReportTouchContainer = styled.TouchableOpacity<ReportContainerProps
   align-items: ${props => props.alignItems || 'center'};
   flex-direction: ${props => props.direction || 'rows'};
   flex-shrink: 0;
+  background-color: #3c56a0;
+  border-radius: 10px;
+  background-color: skyblue;
+`;
+
+export const IconBox = styled.TouchableOpacity`
+  // background-color: gray;
+  width: 24px;
+  height: 24px;
+  // margin-left: 15px;
+  // background-color: yellow;
+`;
+
+export const NameBox = styled.View`
+  with: 150px;
+  // background-color: red;
+  justify-content: flex-start;
 `;

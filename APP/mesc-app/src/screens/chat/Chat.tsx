@@ -130,7 +130,7 @@ function Chat() {
       </S.ChatLayout>
       <BottomSheet
         isModalVisible={isModalVisible == true} // 여기도 stateID값을 받을 수 있도록 해야함
-        modalHeight={'60%'}
+        modalHeight={'70%'}
         modalBreakPoint={'20%'}
         component={realModalId} // 여기를 ID값을 받을 수 있도록
         onModalShow={handleModalShow}

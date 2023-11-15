@@ -21,6 +21,10 @@ import {checkContactState} from '../../../states/CheckContact';
 import {ContactListForm} from '../../contact/ContactList';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {set} from 'lodash';
+//
+import Check from '../../../assets/icons/check.svg';
+import Close from '../../../assets/icons/x.svg';
+import * as S from './ReportForm.styles';
 
 //interface
 interface BottomSheetProps {
@@ -99,12 +103,24 @@ export const ReportForm = (props: BottomSheetProps) => {
       // console.log(item);
       if (item.name === '') return null;
       return (
-        <UserTag>
-          <ReportContainer width="80%">
-            <Text>{item.name}</Text>
-          </ReportContainer>
-          <ReportTouchContainer
-            width="30%"
+        <S.NameBox>
+          <UserTag>
+            <ReportContainer width="55px">
+              <Text>{item.name}</Text>
+            </ReportContainer>
+            <S.IconBox
+              onPress={() => {
+                // console.log(item.userId);
+                const array = checkContact.users.filter(user => {
+                  // console.log(user.userId !== item.userId);
+                  return user.userId !== item.userId;
+                });
+                setUser({users: array});
+              }}>
+              <Close />
+            </S.IconBox>
+            {/* <ReportTouchContainer
+            width="20px"
             onPress={() => {
               // console.log(item.userId);
               const array = checkContact.users.filter(user => {
@@ -113,9 +129,10 @@ export const ReportForm = (props: BottomSheetProps) => {
               });
               setUser({users: array});
             }}>
-            <Text style={{color: 'black', fontWeight: 'bold'}}>X</Text>
-          </ReportTouchContainer>
-        </UserTag>
+            <Text style={{color: 'white'}}>X</Text>
+          </ReportTouchContainer> */}
+          </UserTag>
+        </S.NameBox>
       );
     },
     [checkContact.users],
@@ -151,15 +168,15 @@ export const ReportForm = (props: BottomSheetProps) => {
             <ReportContainer height="50%" style={{flexDirection: 'row'}}>
               <ReportContainer
                 height="100%"
-                width="50%"
-                alignItems="flex-start">
+                width="80%"
+                style={{backgroundColor: 'pink'}}>
                 <ReportText>받는 사람</ReportText>
               </ReportContainer>
-              {/* 보내는 사람 Btn */}
+              {/* 주소록 추가 Btn */}
               <ReportContainer
                 height="100%"
-                width="110px"
-                alignItems="flex-end">
+                width="20%"
+                justifyContent="center">
                 <AddPersonBtn onPress={reChooseContact}>
                   <Text> + 주소록 </Text>
                 </AddPersonBtn>
