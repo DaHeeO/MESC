@@ -75,10 +75,10 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getTableByActionId(Integer actionId, String conditions) {
+	public LinkedHashMap<String, Object> getTableByActionId(Integer actionId, String conditions, Integer page) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 		Object data = webClient.post()
-			.uri("/worker/data/" + actionId)
+			.uri("/worker/data/" + actionId + "/" + page)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(Mono.just(new WorkerDataRequestDto(conditions)), WorkerDataRequestDto.class)
@@ -112,16 +112,16 @@ public class ApiServiceImpl implements ApiService {
 	public LinkedHashMap<String, Object> getTableByQueryRollback(String query, Integer page) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 		Object data = webClient.post()
-				.uri("/developer/query/rollback/" + page)
-				.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-				.contentType(MediaType.APPLICATION_JSON)
-				.bodyValue(new DeveloperQueryRequestDto(query))
-				.retrieve()
-				.toEntity(JsonResponse.class)
-				.onErrorMap(e -> new MesServerException(e.getMessage()))
-				.block()
-				.getBody()
-				.getData();
+			.uri("/developer/query/rollback/" + page)
+			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue(new DeveloperQueryRequestDto(query))
+			.retrieve()
+			.toEntity(JsonResponse.class)
+			.onErrorMap(e -> new MesServerException(e.getMessage()))
+			.block()
+			.getBody()
+			.getData();
 		return (LinkedHashMap<String, Object>)data;
 	}
 

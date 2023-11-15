@@ -81,13 +81,15 @@ public class ApiController {
 	}
 
 	@Operation(summary = "액션ID 데이터 조회 API", description = "액션ID를 통해 데이터를 조회한다.")
-	@PostMapping("/worker/data/{actionId}")
-	public ResponseEntity<?> getWorkerData(@PathVariable(required = true) Integer actionId,
+	@PostMapping("/worker/data/{actionId}/{page}")
+	public ResponseEntity<?> getWorkerData(
+		@PathVariable @Valid Integer page,
+		@PathVariable(required = true) Integer actionId,
 		@RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
 		BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		String conditions = workerDataRequestDto.getConditions();
-		LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions);
+		LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions, page);
 		if (tableByActionId.containsKey("message")) {
 			return new ResponseEntity<>(
 				CommonResponseDto.error(HttpStatus.NOT_ACCEPTABLE.value(), (String)tableByActionId.get("message")),
