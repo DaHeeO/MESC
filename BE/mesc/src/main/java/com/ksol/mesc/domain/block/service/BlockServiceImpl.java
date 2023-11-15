@@ -381,6 +381,7 @@ public class BlockServiceImpl implements BlockService {
 	public void saveCardInfo(List<CardReq> cardReqList) {
 		for (CardReq cardReq : cardReqList) {
 			log.info("cardReq : {}", cardReq);
+
 			Card savedCard = cardRepository.save(Card.toEntity(cardReq));
 			List<ComponentReq> componentReqList = cardReq.getComponentList();
 

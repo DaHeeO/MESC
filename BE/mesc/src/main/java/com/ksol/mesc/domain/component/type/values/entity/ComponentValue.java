@@ -4,6 +4,7 @@ import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.component.type.dropdown.entity.Dropdown;
 import com.ksol.mesc.domain.component.type.values.dto.ValuesRes;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -34,6 +35,8 @@ public class ComponentValue {
 	@Enumerated(EnumType.STRING)
 	@Builder.Default
 	private EntityState state = EntityState.ACTIVE;
+	@Column(name = "COMPONENT_ID")
+	private Integer comId;
 	@ManyToOne
 	@JoinColumn(name = "LINK_ID")
 	private Dropdown dropdown;

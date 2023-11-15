@@ -18,6 +18,7 @@ public class ValuesRes {
 	private String value;
 	private Integer linkId;
 	private EntityState state;
+	private Integer comId;
 	private Dropdown dropdown;
 
 	public static ValuesRes toResponse(ComponentValue values) {
@@ -25,6 +26,7 @@ public class ValuesRes {
 			.id(values.getId())
 			.value(values.getValue())
 			.linkId(values.getDropdown().getId())
+			.comId(values.getComId())
 			.build();
 	}
 }
