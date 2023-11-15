@@ -50,7 +50,7 @@ export const Modify = () => {
   // // =======================================================
 
   // Block 이름 변경 및 API 호출 (버튼 클릭시)
-  const updateBlockName = (newName: string) => {
+  const UpdateBlockName = (newName: string) => {
     setBlockState((prevBlockState) => ({
       ...prevBlockState,
       blockInfo: {
@@ -61,15 +61,22 @@ export const Modify = () => {
     // Block 생성 API 호출===================================
     console.log("newName==================", newName);
     if (cards.length > 0) {
+      const cardRequest = {
+        name: cards[cards.length - 1].name,
+        sequence: cards[cards.length - 1].sequence,
+        cardType: cards[cards.length - 1].cardType,
+        content: cards[cards.length - 1].content,
+        actionId: 0,
+      };
+
+      if (cardRequest.cardType === "TA") {
+        cardRequest.actionId = 1;
+      }
+
       api
         .patch(`block/admin/${blockInfo.blockInfo.id}`, {
           blockInfo: { name: newName, id: blockInfo.blockInfo.id },
-          cardRequestList: {
-            name: cards[cards.length - 1].name,
-            sequence: cards[cards.length - 1].sequence,
-            cardType: cards[cards.length - 1].cardType,
-            content: cards[cards.length - 1].content,
-          },
+          cardRequestList: cardRequest,
         })
         .then((res) => {
           console.log("card==================", cards);
@@ -85,7 +92,6 @@ export const Modify = () => {
   // plus 버튼 누를 때 새로운 카드 생성===================================
 
   // 카드 타입을 저장하고 있는 recoil
-  const CardType = useRecoilValue(CardIdState);
 
   // 카드 추가 함수
   const addCard = () => {
@@ -147,7 +153,7 @@ export const Modify = () => {
         >
           <SaveBtn
             onClick={() => {
-              updateBlockName(blockTitleTyping);
+              UpdateBlockName(blockTitleTyping);
             }}
           />
           <BasicSpeedDial onClick={addCard} />

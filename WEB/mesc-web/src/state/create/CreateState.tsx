@@ -21,6 +21,7 @@ export interface Card {
   sequence: number;
   cardType: string;
   content: string;
+  actionId?: number;
   componentList?: ComponentListItem[];
 }
 
