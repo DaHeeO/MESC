@@ -6,7 +6,7 @@ export const HoverContainer = styled.div`
   cursor: pointer;
   box-sizing: border-box;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   &:hover {
