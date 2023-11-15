@@ -243,7 +243,7 @@ public class JdbcUtil {
 			ResultSet resultSet = statement.executeQuery(totalQuery);
 			resultSet.next();
 			Integer total = resultSet.getInt("total");
-			statement.close();	
+			statement.close();
 			connection.close();
 			return total;
 		} catch (SQLException e) {

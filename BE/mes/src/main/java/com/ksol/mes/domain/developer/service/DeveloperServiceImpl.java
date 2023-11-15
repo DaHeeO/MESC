@@ -23,7 +23,12 @@ public class DeveloperServiceImpl implements DeveloperService {
 
 	@Override
 	public Table getTable(String query, Integer page, List<String> queryList) throws SQLException {
-		return jdbcUtil.select(query, page);
+//		return jdbcUtil.select(query, page);
+
+		if (queryList == null)
+			return jdbcUtil.select(getOnlyOneQuery(query), page);
+		else
+			return jdbcUtil.selectAfterAllModify(query, queryList, page);
 	}
 
 	private static String getOnlyOneQuery(String query) {
