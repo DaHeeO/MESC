@@ -29,7 +29,7 @@ public class WorkerServiceImpl implements WorkerService {
 		String query = null;
 		Integer pageSize = 20;    //한 페이지에 보여줄 사이즈
 		try {
-			Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId, page);
+			Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId, 1);
 			System.out.println("selectResult = " + selectResult);
 			query =
 				selectResult.getRows().get(0).get(0) + ' ' + getOnlyOneQuery(conditions);
