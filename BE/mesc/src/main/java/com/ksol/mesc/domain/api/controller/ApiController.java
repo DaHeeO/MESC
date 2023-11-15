@@ -83,7 +83,7 @@ public class ApiController {
 	@Operation(summary = "액션ID 데이터 조회 API", description = "액션ID를 통해 데이터를 조회한다.")
 	@PostMapping("/worker/data/{actionId}/{page}")
 	public ResponseEntity<?> getWorkerData(
-		@PathVariable @Valid Integer page,
+		@PathVariable(required = true) Integer page,
 		@PathVariable(required = true) Integer actionId,
 		@RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
 		BindingResult bindingResult) {

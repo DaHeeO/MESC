@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -269,11 +270,10 @@ public class BlockServiceImpl implements BlockService {
 						break;
 					Dropdown dropdown = dropdownOpt.get();
 					List<ComponentValue> valuesList = valuesRepository.findByDropdown(dropdown, EntityState.ACTIVE);
-					List<ValuesRes> valuesResList = new ArrayList<>();
+					List<ValuesRes> valuesResList = valuesList.stream()
+						.map(ValuesRes::toResponse)
+						.collect(Collectors.toList());
 
-					for (ComponentValue cValues : valuesList) {
-						valuesResList.add(ValuesRes.toResponse(cValues));
-					}
 					compMap.get("dropdown").add(DropdownRes.toResponse(dropdown, valuesResList));
 					break;
 				default:
@@ -336,11 +336,18 @@ public class BlockServiceImpl implements BlockService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveCardAndComponent(Block block, List<CardReq> cardReqList, List<ComponentReq> componentReqs) {
 		//카드 저장 및 수정
+
+		// Optional.ofNullable(cardReqList)
+		// 	.ifPresent(list -> list.forEach(cv -> {
+		// 		cv.setDropdown(dropdown);
+		// 		valuesRepository.save(ComponentValue.toEntity(cv));
+		// 	}));
+
+		List<CardReq> cardReqList2 = cardReqList;
 		if (cardReqList != null) {
 			for (CardReq cardReq : cardReqList) {
 				cardReq.setBlock(block);
 			}
-
 			saveCardInfo(cardReqList);
 		}
 
@@ -366,18 +373,17 @@ public class BlockServiceImpl implements BlockService {
 		for (CardReq cardReq : cardReqList) {
 			Card savedCard = cardRepository.save(Card.toEntity(cardReq));
 			List<ComponentReq> componentReqList = cardReq.getComponentList();
-			if (componentReqList == null)
-				continue;
-			Integer componentSize = cardReq.getComponentList().size();
-			for (int i = 0; i < componentSize; i++) {
-				//3. 컴포넌트 추가
-				ComponentReq componentReq = componentReqList.get(i);
-				componentReq.setCard(savedCard);
-				Object object = componentReq.getObject();
 
-				//3-1. 요소 추가 + 컴포넌트 추가
-				ComponentType componentType = componentReq.getType();
-				saveComponentEntityByType(componentType, object, componentReq);
+			if (componentReqList != null) {
+				for (ComponentReq componentReq : componentReqList) {
+					//3. 컴포넌트 추가
+					componentReq.setCard(savedCard);
+					Object object = componentReq.getObject();
+
+					//3-1. 요소 추가 + 컴포넌트 추가
+					ComponentType componentType = componentReq.getType();
+					saveComponentEntityByType(componentType, object, componentReq);
+				}
 			}
 		}
 	}
@@ -419,10 +425,11 @@ public class BlockServiceImpl implements BlockService {
 					componentReq.setLinkId(dropdown.getId());
 
 					//value 추가
-					dropdownRes.getValuesList().forEach(cv -> {
-						cv.setDropdown(dropdown);
-						valuesRepository.save(ComponentValue.toEntity(cv));
-					});
+					Optional.ofNullable(dropdownRes.getValuesList())
+						.ifPresent(list -> list.forEach(cv -> {
+							cv.setDropdown(dropdown);
+							valuesRepository.save(ComponentValue.toEntity(cv));
+						}));
 					break;
 				default:
 					throw new IllegalArgumentException("Invalid ComponentType");
@@ -452,22 +459,22 @@ public class BlockServiceImpl implements BlockService {
 	@Override
 	@Transactional
 	public void deleteBlock(Integer blockId) {
-		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
+		blockRepository.findActiveById(blockId, EntityState.ACTIVE)
 			.orElseThrow(() -> new EntityNotFoundException("Block Not Found"));
 		blockRepository.updateState(blockId, EntityState.DELETE);
 
 		List<Card> cardList = cardRepository.findByBlockId(blockId, EntityState.ACTIVE);
-		if (cardList == null)
-			return;
-		for (Card card : cardList) {
-			cardRepository.updateState(card.getId(), EntityState.DELETE);
-			List<Component> componentList = componentRepository.findByCard(card, EntityState.ACTIVE);
 
-			for (Component component : componentList) {
-				componentRepository.updateState(component.getId(), EntityState.DELETE);
-				updateComponentEntityByType(component);
-			}
-		}
+		Optional.ofNullable(cardList)
+			.ifPresent(list -> list.forEach(card -> {
+				cardRepository.updateState(card.getId(), EntityState.DELETE);
+
+				componentRepository.findByCard(card, EntityState.ACTIVE)
+					.forEach(component -> {
+						componentRepository.updateState(component.getId(), EntityState.DELETE);
+						updateComponentEntityByType(component);
+					});
+			}));
 	}
 
 	//블록 component 삭제
@@ -482,26 +489,20 @@ public class BlockServiceImpl implements BlockService {
 		// deleteBlock(blockId);
 
 		//2. 카드 삭제의 경우 -> 연관된 것 삭제
-		if (cardReqList != null) {
-			for (CardReq cardReq : cardReqList) {
+		Optional.ofNullable(cardReqList)
+			.ifPresent(list -> list.forEach(cardReq -> {
 				cardReq.setBlockId(blockId);
 				Card card = Card.toEntity(cardReq);
 				cardRepository.updateState(card.getId(), EntityState.DELETE);
-				List<Component> componentList = componentRepository.findByCard(card, EntityState.ACTIVE);
 
-				for (Component component : componentList) {
-					updateComponentEntityByType(component);
-				}
-			}
-		}
+				componentRepository.findByCard(card, EntityState.ACTIVE)
+					.forEach(this::updateComponentEntityByType);
+			}));
 
 		//3. 컴포넌트 삭제의 경우
-		if (componentReqList != null) {
-			for (ComponentReq componentReq : componentReqList) {
-				Component component = Component.toEntity(componentReq);
-				updateComponentEntityByType(component);
-			}
-		}
+		Optional.ofNullable(componentReqList)
+			.ifPresent(
+				list -> list.forEach(componentReq -> updateComponentEntityByType(Component.toEntity(componentReq))));
 	}
 
 	//component Type 별 수정
@@ -515,18 +516,19 @@ public class BlockServiceImpl implements BlockService {
 			case BU:
 				buttonRepository.updateState(id, EntityState.DELETE);
 				break;
-			case CB:
-				checkboxRepository.updateState(id, EntityState.DELETE);
-				break;
+			// case CB:
+			// 	checkboxRepository.updateState(id, EntityState.DELETE);
+			// 	break;
 			case DD:
 				dropdownRepository.updateState(id, EntityState.DELETE);
 				Dropdown dropdown = dropdownRepository.findById(id)
 					.orElseThrow(() -> new EntityNotFoundException("Dropdown Not Found"));
-				List<ComponentValue> cValueList = valuesRepository.findByDropdown(dropdown, EntityState.ACTIVE);
-				for (ComponentValue cv : cValueList) {
-					valuesRepository.updateState(cv.getId(), EntityState.DELETE);
-				}
 
+				List<ComponentValue> cValueList = valuesRepository.findByDropdown(dropdown, EntityState.ACTIVE);
+
+				Optional.ofNullable(cValueList)
+					.ifPresent(
+						list -> list.forEach(cv -> valuesRepository.updateState(cv.getId(), EntityState.DELETE)));
 				break;
 			default:
 				throw new IllegalArgumentException("Invalid ComponentType");
@@ -537,39 +539,37 @@ public class BlockServiceImpl implements BlockService {
 	@Override
 	public Object requestPostToMes(String url, CardReqDto cardReqDto, CardType cardType) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
-		// if (cardType == CardType.STA) {
-		// 	cardReqDto.setActionId(null);
-		// }
-		if (cardReqDto.getActionId() == null) {
+		if (cardReqDto.getActionId() == null)
 			throw new InvalidValueException("ActionId Not Found");
-		}
+
 		url += cardReqDto.getActionId();
 
-		return webClient.post()
-			.uri(url + "/1")
-			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-			.contentType(MediaType.APPLICATION_JSON)
-			.body(BodyInserters.fromValue(cardReqDto))
-			.retrieve()
-			.toEntity(JsonResponse.class)
-			.block()
-			.getBody()
+		return Objects.requireNonNull(Objects.requireNonNull(webClient.post()
+					.uri(url + "/1")
+					.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+					.contentType(MediaType.APPLICATION_JSON)
+					.body(BodyInserters.fromValue(cardReqDto))
+					.retrieve()
+					.toEntity(JsonResponse.class)
+					.onErrorMap(e -> new MesServerException(e.getMessage()))
+					.block())
+				.getBody())
 			.getData();
 	}
 
 	private String getDynamicString(String url, String key) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
-		Object data = webClient
-			.mutate()
-			.baseUrl(url)
-			.build()
-			.get()
-			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-			.retrieve()
-			.toEntity(JsonResponse.class)
-			.onErrorMap(e -> new MesServerException(e.getMessage()))
-			.block()
-			.getBody()
+		Object data = Objects.requireNonNull(Objects.requireNonNull(webClient
+					.mutate()
+					.baseUrl(url)
+					.build()
+					.get()
+					.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+					.retrieve()
+					.toEntity(JsonResponse.class)
+					.onErrorMap(e -> new MesServerException(e.getMessage()))
+					.block())
+				.getBody())
 			.getData();
 		LinkedHashMap<String, Object> hashMap = (LinkedHashMap<String, Object>)data;
 		return (String)hashMap.get(key);

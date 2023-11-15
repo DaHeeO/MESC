@@ -16,12 +16,13 @@ public class BlockInfoDto {
 	private Integer id;
 	private String name;
 	private EntityState state;
-	private Boolean isEditable;
+	private Boolean isPossible;
 
 	public static BlockInfoDto toResponse(Block block) {
 		return BlockInfoDto.builder()
 			.id(block.getId())
 			.name(block.getName())
+			.isPossible(block.getIsPossible())
 			.build();
 	}
 }
