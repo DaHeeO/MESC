@@ -19,6 +19,8 @@ public class WorkerDataResponseDto {
 	private List<String> columnTypeList = new ArrayList<>();
 	private List<List<String>> rowList;
 	private List<LabelResponseDto> label = new ArrayList<>();
+	private Integer rowCnt;
+	private Integer totalCnt;
 
 	public WorkerDataResponseDto(Map<String, Object> tableInfo) {
 		String query = (String)tableInfo.get("query");
@@ -44,6 +46,8 @@ public class WorkerDataResponseDto {
 		}
 		this.rowList = table.getRows();
 		this.isLastPage = table.getIsLastPage();
+		this.totalCnt = table.getTotalCnt();
+		this.rowCnt = table.getRowCnt();
 	}
 
 }
