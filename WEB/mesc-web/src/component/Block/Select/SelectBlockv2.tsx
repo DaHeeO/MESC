@@ -55,7 +55,8 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
     api
       .post(`/block/${id}`, {})
       .then((res) => {
-        console.log(id);
+        console.log("id=======", res);
+        console.log("card(결과값)=======", res.request.response);
         setBlockInfo((prevBlockState) => ({
           ...prevBlockState,
           blockInfo: {
@@ -71,7 +72,6 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
   };
 
   //===================================================>
-
   return (
     <CustomTable>
       <thead>
@@ -86,8 +86,17 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
             <td>{item.id}</td>
             <HoverTd
               onClick={() => {
-                SelectTheBlock(item.id);
+                if (item.id > 14 && item.id !== 1035) {
+                  SelectTheBlock(item.id);
+                } else if (item.id <= 14) {
+                  alert("이 블록은 수정할 수 없습니다.");
+                } else if (item.id === 1035) {
+                  alert("이 블록은 수정할 수 없습니다.");
+                }
               }}
+              className={
+                item.id <= 14 || item.id === 1035 ? "disabled-row" : ""
+              }
             >
               {item.name}
             </HoverTd>

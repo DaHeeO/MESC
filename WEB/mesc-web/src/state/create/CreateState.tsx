@@ -16,12 +16,12 @@ export const BlockState = atom<Record<string, Block>>({
 
 // cart state
 export interface Card {
-  // id?: number;
+  id?: number;
   name: string;
   sequence: number;
   cardType: string;
   content: string;
-  compnentList?: ComponentListItem[];
+  componentList?: ComponentListItem[];
 }
 
 export const CardState = atom<Card[]>({
@@ -30,24 +30,24 @@ export const CardState = atom<Card[]>({
 });
 
 // component state
-interface Value {
-  value: string;
+export interface Value {
+  value?: string;
 }
 
 interface Object {
-  name: string;
+  name?: string;
   columnName?: string;
   tableName?: string;
   type?: string;
   valuesList?: Value[];
-  linkType: string;
-  link: number;
+  linkType?: string;
+  link?: number;
 }
 
-interface ComponentListItem {
-  type: string;
-  sequence: string;
-  object: Object;
+export interface ComponentListItem {
+  type?: string;
+  sequence?: string;
+  object?: Object;
 }
 
 interface Component {
@@ -60,3 +60,43 @@ export const ComponentState = atom<Component>({
     componentList: [],
   },
 });
+
+// ===========CH1======================================
+interface CH1Props {
+  name: string;
+  sequence: number;
+  cardType: string;
+  content: string;
+  componentList: {
+    object: {
+      valuesList: {
+        value: string;
+      }[];
+    };
+  }[];
+}
+
+export const CHState = atom<CH1Props>({
+  key: "CHState",
+  default: {
+    name: "",
+    sequence: 0,
+    cardType: "",
+    content: "",
+    componentList: [
+      {
+        object: {
+          valuesList: [
+            {
+              value: "",
+            },
+            {
+              value: "",
+            },
+          ],
+        },
+      },
+    ],
+  },
+});
+//============================================================

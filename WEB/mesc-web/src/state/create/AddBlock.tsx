@@ -8,7 +8,6 @@ export const BlockNameState = atom<String>({
 interface CreateBlock {
   blockInfo: {
     name: string;
-    isEditable: boolean;
   };
   cardReqList: {
     name: string;
@@ -32,7 +31,6 @@ export const CreatBlockState = atom<CreateBlock>({
   default: {
     blockInfo: {
       name: "",
-      isEditable: false,
     },
     cardReqList: [
       {

@@ -1,14 +1,18 @@
-import React from "react";
 //style
 import * as S from "./FormStyle";
 import * as C from "../../pages/AddBlock/AddStyle";
 //imgae
 import chatbot from "../../assest/image/chatbot.png";
-
+//Recoil
+import { useRecoilState } from "recoil";
+import { Card } from "../../state/create/CreateState";
+import { CardState } from "../../state/create/CreateState";
 //Component
 import { AboutContainer } from "../common/About/AboutContainer";
 
-export const CH2Form = () => {
+export const CH2Form = (props: { card: Card }) => {
+  const [cards, setCards] = useRecoilState(CardState);
+
   return (
     <S.ComponentContainer height="85%" width="100%" radius="30px">
       <AboutContainer
@@ -28,7 +32,21 @@ export const CH2Form = () => {
             borderRadius: "10px 10px 0px 0px",
           }}
         >
-          <S.FormInput height="20%" width="60%" placeholder="내용 1" />
+          <S.FormInput
+            height="20%"
+            width="60%"
+            placeholder="카드 이름"
+            onChange={(e) => {
+              // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
+              setCards((prevCards) =>
+                prevCards.map((nowCard) =>
+                  nowCard.sequence === props.card.sequence
+                    ? { ...nowCard, name: e.target.value }
+                    : nowCard
+                )
+              );
+            }}
+          />
           <C.InnerContainer
             width="40%"
             height="100%"
@@ -44,7 +62,21 @@ export const CH2Form = () => {
         <C.InnerContainer width="100%" height="50%" flexDirection="column">
           {/* 버튼 위 text 공간 */}
           <C.InnerContainer width="100%" height="30%" alignItems="center">
-            <S.FormInput width="60%" height="30%" placeholder="내용 2" />
+            <S.FormInput
+              width="60%"
+              height="30%"
+              placeholder="내용 1"
+              onChange={(e) => {
+                // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
+                setCards((prevCards) =>
+                  prevCards.map((nowCard) =>
+                    nowCard.sequence === props.card.sequence
+                      ? { ...nowCard, content: e.target.value }
+                      : nowCard
+                  )
+                );
+              }}
+            />
           </C.InnerContainer>
           <C.InnerContainer width="100%" height="35%" justifyContent="center">
             <S.FormBtn>

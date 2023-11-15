@@ -8,7 +8,6 @@ import { CardIdState } from "../../state/CardIdState";
 // API
 import { api } from "../../apis/Api";
 // style
-import Button from "@mui/material/Button";
 import * as S from "../AddBlock/AddStyle";
 // component
 import BasicSpeedDial from "../../component/common/About/AboutBtn";
@@ -24,23 +23,29 @@ export const Modify = () => {
   const [blockTitleTyping, setBlockTitleTyping] = useState<string>("");
   const [blockState, setBlockState] = useRecoilState(CreatBlockState);
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
+  const [cards, setCards] = useRecoilState(CardState);
   const [blockName, setBlockName] = useState("");
-  // console.log(
-  //   "blockState(add_BlockState)==================",
-  //   blockInfo.blockInfo.name
-  // );
 
+  console.log("blockTitleTyping==================", blockTitleTyping);
+  console.log("cards==================", cards);
   // input default 값 설정====================================
   //  name을 못찾는다는 오류 발생 (후순위)
-  const blockname =
-    blockInfo && blockInfo.blockInfo && blockInfo.blockInfo.name;
 
   useEffect(() => {
-    if (blockname !== undefined) {
-      setBlockName(blockname);
-    } else {
-      setBlockName(" ");
+    async function fetchData() {
+      try {
+        // 결과를 처리하고 상태를 업데이트
+        if (blockInfo.blockInfo && blockInfo.blockInfo.name) {
+          setBlockName(blockInfo.blockInfo.name);
+        } else {
+          setBlockName("블럭이름을 작성해주세요.");
+        }
+      } catch (error) {
+        // 오류 처리
+        console.error("Error fetching data: ", error);
+      }
     }
+    fetchData(); // 함수 호출
   }, [blockInfo]);
   // // =======================================================
 
@@ -51,49 +56,52 @@ export const Modify = () => {
       blockInfo: {
         ...prevBlockState.blockInfo,
         name: newName,
-        isEditable: true,
       },
     }));
     // Block 생성 API 호출===================================
-    api
-      .post("block/admin", { blockInfo: { name: newName } })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log("newName==================", newName);
+    if (cards.length > 0) {
+      api
+        .patch(`block/admin/${blockInfo.blockInfo.id}`, {
+          blockInfo: { name: newName, id: blockInfo.blockInfo.id },
+          cardRequestList: {
+            name: cards[cards.length - 1].name,
+            sequence: cards[cards.length - 1].sequence,
+            cardType: cards[cards.length - 1].cardType,
+            content: cards[cards.length - 1].content,
+          },
+        })
+        .then((res) => {
+          console.log("card==================", cards);
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   // =======================================================
 
   // plus 버튼 누를 때 새로운 카드 생성===================================
 
-  // 화면에 보여지는 카드 useState
-  const [cards, setCards] = useRecoilState(CardState);
-  console.log("cards==================", cards);
-
   // 카드 타입을 저장하고 있는 recoil
   const CardType = useRecoilValue(CardIdState);
-
-  // 카드 저장 함수
-  const saveCard = () => {
-    console.log("saveCard================", "id");
-  };
 
   // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
-      // id: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
-      sequence: cards.length + 1,
-      cardType: CardType, // 이 부분도 수정이 필요합니다.
+      sequence: cards.length,
+      cardType: CardType,
       content: "카드 내용을 작성해주세요.",
     };
-    // Recoil을 사용하여 카드 상태 갱신
+
     setCards((prevCards) => [...prevCards, newCard]);
   };
 
-  const showCards = cards.map((card) => <AddCardComponent card={card} />);
+  const showCards = cards.map((card, index) => (
+    <AddCardComponent key={index} card={card} />
+  ));
 
   // =======================================================
 
@@ -117,21 +125,9 @@ export const Modify = () => {
           <AboutContainer height="100%" width="90%">
             <S.BlockNameInput
               type="text"
-              placeholder="블럭 이름을 작성하세요."
-              // defaultValue={blockName}
+              defaultValue={blockName}
               onChange={(e) => setBlockTitleTyping(e.target.value)}
             />
-          </AboutContainer>
-          <AboutContainer height="100%" width="10%">
-            <Button
-              variant="contained"
-              size="large"
-              onClick={() => {
-                updateBlockName(blockTitleTyping);
-              }}
-            >
-              저장
-            </Button>
           </AboutContainer>
         </AboutContainer>
         <AboutContainer
@@ -148,7 +144,11 @@ export const Modify = () => {
           width="100%"
           // style={{ border: "1px solid black" }}
         >
-          <SaveBtn onClick={saveCard} />
+          <SaveBtn
+            onClick={() => {
+              updateBlockName(blockTitleTyping);
+            }}
+          />
           <BasicSpeedDial onClick={addCard} />
         </AboutContainer>
       </AboutContainer>
