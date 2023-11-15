@@ -80,6 +80,7 @@ export const BodyDiv = styled.div`
 export const MainDiv = styled.div`
   width: 100%;
   height: 40%;
+  padding-top: 7%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
