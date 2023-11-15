@@ -1,7 +1,6 @@
 // React
 import React, { useEffect } from "react";
 // Components
-import Header from "../../component/common/Layout/layout/header";
 import { AboutBody } from "../../component/common/About/AboutBody";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
 import { ContainedBtn } from "../../component/common/About/AboutBtn";
@@ -19,9 +18,6 @@ export const MainPage = () => {
   };
   const goFAQ = () => {
     navigate(`/Faq`);
-  };
-  const goMyPage = () => {
-    navigate(`/Mypage`);
   };
 
   useEffect(() => {
@@ -99,9 +95,7 @@ export const MainPage = () => {
                 </AboutContainer>
               </AboutContainer>
               <AboutContainer height="10%">userEmail</AboutContainer>
-              <AboutContainer height="20%">
-                <ContainedBtn content="회원정보 수정" onClick={goMyPage} />
-              </AboutContainer>
+              <AboutContainer height="20%" />
             </AboutContainer>
           </AboutContainer>
           {/* MainBody 우측 하단 -공지사항 */}

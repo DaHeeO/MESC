@@ -11,9 +11,7 @@ function SideBar() {
   const goMenu2 = () => {
     navigate("/Modify");
   };
-  const goMenu3 = () => {
-    navigate("/MyPage");
-  };
+
   const goMenu4 = () => {
     navigate("/Faq");
   };
@@ -30,7 +28,6 @@ function SideBar() {
       {/* sideBar 메뉴들 */}
       <HoverContainer onClick={goAdd}>추가하기</HoverContainer>
       <HoverContainer onClick={goMenu2}>수정하기</HoverContainer>
-      <HoverContainer onClick={goMenu3}>마이페이지</HoverContainer>
       <HoverContainer onClick={goMenu4}>FAQ</HoverContainer>
     </AboutContainer>
   );
