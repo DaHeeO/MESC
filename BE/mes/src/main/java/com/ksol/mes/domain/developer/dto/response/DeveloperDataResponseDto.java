@@ -17,6 +17,9 @@ public class DeveloperDataResponseDto {
 	private List<String> columnTypeList = new ArrayList<>();
 	private List<List<String>> rowList;
 	private Set<String> tableList;
+	private Integer rowCnt;
+	private Integer totalCnt;
+//	private
 
 	public DeveloperDataResponseDto(Table table) {
 		for (ColumnData column : table.getColumns()) {
@@ -31,5 +34,7 @@ public class DeveloperDataResponseDto {
 		this.rowList = table.getRows();
 		this.tableList = table.getTableList();
 		this.isLastPage = table.getIsLastPage();
+		this.totalCnt = table.getTotalCnt();
+		this.rowCnt = table.getRowCnt();
 	}
 }
