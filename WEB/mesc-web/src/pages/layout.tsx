@@ -7,12 +7,12 @@ import { AboutBody } from "../component/common/About/AboutBody";
 function Layout() {
   return (
     <AboutBody>
-      <Header />
-      <AboutContainer height="90%">
+      {/* <Header /> */}
+      <AboutContainer height="100%">
         <SideBar />
         <AboutContainer
           height="100%"
-          width="90%"
+          width="80%"
           backcolor="#eaeff1"
           //   style={{ border: "solid 1px red" }}
         >
