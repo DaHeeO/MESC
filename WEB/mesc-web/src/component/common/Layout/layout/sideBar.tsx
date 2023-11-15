@@ -64,15 +64,15 @@ function SideBar() {
       <S.HeaderDiv>
         <S.HeaderLogoDiv>
           <S.Logo>
-            <S.Text size={24} color={C.colors.samsungBlue} weight={900}>
+            <S.Text size={22} color={C.colors.samsungBlue} weight={900}>
               M
             </S.Text>
           </S.Logo>
           <S.LogoBox>
-            <S.Text size={24} color="white" weight={900}>
+            <S.Text size={18} color="white" weight={800}>
               MESC
             </S.Text>
-            <S.Text size={12} color="white">
+            <S.Text size={10} color="white">
               ADMIN
             </S.Text>
           </S.LogoBox>
@@ -81,9 +81,13 @@ function SideBar() {
       <S.BodyDiv>
         <S.MainDiv>
           <S.NavContainer onClick={goMain}>
-            <img src={isActive("/") ? HomeFocus : Home} />
+            <img
+              width={18}
+              height={18}
+              src={isActive("/") ? HomeFocus : Home}
+            />
             <S.Text
-              size={16}
+              size={14}
               color={isActive("/") ? "white" : C.colors.textIcyGray}
               weight={500}
               style={{ paddingLeft: "14px" }}
@@ -92,9 +96,13 @@ function SideBar() {
             </S.Text>
           </S.NavContainer>
           <S.NavContainer onClick={goAdd}>
-            <img src={isActive("/Add") ? AddFocus : Add} />
+            <img
+              width={18}
+              height={18}
+              src={isActive("/Add") ? AddFocus : Add}
+            />
             <S.Text
-              size={16}
+              size={14}
               color={isActive("/Add") ? "white" : C.colors.textIcyGray}
               weight={500}
               style={{ paddingLeft: "14px" }}
@@ -103,9 +111,13 @@ function SideBar() {
             </S.Text>
           </S.NavContainer>
           <S.NavContainer onClick={goMenu2}>
-            <img src={isActive("/Modify") ? EditFocus : Edit} />
+            <img
+              width={18}
+              height={18}
+              src={isActive("/Modify") ? EditFocus : Edit}
+            />
             <S.Text
-              size={16}
+              size={14}
               color={isActive("/Modify") ? "white" : C.colors.textIcyGray}
               weight={500}
               style={{ paddingLeft: "14px" }}
@@ -114,10 +126,14 @@ function SideBar() {
             </S.Text>
           </S.NavContainer>
           <S.NavContainer onClick={goMenu4}>
-            <img src={isActive("/Faq") ? FaqFocus : Faq} />
+            <img
+              width={18}
+              height={18}
+              src={isActive("/Faq") ? FaqFocus : Faq}
+            />
 
             <S.Text
-              size={16}
+              size={14}
               color={isActive("/Faq") ? "white" : C.colors.textIcyGray}
               weight={500}
               style={{ paddingLeft: "14px" }}
@@ -131,9 +147,13 @@ function SideBar() {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
-          {hovered ? <img src={LogoutFocus} /> : <img src={Logout} />}
+          {hovered ? (
+            <img width={18} height={18} src={LogoutFocus} />
+          ) : (
+            <img width={18} height={18} src={Logout} />
+          )}
           <S.Text
-            size={16}
+            size={14}
             color={hovered ? "white" : C.colors.textIcyGray}
             weight={500}
             style={{ paddingLeft: "14px" }}

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const CustomTable = styled.table`
   width: 90%;
-  height: 100%;
+  height: 90%;
   border-collapse: collapse;
   th,
   td {

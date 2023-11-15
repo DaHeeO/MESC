@@ -9,12 +9,15 @@ import Eye from "../assest/icon/eye.svg";
 
 import { useNavigate } from "react-router-dom";
 import { api } from "../apis/Api";
+import { userInfo } from "../state/UserInfo";
+import { useRecoilState } from "recoil";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [userInfoValue, setUserInfoValue] = useRecoilState(userInfo);
 
   const clearEmail = () => {
     setEmail("");
@@ -48,15 +51,26 @@ function Login() {
       })
       .then((res) => {
         const accessToken = res.data.tokenInfo.accessToken;
-        const userName = res.data.name;
-        // console.log('usrName : ', userName);
-        const userRole = res.data.role;
-        console.log(res.data);
         localStorage.clear();
         localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("userName", userName);
-        localStorage.setItem("userRole", userRole);
         loginPass = true;
+        api
+          .get("/mesc/user", {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+          .then((res) => {
+            setUserInfoValue({
+              ...userInfoValue,
+              userId: res.data.data.userId,
+              name: res.data.data.name,
+              email: res.data.data.email,
+              phoneNumber: res.data.data.phoneNumber,
+              role: res.data.data.role,
+            });
+          });
+
         navigate("/");
       })
       .catch(() => {

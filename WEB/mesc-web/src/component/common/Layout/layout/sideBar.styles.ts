@@ -36,11 +36,11 @@ export const Text = styled.text<TextProps>`
 
 export const HeaderDiv = styled.div`
   width: 100%;
-  height: 15%;
+  height: 13%;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  border-bottom: 1px solid ${colors.backgroundBlue};
+  border-bottom: 1.5px solid ${colors.backgroundBlue};
 `;
 
 export const HeaderLogoDiv = styled.div`
@@ -52,9 +52,9 @@ export const HeaderLogoDiv = styled.div`
 `;
 
 export const Logo = styled.div`
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   background-color: white;
   display: flex;
   justify-content: center;
@@ -70,7 +70,7 @@ export const LogoBox = styled.div`
 
 export const BodyDiv = styled.div`
   width: 100%;
-  height: 73%;
+  height: 83%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

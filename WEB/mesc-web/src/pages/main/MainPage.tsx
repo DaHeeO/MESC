@@ -1,5 +1,10 @@
 // React
 import React, { useEffect } from "react";
+
+//Recoil
+import { useRecoilState } from "recoil";
+import { userInfo } from "../../state/UserInfo";
+
 // Components
 import { AboutBody } from "../../component/common/About/AboutBody";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
@@ -8,10 +13,18 @@ import { SelectBlock } from "../../component/Block/Select/SelectBlock";
 // Navigate
 import { useNavigate } from "react-router-dom";
 //etc
-import img from "../../assest/image/samsungSDI.png";
+import Arrow from "../../assest/icon/arrowRight.svg";
+import User from "../../assest/icon/userBlue.svg";
+import DataBase from "../../assest/icon/database.svg";
+import Contacts from "../../assest/icon/contacts.svg";
+import { Header } from "../../component/common/Header/Header";
+import * as S from "./MainPage.style";
+import * as C from "../../component/common/theme";
 
 export const MainPage = () => {
   const navigate = useNavigate();
+
+  const [userInfoValue, setUserInfoValue] = useRecoilState(userInfo);
 
   const goMeun1 = () => {
     navigate(`/Add`);
@@ -29,153 +42,121 @@ export const MainPage = () => {
   return (
     // 메인페이지 전체
     <AboutBody>
-      {/* 헤더 height: 10% */}
-      <AboutContainer height="90%" width="100%">
-        {/* MainBody의 오른쪽 */}
-        <AboutContainer
-          height="100%"
-          width="50%"
-          flexDirection="column"
-          justifyContent="center"
-          align="flex-start"
-        >
-          {/* MainBody 우측 상하단 나누기 */}
+      {/* 헤더 height: 13%  width 89% */}
+      <Header />
+      <AboutContainer
+        height="87%"
+        width="89%"
+        justifyContent="space-between"
+        align="flex-start"
+      >
+        {/* MainBody의 왼쪽 - ChatbotList */}
+        <S.BlockContainer>
+          <S.BlockHeader>
+            <S.Text size={18} color={C.colors.textBlack} weight={800}>
+              블록 리스트
+            </S.Text>
+            <S.SeeMore onClick={goMeun1}>
+              <S.Text size={14} color={C.colors.samsungBlue} weight={700}>
+                더보기
+              </S.Text>
+              <img width={18} height={18} src={Arrow} />
+            </S.SeeMore>
+          </S.BlockHeader>
+          <S.BlockBody>
+            <SelectBlock data={[]} />
+          </S.BlockBody>
+        </S.BlockContainer>
+        {/* MainBody의 오른쪽 - Info, FAQ */}
+        <S.RightDiv>
           {/* MainBody 우측 상단 -회원정보 */}
-          <AboutContainer height="50%" width="100%">
+          <S.InfoDiv>
             {/* 회원정보를 넣을 Container */}
-            <AboutContainer
-              height="90%"
-              width="50%"
-              flexDirection="column"
-              justifyContent="center"
-              align="flex-start"
-              style={{
-                border: "1px solid black",
-              }}
-            >
-              <AboutContainer height="50%">
-                <AboutContainer
-                  height="100%"
-                  width="70%"
-                  style={{
-                    backgroundImage: `url(${img})`, // 이미지 스타일 적용
-                    backgroundSize: "90% 90%",
-                    backgroundPosition: "center",
-                    borderRadius: "8px",
-                    backgroundRepeat: "no-repeat",
-                  }}
-                ></AboutContainer>
-              </AboutContainer>
-              <AboutContainer height="20%" flexDirection="row">
-                <AboutContainer
-                  width="50%"
-                  height="100%"
-                  flexDirection="column"
-                >
-                  <AboutContainer width="100%" height="50%">
-                    이름
-                  </AboutContainer>
-                  <AboutContainer width="100%" height="50%">
-                    {/* {user.name} */}
-                    userName
-                  </AboutContainer>
-                </AboutContainer>
-                <AboutContainer
-                  width="50%"
-                  height="100%"
-                  flexDirection="column"
-                >
-                  <AboutContainer width="100%" height="50%">
-                    직급
-                  </AboutContainer>
-                  <AboutContainer width="100%" height="50%">
-                    {/* {user.role} */}
-                    userRole
-                  </AboutContainer>
-                </AboutContainer>
-              </AboutContainer>
-              <AboutContainer height="10%">userEmail</AboutContainer>
-              <AboutContainer height="20%" />
-            </AboutContainer>
-          </AboutContainer>
+            <S.BlockHeader>
+              <S.Text size={14} color={C.colors.textBlack} weight={800}>
+                회원정보
+              </S.Text>
+            </S.BlockHeader>
+            <S.BlockBody>
+              <S.UserImg>
+                <S.Text size={58} color={"white"} weight={800}>
+                  A
+                </S.Text>
+              </S.UserImg>
+              <S.UpperText>
+                <S.Text size={18} color={C.colors.textBlack} weight={800}>
+                  {userInfoValue.name}
+                </S.Text>
+                <S.RoleButton>
+                  <S.Text size={10} color={C.colors.textIcyGray} weight={600}>
+                    {userInfoValue.name}
+                  </S.Text>
+                </S.RoleButton>
+              </S.UpperText>
+              <S.Text size={10} color={C.colors.textIcyGray} weight={600}>
+                {userInfoValue.email}
+              </S.Text>
+            </S.BlockBody>
+          </S.InfoDiv>
           {/* MainBody 우측 하단 -공지사항 */}
-          <AboutContainer height="50%" width="100%">
+          <S.FaqDiv>
             {/* 회원정보를 넣을 Container */}
-            <AboutContainer
-              height="90%"
-              width="90%"
-              flexDirection="column"
-              justifyContent="center"
-              align="flex-start"
-              style={{
-                border: "1px solid black",
-              }}
-            >
-              <AboutContainer
-                width="100%"
-                height="10%"
-                style={{ border: "1px solid gray" }}
-              >
+            <S.BlockHeader>
+              <S.Text size={14} color={C.colors.textBlack} weight={800}>
                 FAQ
-              </AboutContainer>
-              <AboutContainer
-                width="100%"
-                height="80%"
-                style={{ border: "1px solid gray" }}
-              >
-                FAQ
-              </AboutContainer>
-              <AboutContainer
-                style={{ marginRight: "10%" }}
-                width="100%"
-                height="10%"
-                justifyContent="end"
-              >
-                <ContainedBtn content="FAQ 추가하기" onClick={goFAQ} />
-              </AboutContainer>
-            </AboutContainer>
-          </AboutContainer>
-        </AboutContainer>
-        {/* MainBody의 오른쪽 */}
-        <AboutContainer
-          height="100%"
-          width="50%"
-          flexDirection="column"
-          justifyContent="center"
-          align="center"
-          style={{
-            border: "1px solid black",
-          }}
-        >
-          <AboutContainer height="90%" width="90%" flexDirection="column">
-            <AboutContainer
-              width="100%"
-              height="5%"
-              style={{ border: "1px solid gray" }}
-            >
-              현재 있는 챗봇
-            </AboutContainer>
-            <AboutContainer
-              width="100%"
-              height="90%"
-              style={{
-                border: "1px solid gray",
-                overflowY: "auto",
-                paddingTop: "5%",
-              }}
-            >
-              <SelectBlock data={[]} />
-            </AboutContainer>
-            <AboutContainer
-              style={{ marginRight: "10%" }}
-              width="100%"
-              height="10%"
-              justifyContent="end"
-            >
-              <ContainedBtn content="챗봇 만들기" onClick={goMeun1} />
-            </AboutContainer>
-          </AboutContainer>
-        </AboutContainer>
+              </S.Text>
+            </S.BlockHeader>
+
+            <S.FaqBody>
+              <S.CategoryDiv>
+                <S.IconContainer>
+                  <img width={20} height={20} src={User} />
+                </S.IconContainer>
+                <S.Text
+                  size={14}
+                  color={C.colors.samsungBlue}
+                  weight={800}
+                  style={{ paddingLeft: "15px" }}
+                >
+                  로그인
+                </S.Text>
+              </S.CategoryDiv>
+              <S.CategoryDiv>
+                <S.IconContainer>
+                  <img width={20} height={20} src={DataBase} />
+                </S.IconContainer>
+                <S.Text
+                  size={14}
+                  color={C.colors.samsungBlue}
+                  weight={800}
+                  style={{ paddingLeft: "15px" }}
+                >
+                  챗봇
+                </S.Text>
+              </S.CategoryDiv>
+              <S.CategoryDiv>
+                <S.IconContainer>
+                  <img width={20} height={20} src={Contacts} />
+                </S.IconContainer>
+                <S.Text
+                  size={14}
+                  color={C.colors.samsungBlue}
+                  weight={800}
+                  style={{ paddingLeft: "15px" }}
+                >
+                  연락처
+                </S.Text>
+              </S.CategoryDiv>
+            </S.FaqBody>
+
+            <S.FaqBottom onClick={goFAQ}>
+              <S.Text size={14} color={C.colors.samsungBlue} weight={800}>
+                FAQ 추가하기
+              </S.Text>
+              <img width={22} height={22} src={Arrow} />
+            </S.FaqBottom>
+          </S.FaqDiv>
+        </S.RightDiv>
       </AboutContainer>
     </AboutBody>
   );
