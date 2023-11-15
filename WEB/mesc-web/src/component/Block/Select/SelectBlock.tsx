@@ -1,10 +1,11 @@
 // React
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // style
-import { OutlinedBtn } from "../../common/About/AboutBtn";
-import { CustomTable } from "./SelectBlockStyle";
+import * as S from "./SelectBlockStyle";
+import * as C from "../../common/theme";
+
 // api
 import { api } from "../../../apis/Api";
 // recoil
@@ -79,6 +80,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
           });
 
         console.log("삭제완료");
+        alert("삭제완료");
       })
       .catch((err) => {
         console.log(err);
@@ -138,47 +140,102 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
   };
 
   return (
-    <CustomTable>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>이름</th>
-          <th>자세히 보기</th>
-          <th>삭제하기</th>
-        </tr>
-      </thead>
-      <tbody>
+    <S.Total>
+      {/* Header */}
+      <S.TitleBox>
+        <S.TitleDiv width={"18%"}>
+          <S.Text size={16} color={"#94918A"} weight={500}>
+            Id
+          </S.Text>
+        </S.TitleDiv>
+        <S.TitleDiv width={"40%"}>
+          <S.Text size={16} color={"#94918A"} weight={500}>
+            블록 이름
+          </S.Text>
+        </S.TitleDiv>
+        <S.TitleDiv width={"21%"} justify="center">
+          <S.Text size={16} color={"#94918A"} weight={500}>
+            자세히 보기
+          </S.Text>
+        </S.TitleDiv>
+        <S.TitleDiv width={"21%"} justify="center">
+          <S.Text size={16} color={"#94918A"} weight={500}>
+            수정하기
+          </S.Text>
+        </S.TitleDiv>
+      </S.TitleBox>
+      {/* Body */}
+      <S.TableContainer>
         {resdata.map((item) => (
-          <tr key={item.index}>
-            <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>
-              {item.id <= 14 ? (
-                <span></span>
-              ) : (
-                <OutlinedBtn
-                  content={"자세히 보기"}
+          <S.TableDiv key={item.index}>
+            <S.TitleDiv width={"18%"}>
+              <S.Text size={16} color={C.colors.textBlack} weight={500}>
+                {item.id}
+              </S.Text>
+            </S.TitleDiv>
+            <S.TitleDiv width={"40%"}>
+              <S.Text size={16} color={C.colors.textBlack} weight={500}>
+                {item.name}
+              </S.Text>
+            </S.TitleDiv>
+
+            {item.id <= 14 ? (
+              <S.TitleDiv width={"21%"} justify="center">
+                <S.Text
+                  size={16}
+                  color={"#94918A"}
+                  weight={500}
+                  style={{ paddingTop: "20px", paddingBottom: "20px" }}
+                >
+                  자세히 보기
+                </S.Text>
+              </S.TitleDiv>
+            ) : (
+              <S.TitleDiv width={"21%"} justify="center">
+                <S.BlueButton
                   onClick={() => {
                     GoBlock(item.id);
                   }}
-                />
-              )}
-            </td>
-            <td>
-              {item.id <= 14 ? (
-                <span></span>
-              ) : (
-                <OutlinedBtn
-                  content={"삭제하기"}
+                >
+                  <S.Text size={16} color={C.colors.buttonBlue} weight={500}>
+                    자세히 보기
+                  </S.Text>
+                </S.BlueButton>
+              </S.TitleDiv>
+            )}
+
+            {item.id <= 14 ? (
+              <S.TitleDiv width={"21%"} justify="center">
+                <S.Text
+                  size={16}
+                  color={"#94918A"}
+                  weight={500}
+                  style={{ paddingTop: "20px", paddingBottom: "20px" }}
+                >
+                  자세히 보기
+                </S.Text>
+              </S.TitleDiv>
+            ) : (
+              <S.TitleDiv width={"21%"} justify="center">
+                <S.RedButton
                   onClick={() => {
-                    deleteBlock(item.id);
+                    const shouldDelete =
+                      window.confirm("정말로 삭제하시겠습니까?");
+
+                    if (shouldDelete) {
+                      deleteBlock(item.id);
+                    }
                   }}
-                />
-              )}
-            </td>
-          </tr>
+                >
+                  <S.Text size={16} color={C.colors.buttonRed} weight={500}>
+                    삭제하기
+                  </S.Text>
+                </S.RedButton>
+              </S.TitleDiv>
+            )}
+          </S.TableDiv>
         ))}
-      </tbody>
-    </CustomTable>
+      </S.TableContainer>
+    </S.Total>
   );
 };

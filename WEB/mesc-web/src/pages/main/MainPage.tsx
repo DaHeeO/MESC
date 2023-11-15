@@ -77,7 +77,7 @@ export const MainPage = () => {
                 회원정보
               </S.Text>
             </S.BlockHeader>
-            <S.BlockBody>
+            <S.InfoBody>
               <S.UserImg>
                 <S.Text size={58} color={"white"} weight={800}>
                   A
@@ -96,7 +96,7 @@ export const MainPage = () => {
               <S.Text size={10} color={C.colors.textIcyGray} weight={600}>
                 {userInfoValue.email}
               </S.Text>
-            </S.BlockBody>
+            </S.InfoBody>
           </S.InfoDiv>
           {/* MainBody 우측 하단 -공지사항 */}
           <S.FaqDiv>

@@ -45,8 +45,7 @@ export const BlockBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  overflow-y: hidden;
+  justify-content: flex-start;
 `;
 
 export const RightDiv = styled.div`
@@ -68,6 +67,15 @@ export const InfoDiv = styled.div`
   background-color: #ffffff;
   border-radius: 15px;
   padding: 10px;
+`;
+
+export const InfoBody = styled.div`
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 
 export const UserImg = styled.div`
