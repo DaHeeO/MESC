@@ -349,6 +349,7 @@ public class BlockServiceImpl implements BlockService {
 		// 		valuesRepository.save(ComponentValue.toEntity(cv));
 		// 	}));
 
+		log.info("cardReqList : {}", cardReqList);
 		if (cardReqList != null) {
 			for (CardReq cardReq : cardReqList) {
 				cardReq.setBlock(block);
@@ -376,6 +377,7 @@ public class BlockServiceImpl implements BlockService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveCardInfo(List<CardReq> cardReqList) {
 		for (CardReq cardReq : cardReqList) {
+			log.info("cardReq : {}", cardReq);
 			Card savedCard = cardRepository.save(Card.toEntity(cardReq));
 			List<ComponentReq> componentReqList = cardReq.getComponentList();
 
