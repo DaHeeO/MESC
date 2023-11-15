@@ -1,6 +1,7 @@
 package com.ksol.mesc.domain.api.service;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -35,14 +36,15 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getTableByQuery(String query, Integer page) {
+	public LinkedHashMap<String, Object> getTableByQuery(String query, Integer page, List<String> queryList) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
+
 		Object data = webClient.post()
 			// .uri("/developer/data")
 			.uri("/developer/data/" + page)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
-			.bodyValue(new DeveloperDataRequestDto(query))
+			.bodyValue(new DeveloperDataRequestDto(query, queryList))
 			.retrieve()
 			.toEntity(JsonResponse.class)
 			.onErrorMap(e -> new MesServerException(e.getMessage()))
@@ -60,7 +62,7 @@ public class ApiServiceImpl implements ApiService {
 			.uri("/developer/query")
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
-			.bodyValue(new DeveloperQueryRequestDto(query))
+			.bodyValue(new DeveloperQueryRequestDto(query, null))
 			.retrieve()
 			.toEntity(JsonResponse.class)
 			.onErrorMap(e -> {
@@ -75,13 +77,14 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getTableByActionId(Integer actionId, String conditions, Integer page) {
+	public LinkedHashMap<String, Object> getTableByActionId(Integer actionId, String conditions, Integer page,
+		List<String> queryList) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 		Object data = webClient.post()
 			.uri("/worker/data/" + actionId + "/" + page)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
-			.body(Mono.just(new WorkerDataRequestDto(conditions)), WorkerDataRequestDto.class)
+			.body(Mono.just(new WorkerDataRequestDto(conditions, queryList)), WorkerDataRequestDto.class)
 			.retrieve()
 			.toEntity(JsonResponse.class)
 			.onErrorMap(e -> new MesServerException(e.getMessage()))
@@ -115,7 +118,24 @@ public class ApiServiceImpl implements ApiService {
 			.uri("/developer/query/rollback/" + page)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
-			.bodyValue(new DeveloperQueryRequestDto(query))
+			.bodyValue(new DeveloperQueryRequestDto(query, null))
+			.retrieve()
+			.toEntity(JsonResponse.class)
+			.onErrorMap(e -> new MesServerException(e.getMessage()))
+			.block()
+			.getBody()
+			.getData();
+		return (LinkedHashMap<String, Object>)data;
+	}
+
+	public LinkedHashMap<String, Object> getTableByAllQueryRollback(String query, Integer page,
+		List<String> queryList) {
+		String accessToken = jwtAuthenticationFilter.getAccessToken();
+		Object data = webClient.post()
+			.uri("/developer/query/all/rollback/" + page)
+			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue(new DeveloperQueryRequestDto(query, queryList))
 			.retrieve()
 			.toEntity(JsonResponse.class)
 			.onErrorMap(e -> new MesServerException(e.getMessage()))

@@ -167,9 +167,11 @@ public class BlockServiceImpl implements BlockService {
 				if (cardReqDto.getActionId() == null) {
 					break;
 				}
+
 				LinkedHashMap<String, Object> tableInfo = (LinkedHashMap<String, Object>)requestPostToMes(
 					"/worker/data/",
 					cardReqDto, cardType);
+
 				cardMap.put("title", cardReqDto.getTitle());
 				cardMap.put("labels", tableInfo.get("label"));
 				tableInfo.remove("label");
@@ -179,7 +181,8 @@ public class BlockServiceImpl implements BlockService {
 			// 	cardMap.put("singleTable", requestPostToMes("/developer/data", cardReqDto, cardType));
 			// 	break;
 			case QU:    //select 쿼리 입력
-				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(), 1);
+				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(), 1,
+					cardReqDto.getQueryList());
 				Boolean result = (Boolean)tableByQuery.get("result");
 				cardMap.put("result", result);
 				if (result) {

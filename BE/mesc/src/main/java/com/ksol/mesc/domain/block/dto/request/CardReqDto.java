@@ -16,4 +16,5 @@ public class CardReqDto {
 	private String keyword;
 	private String date;
 	private List<String> levelList;
+	private List<String> queryList;
 }

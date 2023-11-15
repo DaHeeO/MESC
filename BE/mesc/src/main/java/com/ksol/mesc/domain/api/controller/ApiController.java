@@ -1,6 +1,7 @@
 package com.ksol.mesc.domain.api.controller;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -55,7 +56,8 @@ public class ApiController {
 		BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		String query = developerDataRequestDto.getQuery();
-		LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query, page);
+		List<String> queryList = developerDataRequestDto.getQueryList();
+		LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query, page, queryList);
 		System.out.println(tableByQuery.keySet().stream().collect(Collectors.toList()));
 		if (tableByQuery.containsKey("message")) {
 			return new ResponseEntity<>(
@@ -89,7 +91,9 @@ public class ApiController {
 		BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		String conditions = workerDataRequestDto.getConditions();
-		LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions, page);
+		List<String> queryList = workerDataRequestDto.getQueryList();
+		LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions, page,
+			queryList);
 		if (tableByActionId.containsKey("message")) {
 			return new ResponseEntity<>(
 				CommonResponseDto.error(HttpStatus.NOT_ACCEPTABLE.value(), (String)tableByActionId.get("message")),
