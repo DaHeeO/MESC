@@ -12,6 +12,10 @@ import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.common.EntityState;
 
 public interface BlockRepository extends JpaRepository<Block, Integer> {
+	@Modifying
+	@Query("update Block b set b.name=:name where b.id=:id")
+	void updateBlockName(@Param("id") Integer id, @Param("name") String name);
+
 	@Query("select b from Block b where b.state=:state")
 	List<Block> findAllByActive(@Param("state") EntityState state);
 

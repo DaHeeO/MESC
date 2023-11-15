@@ -3,7 +3,6 @@ package com.ksol.mesc.domain.block.service;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -148,12 +147,14 @@ public class BlockServiceImpl implements BlockService {
 		switch (cardType) {
 			case DT:    //dynamic Text
 				content = card.getContent();
-				Map<String, String> map = cardReqDto.getVariables();
-				if (map != null) {
-					for (String key : map.keySet()) {
-						content = content.replace("{" + key + "}", map.get(key));
-					}
-				}
+				String title = cardReqDto.getTitle();
+				content = content.replace("{title}", title);
+				// Map<String, String> map = cardReqDto.getVariables();
+				// if (map != null) {
+				// 	for (String key : map.keySet()) {
+				// 		content = content.replace("{" + key + "}", map.get(key));
+				// 	}
+				// }
 				cardMap.put("cardType", CardType.TX);
 				cardMap.put("content", content);
 				break;
@@ -322,11 +323,13 @@ public class BlockServiceImpl implements BlockService {
 		}
 
 		//블록 존재 확인
-		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
+		blockRepository.findActiveById(blockId, EntityState.ACTIVE)
 			.orElseThrow(() -> new EntityNotFoundException("Active Block Not Found"));
 
 		//1. 블록 수정
-		Block updateBlock = blockRepository.save(block);
+		blockRepository.updateBlockName(blockId, blockInfoDto.getName());
+		Block updateBlock = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
+			.orElseThrow(() -> new EntityNotFoundException("Active Block Not Found"));
 
 		//2. 카드 + 컴포넌트 수정
 		saveCardAndComponent(updateBlock, cardReqList, componentReqs);
