@@ -148,23 +148,33 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        {resdata.map((item: any) => (
+        {resdata.map((item) => (
           <tr key={item.index}>
             <td>{item.id}</td>
             <td>{item.name}</td>
             <td>
-              <OutlinedBtn
-                content={"자세히 보기"}
-                onClick={() => {
-                  GoBlock(item.id);
-                }}
-              />
+              {item.id <= 14 ? (
+                <span></span>
+              ) : (
+                <OutlinedBtn
+                  content={"자세히 보기"}
+                  onClick={() => {
+                    GoBlock(item.id);
+                  }}
+                />
+              )}
             </td>
             <td>
-              <OutlinedBtn
-                content={"삭제하기"}
-                onClick={() => deleteBlock(item.id)}
-              />
+              {item.id <= 14 ? (
+                <span></span>
+              ) : (
+                <OutlinedBtn
+                  content={"삭제하기"}
+                  onClick={() => {
+                    deleteBlock(item.id);
+                  }}
+                />
+              )}
             </td>
           </tr>
         ))}
