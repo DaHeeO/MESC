@@ -9,10 +9,12 @@ import Close from '../../../assets/icons/close.svg';
 //recoil
 import {useRecoilState} from 'recoil';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {ConditionState} from '../../../states/ConditionState';
 
 interface chatBtnprops {
   onPress: () => void;
   backgroundColor?: string;
+  query: string | undefined;
 }
 
 export const GoStartChat = () => {
@@ -45,6 +47,7 @@ export const GoDataControll = () => {
 export const ConditionModify = (props: chatBtnprops) => {
   const [openCoditionForm, setOpenCoditionForm] =
     useRecoilState(ConditionModifyState);
+  const [condition, setCondition] = useRecoilState(ConditionState);
   return (
     <AboutChatBtn
       height="30px"
@@ -54,6 +57,11 @@ export const ConditionModify = (props: chatBtnprops) => {
       icon={<Filter />}
       onPress={() => {
         props.onPress();
+        props.query;
+        setCondition(prevCondition => ({
+          ...prevCondition,
+          query: props.query,
+        }));
       }}
       backgroundColor="#FFFFFF"
     />

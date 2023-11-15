@@ -141,6 +141,7 @@ function DataComponent(props: {card: Card}) {
             table={tableData}
             title={TableTitle || ''}
             showButton={true}
+            query={query}
           />
         </S.DataSection>
 

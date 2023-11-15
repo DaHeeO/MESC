@@ -34,6 +34,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
   // 모달 종류
   const [modalId, setModalId] = useRecoilState(modalIdState);
   const [user, setUser] = useRecoilState(checkContactState);
+
   async function handle() {
     let blockId = 0;
 

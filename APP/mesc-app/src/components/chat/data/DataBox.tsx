@@ -53,6 +53,7 @@ const DataBox: React.FC<DataBoxProps> = ({
           rowList={table.rowList}
           isModal={false}
           showButton={showButton}
+          query={query}
         />
       );
     } else if (query) {
