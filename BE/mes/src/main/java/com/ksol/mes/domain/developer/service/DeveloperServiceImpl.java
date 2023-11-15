@@ -52,12 +52,6 @@ public class DeveloperServiceImpl implements DeveloperService {
 	}
 
 	@Override
-	public Table executeAllQueryWithRollback(String query, Integer page, List<String> queryList) throws SQLException {
-		query = getPaginationQuery(query, page);
-		return jdbcUtil.selectAfterAllModify(query, queryList);
-	}
-
-	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void commitTransation() {
 		jdbcUtil.commitTransaction();
