@@ -20,9 +20,9 @@ public class Table {
 	private Boolean isLastPage = false;
 	private Integer totalCnt;
 	private Integer rowCnt = 0;
-	private Integer pageSize = 10;
+	private Integer pageSize = 20;
 
-	public Table(ResultSet resultSet) throws SQLException {
+	public Table(ResultSet resultSet, Integer page, Integer totalSize) throws SQLException {
 		ResultSetMetaData metaData = resultSet.getMetaData();
 		this.tableList = new HashSet<>();
 		int columnCount = metaData.getColumnCount();
@@ -45,7 +45,9 @@ public class Table {
 		log.info("rowcnt : {}", rowCnt);
 		if (rowCnt < pageSize)
 			isLastPage = true;
+		rowCnt += (page - 1) * pageSize;
 		resultSet.close();
+		this.totalCnt = totalSize;
 	}
 
 	public void printWithLabel() {
@@ -127,5 +129,17 @@ public class Table {
 
 	public Boolean getIsLastPage() {
 		return isLastPage;
+	}
+
+	public Integer getTotalCnt() {
+		return totalCnt;
+	}
+
+	public Boolean getLastPage() {
+		return isLastPage;
+	}
+
+	public Integer getRowCnt() {
+		return rowCnt;
 	}
 }
