@@ -11,6 +11,7 @@ export async function getAccessToken() {
 // 로컬 스토리지에 accessToken 값 추출
 export async function getUserName() {
   const value = await AsyncStorage.getItem('userName');
+
   return value;
 }
 

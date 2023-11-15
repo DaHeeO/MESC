@@ -60,10 +60,46 @@ const Table: React.FC<TableProps> = ({
   const [dropdown, setDropdown] = useRecoilState(DropdownState);
   const [AnctionId, setAnctionId] = useRecoilState(ActionIdState);
   const [touchedRow, setTouchedRow] = useState(null);
-  const [data, setData] = useState(rowList);
-  const [hasMore, setHasMore] = useState(true);
+  const [moreRowList, setMoreRowList] = useState(rowList);
+  const [currentPage, setCurruntPage] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
 
-  // ///////////////////////////////////// 페이지네이션 코드 //////////////////////////////////
+  const loadMoreData = async () => {
+    if (isLastPage) return;
+
+    const body = {
+      conditions: '',
+    };
+    await customAxios
+      .post(`api/worker/data/${actionId}/${currentPage}`, body)
+      .then(response => {
+        console.log('response================', response.data);
+        const newData = response.data.data.rowList;
+        setMoreRowList(prevRowList => [...prevRowList, ...newData]);
+        setCurruntPage(currentPage => currentPage + 1);
+        setIsLastPage(response.data.data.isLastPage);
+        return newData;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const handleScroll = (event: any) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    const contentHeight = event.nativeEvent.contentSize.height;
+    const viewHeight = event.nativeEvent.layoutMeasurement.height;
+
+    if (offsetY + viewHeight >= contentHeight - 50) {
+      // 스크롤이 바닥에 거의 도달했을 때
+      loadMoreData();
+    }
+  };
+
+  // const [data, setData] = useState(rowList);
+  // const [hasMore, setHasMore] = useState(true);
+
+  // // ///////////////////////////////////// 페이지네이션 코드 //////////////////////////////////
   // const observer = useRef();
   // const lastElementRef = useCallback(
   //   (node:any) => {
@@ -101,7 +137,8 @@ const Table: React.FC<TableProps> = ({
   //       console.log(error);
   //     });
   //   return data;
-  // }/////////////////////////////////////////////////////////////////////////////////
+  // }
+  // /////////////////////////////////////////////////////////////////////////////////
 
   // 셀 너비 설정
   const minColumnWidth = 75;
@@ -232,9 +269,10 @@ const Table: React.FC<TableProps> = ({
                 ))}
               </View>
               <ScrollView
+                onScroll={handleScroll}
                 nestedScrollEnabled={true}
                 showsVerticalScrollIndicator={false}>
-                {rowList.map((row, rowIndex) => (
+                {moreRowList.map((row, rowIndex) => (
                   <TouchableOpacity
                     key={`row-${rowIndex}`}
                     onPressIn={() => handleTouchStart(rowIndex)}

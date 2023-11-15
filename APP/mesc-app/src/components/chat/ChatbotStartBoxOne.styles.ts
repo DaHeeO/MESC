@@ -9,6 +9,7 @@ export const ChatbotBox = styled.View`
   border-radius: 10px;
   margin-top: 10px;
   background-color: ${colors.icy};
+  margin-bottom: 12px;
 `;
 
 export const TopBox = styled.View`

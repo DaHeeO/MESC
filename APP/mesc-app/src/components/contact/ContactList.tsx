@@ -13,6 +13,8 @@ import {colors} from '../common/Theme';
 import Filter from '../../assets/icons/filter.svg';
 import Search from '../../assets/icons/search.svg';
 import CheckBoxIcon from '../../assets/icons/checkbox.svg';
+import Check from '../../assets/icons/check.svg';
+import Close from '../../assets/icons/x.svg';
 // BottomSheet
 import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {ReportForm} from '../message/Report/ReportForm';
@@ -45,7 +47,7 @@ export const ContactListForm = () => {
     phoneNumber: string,
     role: string,
   ) => {
-    // console.log('체크박스 클릭됨' + userId);
+    console.log('체크박스 클릭됨' + userId);
 
     setCheckContact(prev => {
       // 이미 선택된 사용자인지 확인
@@ -104,24 +106,32 @@ export const ContactListForm = () => {
             )
           }>
           <S.ContactBox>
-            <S.InfoBox>
+            <S.NameBox>
               <S.BoldText size={17} color={colors.primary}>
                 {item.name}
               </S.BoldText>
-            </S.InfoBox>
-            <S.InfoBox>
+            </S.NameBox>
+            <S.EmailBox>
               <S.BoldText size={15} color={colors.primary}>
                 {item.email}
               </S.BoldText>
-            </S.InfoBox>
+            </S.EmailBox>
           </S.ContactBox>
-          <S.CheckBox
-            style={{
-              borderColor: isChecked ? 'transparent' : 'gray',
-              backgroundColor: isChecked ? '#F5F8FC' : 'transparent',
-            }}>
-            {isChecked && <CheckBoxIcon />}
-          </S.CheckBox>
+          <S.CheckboxContainer>
+            <S.CheckBox
+              key={item.userId}
+              onPress={() =>
+                handleCheckBoxClick(
+                  item.userId,
+                  item.email,
+                  item.name,
+                  item.phoneNumber,
+                  item.role,
+                )
+              }>
+              {isChecked && <Check />}
+            </S.CheckBox>
+          </S.CheckboxContainer>
         </S.ContactDiv>
       );
     },
@@ -144,11 +154,16 @@ export const ContactListForm = () => {
                   <S.TitleBox>
                     <S.Title>연락처</S.Title>
                   </S.TitleBox>
-                  <S.Right onPress={() => handleClosePress()}>
+
+                  <S.SendBtn onPress={() => handleClosePress()}>
+                    <S.SendText> 완료 </S.SendText>
+                  </S.SendBtn>
+
+                  {/* <S.Right onPress={() => handleClosePress()}>
                     <S.Text size={16} color={colors.primary}>
                       완료
                     </S.Text>
-                  </S.Right>
+                  </S.Right> */}
                 </S.Navigation>
                 <S.Search>
                   <Search />
@@ -162,9 +177,11 @@ export const ContactListForm = () => {
                     <Filter />
                   </TouchableOpacity>
                 </S.FilterDiv>
-                <BottomSheetScrollView style={{marginBottom: '10%'}}>
+                <BottomSheetScrollView
+                  style={{marginBottom: '10%'}}
+                  showsVerticalScrollIndicator={false}>
                   {/* 연락처 정보 랜더링 되는 구간 */}
-                  {Contacts.map(renderItem)}
+                  <S.Row>{Contacts.map(renderItem)}</S.Row>
                 </BottomSheetScrollView>
               </S.Body>
             </S.Div>

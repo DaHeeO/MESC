@@ -9,7 +9,7 @@ export const colors = {
   icy: '#F5F8FC',
   red: '#FF0000',
 
-  backgroundGray: '#EBECEF',
+  backgroundGray: '#EBECED',
   backgroundIris: '#F2F2FE',
   background: '#323639',
 
@@ -21,4 +21,6 @@ export const colors = {
 
   // 파란색 텍스트
   text: '#182655',
+
+  // 연한 배경
 };
