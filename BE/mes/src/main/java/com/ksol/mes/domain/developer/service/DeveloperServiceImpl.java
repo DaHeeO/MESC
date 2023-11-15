@@ -20,20 +20,15 @@ import lombok.extern.slf4j.Slf4j;
 public class DeveloperServiceImpl implements DeveloperService {
 
 	private final JdbcUtil jdbcUtil;
-	private final static Integer PAGE_SIZE = 20;
 
 	@Override
 	public Table getTable(String query, Integer page, List<String> queryList) throws SQLException {
-		query = getPaginationQuery(getOnlyOneQuery(query), page);
+//		return jdbcUtil.select(query, page);
 
 		if (queryList == null)
-			return jdbcUtil.select(query);
+			return jdbcUtil.select(getOnlyOneQuery(query), page);
 		else
-			return jdbcUtil.selectAfterAllModify(query, queryList);
-	}
-
-	private String getPaginationQuery(String query, Integer page) {
-		return query + " LIMIT " + PAGE_SIZE + " OFFSET " + PAGE_SIZE * (page - 1);
+			return jdbcUtil.selectAfterAllModify(query, queryList, page);
 	}
 
 	private static String getOnlyOneQuery(String query) {
@@ -48,13 +43,12 @@ public class DeveloperServiceImpl implements DeveloperService {
 
 	@Override
 	public Table executeQueryWithRollback(String query, Integer page, List<String> queryList) throws SQLException {
-		return jdbcUtil.selectAfterModify(query);
+		return jdbcUtil.selectAfterModify(query, page);
 	}
 
 	@Override
 	public Table executeAllQueryWithRollback(String query, Integer page, List<String> queryList) throws SQLException {
-		query = getPaginationQuery(query, page);
-		return jdbcUtil.selectAfterAllModify(query, queryList);
+		return jdbcUtil.selectAfterAllModify(query, queryList, page);
 	}
 
 	@Override

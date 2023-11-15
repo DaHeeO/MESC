@@ -29,7 +29,7 @@ public class WorkerServiceImpl implements WorkerService {
 		String query = null;
 		Integer pageSize = 20;    //한 페이지에 보여줄 사이즈
 		try {
-			Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId);
+			Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId, pageSize);
 			query =
 				selectResult.getRows().get(0).get(0) + ' ' + getOnlyOneQuery(conditions) + " LIMIT " + pageSize
 					+ " OFFSET " + pageSize * (page - 1);
@@ -55,9 +55,9 @@ public class WorkerServiceImpl implements WorkerService {
 		map.put("query", query);
 
 		if (queryList == null) {
-			map.put("table", jdbcUtil.select(query));
+			map.put("table", jdbcUtil.select(query, page));
 		} else {
-			map.put("table", jdbcUtil.selectAfterAllModify(query, queryList));
+			map.put("table", jdbcUtil.selectAfterAllModify(query, queryList, page));
 		}
 
 		return map;

@@ -19,6 +19,8 @@ public class JdbcUtil {
 	private static final String catalog = "mes";
 	private final DataSource dataSource;
 
+	private final static Integer PAGE_SIZE = 20;
+
 	public JdbcUtil(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
@@ -30,7 +32,7 @@ public class JdbcUtil {
 			connection = dataSource.getConnection();
 			DatabaseMetaData metaData = connection.getMetaData();
 			ResultSet tables = metaData.getTables(catalog, null, null, null);
-			table = new Table(tables);
+			table = new Table(tables, 0, 0);
 			connection.close();
 		} catch (SQLException e) {
 			if (connection != null) {
@@ -49,7 +51,7 @@ public class JdbcUtil {
 			connection = dataSource.getConnection();
 			DatabaseMetaData metaData = connection.getMetaData();
 			ResultSet columns = metaData.getColumns(catalog, null, tableName, null);
-			table = new Table(columns);
+			table = new Table(columns, 0, 0);
 			connection.close();
 		} catch (SQLException e) {
 			if (connection != null) {
@@ -61,7 +63,7 @@ public class JdbcUtil {
 		return table;
 	}
 
-	public Table selectAfterAllModify(String originQuery, List<String> queryList) throws SQLException {
+	public Table selectAfterAllModify(String originQuery, List<String> queryList, Integer page) throws SQLException {
 		Connection connection = null;
 		Statement statement = null;
 		Table table;
@@ -75,9 +77,10 @@ public class JdbcUtil {
 				statement.executeUpdate(query);
 			}
 
-			ResultSet resultSet = statement.executeQuery(originQuery);
-
-			table = new Table(resultSet);
+			ResultSet resultSet = statement.executeQuery(getPaginationQuery(originQuery, page));
+			/////////////////////////////////////////////////////////////
+			Integer total = getTotalCnt(originQuery);
+			table = new Table(resultSet, page, total);
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -93,7 +96,7 @@ public class JdbcUtil {
 		return table;
 	}
 
-	public Table selectAfterModify(String modifyQuery) throws SQLException {
+	public Table selectAfterModify(String modifyQuery, Integer page) throws SQLException {
 		Connection connection = null;
 		Statement statement = null;
 		Table table;
@@ -107,9 +110,10 @@ public class JdbcUtil {
 				connection.rollback();
 			}
 			String selectQuery = getSelectQuery(modifyQuery);
-			ResultSet resultSet = statement.executeQuery(selectQuery);
+			ResultSet resultSet = statement.executeQuery(getPaginationQuery(selectQuery, page));
 
-			table = new Table(resultSet);
+			Integer total = getTotalCnt(selectQuery);
+			table = new Table(resultSet, page, total);
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -125,15 +129,16 @@ public class JdbcUtil {
 		return table;
 	}
 
-	public Table select(String query) throws SQLException {
+	public Table select(String query, Integer page) throws SQLException {
 		Table table;
 		try {
 			Connection connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
 
-			ResultSet resultSet = statement.executeQuery(query);
-			table = new Table(resultSet);
+			ResultSet resultSet = statement.executeQuery(getPaginationQuery(query, page));
+			Integer total = getTotalCnt(query);
+			table = new Table(resultSet, page, total);
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -212,10 +217,38 @@ public class JdbcUtil {
 		// 문자(글자 또는 숫자)라면
 		String selectQuery = "select * from " + tableName + ' ' + whereClause;
 		if (selectQuery.charAt(selectQuery.length() - 1) == ';') {
-			System.out.println("selectQuery = " + selectQuery);
+//			System.out.println("selectQuery = " + selectQuery);
 			selectQuery = selectQuery.substring(0, selectQuery.length() - 1);
-			System.out.println("selectQuery = " + selectQuery);
+//			System.out.println("selectQuery = " + selectQuery);
 		}
 		return selectQuery;
+	}
+
+	private String getPaginationQuery(String query, Integer page) {
+		return query + " LIMIT " + PAGE_SIZE + " OFFSET " + PAGE_SIZE * (page - 1);
+	}
+
+	private Integer getTotalCnt(String selectQuery) throws SQLException {
+		if (selectQuery.charAt(selectQuery.length() - 1) == ';') {
+//			System.out.println("selectQuery = " + selectQuery);
+			selectQuery = selectQuery.substring(0, selectQuery.length() - 1);
+//			System.out.println("selectQuery = " + selectQuery);
+		}
+		String totalQuery = "SELECT COUNT(*) 'total' FROM (" + selectQuery + ") as tempTable";
+		try {
+			Connection connection = dataSource.getConnection();
+			connection.setAutoCommit(false);
+			Statement statement = connection.createStatement();
+
+			ResultSet resultSet = statement.executeQuery(totalQuery);
+			resultSet.next();
+			Integer total = resultSet.getInt("total");
+			statement.close();
+			connection.close();
+			return total;
+		} catch (SQLException e) {
+			log.info(e.getMessage());
+			throw new SQLException(e);
+		}
 	}
 }
