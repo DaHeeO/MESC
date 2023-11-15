@@ -129,7 +129,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
           },
         }));
         console.log("GoBlock", res);
-        navigate(`/Modify${id}`);
+        navigate(`/Modify`);
       })
       .catch((err) => {
         console.log("err==================");
