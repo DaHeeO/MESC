@@ -164,6 +164,9 @@ public class BlockServiceImpl implements BlockService {
 				cardMap.put("cardType", CardType.TX);
 				break;
 			case TA:    //공정 Table
+				if (cardReqDto.getActionId() == null) {
+					break;
+				}
 				LinkedHashMap<String, Object> tableInfo = (LinkedHashMap<String, Object>)requestPostToMes(
 					"/worker/data/",
 					cardReqDto, cardType);
@@ -346,7 +349,6 @@ public class BlockServiceImpl implements BlockService {
 		// 		valuesRepository.save(ComponentValue.toEntity(cv));
 		// 	}));
 
-		List<CardReq> cardReqList2 = cardReqList;
 		if (cardReqList != null) {
 			for (CardReq cardReq : cardReqList) {
 				cardReq.setBlock(block);
