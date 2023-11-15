@@ -128,21 +128,4 @@ public class ApiServiceImpl implements ApiService {
 		return (LinkedHashMap<String, Object>)data;
 	}
 
-	public LinkedHashMap<String, Object> getTableByAllQueryRollback(String query, Integer page,
-		List<String> queryList) {
-		String accessToken = jwtAuthenticationFilter.getAccessToken();
-		Object data = webClient.post()
-			.uri("/developer/query/all/rollback/" + page)
-			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-			.contentType(MediaType.APPLICATION_JSON)
-			.bodyValue(new DeveloperQueryRequestDto(query, queryList))
-			.retrieve()
-			.toEntity(JsonResponse.class)
-			.onErrorMap(e -> new MesServerException(e.getMessage()))
-			.block()
-			.getBody()
-			.getData();
-		return (LinkedHashMap<String, Object>)data;
-	}
-
 }
