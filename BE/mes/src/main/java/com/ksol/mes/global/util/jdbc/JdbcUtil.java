@@ -225,6 +225,8 @@ public class JdbcUtil {
 	}
 
 	private String getPaginationQuery(String query, Integer page) {
+		System.out.println("page = " + page);
+		System.out.println("PAGE_SIZE = " + PAGE_SIZE);
 		return query + " LIMIT " + PAGE_SIZE + " OFFSET " + PAGE_SIZE * (page - 1);
 	}
 

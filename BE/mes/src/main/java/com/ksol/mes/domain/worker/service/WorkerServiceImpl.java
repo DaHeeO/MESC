@@ -29,10 +29,12 @@ public class WorkerServiceImpl implements WorkerService {
 		String query = null;
 		Integer pageSize = 20;    //한 페이지에 보여줄 사이즈
 		try {
-			Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId, pageSize);
+			Table selectResult = jdbcUtil.select("SELECT QUERY FROM ACTION_MAP WHERE ACTION_ID=" + actionId, page);
+			System.out.println("selectResult = " + selectResult);
 			query =
-				selectResult.getRows().get(0).get(0) + ' ' + getOnlyOneQuery(conditions) + " LIMIT " + pageSize
-					+ " OFFSET " + pageSize * (page - 1);
+				selectResult.getRows().get(0).get(0) + ' ' + getOnlyOneQuery(conditions);
+//			selectResult.getRows().get(0).get(0) + ' ' + getOnlyOneQuery(conditions) + " LIMIT " + pageSize
+//					+ " OFFSET " + pageSize * (page - 1);
 		} catch (IndexOutOfBoundsException e) {
 			log.info("해당 actionId와 일치하는 쿼리가 존재하지 않습니다.");
 		}
