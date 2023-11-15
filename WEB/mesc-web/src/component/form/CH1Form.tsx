@@ -6,16 +6,14 @@ import { AboutContainer } from "../common/About/AboutContainer";
 //Recoil
 import { useRecoilState } from "recoil";
 //Recoil State
-import { CardState } from "../../state/create/CreateState";
-//imgae
-// import chatbot from "../../assest/image/chatbot.png";
-
+import { CHState } from "../../state/create/CreateState";
 import { Card } from "../../state/create/CreateState";
+// imgae
+import chatbot from "../../assest/image/chatbot.png";
 
 export const CH1Form = (props: { card: Card }) => {
   //카드 recoil
-  const [cards, setCards] = useRecoilState(CardState);
-  console.log("cards===========", cards);
+  const [getCH1, setGetCH1] = useRecoilState(CHState);
   // 카드 input창 변화 값 저장하는 useState
 
   // {
@@ -40,6 +38,9 @@ export const CH1Form = (props: { card: Card }) => {
   //   )
   // );
   // };
+  // componentList에 추가하기 ============================================
+
+  //=====================================================================
 
   return (
     <S.ComponentContainer height="85%" width="100%" radius="30px">
@@ -65,21 +66,17 @@ export const CH1Form = (props: { card: Card }) => {
             width="60%"
             placeholder="카드 이름"
             onChange={(e) => {
-              // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
-              setCards((prevCards) =>
-                prevCards.map((nowCard) =>
-                  nowCard.sequence === props.card.sequence
-                    ? { ...nowCard, name: e.target.value }
-                    : nowCard
-                )
-              );
+              setGetCH1({
+                ...getCH1,
+                name: e.target.value,
+              });
             }}
           />
           <C.InnerContainer
             width="40%"
             height="100%"
             style={{
-              // backgroundImage: `url(${chatbot})`,
+              backgroundImage: `url(${chatbot})`,
               backgroundSize: "80% 80%",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center bottom",
@@ -96,13 +93,10 @@ export const CH1Form = (props: { card: Card }) => {
               placeholder="내용 1"
               onChange={(e) => {
                 // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
-                setCards((prevCards) =>
-                  prevCards.map((nowCard) =>
-                    nowCard.sequence === props.card.sequence
-                      ? { ...nowCard, content: e.target.value }
-                      : nowCard
-                  )
-                );
+                setGetCH1({
+                  ...getCH1,
+                  content: e.target.value,
+                });
               }}
             />
           </C.InnerContainer>
@@ -118,14 +112,20 @@ export const CH1Form = (props: { card: Card }) => {
                 height="30%"
                 placeholder="버튼 1"
                 onChange={(e) => {
-                  // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
-                  setCards((prevCards) =>
-                    prevCards.map((nowCard) =>
-                      nowCard.sequence === props.card.sequence
-                        ? { ...nowCard, name: e.target.value }
-                        : nowCard
-                    )
-                  );
+                  setGetCH1({
+                    ...getCH1,
+                    componentList: [
+                      ...getCH1.componentList,
+                      {
+                        object: {
+                          valuesList: [
+                            ...getCH1.componentList[0].object.valuesList,
+                            { value: e.target.value },
+                          ],
+                        },
+                      },
+                    ],
+                  });
                 }}
               />
             </S.FormBtn>

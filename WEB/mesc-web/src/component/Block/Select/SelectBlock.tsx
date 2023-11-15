@@ -85,6 +85,36 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
       });
   };
 
+  // 더미데이터 삭제
+  // const deleteAllBlocks = async () => {
+  //   try {
+  //     for (let id = 9057; id <= 18741; id++) {
+  //       await api
+  //         .delete(`block/admin/all/${id}`)
+  //         .then(() => {
+  //           console.log(`ID ${id} 삭제 완료`);
+  //         })
+  //         .catch((err) => {
+  //           setError("데이터를 삭제하는데 실패하였습니다.");
+  //           setLoading(false);
+  //           console.error(err);
+  //         });
+  //     }
+  //     // 여기서 필요한 업데이트 작업을 수행할 수 있습니다.
+  //     // setResData 등등...
+  //   } catch (err) {
+  //     setError("데이터를 삭제하는데 실패하였습니다.");
+  //     setLoading(false);
+  //     console.error(err);
+  //   }
+  // };
+
+  // // 호출하여 실행
+  // useEffect(() => {
+  //   deleteAllBlocks();
+  // }, []);
+  //====================================================
+
   //  ====================================>
   // 단일 블록 조회하기 ============================>
   const GoBlock = (id: number) => {
@@ -133,7 +163,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
             <td>
               <OutlinedBtn
                 content={"삭제하기"}
-                onClick={() => deleteBlock(item.id)}
+                // onClick={() => deleteBlock(item.id)}
               />
             </td>
           </tr>

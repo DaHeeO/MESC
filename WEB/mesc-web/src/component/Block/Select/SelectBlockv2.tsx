@@ -55,7 +55,8 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
     api
       .post(`/block/${id}`, {})
       .then((res) => {
-        console.log(id);
+        console.log("id=======", res);
+        console.log("id=======", id);
         setBlockInfo((prevBlockState) => ({
           ...prevBlockState,
           blockInfo: {

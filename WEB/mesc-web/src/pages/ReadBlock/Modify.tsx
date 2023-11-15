@@ -25,22 +25,25 @@ export const Modify = () => {
   const [blockState, setBlockState] = useRecoilState(CreatBlockState);
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
   const [blockName, setBlockName] = useState("");
-  // console.log(
-  //   "blockState(add_BlockState)==================",
-  //   blockInfo.blockInfo.name
-  // );
 
   // input default 값 설정====================================
   //  name을 못찾는다는 오류 발생 (후순위)
-  const blockname =
-    blockInfo && blockInfo.blockInfo && blockInfo.blockInfo.name;
 
   useEffect(() => {
-    if (blockname !== undefined) {
-      setBlockName(blockname);
-    } else {
-      setBlockName(" ");
+    async function fetchData() {
+      try {
+        // 결과를 처리하고 상태를 업데이트
+        if (blockInfo.blockInfo && blockInfo.blockInfo.name) {
+          setBlockName(blockInfo.blockInfo.name);
+        } else {
+          setBlockName("블럭이름을 작성해주세요.");
+        }
+      } catch (error) {
+        // 오류 처리
+        console.error("Error fetching data: ", error);
+      }
     }
+    fetchData(); // 함수 호출
   }, [blockInfo]);
   // // =======================================================
 
@@ -70,7 +73,7 @@ export const Modify = () => {
 
   // 화면에 보여지는 카드 useState
   const [cards, setCards] = useRecoilState(CardState);
-  console.log("cards==================", cards);
+  // console.log("cards==================", cards);
 
   // 카드 타입을 저장하고 있는 recoil
   const CardType = useRecoilValue(CardIdState);
@@ -83,11 +86,12 @@ export const Modify = () => {
   // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
-      // id: cards.length + 1, // id를 적절히 부여합니다.
+      id: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
       sequence: cards.length + 1,
-      cardType: CardType, // 이 부분도 수정이 필요합니다.
+      cardType: CardType,
       content: "카드 내용을 작성해주세요.",
+      componentList: [],
     };
     // Recoil을 사용하여 카드 상태 갱신
     setCards((prevCards) => [...prevCards, newCard]);
@@ -117,8 +121,8 @@ export const Modify = () => {
           <AboutContainer height="100%" width="90%">
             <S.BlockNameInput
               type="text"
-              placeholder="블럭 이름을 작성하세요."
-              // defaultValue={blockName}
+              // placeholder="블럭 이름을 작성하세요."
+              defaultValue={blockName}
               onChange={(e) => setBlockTitleTyping(e.target.value)}
             />
           </AboutContainer>

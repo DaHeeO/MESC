@@ -16,7 +16,9 @@ export const AddCardComponent = (props: { card: Card }) => {
   const [blocks, setBlock] = useRecoilState(BlockState);
   const [cards, setCards] = useRecoilState(CardState);
   const card = props.card;
-  // console.log("============(addCard)", blocks.blockInfo.id);
+  // console.log("============(addCard)", cards);
+  const blockId = blocks.id;
+  console.log("============(addCard_blocks.id)", blockId);
 
   // const componentId: string = useRecoilValue(CardIdState);
   // reactNode를 반환함
@@ -25,7 +27,7 @@ export const AddCardComponent = (props: { card: Card }) => {
   };
 
   const typeChange = (cardType: any) => {
-    console.log(cardType);
+    // console.log(cardType);
     // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
     setCards((prevCards) =>
       prevCards.map((nowCard) =>
@@ -38,6 +40,8 @@ export const AddCardComponent = (props: { card: Card }) => {
 
   // 단일카드 저장 ===========================================>
   const SaveCard = () => {
+    console.log("============(blocks.id)", blockId);
+
     api
       .post("block/admin", {
         blockInfo: {
@@ -47,7 +51,7 @@ export const AddCardComponent = (props: { card: Card }) => {
       })
       .then((res) => {
         console.log(res);
-        // console.log(blocks.id);
+        console.log(blocks.id);
       })
       .catch((err) => {
         console.log(err);
