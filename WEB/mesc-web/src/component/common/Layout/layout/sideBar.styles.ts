@@ -59,6 +59,10 @@ export const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const LogoBox = styled.div`
@@ -66,6 +70,10 @@ export const LogoBox = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding-left: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const BodyDiv = styled.div`

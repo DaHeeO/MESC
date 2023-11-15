@@ -63,12 +63,12 @@ function SideBar() {
     >
       <S.HeaderDiv>
         <S.HeaderLogoDiv>
-          <S.Logo>
+          <S.Logo onClick={goMain}>
             <S.Text size={22} color={C.colors.samsungBlue} weight={900}>
               M
             </S.Text>
           </S.Logo>
-          <S.LogoBox>
+          <S.LogoBox onClick={goMain}>
             <S.Text size={18} color="white" weight={800}>
               MESC
             </S.Text>
