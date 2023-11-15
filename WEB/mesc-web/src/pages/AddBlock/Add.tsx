@@ -3,19 +3,17 @@ import { useState } from "react";
 // Recoil
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CreatBlockState } from "../../state/create/AddBlock";
-import { BlockState, Card, CardState } from "../../state/create/CreateState"; // Card interface
+import { Card, CardState } from "../../state/create/CreateState"; // Card interface
 import { CardIdState } from "../../state/CardIdState";
 // API
 import { api } from "../../apis/Api";
 // style
 import * as S from "./AddStyle";
 import Button from "@mui/material/Button";
-
 // component
-import BasicSpeedDial from "../../component/common/About/AboutBtn";
 import { AddCardComponent } from "../../component/page/AddCard";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
-import { SaveBtn } from "../../component/common/About/AboutBtn";
+import BasicSpeedDial, { SaveBtn } from "../../component/common/About/AboutBtn";
 
 export const Add = () => {
   // =====================================================================
@@ -23,12 +21,8 @@ export const Add = () => {
   // 블록 이름 저장을 위한
   const [blockTitleTyping, setBlockTitleTyping] = useState<string>("");
   const [blockState, setBlockState] = useRecoilState(CreatBlockState);
-  const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
-  // console.log("blockState(add_BlockState)==================", blockInfo);
 
-  // =======================================================
-
-  // Block 이름 변경 및 API 호출 (버튼 클릭시)
+  // Block 이름 변경 및 API 호출
   const updateBlockName = (newName: string) => {
     setBlockState((prevBlockState) => ({
       ...prevBlockState,
@@ -61,26 +55,20 @@ export const Add = () => {
   const [createCard, setCreateCard] = useRecoilState(CardState);
   const CardType = useRecoilValue(CardIdState);
 
-  // 카드 저장 함수
-  const saveCard = () => {
-    console.log("saveCard================", "id");
-  };
-
   // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
-      // id: cards.length + 1, // id를 적절히 부여합니다.
+      id: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
-      sequence: cards.length + 1,
-      cardType: CardType, // 이 부분도 수정이 필요합니다.
+      sequence: cards.length,
+      // cardType: CardType, // 이 부분도 수정이 필요합니다.
+      cardType: "TX", // 이 부분도 수정이 필요합니다.
       content: "카드 내용을 작성해주세요.",
     };
 
     // Recoil을 사용하여 카드 상태 갱신
     // setCreateCard((prevCardState) => [...prevCardState, newCard]);
     setCards((prevCards) => [...prevCards, newCard]);
-    // console.log("CardState================", createCard);
-    // console.log(cards);
   };
 
   const showCards = cards.map((card) => <AddCardComponent card={card} />);
@@ -122,12 +110,8 @@ export const Add = () => {
             content="카드 내용을 작성해주세요."
           /> */}
       </AboutContainer>
-      <AboutContainer
-        height="5%"
-        width="100%"
-        // style={{ border: "1px solid black" }}
-      >
-        <SaveBtn onClick={saveCard} />
+      <AboutContainer height="5%" width="100%">
+        <SaveBtn />
         <BasicSpeedDial onClick={addCard} />
       </AboutContainer>
     </AboutContainer>

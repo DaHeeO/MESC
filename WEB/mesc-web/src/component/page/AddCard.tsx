@@ -1,63 +1,56 @@
+//React
+import { useState } from "react";
 //style
 import * as S from "../../pages/AddBlock/AddStyle";
 //recoil
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { CardIdState } from "../../state/CardIdState";
 //mui
 import Button from "@mui/material/Button";
 import { AboutContainer } from "../common/About/AboutContainer";
 import { SelectLabels } from "../../pages/AddBlock/CardSelect";
 // component
 import { ComponentIdSwitch } from "../form/SwitchForm";
-import { BlockState, Card, CardState } from "../../state/create/CreateState";
-import { CardBtn } from "../common/About/AboutBtn";
-import { api } from "../../apis/Api";
+import { Card, CardState } from "../../state/create/CreateState";
+
+interface AddCardProps {
+  key: number;
+  content: string;
+  id?: number;
+  clickDelete: () => any;
+}
 
 export const AddCardComponent = (props: { card: Card }) => {
-  const [blocks, setBlock] = useRecoilState(BlockState);
   const [cards, setCards] = useRecoilState(CardState);
   const card = props.card;
-  // console.log("============(addCard)", cards);
-  const blockId = blocks.id;
-  console.log("============(addCard_blocks.id)", blockId);
 
-  // const componentId: string = useRecoilValue(CardIdState);
+  const componentId: string = useRecoilValue(CardIdState);
   // reactNode를 반환함
+  // const component = ComponentIdSwitch({ ComponentId: card.cardType });
+
   const deleteCard = () => {
-    setCards(cards.filter((nowCard) => nowCard.name !== card.name));
+    setCards(cards.filter((nowCard) => nowCard.id !== card.id));
   };
 
   const typeChange = (cardType: any) => {
-    // console.log(cardType);
+    console.log(cardType);
     // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
     setCards((prevCards) =>
       prevCards.map((nowCard) =>
-        nowCard.name === props.card.name
+        nowCard.id === props.card.id
           ? { ...nowCard, cardType: cardType }
           : nowCard
       )
     );
+    // setCards(
+    //   cards.map((nowCard) => {
+    //     if (nowCard.id == card.id) {
+    //       nowCard.cardType = cardType;
+    //     }
+    //     return nowCard;
+    //   })
+    // );
   };
-
-  // 단일카드 저장 ===========================================>
-  const SaveCard = () => {
-    console.log("============(blocks.id)", blockId);
-
-    api
-      .post("block/admin", {
-        blockInfo: {
-          id: blocks.blockInfo.id,
-        },
-        cardReqList: cards,
-      })
-      .then((res) => {
-        console.log(res);
-        console.log(blocks.id);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  //==========================================================>
 
   return (
     <S.CardContainer>
@@ -68,7 +61,6 @@ export const AddCardComponent = (props: { card: Card }) => {
           height="15%"
           justifyContent="center"
           align="center"
-          style={{ borderBottom: "1px solid #e0e0e0" }}
         >
           {/* 카드 인덱스 자리_squence */}
           <S.InnerContainer
@@ -76,9 +68,8 @@ export const AddCardComponent = (props: { card: Card }) => {
             height="100%"
             justifyContent="center"
             alignItems="center"
-            style={{ backgroundColor: "#e0e0e0" }}
           >
-            {card.sequence}
+            {card.id}
           </S.InnerContainer>
           {/* 카드 이름 자리_name*/}
           <S.InnerContainer
@@ -89,16 +80,7 @@ export const AddCardComponent = (props: { card: Card }) => {
           >
             <input
               type="text"
-              placeholder={card.name}
-              onChange={(e) => {
-                setCards((prevCards) =>
-                  prevCards.map((nowCard) =>
-                    nowCard.name === props.card.name
-                      ? { ...nowCard, name: e.target.value }
-                      : nowCard
-                  )
-                );
-              }}
+              placeholder={card.content}
               style={{ width: "90%", height: "90%" }}
             />
           </S.InnerContainer>
@@ -113,7 +95,6 @@ export const AddCardComponent = (props: { card: Card }) => {
             <SelectLabels onType={typeChange} />
           </S.InnerContainer>
         </AboutContainer>
-        {/* {BlockList.id} */}
         {/* 카드 내 contentForm */}
         {/* ==================================== */}
         <ComponentIdSwitch card={card} />
@@ -125,16 +106,12 @@ export const AddCardComponent = (props: { card: Card }) => {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        style={{ borderTop: "1px solid #e0e0e0" }}
       >
         {/* 버튼 자리 */}
         <S.InnerContainer width="50%" height="70%" justifyContent="center">
-          <CardBtn
-            onClick={SaveCard}
-            tooltip="카드 단일저장"
-            content="저장"
-            color="primary"
-          />
+          <Button variant="contained" size="small">
+            저장
+          </Button>
         </S.InnerContainer>
         <S.InnerContainer width="50%" height="70%" justifyContent="center">
           <Button variant="contained" size="small" onClick={deleteCard}>

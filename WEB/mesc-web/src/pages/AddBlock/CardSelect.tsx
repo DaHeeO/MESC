@@ -30,9 +30,10 @@ export const SelectLabels = ({ onType }: SelectLabelsProps) => {
   return (
     <FormControl
       sx={{
-        minWidth: 80,
+        minWidth: 100,
         height: "40px",
         justifyContent: "center",
+        // alignItems: "center",
       }}
     >
       <Select
