@@ -8,6 +8,9 @@ import {BlockResponseData} from '../../../states/BlockResponseState';
 import UserMessage from '../../chat/UserMessage';
 import {BlockType} from '../../../const/constants';
 import {getUserRole} from '../../../../Api';
+import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {modalIdState} from '../../../states/ModalIdState';
+import {set} from 'lodash';
 
 interface ChatBtnProps {
   btnTitle: string;
@@ -23,6 +26,13 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
   const [block, setBlock] = useRecoilState(BlockResponseData);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+
+  // 모달 상태여부
+  const [isModalVisible, setIsModalVisible] =
+    useRecoilState(ConditionModifyState);
+
+  // 모달 종류
+  const [modalId, setModalId] = useRecoilState(modalIdState);
 
   async function handle() {
     let blockId = 0;
@@ -41,6 +51,11 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       blockId = BlockType.QueryInput;
     }
     putBlockToRecoil(blockId);
+
+    if (props.btnTitle == '보고하기') {
+      setIsModalVisible(true);
+      setModalId('RF');
+    }
   }
 
   const putBlockToRecoil = async (blockId: number) => {

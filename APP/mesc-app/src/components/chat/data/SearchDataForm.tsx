@@ -36,7 +36,7 @@ const SearchDataForm = () => {
       <UserMessage message={button.name} />,
     ]);
     const body = {
-      actionId: 23,
+      actionId: button.actionId,
       title: button.name,
       conditions: '',
     };

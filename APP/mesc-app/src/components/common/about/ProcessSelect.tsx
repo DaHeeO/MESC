@@ -19,6 +19,7 @@ export const ProcessSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(null);
   const [items, setItems] = useState<{label: string; value: string}[]>([]);
+  const [defaultValue, setDefaultValue] = useState<string | null>(null);
 
   useEffect(() => {
     // valuesList가 존재하고 배열인 경우에만 변환
@@ -31,24 +32,23 @@ export const ProcessSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
         }),
       );
       setItems(formattedItems);
+
+      if (formattedItems.length > 0) {
+        setDefaultValue(formattedItems[0].value);
+        setValue(formattedItems[0].value);
+        setCondition(prevCondition => ({
+          ...prevCondition,
+          process: formattedItems[0].value,
+        }));
+      }
     }
   }, [valuesList]);
 
-  // DropDownPicker에서 항목을 선택할 때 호출되는 콜백 함수
-  // const handleItemSelect = (item: {label: string; value: string}) => {
-  //   console.log('여기로 들어와??');
-
-  //   console.log('선택한 아이템', item);
-
-  //   // 선택한 값을 Recoil 상태에 저장
-  //   setCondition(prevCondition => ({
-  //     ...prevCondition,
-  //     selectedValue: item.value,
-  //   }));
-
-  //   // DropDownPicker에서 현재 선택한 값을 업데이트
-  //   setValue(item.value);
-  // };
+  useEffect(() => {
+    if (value) {
+      setCondition(prevCondition => ({...prevCondition, process: value}));
+    }
+  }, [value]);
 
   return (
     <DropDownPicker
