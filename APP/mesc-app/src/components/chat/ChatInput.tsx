@@ -39,7 +39,7 @@ function ChatInput() {
 
   useEffect(() => {
     if (inputShow == true) {
-      setInputHeight('145px');
+      setInputHeight('130px');
       setInputJustify('space-between');
       setShowBox('flex');
       setNoMargin('15px');
@@ -305,30 +305,20 @@ function ChatInput() {
           </S.SendBox>
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
-          <S.MenuBox margin="5px">
-            <S.MenuBox width="100%" height="65%">
-              <S.Img source={require('../../assets/images/Gostart3.png')} />
-            </S.MenuBox>
-            <S.MenuBox width="100%" height="35%">
-              <Text style={{color: 'black'}}>처음으로</Text>
-            </S.MenuBox>
-          </S.MenuBox>
-          <S.MenuBox margin="5px">
-            <S.MenuBox width="100%" height="65%">
-              <S.Img source={require('../../assets/images/GoDB.png')} />
-            </S.MenuBox>
-            <S.MenuBox width="100%" height="35%">
-              <Text style={{color: 'black'}}>데이터 조작</Text>
-            </S.MenuBox>
-          </S.MenuBox>
-          <S.MenuBox margin="5px">
-            <S.MenuBox width="100%" height="65%">
-              <S.Img source={require('../../assets/images/Goreport3.png')} />
-            </S.MenuBox>
-            <S.MenuBox width="100%" height="35%">
-              <Text style={{color: 'black'}}>보고하기</Text>
-            </S.MenuBox>
-          </S.MenuBox>
+          <S.ButtonContainer>
+            <S.ButtonBox>
+              <S.ButtonText>Commit</S.ButtonText>
+            </S.ButtonBox>
+            <S.ButtonBox>
+              <S.ButtonText>Rollback</S.ButtonText>
+            </S.ButtonBox>
+            <S.ButtonBox>
+              <S.ButtonText>데이터 조회</S.ButtonText>
+            </S.ButtonBox>
+            <S.ButtonBox>
+              <S.ButtonText>로그 조회</S.ButtonText>
+            </S.ButtonBox>
+          </S.ButtonContainer>
         </S.HiddenContainer>
       </S.ChatInput>
     </S.Input>

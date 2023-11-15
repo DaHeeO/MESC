@@ -45,7 +45,7 @@ const SearchDataForm = () => {
     }
   }, [mlCard]);
 
-  console.log('ProcessName==================', processName);
+  // console.log('ProcessName==================', processName);
 
   const handleButtonClick = async (button: ButtonItem) => {
     // mlCard의 button 배열에서 각 name 추출 및 추가

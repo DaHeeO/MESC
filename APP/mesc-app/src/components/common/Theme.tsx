@@ -19,8 +19,11 @@ export const colors = {
   // 파란색 버튼
   button: '#3C56A0',
 
-  // 파란색 텍스트
+  // 남색 텍스트
   text: '#182655',
+
+  // 라벨 색
+  label: '#D129AC',
 
   // 연한 배경
 };

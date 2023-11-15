@@ -21,6 +21,9 @@ type TableData = {
   columnNameList: string[];
   columnTypeList: string[];
   rowList: string[][];
+  isLastPage: boolean;
+  rowCnt: number;
+  totalCnt: number;
 };
 
 type ButtonItem = {

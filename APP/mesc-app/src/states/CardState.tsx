@@ -21,6 +21,9 @@ export interface Card {
   table?: TableData | null | undefined;
   button?: ButtonItem[] | null | undefined;
   logs?: string | null | undefined;
+  isLastPage?: boolean | null | undefined;
+  rowCnt?: number | null | undefined;
+  totalCnt?: number | null | undefined;
 }
 
 type LabelItem = {
