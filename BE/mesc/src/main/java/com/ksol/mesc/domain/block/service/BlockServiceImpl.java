@@ -147,7 +147,7 @@ public class BlockServiceImpl implements BlockService {
 		switch (cardType) {
 			case DT:    //dynamic Text
 				content = card.getContent();
-				String title = cardReqDto.getTitle();
+				String title = Optional.ofNullable(cardReqDto.getTitle()).orElse("");
 				content = content.replace("{title}", title);
 				// Map<String, String> map = cardReqDto.getVariables();
 				// if (map != null) {
