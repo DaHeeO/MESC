@@ -100,25 +100,25 @@ public class DeveloperController {
 		return new ResponseEntity<>(CommonResponseDto.success(developerDataResponseDto), HttpStatus.OK);
 	}
 
-	@PostMapping("/query/all/rollback/{page}")
-	public ResponseEntity<CommonResponseDto<?>> executeAllQueryWithRollback(
-		@PathVariable(required = true) Integer page,
-		@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
-		checkValidates(bindingResult);
-		DeveloperDataResponseDto developerDataResponseDto;
-		log.info("query : {}", developerQueryRequestDto.getQuery());
-		try {
-			String query = developerQueryRequestDto.getQuery();
-			List<String> queryList = developerQueryRequestDto.getQueryList();
-			Table table = developerService.executeQueryWithRollback(query, page, queryList);
-			developerDataResponseDto = new DeveloperDataResponseDto(table);
-		} catch (SQLException e) {
-			log.error(e.getMessage());
-			return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())),
-				HttpStatus.ACCEPTED);
-		}
-		return new ResponseEntity<>(CommonResponseDto.success(developerDataResponseDto), HttpStatus.OK);
-	}
+	// @PostMapping("/query/all/rollback/{page}")
+	// public ResponseEntity<CommonResponseDto<?>> selectAllQueryWithRollback(
+	// 	@PathVariable(required = true) Integer page,
+	// 	@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
+	// 	checkValidates(bindingResult);
+	// 	DeveloperDataResponseDto developerDataResponseDto;
+	// 	log.info("query : {}", developerQueryRequestDto.getQuery());
+	// 	try {
+	// 		String query = developerQueryRequestDto.getQuery();
+	// 		List<String> queryList = developerQueryRequestDto.getQueryList();
+	// 		Table table = developerService.executeQueryWithRollback(query, page, queryList);
+	// 		developerDataResponseDto = new DeveloperDataResponseDto(table);
+	// 	} catch (SQLException e) {
+	// 		log.error(e.getMessage());
+	// 		return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())),
+	// 			HttpStatus.ACCEPTED);
+	// 	}
+	// 	return new ResponseEntity<>(CommonResponseDto.success(developerDataResponseDto), HttpStatus.OK);
+	// }
 
 	//커밋 수행
 	@GetMapping("/commit")

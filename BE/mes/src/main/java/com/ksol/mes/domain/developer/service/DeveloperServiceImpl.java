@@ -25,7 +25,11 @@ public class DeveloperServiceImpl implements DeveloperService {
 	@Override
 	public Table getTable(String query, Integer page, List<String> queryList) throws SQLException {
 		query = getPaginationQuery(getOnlyOneQuery(query), page);
-		return jdbcUtil.select(query);
+
+		if (queryList == null)
+			return jdbcUtil.select(query);
+		else
+			return jdbcUtil.selectAfterAllModify(query, queryList);
 	}
 
 	private String getPaginationQuery(String query, Integer page) {
