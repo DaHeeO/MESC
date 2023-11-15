@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.dto.response.BlockRes;
-import com.ksol.mesc.domain.block.service.BlockServiceImpl;
+import com.ksol.mesc.domain.block.service.BlockService;
 import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/block")
 @Slf4j
 public class BlockController {
-	private final BlockServiceImpl blockService;
+	private final BlockService blockService;
 
 	@Operation(summary = "전체 블록 조회 API", description = "전체 블록을 조회한다.")
 	@GetMapping("/admin")
