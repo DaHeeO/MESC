@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -59,6 +60,39 @@ public class JdbcUtil {
 		}
 		return table;
 	}
+
+	public Table selectAfterAllModify(String originQuery, List<String> queryList) throws SQLException {
+		Connection connection = null;
+		Statement statement = null;
+		Table table;
+		try {
+			connection = dataSource.getConnection();
+			connection.setAutoCommit(false);
+			statement = connection.createStatement();
+
+			for (String query : queryList) {
+				log.info("query : {}", query);
+				statement.executeUpdate(query);
+			}
+
+			ResultSet resultSet = statement.executeQuery(originQuery);
+
+			table = new Table(resultSet);
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			if (statement != null) {
+				statement.close();
+			}
+			if (connection != null) {
+				connection.close();
+			}
+			log.info(e.getMessage());
+			throw new SQLException(e);
+		}
+		return table;
+	}
+
 	public Table selectAfterModify(String modifyQuery) throws SQLException {
 		Connection connection = null;
 		Statement statement = null;
@@ -74,7 +108,6 @@ public class JdbcUtil {
 			}
 			String selectQuery = getSelectQuery(modifyQuery);
 			ResultSet resultSet = statement.executeQuery(selectQuery);
-
 
 			table = new Table(resultSet);
 			statement.close();
@@ -98,6 +131,7 @@ public class JdbcUtil {
 			Connection connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
+
 			ResultSet resultSet = statement.executeQuery(query);
 			table = new Table(resultSet);
 			statement.close();
@@ -177,7 +211,7 @@ public class JdbcUtil {
 		// 큰따옴표라면
 		// 문자(글자 또는 숫자)라면
 		String selectQuery = "select * from " + tableName + ' ' + whereClause;
-		if(selectQuery.charAt(selectQuery.length() - 1) == ';') {
+		if (selectQuery.charAt(selectQuery.length() - 1) == ';') {
 			System.out.println("selectQuery = " + selectQuery);
 			selectQuery = selectQuery.substring(0, selectQuery.length() - 1);
 			System.out.println("selectQuery = " + selectQuery);

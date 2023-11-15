@@ -1,6 +1,7 @@
 package com.ksol.mes.domain.developer.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,8 @@ public class DeveloperController {
 		DeveloperDataResponseDto developerDataResponseDto;
 
 		try {
-			Table table = developerService.getTable(developerDataRequestDto.getQuery(), page);
+			Table table = developerService.getTable(developerDataRequestDto.getQuery(), page,
+				developerDataRequestDto.getQueryList());
 			developerDataResponseDto = new DeveloperDataResponseDto(table);
 		} catch (SQLException e) {
 			log.error(e.getMessage());
@@ -80,14 +82,35 @@ public class DeveloperController {
 
 	@PostMapping("/query/rollback/{page}")
 	public ResponseEntity<CommonResponseDto<?>> executeQueryWithRollback(
-			@PathVariable(required = true) Integer page,
+		@PathVariable(required = true) Integer page,
 		@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		DeveloperDataResponseDto developerDataResponseDto;
 		log.info("query : {}", developerQueryRequestDto.getQuery());
 		try {
 			String query = developerQueryRequestDto.getQuery();
-			Table table = developerService.executeQueryWithRollback(query, page);
+			List<String> queryList = developerQueryRequestDto.getQueryList();
+			Table table = developerService.executeQueryWithRollback(query, page, queryList);
+			developerDataResponseDto = new DeveloperDataResponseDto(table);
+		} catch (SQLException e) {
+			log.error(e.getMessage());
+			return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())),
+				HttpStatus.ACCEPTED);
+		}
+		return new ResponseEntity<>(CommonResponseDto.success(developerDataResponseDto), HttpStatus.OK);
+	}
+
+	@PostMapping("/query/all/rollback/{page}")
+	public ResponseEntity<CommonResponseDto<?>> executeAllQueryWithRollback(
+		@PathVariable(required = true) Integer page,
+		@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
+		checkValidates(bindingResult);
+		DeveloperDataResponseDto developerDataResponseDto;
+		log.info("query : {}", developerQueryRequestDto.getQuery());
+		try {
+			String query = developerQueryRequestDto.getQuery();
+			List<String> queryList = developerQueryRequestDto.getQueryList();
+			Table table = developerService.executeQueryWithRollback(query, page, queryList);
 			developerDataResponseDto = new DeveloperDataResponseDto(table);
 		} catch (SQLException e) {
 			log.error(e.getMessage());

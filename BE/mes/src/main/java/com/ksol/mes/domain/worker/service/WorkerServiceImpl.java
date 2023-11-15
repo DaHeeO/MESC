@@ -2,6 +2,7 @@ package com.ksol.mes.domain.worker.service;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,7 +24,8 @@ public class WorkerServiceImpl implements WorkerService {
 	private final JdbcUtil jdbcUtil;
 
 	@Override
-	public String getQuery(Integer actionId, String conditions, Integer page) throws SQLException {
+	public String getQuery(Integer actionId, String conditions, Integer page) throws
+		SQLException {
 		String query = null;
 		Integer pageSize = 20;    //한 페이지에 보여줄 사이즈
 		try {
@@ -38,19 +40,26 @@ public class WorkerServiceImpl implements WorkerService {
 	}
 
 	@Override
-	public Map<String, Object> getTable(Integer actionId, String conditions, Integer page) throws SQLException {
+	public Map<String, Object> getTable(Integer actionId, String conditions, Integer page,
+		List<String> queryList) throws SQLException {
 		String query = null;
 		Map<String, Object> map = new HashMap<>();
 
 		try {
-			query = Optional.ofNullable(this.getQuery(actionId, conditions, page)).orElseThrow(() -> new Exception());
+			query = Optional.ofNullable(this.getQuery(actionId, conditions, page))
+				.orElseThrow(() -> new Exception());
 		} catch (Exception e) {
 			log.info(e.getMessage());
 		}
 
-		log.info("query : {}", query);
 		map.put("query", query);
-		map.put("table", jdbcUtil.select(query));
+
+		if (queryList == null) {
+			map.put("table", jdbcUtil.select(query));
+		} else {
+			map.put("table", jdbcUtil.selectAfterAllModify(query, queryList));
+		}
+
 		return map;
 	}
 

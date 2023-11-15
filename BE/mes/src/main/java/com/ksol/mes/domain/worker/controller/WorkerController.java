@@ -1,6 +1,7 @@
 package com.ksol.mes.domain.worker.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class WorkerController {
 
 	@PostMapping("/query/{actionId}/{page}")
 	public ResponseEntity<CommonResponseDto<?>> getQuery(
-		@PathVariable(required = false) Integer page,
+		@PathVariable(required = true) Integer page,
 		@PathVariable(required = true) Integer actionId,
 		@RequestBody @Validated WorkerQueryRequestDto workerQueryRequestDto,
 		BindingResult bindingResult) {
@@ -65,8 +66,10 @@ public class WorkerController {
 		WorkerDataResponseDto workerDataResponseDto = null;
 		try {
 			// Table table = workerService.getTable(actionId, workerDataRequestDto.getConditions());
+			List<String> queryList = workerDataRequestDto.getQueryList();
+			log.info("getQueryLis : {}", queryList);
 			Map<String, Object> tableInfo = workerService.getTable(actionId, workerDataRequestDto.getConditions(),
-				page);
+				page, queryList);
 			workerDataResponseDto = new WorkerDataResponseDto(tableInfo);
 			log.info("workerResponseDto : {}", workerDataResponseDto);
 		} catch (SQLException e) {

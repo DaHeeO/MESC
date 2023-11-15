@@ -18,6 +18,8 @@ public class Table {
 	private List<List<String>> rows;
 	private Set<String> tableList;
 	private Boolean isLastPage = false;
+	private Integer totalCnt;
+	private Integer rowCnt = 0;
 	private Integer pageSize = 10;
 
 	public Table(ResultSet resultSet) throws SQLException {
@@ -30,10 +32,9 @@ public class Table {
 			this.columns.add(new ColumnData(metaData, i));
 		}
 		this.rows = new ArrayList<>();
-		Integer cnt = 0;
 
 		while (resultSet.next()) {
-			cnt++;
+			rowCnt++;
 			List<String> row = new ArrayList<>();
 			for (int i = 0; i < columnCount; i++) {
 				row.add("" + resultSet.getObject(i + 1));
@@ -41,8 +42,8 @@ public class Table {
 			this.rows.add(row);
 		}
 
-		log.info("rowcnt : {}", cnt);
-		if (cnt < pageSize)
+		log.info("rowcnt : {}", rowCnt);
+		if (rowCnt < pageSize)
 			isLastPage = true;
 		resultSet.close();
 	}

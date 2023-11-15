@@ -1,6 +1,7 @@
 package com.ksol.mes.domain.developer.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,7 +23,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 	private final static Integer PAGE_SIZE = 20;
 
 	@Override
-	public Table getTable(String query, Integer page) throws SQLException {
+	public Table getTable(String query, Integer page, List<String> queryList) throws SQLException {
 		query = getPaginationQuery(getOnlyOneQuery(query), page);
 		return jdbcUtil.select(query);
 	}
@@ -42,8 +43,14 @@ public class DeveloperServiceImpl implements DeveloperService {
 	}
 
 	@Override
-	public Table executeQueryWithRollback(String query, Integer page) throws SQLException {
+	public Table executeQueryWithRollback(String query, Integer page, List<String> queryList) throws SQLException {
 		return jdbcUtil.selectAfterModify(query);
+	}
+
+	@Override
+	public Table executeAllQueryWithRollback(String query, Integer page, List<String> queryList) throws SQLException {
+		query = getPaginationQuery(query, page);
+		return jdbcUtil.selectAfterAllModify(query, queryList);
 	}
 
 	@Override
