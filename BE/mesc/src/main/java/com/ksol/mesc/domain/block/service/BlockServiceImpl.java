@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpHeaders;
@@ -52,6 +53,7 @@ import com.ksol.mesc.domain.section.repository.SectionRepository;
 import com.ksol.mesc.domain.user.service.UserServiceImpl;
 import com.ksol.mesc.global.config.jwt.JwtAuthenticationFilter;
 import com.ksol.mesc.global.error.exception.EntityNotFoundException;
+import com.ksol.mesc.global.error.exception.InvalidValueException;
 import com.ksol.mesc.global.error.exception.MesServerException;
 
 import lombok.RequiredArgsConstructor;
@@ -83,13 +85,7 @@ public class BlockServiceImpl implements BlockService {
 	//전체 블록 조회
 	public List<BlockRes> selectAllBlock() {
 		List<Block> blockList = blockRepository.findAllByActive(EntityState.ACTIVE);
-		List<BlockRes> blockRes = new ArrayList<>();
-
-		for (Block block : blockList) {
-			blockRes.add(BlockRes.toResponse(block));
-		}
-
-		return blockRes;
+		return blockList.stream().map(BlockRes::toResponse).collect(Collectors.toList());
 	}
 
 	//블록 조회
@@ -111,13 +107,15 @@ public class BlockServiceImpl implements BlockService {
 		List<LinkedHashMap<String, Object>> cardMapList = new ArrayList<>();
 
 		//카드 조회
-		for (Card card : cardList) {
-			LinkedHashMap<String, Object> cardMap = selectCardByType(card, cardReqDto, userId);
-			if (cardMap.get("result") != null) {
-				objMap.put("isPossible", !(Boolean)cardMap.get("result"));
-				cardMap.remove("result");
+		if (cardList != null) {
+			for (Card card : cardList) {
+				LinkedHashMap<String, Object> cardMap = selectCardByType(card, cardReqDto, userId);
+				if (cardMap.get("result") != null) {
+					objMap.put("isPossible", !(Boolean)cardMap.get("result"));
+					cardMap.remove("result");
+				}
+				cardMapList.add(cardMap);
 			}
-			cardMapList.add(cardMap);
 		}
 
 		objMap.put("cardList", cardMapList);
@@ -133,15 +131,6 @@ public class BlockServiceImpl implements BlockService {
 		return objMap;
 	}
 
-	@Transactional
-	public BlockRes addBlock(BlockReqDto blockReqDto) {
-		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
-		Block block = blockRepository.save(Block.toEntity(blockInfoDto));
-		BlockRes blockRes = BlockRes.toResponse(block);
-
-		return blockRes;
-	}
-
 	//블록 추가
 	@Override
 	@Transactional
@@ -153,23 +142,8 @@ public class BlockServiceImpl implements BlockService {
 		// //1. 블록 추가
 		Block block = saveBlock(blockInfoDto);
 
-		if (cardReqList != null) {
-			for (CardReq cardReq : cardReqList) {
-				cardReq.setBlock(block);
-			}
-		}
-
 		//2. 카드 추가 + 관련 컴포넌트 추가
-		if (cardReqList != null) {
-			log.info("cardReqList 수행");
-			saveCardAndComponent(cardReqList);
-		}
-
-		//컴포넌트 추가
-		if (componentReqs != null) {
-			log.info("component 수행");
-			saveComponent(componentReqs);
-		}
+		saveCardAndComponent(block, cardReqList, componentReqs);
 	}
 
 	//블록 수정
@@ -192,18 +166,23 @@ public class BlockServiceImpl implements BlockService {
 		//1. 블록 수정
 		Block updateBlock = blockRepository.save(block);
 
+		//2. 카드 + 컴포넌트 수정
+		saveCardAndComponent(updateBlock, cardReqList, componentReqs);
+	}
+
+	//카드, 컴포넌트 저장 및 수정
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void saveCardAndComponent(Block block, List<CardReq> cardReqList, List<ComponentReq> componentReqs) {
+		//카드 수정
 		if (cardReqList != null) {
 			for (CardReq cardReq : cardReqList) {
-				cardReq.setBlock(updateBlock);
+				cardReq.setBlock(block);
 			}
+
+			saveCardInfo(cardReqList);
 		}
 
-		//2. 카드 수정
-		if (cardReqList != null) {
-			saveCardAndComponent(cardReqList);
-		}
-
-		//3. 컴포넌트 수정
+		//컴포넌트 수정
 		if (componentReqs != null) {
 			saveComponent(componentReqs);
 		}
@@ -225,7 +204,7 @@ public class BlockServiceImpl implements BlockService {
 
 			for (Component component : componentList) {
 				componentRepository.updateState(component.getId(), EntityState.DELETE);
-				updateComponentByType(component);
+				updateComponentEntityByType(component);
 			}
 		}
 	}
@@ -234,26 +213,12 @@ public class BlockServiceImpl implements BlockService {
 	@Override
 	@Transactional
 	public void deleteBlockContent(Integer blockId, BlockReqDto blockReqDto) {
-		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
+		// BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
 		List<CardReq> cardReqList = blockReqDto.getCardReqList();
 		List<ComponentReq> componentReqList = blockReqDto.getComponentList();
 
 		//1. 블록 삭제의 경우 -> 블록 연관된 것 삭제
-		if (blockInfoDto != null && blockInfoDto.getIsEditable()) {
-			blockRepository.updateState(blockId, EntityState.DELETE);
-			List<Card> cardList = cardRepository.findByBlockId(blockId, EntityState.ACTIVE);
-
-			for (Card card : cardList) {
-				cardRepository.updateState(card.getId(), EntityState.DELETE);
-				List<Component> componentList = componentRepository.findByCard(card, EntityState.ACTIVE);
-
-				for (Component component : componentList) {
-					componentRepository.updateState(component.getId(), EntityState.DELETE);
-					updateComponentByType(component);
-				}
-			}
-			return;
-		}
+		// deleteBlock(blockId);
 
 		//2. 카드 삭제의 경우 -> 연관된 것 삭제
 		if (cardReqList != null) {
@@ -264,7 +229,7 @@ public class BlockServiceImpl implements BlockService {
 				List<Component> componentList = componentRepository.findByCard(card, EntityState.ACTIVE);
 
 				for (Component component : componentList) {
-					updateComponentByType(component);
+					updateComponentEntityByType(component);
 				}
 			}
 		}
@@ -273,13 +238,14 @@ public class BlockServiceImpl implements BlockService {
 		if (componentReqList != null) {
 			for (ComponentReq componentReq : componentReqList) {
 				Component component = Component.toEntity(componentReq);
-				updateComponentByType(component);
+				updateComponentEntityByType(component);
 			}
 		}
 	}
 
+	//component Type 별 수정
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void updateComponentByType(Component component) {
+	public void updateComponentEntityByType(Component component) {
 		ComponentType componentType = component.getComponentType();
 		Integer id = component.getLinkId();
 		componentRepository.updateState(component.getId(), EntityState.DELETE);
@@ -318,7 +284,7 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveCardAndComponent(List<CardReq> cardReqList) {
+	public void saveCardInfo(List<CardReq> cardReqList) {
 		for (CardReq cardReq : cardReqList) {
 			Card savedCard = cardRepository.save(Card.toEntity(cardReq));
 			List<ComponentReq> componentReqList = cardReq.getComponentList();
@@ -333,7 +299,7 @@ public class BlockServiceImpl implements BlockService {
 
 				//3-1. 요소 추가 + 컴포넌트 추가
 				ComponentType componentType = componentReq.getType();
-				saveComponentByType(componentType, object, componentReq);
+				saveComponentEntityByType(componentType, object, componentReq);
 			}
 		}
 	}
@@ -348,13 +314,13 @@ public class BlockServiceImpl implements BlockService {
 
 			//3-1. 요소 수정 + 컴포넌트 수정
 			ComponentType componentType = componentReq.getType();
-			saveComponentByType(componentType, object, componentReq);
+			saveComponentEntityByType(componentType, object, componentReq);
 		}
 	}
 
 	//type 별 객체 저장
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveComponentByType(ComponentType componentType, Object object, ComponentReq componentReq) {
+	public void saveComponentEntityByType(ComponentType componentType, Object object, ComponentReq componentReq) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			String json = objectMapper.writeValueAsString(object);
@@ -375,11 +341,10 @@ public class BlockServiceImpl implements BlockService {
 					componentReq.setLinkId(dropdown.getId());
 
 					//value 추가
-					List<ValuesRes> cValueList = dropdownRes.getValuesList();
-					for (ValuesRes cv : cValueList) {
+					dropdownRes.getValuesList().forEach(cv -> {
 						cv.setDropdown(dropdown);
 						valuesRepository.save(ComponentValue.toEntity(cv));
-					}
+					});
 					break;
 				default:
 					throw new IllegalArgumentException("Invalid ComponentType");
@@ -443,9 +408,9 @@ public class BlockServiceImpl implements BlockService {
 				tableInfo.remove("label");
 				cardMap.put("table", tableInfo);
 				break;
-			case STA:    //단일 Table
-				cardMap.put("singleTable", requestPostToMes("/developer/data", cardReqDto, cardType));
-				break;
+			// case STA:    //단일 Table
+			// 	cardMap.put("singleTable", requestPostToMes("/developer/data", cardReqDto, cardType));
+			// 	break;
 			case QU:    //select 쿼리 입력
 				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(), 1);
 				Boolean result = (Boolean)tableByQuery.get("result");
@@ -570,11 +535,13 @@ public class BlockServiceImpl implements BlockService {
 	@Override
 	public Object requestPostToMes(String url, CardReqDto cardReqDto, CardType cardType) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
-		if (cardType == CardType.STA) {
-			cardReqDto.setActionId(null);
+		// if (cardType == CardType.STA) {
+		// 	cardReqDto.setActionId(null);
+		// }
+		if (cardReqDto.getActionId() == null) {
+			throw new InvalidValueException("ActionId Not Found");
 		}
-		if (cardReqDto.getActionId() != null)
-			url += cardReqDto.getActionId();
+		url += cardReqDto.getActionId();
 
 		return webClient.post()
 			.uri(url + "/1")
