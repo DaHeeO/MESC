@@ -90,19 +90,20 @@ export const Modify = () => {
   // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
+      id: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
       sequence: cards.length,
-      cardType: CardType,
+      // cardType: CardType, // 이 부분도 수정이 필요합니다.
+      cardType: "TX", // 이 부분도 수정이 필요합니다.
       content: "카드 내용을 작성해주세요.",
     };
 
+    // Recoil을 사용하여 카드 상태 갱신
+    // setCreateCard((prevCardState) => [...prevCardState, newCard]);
     setCards((prevCards) => [...prevCards, newCard]);
   };
 
-  const showCards = cards.map((card, index) => (
-    <AddCardComponent key={index} card={card} />
-  ));
-
+  const showCards = cards.map((card) => <AddCardComponent card={card} />);
   // =======================================================
 
   return (

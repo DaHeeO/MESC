@@ -59,7 +59,6 @@ export const Add = () => {
   const CardType = useRecoilValue(CardIdState);
 
   // 카드 추가 함수
-  // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
       id: cards.length + 1, // id를 적절히 부여합니다.
