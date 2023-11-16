@@ -128,6 +128,8 @@ public class ApiController {
 		LinkedHashMap<String, Object> result = apiService.commit(queryList);
 		if ((Boolean)result.get("result"))
 			result.put("blockId", 15);
+		else
+			result.put("blockId", 16);
 
 		return ResponseEntity.ok(CommonResponseDto.success(result));
 	}
