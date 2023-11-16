@@ -4,13 +4,14 @@ import {useRecoilState} from 'recoil';
 import {ConditionState} from '../../../states/ConditionState';
 
 interface AboutSelectProps {
-  valuesList: value[];
+  valuesList: Value[];
 }
 
-interface value {
+interface Value {
   id: number;
   value: string;
   linkId: number;
+  comId: number;
 }
 
 export const LineSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
@@ -25,30 +26,38 @@ export const LineSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
     // valuesList가 존재하고 배열인 경우에만 변환
     if (valuesList && Array.isArray(valuesList)) {
       // valuesList를 items 형식으로 변환
-      const formattedItems: {label: string; value: string}[] = valuesList.map(
-        item => ({
+      const formattedItems: {label: string; value: string; comId: number}[] =
+        valuesList.map(item => ({
           label: item.value,
           value: item.id.toString(),
-        }),
-      );
+          comId: item.comId,
+        }));
       setItems(formattedItems);
 
       if (formattedItems.length > 0) {
-        setDefaultValue(formattedItems[0].value);
-        setValue(formattedItems[0].value);
+        setDefaultValue(formattedItems[0].comId.toString());
+        setValue(formattedItems[0].comId.toString());
         setCondition(prevCondition => ({
           ...prevCondition,
-          line: formattedItems[0].value,
+          line: formattedItems[0].comId.toString(),
         }));
+        console.log('line', formattedItems[0].comId);
       }
     }
   }, [valuesList]);
 
   useEffect(() => {
     if (value) {
-      setCondition(prevCondition => ({...prevCondition, line: value}));
+      const selectedLabel =
+        items.find(item => {
+          return item.value === value;
+        })?.label || '';
+      setCondition(prevCondition => ({
+        ...prevCondition,
+        line: selectedLabel,
+      }));
     }
-  }, [value]);
+  }, [value, items]);
 
   return (
     <DropDownPicker

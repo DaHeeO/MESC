@@ -1,7 +1,7 @@
 import {atom} from 'recoil';
 
 interface ConditionState {
-  process: string;
+  product: string;
   startDate: string;
   endDate: string;
   line: string;
@@ -10,7 +10,7 @@ interface ConditionState {
 export const ConditionState = atom<ConditionState>({
   key: 'conditionState',
   default: {
-    process: '',
+    product: '',
     startDate: '',
     endDate: '',
     line: '',

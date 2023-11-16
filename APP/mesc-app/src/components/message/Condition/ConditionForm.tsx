@@ -8,15 +8,23 @@ import {LineSelect} from '../../common/about/LineSelect';
 import {OkayBtn} from '../Btn/SaveBtn';
 import {DatePicker} from '../../common/about/AboutDate';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {getBlock} from '../../../../Api';
+import {BlockResponseData} from '../../../states/BlockResponseState';
+import {ActionIdState} from '../../../states/ReadDataState';
 import * as S from './ConditionFormStyle';
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
+import {drop, first, set} from 'lodash';
 
 export const ConditionForm = () => {
   // Recoil에서 조건과 Dropdown 꺼내오기
+  const [block, setBlock] = useRecoilState(BlockResponseData);
   const [condition, setCondition] = useRecoilState(ConditionState);
   const [dropdownList, setDropdownList] = useRecoilState(DropdownState);
   const [isModalPossible, setIsModalVisible] =
     useRecoilState(ConditionModifyState);
+
+  // 액션 아이디
+  const [actionId, setActionId] = useRecoilState(ActionIdState);
 
   // 조건 초기화 버튼
   // const resetCondition = () => {
@@ -27,6 +35,11 @@ export const ConditionForm = () => {
   //     line: '',
   //   });
   // };
+
+  const firstTableName = dropdownList[0].tableName;
+  const firstColumnName = dropdownList[0].columnName;
+  const secondTableName = dropdownList[1].tableName;
+  const secondColumnName = dropdownList[1].columnName;
 
   return (
     <FormContainer direction="column">
@@ -55,10 +68,21 @@ export const ConditionForm = () => {
             content={'적용'}
             color="#ECECEC"
             onPress={() => {
-              console.log('hii');
-              console.log(condition);
-              // const newQuery = condition.query + " " + where
+              const conditionsQuery = `where ${firstTableName}.${firstColumnName} = ${condition.product} and ${secondTableName}.${secondColumnName} = ${condition.line} and ${firstTableName}.WO_YMD between ${condition.startDate} and ${condition.endDate}`;
               setIsModalVisible(false);
+
+              console.log(condition.query);
+
+              console.log('쿠리=====================', conditionsQuery);
+
+              const body = {
+                actionId: actionId,
+                conditions: conditionsQuery,
+                queryList: null,
+              };
+
+              const newBlock = getBlock(4, body);
+              console.log(newBlock);
             }}
           />
         </FormContainer>
@@ -76,7 +100,7 @@ export const ConditionForm = () => {
             zIndex: 3000,
           }}>
           <FormContainer height="30%" width="100%">
-            <TextBox>{dropdownList[0].columnName}</TextBox>
+            <TextBox>{dropdownList[0].name}</TextBox>
           </FormContainer>
 
           <FormContainer
@@ -132,7 +156,7 @@ export const ConditionForm = () => {
             zIndex: 3000,
           }}>
           <FormContainer height="30%" width="100%">
-            <TextBox>{dropdownList[1].columnName}</TextBox>
+            <TextBox>{dropdownList[1].name}</TextBox>
           </FormContainer>
 
           <FormContainer height="70%" width="90%" align="flex-start">

@@ -26,6 +26,7 @@ export async function getBlock(blockId: number, body: {}) {
     .post(`block/${blockId}`, body)
     .then(response => {
       block = response.data.data;
+      console.log('여김ㄴ아러밀', block);
     })
     .catch(error => {
       console.log(error);
