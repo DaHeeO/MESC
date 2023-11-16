@@ -28,11 +28,22 @@ export const Modify = () => {
   const [blockName, setBlockName] = useState("");
   const [cardList, setCardList] = useRecoilState(CardListState);
 
-  console.log("blockTitleTyping==================", blockTitleTyping);
+  // console.log("blockTitleTyping==================", blockTitleTyping);
   console.log("cards==================", cards);
-  console.log("cardList==================", cardList);
-  // input default 값 설정====================================
-  //  name을 못찾는다는 오류 발생 (후순위)
+  console.log("cardList==================", cardList.result);
+  const reponseCardList = cardList.result;
+  const cardListString = reponseCardList.match(/"cardList":\[.*?\]/);
+  let result = "";
+  // 만약 찾은 결과가 있다면
+  if (cardListString) {
+    result = cardListString[0];
+  } else {
+    result = "cardList를 찾을 수 없습니다.";
+  }
+
+  // JSON 문자열을 JavaScript 객체로 변환
+
+  // 함수를 사용하여 변환된 데이터 얻기
 
   useEffect(() => {
     async function fetchData() {
@@ -147,8 +158,10 @@ export const Modify = () => {
           flexDirection="row"
           style={{ flexWrap: "wrap", overflow: "auto" }}
         >
-          {/* {blockState.blockInfo.name} */}
           {/* 여기에 기존에 있는 카드들 보여줘야해 */}
+          <div style={{ border: "1px solid red", width: "80%", height: "40%" }}>
+            {result}
+          </div>
           {showCards}
         </AboutContainer>
         <AboutContainer

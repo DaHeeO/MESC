@@ -129,6 +129,7 @@ export const CategoryDiv = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 15px 0px;
+  cursor: pointer;
 `;
 
 export const IconContainer = styled.div`
@@ -148,4 +149,5 @@ export const FaqBottom = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+  cursor: pointer;
 `;

@@ -1,7 +1,6 @@
 // React
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 // style
 import * as S from "./SelectBlockStyle";
 import * as C from "../../common/theme";
@@ -12,6 +11,7 @@ import { api, api1 } from "../../../apis/Api";
 import { useRecoilState } from "recoil";
 import { CreatBlockState } from "../../../state/create/AddBlock";
 import { BlockState } from "../../../state/create/CreateState";
+import AboutModal from "../../common/About/AboutModal";
 // function
 
 interface TableProps {
@@ -30,6 +30,10 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
   const [blockImpo, setBlockImpo] = useRecoilState(CreatBlockState);
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
   const navigate = useNavigate();
+  // 모달
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   // 데이터 조회하기 ============================>
 
@@ -79,7 +83,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
             setError("데이터를 조회하는데 실패하였습니다.");
             setLoading(false);
           });
-
+        handleClose();
         console.log("삭제완료");
         alert("삭제완료");
       })
@@ -87,30 +91,6 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
         console.log(err);
       });
   };
-
-  // 더미데이터 삭제
-  // const deleteAllBlocks = async () => {
-  //   try {
-  //     for (let id = 9057; id <= 18741; id++) {
-  //       await api
-  //         .delete(`block/admin/all/${id}`)
-  //         .then(() => {
-  //           console.log(`ID ${id} 삭제 완료`);
-  //         })
-  //         .catch((err) => {
-  //           setError("데이터를 삭제하는데 실패하였습니다.");
-  //           setLoading(false);
-  //           console.error(err);
-  //         });
-  //     }
-  //     // 여기서 필요한 업데이트 작업을 수행할 수 있습니다.
-  //     // setResData 등등...
-  //   } catch (err) {
-  //     setError("데이터를 삭제하는데 실패하였습니다.");
-  //     setLoading(false);
-  //     console.error(err);
-  //   }
-  // };
 
   // // 호출하여 실행
   // useEffect(() => {
@@ -161,7 +141,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
         </S.TitleDiv>
         <S.TitleDiv width={"21%"} justify="center">
           <S.Text size={16} color={"#94918A"} weight={500}>
-            수정하기
+            삭제하기
           </S.Text>
         </S.TitleDiv>
       </S.TitleBox>
@@ -188,7 +168,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
                   weight={500}
                   style={{ paddingTop: "20px", paddingBottom: "20px" }}
                 >
-                  자세히 보기
+                  수정불가
                 </S.Text>
               </S.TitleDiv>
             ) : (
@@ -199,7 +179,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
                   }}
                 >
                   <S.Text size={16} color={C.colors.buttonBlue} weight={500}>
-                    자세히 보기
+                    수정하기
                   </S.Text>
                 </S.BlueButton>
               </S.TitleDiv>
@@ -213,16 +193,14 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
                   weight={500}
                   style={{ paddingTop: "20px", paddingBottom: "20px" }}
                 >
-                  자세히 보기
+                  삭제불가
                 </S.Text>
               </S.TitleDiv>
             ) : (
               <S.TitleDiv width={"21%"} justify="center">
-                <S.RedButton
+                {/* <S.RedButton
                   onClick={() => {
-                    const shouldDelete =
-                      window.confirm("정말로 삭제하시겠습니까?");
-
+                    const shouldDelete = window.confirm("삭제하시겠습니까?");
                     if (shouldDelete) {
                       deleteBlock(item.id);
                     }
@@ -231,7 +209,12 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
                   <S.Text size={16} color={C.colors.buttonRed} weight={500}>
                     삭제하기
                   </S.Text>
-                </S.RedButton>
+                </S.RedButton> */}
+                <AboutModal
+                  deleteBlock={deleteBlock}
+                  itemId={item.id}
+                  chatbotTitle={item.id}
+                />
               </S.TitleDiv>
             )}
           </S.TableDiv>
