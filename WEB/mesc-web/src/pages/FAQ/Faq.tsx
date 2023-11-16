@@ -4,6 +4,7 @@ import { useState } from "react";
 //Recoil
 import { useRecoilState } from "recoil";
 import { FAQState } from "../../state/FAQState";
+import { FAQListState } from "../../state/FAQState";
 
 //style
 import * as S from "./Faq.style";
@@ -21,6 +22,7 @@ import { FAQForm } from "../../component/Block/FAQ/FAQForm";
 export const Faq = () => {
   const [focusedButtonIndex, setFocusedButtonIndex] = useState(0);
   const [selectedItem, setSelectedItem] = useRecoilState(FAQState);
+  const [FAQList, setFAQList] = useRecoilState(FAQListState);
   const [addButton, setAddButton] = useState(false);
 
   const handleButtonClick = (index: number) => {
@@ -33,6 +35,7 @@ export const Faq = () => {
   };
 
   const handleCancelButtonClick = () => {
+    setSelectedItem(null);
     setAddButton(false);
   };
 
@@ -113,7 +116,11 @@ export const Faq = () => {
         {/* MainBody의 오른쪽 - FAQ 추가 폼*/}
         <S.RightDiv>
           {(selectedItem !== null || addButton) && (
-            <FAQForm data={selectedItem} onCancel={handleCancelButtonClick} />
+            <FAQForm
+              data={[]}
+              onCancel={handleCancelButtonClick}
+              category={focusedButtonIndex}
+            />
           )}
         </S.RightDiv>
       </AboutContainer>

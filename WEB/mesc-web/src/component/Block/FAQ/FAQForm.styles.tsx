@@ -24,90 +24,109 @@ export const RightBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: #ffffff;
   border-radius: 15px;
   padding: 10px;
 `;
 
-export const Total = styled.div`
-  width: 100%;
-  height: 100%;
+export const FormHeader = styled.div`
+  height: 10%;
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+export const ButtonHug = styled.div<{ color?: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => (props.color ? props.color : "#ffffff")};
+  border-radius: 8px;
+  padding: 6px 8px;
+  margin-left: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const ButtonText = styled.div`
+  font-size: 16px;
+  color: ${colors.buttonBlue};
+  font-weight: 600;
+`;
+
+export const FormBody = styled.div`
+  height: 80%;
+  margin-top: 5%;
+  width: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+`;
+
+export const Form = styled.div`
+  width: 100%;
+  display: flex;
+  margin-bottom: 3%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 export const TitleBox = styled.div`
-  width: 90%;
-  height: 10%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 2%;
 `;
 
-export const TitleDiv = styled.div<TableProps>`
-  width: ${(props) => props.width};
-  padding: 2px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: ${(props) => (props.justify ? props.justify : "flex-start")};
-
-  // border: 1px solid #ddd;
-  // background-color: green;
-`;
-
-export const TableContainer = styled.div`
+export const TextBox = styled.div<{ height: number }>`
   width: 100%;
-  height: 85%;
-  padding-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-export const TableDiv = styled.div`
-  width: 90%;
-  height: 10%;
+  height: ${(props) => props.height}px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  padding: 10px 0px;
-
-  &:hover {
-    background-color: ${colors.buttonBlueBackground};
-    cursor: pointer;
-  }
+  justify-content: center;
+  border: 2px solid #d9d9d9;
+  border-radius: 10px;
 `;
 
-export const RedButton = styled.div`
+export const Input = styled.textarea`
+  width: 90%;
+  height: 90%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: ${colors.textBlack};
+
+  resize: none;
+  font-family: inherit;
+`;
+
+export const FormBottom = styled.div`
+  height: 10%;
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const ButtonFix = styled.div<{ color?: string }>`
+  width: 44%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 20px;
-  border-radius: 5px;
-  background-color: ${colors.buttonRedBackground};
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-export const BlueButton = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 20px;
-  border-radius: 5px;
-  background-color: ${colors.buttonBlueBackground};
+  background-color: ${(props) => (props.color ? props.color : "#ffffff")};
+  border-radius: 8px;
+  padding: 6px 8px;
   &:hover {
     cursor: pointer;
   }

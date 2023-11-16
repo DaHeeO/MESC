@@ -14,3 +14,8 @@ export const FAQState = atom<FAQ | null>({
   key: "faqState",
   default: null,
 });
+
+export const FAQListState = atom<FAQ[]>({
+  key: "faqListState",
+  default: [],
+});
