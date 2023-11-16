@@ -350,10 +350,6 @@ function ChatInput() {
 
     return async () => {
       const newBlock = await putBlockToRecoil(blockId, {});
-<<<<<<< HEAD
-=======
-
->>>>>>> c3c983d87a373da3fbff20890179ec0312873ad4
       setInput('');
     };
   }
