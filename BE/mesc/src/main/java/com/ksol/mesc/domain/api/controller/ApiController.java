@@ -125,9 +125,11 @@ public class ApiController {
 		BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		List<String> queryList = developerCommitRequestDto.getQueryList();
-		apiService.commit(queryList);
+		LinkedHashMap<String, Object> result = apiService.commit(queryList);
+		if (result.get("result").equals("true"))
+			result.put("blockId", 15);
 
-		return ResponseEntity.ok(CommonResponseDto.success("commit이 완료되었습니다."));
+		return ResponseEntity.ok(CommonResponseDto.success(result));
 	}
 
 	private static void checkValidates(BindingResult bindingResult) {
