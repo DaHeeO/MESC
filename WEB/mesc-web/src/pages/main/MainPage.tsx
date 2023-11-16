@@ -8,8 +8,9 @@ import { userInfo } from "../../state/UserInfo";
 // Components
 import { AboutBody } from "../../component/common/About/AboutBody";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
-import { ContainedBtn } from "../../component/common/About/AboutBtn";
 import { SelectBlock } from "../../component/Block/Select/SelectBlock";
+import { Header } from "../../component/common/Header/Header";
+
 // Navigate
 import { useNavigate } from "react-router-dom";
 //etc
@@ -17,7 +18,6 @@ import Arrow from "../../assest/icon/arrowRight.svg";
 import User from "../../assest/icon/userBlue.svg";
 import DataBase from "../../assest/icon/database.svg";
 import Contacts from "../../assest/icon/contacts.svg";
-import { Header } from "../../component/common/Header/Header";
 import * as S from "./MainPage.style";
 import * as C from "../../component/common/theme";
 
