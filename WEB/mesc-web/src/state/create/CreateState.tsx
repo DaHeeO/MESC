@@ -16,15 +16,17 @@ export const BlockState = atom<Record<string, Block>>({
 
 // cart state
 export interface Card {
+  // Index?: number;
   id?: number;
   name: string;
   sequence: number;
   cardType: string;
   content: string;
-  componentList?: ComponentListItem[];
+  actionId?: number;
+  componentList: ComponentItem[];
 }
 
-export const CardState = atom<Card[]>({
+export const CardState = atom<any[]>({
   key: "CardState",
   default: [],
 });
@@ -42,16 +44,17 @@ interface Object {
   valuesList?: Value[];
   linkType?: string;
   link?: number;
+  actionId?: number;
 }
 
-export interface ComponentListItem {
+export interface ComponentItem {
   type?: string;
   sequence?: string;
   object?: Object;
 }
 
 interface Component {
-  componentList: ComponentListItem[];
+  componentList: ComponentItem[];
 }
 
 export const ComponentState = atom<Component>({
@@ -61,23 +64,48 @@ export const ComponentState = atom<Component>({
   },
 });
 
-// ===========CH1======================================
-interface CH1Props {
+// =======================================================
+// black card 생성을 위한 recoilState
+//========================================================
+// 블럭 > 카드생성(TX, TA)
+export interface TxTaStateProps {
+  name: string;
+  sequence: number;
+  cardType: string;
+  content: string;
+}
+
+export const TxTaState = atom<TxTaStateProps>({
+  key: "TxTaState",
+  default: {
+    name: "",
+    sequence: 0,
+    cardType: "",
+    content: "",
+  },
+});
+
+//========================================================
+// 블럭 > 카드생성(CH1,)
+export interface Ch1StateProps {
   name: string;
   sequence: number;
   cardType: string;
   content: string;
   componentList: {
+    type: string;
+    sequence: string;
     object: {
-      valuesList: {
-        value: string;
-      }[];
+      actionId: 0;
+      name: string;
+      linkType: string;
+      link: string;
     };
   }[];
 }
 
-export const CHState = atom<CH1Props>({
-  key: "CHState",
+export const Ch1State = atom<Ch1StateProps>({
+  key: "Ch1State",
   default: {
     name: "",
     sequence: 0,
@@ -85,18 +113,64 @@ export const CHState = atom<CH1Props>({
     content: "",
     componentList: [
       {
+        type: "",
+        sequence: "",
         object: {
-          valuesList: [
-            {
-              value: "",
-            },
-            {
-              value: "",
-            },
-          ],
+          actionId: 0,
+          name: "",
+          linkType: "",
+          link: "",
         },
       },
     ],
   },
 });
-//============================================================
+// 블럭 > 카드생성( CH2)
+export interface Ch2StateProps {
+  name: string;
+  sequence: number;
+  cardType: string;
+  content: string;
+  componentList: {
+    type: string;
+    sequence: string;
+    object: {
+      actionId: 0;
+      name: string;
+      linkType: string;
+      link: string;
+    };
+  }[];
+}
+
+export const Ch2State = atom<Ch2StateProps>({
+  key: "Ch2State",
+  default: {
+    name: "",
+    sequence: 0,
+    cardType: "",
+    content: "",
+    componentList: [
+      {
+        type: "",
+        sequence: "",
+        object: {
+          actionId: 0,
+          name: "",
+          linkType: "",
+          link: "",
+        },
+      },
+      {
+        type: "",
+        sequence: "",
+        object: {
+          actionId: 0,
+          name: "",
+          linkType: "",
+          link: "",
+        },
+      },
+    ],
+  },
+});
