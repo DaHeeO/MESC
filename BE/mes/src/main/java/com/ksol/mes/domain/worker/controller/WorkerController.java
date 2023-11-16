@@ -34,16 +34,18 @@ public class WorkerController {
 
 	private final WorkerService workerService;
 
-	@PostMapping("/query/{actionId}/{page}")
+	// @PostMapping("/query/{actionId}/{page}")
+	@PostMapping("/query/{actionId}")
 	public ResponseEntity<CommonResponseDto<?>> getQuery(
-		@PathVariable(required = true) Integer page,
+		// @PathVariable(required = true) Integer page,
 		@PathVariable(required = true) Integer actionId,
 		@RequestBody @Validated WorkerQueryRequestDto workerQueryRequestDto,
 		BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		String query = null;
 		try {
-			query = workerService.getQuery(actionId, workerQueryRequestDto.getConditions(), page);
+			query = workerService.getQuery(actionId, workerQueryRequestDto.getConditions());
+			// query = workerService.getQuery(actionId, workerQueryRequestDto.getConditions(), page);
 		} catch (SQLException e) {
 			log.info(e.getMessage());
 			return new ResponseEntity<>(CommonResponseDto.success(new SQLErrorResponseDto(e.getMessage())),
@@ -56,9 +58,10 @@ public class WorkerController {
 		return new ResponseEntity<>(CommonResponseDto.success(responseDto), HttpStatus.ACCEPTED);
 	}
 
-	@PostMapping("/data/{actionId}/{page}")
+	// @PostMapping("/data/{actionId}/{page}")
+	@PostMapping("/data/{actionId}")
 	public ResponseEntity<CommonResponseDto<?>> getData(
-		@PathVariable(required = true) Integer page,
+		// @PathVariable(required = true) Integer page,
 		@PathVariable(required = true) Integer actionId,
 		@RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
 		BindingResult bindingResult) {
@@ -69,7 +72,9 @@ public class WorkerController {
 			List<String> queryList = workerDataRequestDto.getQueryList();
 			log.info("getQueryLis : {}", queryList);
 			Map<String, Object> tableInfo = workerService.getTable(actionId, workerDataRequestDto.getConditions(),
-				page, queryList);
+				queryList);
+			// Map<String, Object> tableInfo = workerService.getTable(actionId, workerDataRequestDto.getConditions(),
+			// 	page, queryList);
 			workerDataResponseDto = new WorkerDataResponseDto(tableInfo);
 			log.info("workerResponseDto : {}", workerDataResponseDto);
 		} catch (SQLException e) {

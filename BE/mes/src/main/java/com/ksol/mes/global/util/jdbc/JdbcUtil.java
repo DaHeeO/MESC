@@ -32,7 +32,8 @@ public class JdbcUtil {
 			connection = dataSource.getConnection();
 			DatabaseMetaData metaData = connection.getMetaData();
 			ResultSet tables = metaData.getTables(catalog, null, null, null);
-			table = new Table(tables, 0, 0);
+			// table = new Table(tables, 0, 0);
+			table = new Table(tables, 0);
 			connection.close();
 		} catch (SQLException e) {
 			if (connection != null) {
@@ -51,7 +52,8 @@ public class JdbcUtil {
 			connection = dataSource.getConnection();
 			DatabaseMetaData metaData = connection.getMetaData();
 			ResultSet columns = metaData.getColumns(catalog, null, tableName, null);
-			table = new Table(columns, 0, 0);
+			// table = new Table(columns, 0, 0);
+			table = new Table(columns, 0);
 			connection.close();
 		} catch (SQLException e) {
 			if (connection != null) {
@@ -63,7 +65,8 @@ public class JdbcUtil {
 		return table;
 	}
 
-	public Table selectAfterAllModify(String originQuery, List<String> queryList, Integer page) throws SQLException {
+	// public Table selectAfterAllModify(String originQuery, List<String> queryList, Integer page) throws SQLException {
+	public Table selectAfterAllModify(String originQuery, List<String> queryList) throws SQLException {
 		Connection connection = null;
 		Statement statement = null;
 		Table table;
@@ -77,10 +80,12 @@ public class JdbcUtil {
 				statement.executeUpdate(query);
 			}
 
-			ResultSet resultSet = statement.executeQuery(getPaginationQuery(originQuery, page));
+			// ResultSet resultSet = statement.executeQuery(getPaginationQuery(originQuery, page));
+			ResultSet resultSet = statement.executeQuery(originQuery);
 			/////////////////////////////////////////////////////////////
 			Integer total = getTotalCnt(originQuery);
-			table = new Table(resultSet, page, total);
+			table = new Table(resultSet, total);
+			// table = new Table(resultSet, page, total);
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -96,7 +101,8 @@ public class JdbcUtil {
 		return table;
 	}
 
-	public Table selectAfterModify(String modifyQuery, Integer page) throws SQLException {
+	// public Table selectAfterModify(String modifyQuery, Integer page) throws SQLException {
+	public Table selectAfterModify(String modifyQuery) throws SQLException {
 		Connection connection = null;
 		Statement statement = null;
 		Table table;
@@ -110,10 +116,12 @@ public class JdbcUtil {
 				connection.rollback();
 			}
 			String selectQuery = getSelectQuery(modifyQuery);
-			ResultSet resultSet = statement.executeQuery(getPaginationQuery(selectQuery, page));
+			ResultSet resultSet = statement.executeQuery(selectQuery);
+			// ResultSet resultSet = statement.executeQuery(getPaginationQuery(selectQuery, page));
 
 			Integer total = getTotalCnt(selectQuery);
-			table = new Table(resultSet, page, total);
+			table = new Table(resultSet, total);
+			// table = new Table(resultSet, page, total);
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -129,17 +137,20 @@ public class JdbcUtil {
 		return table;
 	}
 
-	public Table select(String query, Integer page) throws SQLException {
+	// public Table select(String query, Integer page) throws SQLException {
+	public Table select(String query) throws SQLException {
 		Table table;
 		try {
 			Connection connection = dataSource.getConnection();
 			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
 
-			log.info("getPaginationQuery : {}", getPaginationQuery(query, page));
-			ResultSet resultSet = statement.executeQuery(getPaginationQuery(query, page));
+			// log.info("getPaginationQuery : {}", getPaginationQuery(query, page));
+			// ResultSet resultSet = statement.executeQuery(getPaginationQuery(query, page));
+			ResultSet resultSet = statement.executeQuery(query);
 			Integer total = getTotalCnt(query);
-			table = new Table(resultSet, page, total);
+			// table = new Table(resultSet, page, total);
+			table = new Table(resultSet, total);
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
