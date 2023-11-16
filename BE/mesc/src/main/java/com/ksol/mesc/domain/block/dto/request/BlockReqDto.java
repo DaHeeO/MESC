@@ -13,5 +13,5 @@ public class BlockReqDto {
 	//컴포넌트(버튼, 라벨, 체크박스, 드롭다운, 다이렉트 버튼) 정보
 	private BlockInfoDto blockInfo;
 	private List<CardReq> cardReqList;
-	private List<ComponentReq> componentList;    //삭제의 경우
+	private List<ComponentReq> componentList;
 }

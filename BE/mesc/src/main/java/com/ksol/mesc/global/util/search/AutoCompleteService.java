@@ -11,9 +11,11 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AutoCompleteService {
 
 	private static final String AUTOCOMPLETE_KEY = "sql";
@@ -36,6 +38,7 @@ public class AutoCompleteService {
 			.map(word -> word.substring(0, word.length() - 1)) // *를 제거
 			.collect(Collectors.toList());
 		Collections.sort(autocompleteList);
+		log.info("autoList : {}", autocompleteList);
 		return autocompleteList;
 	}
 
