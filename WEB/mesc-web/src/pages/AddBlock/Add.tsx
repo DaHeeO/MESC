@@ -39,31 +39,34 @@ export const Add = () => {
       blockInfo: {
         ...prevBlockState.blockInfo,
         name: newName,
-        // isEditable: true,
       },
     }));
 
-    // Block 생성 API 호출===================================
-    api
-      .post("block/admin", {
-        blockInfo: { name: newName },
-        cardReqList: [
-          {
-            name: cards[0].name,
-            sequence: cards.length,
-            cardType: cards[0].cardType,
-            content: cards[0].content,
-            componentList: cards[0].componentList,
-          },
-        ],
-      })
-      .then((res) => {
-        // console.log("card==================", cards);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // 카드 정보를 cardReqList에 매핑
+    const cardReqList = cards.map((card, index) => ({
+      name: card.name,
+      sequence: index + 1,
+      cardType: card.cardType,
+      content: card.content,
+      componentList: card.componentList,
+    }));
+
+    // API 호출 부분
+    try {
+      api
+        .post("block/admin", {
+          blockInfo: { name: newName },
+          cardReqList: cardReqList,
+        })
+        .then((res) => {
+          console.log("Cards 저장됨", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
   // =======================================================
 

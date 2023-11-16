@@ -35,7 +35,7 @@ export const Modify = () => {
   const [blockTitleTyping, setBlockTitleTyping] = useState<string>("");
   const [blockState, setBlockState] = useRecoilState(CreatBlockState);
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
-  const [cards, setCards] = useRecoilState(CardState);
+  const [cards, setCards] = useRecoilState(CardState); //카드
   const [blockName, setBlockName] = useState("");
   const [cardList, setCardList] = useRecoilState(CardListState);
 
@@ -123,6 +123,7 @@ export const Modify = () => {
   }, [blockInfo]);
   // // =======================================================
 
+  console.log("cards==================", cards);
   // Block 이름 변경 및 API 호출 (버튼 클릭시)
   const UpdateBlockName = (newName: string) => {
     console.log(cards);

@@ -94,7 +94,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
                 }
               }}
               className={
-                item.id <= 14 || item.id === 1035 ? "disabled-row" : ""
+                item.id <= 16 || item.id === 1035 ? "disabled-row" : ""
               }
             >
               {item.name}
