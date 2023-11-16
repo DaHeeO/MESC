@@ -156,7 +156,7 @@ function SideBar() {
             size={14}
             color={hovered ? "white" : C.colors.textIcyGray}
             weight={500}
-            style={{ paddingLeft: "14px" }}
+            style={{ paddingLeft: "14px", cursor: "pointer" }}
           >
             로그아웃
           </S.Text>

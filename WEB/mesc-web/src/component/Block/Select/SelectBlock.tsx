@@ -160,7 +160,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
         </S.TitleDiv>
         <S.TitleDiv width={"21%"} justify="center">
           <S.Text size={16} color={"#94918A"} weight={500}>
-            수정하기
+            삭제하기
           </S.Text>
         </S.TitleDiv>
       </S.TitleBox>
@@ -187,7 +187,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
                   weight={500}
                   style={{ paddingTop: "20px", paddingBottom: "20px" }}
                 >
-                  자세히 보기
+                  수정불가
                 </S.Text>
               </S.TitleDiv>
             ) : (
@@ -198,7 +198,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
                   }}
                 >
                   <S.Text size={16} color={C.colors.buttonBlue} weight={500}>
-                    자세히 보기
+                    수정하기
                   </S.Text>
                 </S.BlueButton>
               </S.TitleDiv>
@@ -212,7 +212,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
                   weight={500}
                   style={{ paddingTop: "20px", paddingBottom: "20px" }}
                 >
-                  자세히 보기
+                  삭제불가
                 </S.Text>
               </S.TitleDiv>
             ) : (
