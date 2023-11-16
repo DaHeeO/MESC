@@ -18,17 +18,6 @@ import Search from '../../assets/icons/search.svg';
 import Filter from '../../assets/icons/filter.svg';
 import CheckBoxIcon from '../../assets/icons/checkbox.svg';
 
-import image1 from '../../assets/images/test/용명킴.jpg';
-import image2 from '../../assets/images/test/민겸킴.jpg';
-import image3 from '../../assets/images/test/왁ㅋ.png';
-import image4 from '../../assets/images/test/진영팍.jpg';
-import image5 from '../../assets/images/test/문상훈.jpg';
-import image6 from '../../assets/images/test/침착맨.png';
-import image7 from '../../assets/images/test/전현무.jpg';
-import image8 from '../../assets/images/test/나무니.jpg';
-import image9 from '../../assets/images/test/왕뚜껑.png';
-import image10 from '../../assets/images/test/행벅.jpg';
-
 interface ContactsProps {
   navigation: any;
 }

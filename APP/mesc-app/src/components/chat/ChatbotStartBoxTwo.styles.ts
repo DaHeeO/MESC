@@ -3,7 +3,7 @@ import {Image} from 'react-native';
 import {colors} from '../common/Theme';
 
 export const ChatbotBox = styled.View`
-  width: 260px;
+  width: 230px;
   height: 230px;
   display: flex;
   border-radius: 10px;
