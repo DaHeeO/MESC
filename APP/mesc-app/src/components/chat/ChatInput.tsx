@@ -57,7 +57,7 @@ function ChatInput() {
 
   useEffect(() => {
     if (inputShow == true) {
-      setInputHeight('130px');
+      setInputHeight('140px');
       setInputJustify('space-between');
       setShowBox('flex');
       setNoMargin('15px');
@@ -246,7 +246,8 @@ function ChatInput() {
         queryList: multipleCommitQuery,
       };
 
-      const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, 
+      const nextBlock: any = await putBlockToRecoil(
+        BlockType.SelectOutput,
         body,
       );
       // 에러처리 추가해줘야함
@@ -309,7 +310,6 @@ function ChatInput() {
             //커밋 실패시
             const newBlock = putBlockToRecoil(BlockType.CommitError, {});
           }
-
         });
     }
   };
@@ -327,13 +327,10 @@ function ChatInput() {
   };
 
   // 롤백 버튼 함수
-  const rollback = async () =>{
-    setChatbotHistory(prev => [
-      ...prev,
-      <UserMessage message={'Rollback'} />,
-    ]);
+  const rollback = async () => {
+    setChatbotHistory(prev => [...prev, <UserMessage message={'Rollback'} />]);
     putBlockToRecoil(BlockType.Rollback, {});
-  }
+  };
 
   function getNewBlock(title: string) {
     let blockId = 11;
@@ -353,8 +350,6 @@ function ChatInput() {
       setInput('');
     };
   }
-
-
 
   function getData() {
     const blockId = BlockType.SearchList;
@@ -412,23 +407,25 @@ function ChatInput() {
           </S.SendBox>
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
-          <S.ButtonContainer>
-            <S.ButtonBox onPress={recentData}>
-              <S.ButtonText>최근 공정 조회</S.ButtonText>
-            </S.ButtonBox>
-            <S.ButtonBox onPress={commit}>
-              <S.ButtonText>Commit</S.ButtonText>
-            </S.ButtonBox>
-            <S.ButtonBox onPress={rollback}>
-              <S.ButtonText>Rollback</S.ButtonText>
-            </S.ButtonBox>
-            <S.ButtonBox onPress={getNewBlock('데이터')}>
-              <S.ButtonText>데이터 조회</S.ButtonText>
-            </S.ButtonBox>
-            <S.ButtonBox onPress={getNewBlock('로그')}>
-              <S.ButtonText>로그 조회</S.ButtonText>
-            </S.ButtonBox>
-          </S.ButtonContainer>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <S.ButtonContainer>
+              <S.ButtonBox onPress={recentData}>
+                <S.ButtonText>최근공정조회</S.ButtonText>
+              </S.ButtonBox>
+              <S.ButtonBox onPress={commit}>
+                <S.ButtonText>Commit</S.ButtonText>
+              </S.ButtonBox>
+              <S.ButtonBox onPress={rollback}>
+                <S.ButtonText>Rollback</S.ButtonText>
+              </S.ButtonBox>
+              <S.ButtonBox onPress={getNewBlock('데이터')}>
+                <S.ButtonText>데이터 조회</S.ButtonText>
+              </S.ButtonBox>
+              <S.ButtonBox onPress={getNewBlock('로그')}>
+                <S.ButtonText>로그 조회</S.ButtonText>
+              </S.ButtonBox>
+            </S.ButtonContainer>
+          </ScrollView>
         </S.HiddenContainer>
       </S.ChatInput>
     </S.Input>

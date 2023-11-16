@@ -114,9 +114,9 @@ const ModalBox: React.FC<ModalBoxProps> = ({
     <S.Container>
       <S.MadalContainer>
         <S.Header>
-          <S.Button>
-            <Close onPress={onPress} />
-          </S.Button>
+          <S.CloseBtn onPress={onPress}>
+            <S.CloseText>닫기</S.CloseText>
+          </S.CloseBtn>
         </S.Header>
         <S.DataContainer {...panResponder.panHandlers}>
           {renderContent()}

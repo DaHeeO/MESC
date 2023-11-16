@@ -32,7 +32,7 @@ const Login = ({navigation}: LoginProps) => {
       // navigation.navigate('Intro');
       navigation.reset({
         index: 0,
-        routes: [{name: 'BottomTab', params: {screen: 'Main'}}],
+        routes: [{name: 'BottomTab', params: {screen: 'LoginPage'}}],
       });
     }
   };

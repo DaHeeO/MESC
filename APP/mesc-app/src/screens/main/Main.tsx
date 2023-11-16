@@ -112,7 +112,7 @@ function Main({navigation}: any) {
       <S.Div>
         <S.Top>
           <S.BoldText size={16} color={C.colors.text}>
-                SAMSUNG SDI MESC
+            SAMSUNG SDI MESC
           </S.BoldText>
           {/*<S.InfoDiv>
             <S.Avatar source={Avatar} />

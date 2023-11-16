@@ -19,14 +19,28 @@ export const MadalContainer = styled.View`
 `;
 
 export const Header = styled.View`
-  height: 30px;
+  height: 35px;
   // background-color: pink;
   flex-direction: row;
   justify-content: flex-end;
 `;
 
-export const Button = styled.TouchableOpacity`
+export const CloseBtn = styled.TouchableOpacity`
   height: 30px;
+  width: 60px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  text-size: 15px;
+  background: #3c56a0;
+  margin-bottom: 5px;
+`;
+
+export const CloseText = styled.Text`
+  // font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  line-height: 30px;
 `;
 
 export const DataContainer = styled.View`

@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Login from './src/screens/login/Login';
+import LoginPage from './src/screens/login/LoginPage';
 import FindId from './src/screens/login/FindId';
 import FindPassword from './src/screens/login/FindPassword';
 import ChangePassword from './src/screens/login/ChangePassword';
@@ -22,7 +23,12 @@ function App() {
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
-            component={Login}
+            component={LoginPage}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="LoginPage"
+            component={LoginPage}
             options={{headerShown: false}}
           />
           <Stack.Screen

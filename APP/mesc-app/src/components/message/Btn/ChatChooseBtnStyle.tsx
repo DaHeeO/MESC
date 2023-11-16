@@ -14,7 +14,7 @@ export const ChooseBtnBody = styled.TouchableOpacity<ChooseBtnProps>`
   // height: 30px;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: #f5f8fc;
   border-radius: 10px;
   flex-direction: row;
   // border: 3px solid green;

@@ -198,4 +198,5 @@ export const SendText = styled.Text`
   // font-weight: bold;
   font-size: 16px;
   color: #fff;
+  line-height: 30px;
 `;
