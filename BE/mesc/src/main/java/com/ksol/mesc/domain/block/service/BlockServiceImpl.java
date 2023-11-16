@@ -190,6 +190,7 @@ public class BlockServiceImpl implements BlockService {
 				cardMap.put("result", result);
 				if (result) {
 					tableByQuery.remove("result");
+					cardMap.put("title", tableByQuery.get("title"));
 					cardMap.put("table", tableByQuery);
 				} else {
 					cardMap.putAll(tableByQuery);
