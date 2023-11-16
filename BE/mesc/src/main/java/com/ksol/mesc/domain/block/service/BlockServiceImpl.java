@@ -185,7 +185,7 @@ public class BlockServiceImpl implements BlockService {
 				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(),
 					cardReqDto.getQueryList());
 				// LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(), 1,
-				// 	cardReqDto.getQueryList());
+				// 	cardReqDto.getQueryList());g
 				Boolean result = (Boolean)tableByQuery.get("result");
 				cardMap.put("result", result);
 				if (result) {
