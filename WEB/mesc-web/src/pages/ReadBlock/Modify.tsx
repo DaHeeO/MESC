@@ -30,7 +30,7 @@ export const Modify = () => {
 
   // console.log("blockTitleTyping==================", blockTitleTyping);
   console.log("cards==================", cards);
-  console.log("cardList==================", cardList.result);
+  console.log("cardList==================", cardList);
   const reponseCardList = cardList.result;
   const cardListString = reponseCardList.match(/"cardList":\[.*?\]/);
   let result = "";
