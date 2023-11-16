@@ -7,7 +7,7 @@ import * as S from "./SelectBlockStyle";
 import * as C from "../../common/theme";
 
 // api
-import { api } from "../../../apis/Api";
+import { api, api1 } from "../../../apis/Api";
 // recoil
 import { useRecoilState } from "recoil";
 import { CreatBlockState } from "../../../state/create/AddBlock";
@@ -43,6 +43,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
       .catch((err) => {
         setError("데이터를 조회하는데 실패하였습니다.");
         setLoading(false);
+        console.log(err);
       });
   }, []);
 

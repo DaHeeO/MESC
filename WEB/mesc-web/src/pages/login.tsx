@@ -55,11 +55,7 @@ function Login() {
         localStorage.setItem("accessToken", accessToken);
         loginPass = true;
         api
-          .get("/mesc/user", {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          })
+          .get("/mesc/user", {})
           .then((res) => {
             setUserInfoValue({
               ...userInfoValue,
@@ -69,6 +65,10 @@ function Login() {
               phoneNumber: res.data.data.phoneNumber,
               role: res.data.data.role,
             });
+            console.log(userInfoValue);
+          })
+          .catch((err) => {
+            console.log(err);
           });
 
         navigate("/");
