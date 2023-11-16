@@ -206,7 +206,10 @@ public class BlockServiceImpl implements BlockService {
 						cardMap.put("content", "해당 조건을 만족하는 데이터가 존재하지 않습니다.");
 						cardMap.put("cardType", "TX");
 					} else {
-						cardMap.put("title", ((List<String>)tableByQueryRollback.get("tableList")).get(0));
+						List<String> tableList = (List<String>) tableByQueryRollback.get("tableList");
+						if (tableList!= null) {
+							cardMap.put("title", tableList.get(0));
+						}
 						cardMap.put("table", tableByQueryRollback);
 					}
 				} else {
