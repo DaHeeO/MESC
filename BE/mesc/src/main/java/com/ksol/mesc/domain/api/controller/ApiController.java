@@ -126,7 +126,7 @@ public class ApiController {
 		checkValidates(bindingResult);
 		List<String> queryList = developerCommitRequestDto.getQueryList();
 		LinkedHashMap<String, Object> result = apiService.commit(queryList);
-		if (result.get("result").equals("true"))
+		if ((Boolean)result.get("result"))
 			result.put("blockId", 15);
 
 		return ResponseEntity.ok(CommonResponseDto.success(result));
