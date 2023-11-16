@@ -258,6 +258,41 @@ function ChatInput() {
     return newBlock;
   };
 
+  function getNewBlock(title: string) {
+    let blockId = 1;
+    if (title === '커밋') {
+    } else if (title === '롤백') {
+    } else if (title === '데이터') {
+      // console.log('데이터=======================');
+      // getData();
+      blockId = BlockType.SearchList;
+    } else if (title === '로그') {
+      blockId = BlockType.LogKeyword;
+    }
+    return async () => {
+      const newBlock = await putBlockToRecoil(blockId, {});
+      console.log('newBlock', newBlock);
+      if (blockId === BlockType.SearchList) {
+        setIsModalVisible(true);
+        setModalId('SF');
+      }
+
+      setInput('');
+    };
+  }
+
+  function getData() {
+    const blockId = BlockType.SearchList;
+
+    return async () => {
+      console.log('blockId', blockId);
+      const newBlock = await putBlockToRecoil(blockId, {});
+      console.log('newBlock', newBlock);
+
+      setInput('');
+    };
+  }
+
   return (
     <S.Input>
       {suggestions.length > 0 && (
@@ -306,16 +341,16 @@ function ChatInput() {
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
           <S.ButtonContainer>
-            <S.ButtonBox>
+            <S.ButtonBox onPress={getNewBlock('커밋')}>
               <S.ButtonText>Commit</S.ButtonText>
             </S.ButtonBox>
-            <S.ButtonBox>
+            <S.ButtonBox onPress={getNewBlock('롤백')}>
               <S.ButtonText>Rollback</S.ButtonText>
             </S.ButtonBox>
-            <S.ButtonBox>
+            <S.ButtonBox onPress={getNewBlock('데이터')}>
               <S.ButtonText>데이터 조회</S.ButtonText>
             </S.ButtonBox>
-            <S.ButtonBox>
+            <S.ButtonBox onPress={getNewBlock('로그')}>
               <S.ButtonText>로그 조회</S.ButtonText>
             </S.ButtonBox>
           </S.ButtonContainer>

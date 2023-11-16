@@ -14,6 +14,9 @@ type ModalBoxProps = {
         columnNameList: string[];
         columnTypeList: string[];
         rowList: string[][];
+        isLastPage?: boolean;
+        rowCnt?: number;
+        totalCnt?: number;
       }
     | undefined
     | null;
@@ -21,6 +24,8 @@ type ModalBoxProps = {
   onPress: () => void;
   isModal?: boolean;
   log?: LogEntry[];
+  rowCnt?: number;
+  totalCnt?: number;
 };
 
 type LogEntry = {
@@ -69,6 +74,8 @@ const ModalBox: React.FC<ModalBoxProps> = ({
           columnName={table.columnNameList}
           columnType={table.columnTypeList}
           rowList={table.rowList}
+          rowCnt={table.rowCnt}
+          totalCnt={table.totalCnt}
           isModal={true}
         />
       );

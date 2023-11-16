@@ -1,5 +1,5 @@
 //React
-import React, {useState, useRef, useCallback} from 'react';
+import React, {useState, useRef, useCallback, useEffect} from 'react';
 //Style
 import {
   View,
@@ -18,11 +18,12 @@ import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {modalIdState} from '../../../states/ModalIdState';
 import ModalBox from './ModalBox';
 import {getBlock, getCard, customAxios} from '../../../../Api';
-import {drop, get} from 'lodash';
+import {drop, get, set} from 'lodash';
 import {ConditionIdState} from '../../../states/ConditionIdState';
 import {DropdownState} from '../../../states/DropdownState';
 import {ActionIdState} from '../../../states/ReadDataState';
 import {BlockType} from '../../../const/constants';
+import {is} from 'date-fns/locale';
 
 type TableProps = {
   title?: string;
@@ -32,7 +33,10 @@ type TableProps = {
   isModal: boolean;
   showButton?: boolean;
   onPress?: () => void;
-  query: string | undefined;
+  query?: string | undefined;
+  isLastPage?: boolean;
+  rowCnt?: number;
+  totalCnt?: number;
 };
 
 const Table: React.FC<TableProps> = ({
@@ -44,6 +48,9 @@ const Table: React.FC<TableProps> = ({
   showButton,
   onPress,
   query,
+  isLastPage,
+  rowCnt,
+  totalCnt,
 }) => {
   // 모달 관련 여부
   const [isModalVisible, setModalVisible] =
@@ -60,85 +67,63 @@ const Table: React.FC<TableProps> = ({
   const [dropdown, setDropdown] = useRecoilState(DropdownState);
   const [AnctionId, setAnctionId] = useRecoilState(ActionIdState);
   const [touchedRow, setTouchedRow] = useState(null);
+  const [IsLastPage, setIsLastPage] = useState(isLastPage);
   const [moreRowList, setMoreRowList] = useState(rowList);
-  const [currentPage, setCurruntPage] = useState(1);
-  const [isLastPage, setIsLastPage] = useState(false);
+  const [currentPage, setCurruntPage] = useState(2);
+  const [rowCnt2, setRowCnt2] = useState(rowCnt);
+
+  // useEffect(() => {
+  //   if (!IsLastPage) {
+  //     console.log('loadMoreData() 호출');
+  //     loadMoreData();
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    if (!IsLastPage) {
+      console.log('loadMoreData() 호출');
+      loadMoreData();
+    }
+    setRowCnt2(rowCnt);
+  }, [rowCnt]);
 
   const loadMoreData = async () => {
-    if (isLastPage) return;
+    console.log('IsLastPage================', IsLastPage);
+    if (IsLastPage) return;
 
     const body = {
       conditions: '',
     };
-    await customAxios
-      .post(`api/worker/data/${actionId}/${currentPage}`, body)
-      .then(response => {
-        console.log('response================', response.data);
-        const newData = response.data.data.rowList;
-        setMoreRowList(prevRowList => [...prevRowList, ...newData]);
-        setCurruntPage(currentPage => currentPage + 1);
-        setIsLastPage(response.data.data.isLastPage);
-        return newData;
-      })
-      .catch(error => {
-        console.log(error);
-      });
+
+    try {
+      const response = await customAxios.post(
+        `api/worker/data/${actionId}/${currentPage}`,
+        body,
+      );
+      console.log('reponse.data.data', response.data.data);
+      const newData = response.data.data.rowList;
+      if (response.data.data.isLastPage) {
+        setIsLastPage(true); // setIsLastPage를 사용하여 상태를 업데이트합니다.
+      }
+      setMoreRowList(prevRowList => [...prevRowList, ...newData]);
+      setCurruntPage(currentPage => currentPage + 1);
+      setRowCnt2(response.data.data.rowCnt);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  // console.log('currentPage================', currentPage);
   const handleScroll = (event: any) => {
     const offsetY = event.nativeEvent.contentOffset.y;
     const contentHeight = event.nativeEvent.contentSize.height;
     const viewHeight = event.nativeEvent.layoutMeasurement.height;
 
-    if (offsetY + viewHeight >= contentHeight - 50) {
-      // 스크롤이 바닥에 거의 도달했을 때
+    // 스크롤이 중간 지점에 도달했을 때 데이터 로드
+    if (offsetY + viewHeight >= contentHeight / 2) {
       loadMoreData();
     }
   };
-
-  // const [data, setData] = useState(rowList);
-  // const [hasMore, setHasMore] = useState(true);
-
-  // // ///////////////////////////////////// 페이지네이션 코드 //////////////////////////////////
-  // const observer = useRef();
-  // const lastElementRef = useCallback(
-  //   (node:any) => {
-  //     if (observer.current) observer.current.disconnect();
-  //     observer.current = new IntersectionObserver(entries => {
-  //       if (entries[0].isIntersecting && hasMore) {
-  //         // 스크롤이 마지막 요소에 도달하면 새 데이터 로드
-  //         loadMoreData();
-  //       }
-  //     });
-  //     if (node) observer.current.observe(node);
-  //   },
-  //   [loading, hasMore],
-  // );
-
-  // // 데이터 로드 함수
-  // const loadMoreData = async () => {
-  //   // 데이터 로드 로직 (예: API 호출)
-  //   const newData = await fetchData();
-  //   setData(prevData => [...prevData, ...newData]);
-  //   setHasMore(newData.length > 0); // 새 데이터가 없으면 더 이상 로드하지 않음
-  // };
-
-  // const fetchData = async () => {
-  //   let num: number = 2;
-  //   let conditions ='';
-
-  //   await customAxios
-  //     .post(`worker/data/${actionId}/${num}`, conditions)
-  //     .then(response => {
-  //       console.log('response================', response.data);
-  //       const data = response.data;
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  //   return data;
-  // }
-  // /////////////////////////////////////////////////////////////////////////////////
 
   // 셀 너비 설정
   const minColumnWidth = 75;
@@ -225,15 +210,32 @@ const Table: React.FC<TableProps> = ({
     setModalId('CF');
   };
 
-  const tableHeader = makeHeader(title);
-  function makeHeader(title: String | undefined) {
-    if (!title) return <></>;
-
+  const tableHeader = makeHeader(title, rowCnt2, totalCnt, isModalVisible);
+  function makeHeader(
+    title: String | undefined,
+    rowCnt2: number | undefined,
+    totalCnt: number | undefined,
+    isModalVisible: boolean,
+  ) {
+    console
+      .log
+      // 'Table makeHeader===================================================================',
+      ();
+    // console.log('title:', title);
+    console.log('rowCnt:', rowCnt2, 'totalCnt:', totalCnt);
+    const showCountInfo = isModalVisible || !showButton;
     return (
       <S.Header>
         <S.HeaderContainer>
-          <S.Title>{title}</S.Title>
-          {showButton && (
+          {title && <S.Title>{title}</S.Title>}
+          {showCountInfo && rowCnt !== undefined && totalCnt !== undefined && (
+            <S.CountInfo>
+              <S.CountText>
+                {rowCnt2}/{totalCnt}
+              </S.CountText>
+            </S.CountInfo>
+          )}
+          {showButton && title && (
             <S.Button>
               <ConditionModify onPress={handlePress} query={query} />
             </S.Button>
@@ -272,7 +274,7 @@ const Table: React.FC<TableProps> = ({
                 onScroll={handleScroll}
                 nestedScrollEnabled={true}
                 showsVerticalScrollIndicator={false}>
-                {moreRowList.map((row, rowIndex) => (
+                {rowList.map((row, rowIndex) => (
                   <TouchableOpacity
                     key={`row-${rowIndex}`}
                     onPressIn={() => handleTouchStart(rowIndex)}
@@ -309,6 +311,8 @@ const Table: React.FC<TableProps> = ({
             columnNameList: columnName,
             columnTypeList: columnType,
             rowList: rowList,
+            rowCnt: rowCnt,
+            totalCnt: totalCnt,
           }}
           onPress={hideModal}
         />
