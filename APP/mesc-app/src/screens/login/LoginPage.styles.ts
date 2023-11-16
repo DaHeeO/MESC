@@ -41,7 +41,7 @@ export const Header = styled.View`
   align-items: flex-start;
   height: 10%;
   // background-color: red;
-  padding-top: 20px;
+  padding-top: 30px;
 `;
 
 export const Logo = styled.View`
@@ -105,8 +105,8 @@ export const Button = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   width: 80%;
-  height: 60px;
-  background-color: ${colors.backgroundIris};
+  height: 70px;
+  background-color: #eeeeff;
   // background-color: yellow;
   border-radius: 14px;
 `;
@@ -114,9 +114,10 @@ export const Button = styled.TouchableOpacity`
 export const ButtonText = styled.Text`
   font-size: 16px;
   font-weight: bold;
-  color: ${colors.iris};
+  color: ${colors.header};
 `;
 
 export const Icon = styled.View`
   margin-right: 10px;
+  color: ${colors.header};
 `;

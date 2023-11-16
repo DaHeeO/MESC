@@ -220,7 +220,7 @@ const Table: React.FC<TableProps> = ({
     totalCnt: number | undefined,
     isModalVisible: boolean,
   ) {
-    const showCountInfo = isModalVisible || !showButton;
+    const showCountInfo = isModalBoxVisible || !showButton;
     return (
       <S.Header>
         <S.HeaderContainer>
@@ -277,7 +277,7 @@ const Table: React.FC<TableProps> = ({
                     style={[
                       {flexDirection: 'row'},
                       isTouched(rowIndex) && {
-                        backgroundColor: 'rgba(123, 178, 233, 0.5)',
+                        backgroundColor: 'rgba(251, 224, 84, 0.5)',
                       }, // 터치된 행에 배경색 적용
                     ]}
                     onPress={() => handleRowPress(rowIndex, row)}>
@@ -285,7 +285,12 @@ const Table: React.FC<TableProps> = ({
                       <S.CellBox
                         key={`cell-${rowIndex}-${cellIndex}`}
                         style={{width: dynamicColumnWidths[cellIndex]}}>
-                        <S.Cell>{cell}</S.Cell>
+                        <S.Cell
+                          style={
+                            isTouched(rowIndex) ? {color: '#182655'} : null
+                          }>
+                          {cell}
+                        </S.Cell>
                       </S.CellBox>
                     ))}
                   </TouchableOpacity>

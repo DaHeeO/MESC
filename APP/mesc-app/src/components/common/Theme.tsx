@@ -19,6 +19,12 @@ export const colors = {
   // 파란색 버튼
   button: '#3C56A0',
 
+  // 회색 버튼
+  buttonGray: '#F0F3F7',
+
+  // 챗봇 메시지
+  chatbot: '#ced2d6',
+
   // 남색 텍스트
   text: '#182655',
 
@@ -26,4 +32,5 @@ export const colors = {
   label: '#D129AC',
 
   // 연한 배경
+  backgroundLight: '#e7e9eb',
 };

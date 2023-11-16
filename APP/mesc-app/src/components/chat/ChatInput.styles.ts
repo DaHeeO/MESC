@@ -48,7 +48,7 @@ export const PlusBox = styled.TouchableOpacity`
 `;
 
 export const InputBox = styled.TextInput`
-  background-color: #ececec;
+  background-color: ${colors.backgroundLight}};
   width: 80%;
   height: auto;
   max-height: 80px;
@@ -160,7 +160,7 @@ export const Img = styled.Image`
 export const HiddenContainer = styled.View<InputProps>`
   display: ${({display}) => (display ? display : 'none')};
   /* background-color: blue; */
-  height: 50%;
+  height: 70px;
   width: 100%;
   /* align-items: center; */
   flex-direction: row;
@@ -172,18 +172,20 @@ export const ButtonContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  /* background-color: yellow;*/
+  // background-color: yellow;
+  margin-top: 5px;
+  margin-left: 5px;
 `;
 
 export const ButtonBox = styled.TouchableOpacity`
-  width: 80px;
-  height: 38px;
+  width: 85px;
+  height: 40px;
   margin-left: 7px;
   margin-right: 7px;
-  background-color: ${colors.label};
+  background-color: ${colors.header};
   align-items: center;
   justify-content: center;
-  border-radius: 14px;
+  border-radius: 20px;
   padding: 3px;
 `;
 

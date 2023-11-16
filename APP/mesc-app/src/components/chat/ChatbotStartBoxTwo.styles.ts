@@ -17,7 +17,7 @@ export const TopBox = styled.View`
   flex-direction: row;
   display: flex;
   background-color: ${colors.iris};
-  // background-color: 
+  // background-color: yellow
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 `;

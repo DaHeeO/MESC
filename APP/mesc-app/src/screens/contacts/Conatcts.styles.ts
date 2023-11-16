@@ -69,7 +69,7 @@ export const Search = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: ${colors.icy};
+  background-color: ${colors.backgroundGray};
   border-radius: 10px;
   height: 48px;
   width: 100%;

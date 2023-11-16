@@ -57,7 +57,7 @@ function ChatInput() {
 
   useEffect(() => {
     if (inputShow == true) {
-      setInputHeight('130px');
+      setInputHeight('140px');
       setInputJustify('space-between');
       setShowBox('flex');
       setNoMargin('15px');
@@ -401,23 +401,25 @@ function ChatInput() {
           </S.SendBox>
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
-          <S.ButtonContainer>
-            <S.ButtonBox onPress={recentData}>
-              <S.ButtonText>최근 공정 조회</S.ButtonText>
-            </S.ButtonBox>
-            <S.ButtonBox onPress={commit}>
-              <S.ButtonText>Commit</S.ButtonText>
-            </S.ButtonBox>
-            <S.ButtonBox onPress={getNewBlock('롤백')}>
-              <S.ButtonText>Rollback</S.ButtonText>
-            </S.ButtonBox>
-            <S.ButtonBox onPress={getNewBlock('데이터')}>
-              <S.ButtonText>데이터 조회</S.ButtonText>
-            </S.ButtonBox>
-            <S.ButtonBox onPress={getNewBlock('로그')}>
-              <S.ButtonText>로그 조회</S.ButtonText>
-            </S.ButtonBox>
-          </S.ButtonContainer>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <S.ButtonContainer>
+              <S.ButtonBox onPress={recentData}>
+                <S.ButtonText>최근공정조회</S.ButtonText>
+              </S.ButtonBox>
+              <S.ButtonBox onPress={commit}>
+                <S.ButtonText>Commit</S.ButtonText>
+              </S.ButtonBox>
+              <S.ButtonBox onPress={getNewBlock('롤백')}>
+                <S.ButtonText>Rollback</S.ButtonText>
+              </S.ButtonBox>
+              <S.ButtonBox onPress={getNewBlock('데이터')}>
+                <S.ButtonText>데이터조회</S.ButtonText>
+              </S.ButtonBox>
+              <S.ButtonBox onPress={getNewBlock('로그')}>
+                <S.ButtonText>로그조회</S.ButtonText>
+              </S.ButtonBox>
+            </S.ButtonContainer>
+          </ScrollView>
         </S.HiddenContainer>
       </S.ChatInput>
     </S.Input>
