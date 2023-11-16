@@ -8,6 +8,7 @@ import { api } from "../../../apis/Api";
 import { useRecoilState } from "recoil";
 import { CreatBlockState } from "../../../state/create/AddBlock";
 import { BlockState } from "../../../state/create/CreateState";
+import { CardListState } from "../../../state/read/GetCardList";
 
 interface TableProps {
   data: {
@@ -23,8 +24,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // recoil에서 block값 가져오기
-  const [blockImpo, setBlockImpo] = useRecoilState(CreatBlockState);
-
+  const [cardList, setCardList] = useRecoilState(CardListState);
   // 데이터 조회하기 ============================>
 
   useEffect(() => {
@@ -57,6 +57,10 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
       .then((res) => {
         console.log("id=======", res);
         console.log("card(결과값)=======", res.request.response);
+        setCardList((prevCardList) => ({
+          ...prevCardList,
+          result: res.request.response,
+        }));
         setBlockInfo((prevBlockState) => ({
           ...prevBlockState,
           blockInfo: {

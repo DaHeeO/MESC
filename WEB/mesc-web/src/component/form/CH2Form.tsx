@@ -5,13 +5,32 @@ import * as C from "../../pages/AddBlock/AddStyle";
 import chatbot from "../../assest/image/chatbot.png";
 //Recoil
 import { useRecoilState } from "recoil";
-import { Card } from "../../state/create/CreateState";
+import { Card, Ch2State, Ch2StateProps } from "../../state/create/CreateState";
 import { CardState } from "../../state/create/CreateState";
 //Component
 import { AboutContainer } from "../common/About/AboutContainer";
 
-export const CH2Form = (props: { card: Card }) => {
-  const [cards, setCards] = useRecoilState(CardState);
+interface CH2FormProps {
+  card: Card;
+  content?: string;
+}
+
+export const CH2Form = (props: CH2FormProps) => {
+  //카드 recoil
+  const [ch2State, setCh2State] = useRecoilState(Ch2State);
+
+  // ch2State를 업데이트하는 함수
+  const updateCh2State = (newValue: Ch2StateProps) => {
+    setCh2State(newValue);
+  };
+
+  // ch2State의 특정 속성 업데이트하는 함수
+  const updateCh2Name = (newName: string) => {
+    setCh2State((prevCh2State) => ({
+      ...prevCh2State,
+      name: newName,
+    }));
+  };
 
   return (
     <S.ComponentContainer height="85%" width="100%" radius="30px">
@@ -37,13 +56,10 @@ export const CH2Form = (props: { card: Card }) => {
             width="60%"
             placeholder="카드 이름"
             onChange={(e) => {
-              // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
-              setCards((prevCards) =>
-                prevCards.map((nowCard) =>
-                  nowCard.sequence === props.card.sequence
-                    ? { ...nowCard, name: e.target.value }
-                    : nowCard
-                )
+              setCh2State((ch2State) =>
+                ch2State.sequence === props.card.sequence
+                  ? { ...ch2State, name: e.target.value }
+                  : ch2State
               );
             }}
           />
@@ -67,25 +83,62 @@ export const CH2Form = (props: { card: Card }) => {
               height="30%"
               placeholder="내용 1"
               onChange={(e) => {
-                // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
-                setCards((prevCards) =>
-                  prevCards.map((nowCard) =>
-                    nowCard.sequence === props.card.sequence
-                      ? { ...nowCard, content: e.target.value }
-                      : nowCard
-                  )
-                );
+                props.content = e.target.value;
               }}
             />
           </C.InnerContainer>
           <C.InnerContainer width="100%" height="35%" justifyContent="center">
             <S.FormBtn>
-              <S.FormInput width="80%" height="30%" placeholder="버튼 1" />
+              <S.FormInput
+                width="80%"
+                height="30%"
+                placeholder="버튼 1"
+                onChange={(e) => {
+                  setCh2State((prevCh2State) => ({
+                    ...prevCh2State,
+                    componentList: [
+                      ...(prevCh2State.componentList || []),
+                      {
+                        type: "bu",
+                        sequence: "0",
+                        object: {
+                          actionId: 0,
+                          name: e.target.value,
+                          linkType: "",
+                          link: "",
+                        },
+                      },
+                    ],
+                  }));
+                }}
+              />
             </S.FormBtn>
           </C.InnerContainer>
           <C.InnerContainer width="100%" height="35%" justifyContent="center">
             <S.FormBtn>
-              <S.FormInput width="80%" height="30%" placeholder="버튼 2" />
+              <S.FormInput
+                width="80%"
+                height="30%"
+                placeholder="버튼 1"
+                onChange={(e) => {
+                  setCh2State((prevCh2State) => ({
+                    ...prevCh2State,
+                    componentList: [
+                      ...(prevCh2State.componentList || []),
+                      {
+                        type: "bu",
+                        sequence: "1",
+                        object: {
+                          actionId: 0,
+                          name: e.target.value,
+                          linkType: "",
+                          link: "",
+                        },
+                      },
+                    ],
+                  }));
+                }}
+              />
             </S.FormBtn>
           </C.InnerContainer>
           {/* 버튼 있는 공간  */}

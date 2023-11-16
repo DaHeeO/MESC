@@ -15,6 +15,7 @@ import { AddCardComponent } from "../../component/page/AddCard";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
 import { SaveBtn } from "../../component/common/About/AboutBtn";
 import { SelectBlockv2 } from "../../component/Block/Select/SelectBlockv2";
+import { CardListState } from "../../state/read/GetCardList";
 
 export const Modify = () => {
   // =====================================================================
@@ -25,9 +26,11 @@ export const Modify = () => {
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
   const [cards, setCards] = useRecoilState(CardState);
   const [blockName, setBlockName] = useState("");
+  const [cardList, setCardList] = useRecoilState(CardListState);
 
   console.log("blockTitleTyping==================", blockTitleTyping);
   console.log("cards==================", cards);
+  console.log("cardList==================", cardList);
   // input default 값 설정====================================
   //  name을 못찾는다는 오류 발생 (후순위)
 
@@ -96,12 +99,13 @@ export const Modify = () => {
   // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
-      id: cards.length + 1, // id를 적절히 부여합니다.
+      Index: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
       sequence: cards.length,
       // cardType: CardType, // 이 부분도 수정이 필요합니다.
       cardType: "TX", // 이 부분도 수정이 필요합니다.
-      content: "카드 내용을 작성해주세요.",
+      content: "",
+      componentList: [],
     };
 
     // Recoil을 사용하여 카드 상태 갱신

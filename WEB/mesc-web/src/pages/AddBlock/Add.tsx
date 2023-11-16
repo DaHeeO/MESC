@@ -1,5 +1,5 @@
 //React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Recoil
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CreatBlockState } from "../../state/create/AddBlock";
@@ -13,6 +13,7 @@ import * as S from "./AddStyle";
 import { AddCardComponent } from "../../component/page/AddCard";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
 import BasicSpeedDial, { SaveBtn } from "../../component/common/About/AboutBtn";
+import { SwitchCard } from "./SwitchCard";
 
 export const Add = () => {
   // =====================================================================
@@ -21,6 +22,15 @@ export const Add = () => {
   const [blockTitleTyping, setBlockTitleTyping] = useState<string>("");
   const [blockState, setBlockState] = useRecoilState(CreatBlockState);
   const [cards, setCards] = useRecoilState(CardState);
+  const CardType = useRecoilValue(CardIdState);
+
+  // useEffect(() => {
+  //   const addCardInfo = () => {
+  //     const currentCardState = SwitchCard({ cardId: CardType });
+  //     setCards((prevCards) => [...prevCards, currentCardState]);
+  //   };
+  //   // addCardInfo();
+  // }, [CardType]);
 
   // Block 이름 변경 및 API 호출
   const updateBlockName = (newName: string) => {
@@ -33,19 +43,22 @@ export const Add = () => {
       },
     }));
 
+    console.log(newName);
+    console.log(cards);
+
     // Block 생성 API 호출===================================
-    api
-      .post("block/admin", {
-        blockInfo: { name: newName },
-        cards,
-      })
-      .then((res) => {
-        console.log("card==================", cards);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // api
+    //   .post("block/admin", {
+    //     blockInfo: { name: newName },
+    //     cardReqList: cards,
+    //   })
+    //   .then((res) => {
+    //     console.log("card==================", cards);
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
   // =======================================================
 
@@ -54,27 +67,40 @@ export const Add = () => {
   // 화면에 보여지는 카드 useState
   console.log("cards==================", cards);
 
-  // 카드 타입을 저장하고 있는 recoil
-  const [createCard, setCreateCard] = useRecoilState(CardState);
-  const CardType = useRecoilValue(CardIdState);
-
   // 카드 추가 함수
   const addCard = () => {
-    const newCard: Card = {
-      id: cards.length + 1, // id를 적절히 부여합니다.
-      name: "카드 이름을 작성해주세요.",
-      sequence: cards.length,
-      // cardType: CardType, // 이 부분도 수정이 필요합니다.
-      cardType: "TX", // 이 부분도 수정이 필요합니다.
-      content: "카드 내용을 작성해주세요.",
-    };
+    const newIndex = cards.length + 1;
+    let content = "";
 
-    // Recoil을 사용하여 카드 상태 갱신
-    // setCreateCard((prevCardState) => [...prevCardState, newCard]);
+    if (cards.length > 0 && newIndex >= 0 && newIndex < cards.length) {
+      content = cards[newIndex].content;
+    }
+
+    const newCard: Card = {
+      Index: newIndex,
+      name: "카드 이름을 작성해주세요.",
+      sequence: newIndex,
+      cardType: CardType,
+      content: content,
+      componentList: [
+        {
+          type: "BU",
+          sequence: "1",
+          object: {
+            actionId: 0,
+            name: "",
+            linkType: "B",
+            link: 1,
+          },
+        },
+      ],
+    };
     setCards((prevCards) => [...prevCards, newCard]);
   };
 
   const showCards = cards.map((card) => <AddCardComponent card={card} />);
+
+  // Recoil을 사용하여 카드 상태 갱신
 
   // =======================================================
 

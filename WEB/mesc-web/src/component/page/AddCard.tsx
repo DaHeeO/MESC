@@ -29,7 +29,7 @@ export const AddCardComponent = (props: { card: Card }) => {
   // const component = ComponentIdSwitch({ ComponentId: card.cardType });
 
   const deleteCard = () => {
-    setCards(cards.filter((nowCard) => nowCard.id !== card.id));
+    setCards(cards.filter((nowCard) => nowCard.Index !== card.Index));
   };
 
   const typeChange = (cardType: any) => {
@@ -37,11 +37,12 @@ export const AddCardComponent = (props: { card: Card }) => {
     // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
     setCards((prevCards) =>
       prevCards.map((nowCard) =>
-        nowCard.id === props.card.id
+        nowCard.Index === props.card.Index
           ? { ...nowCard, cardType: cardType }
           : nowCard
       )
     );
+    console.log(cards);
     // setCards(
     //   cards.map((nowCard) => {
     //     if (nowCard.id == card.id) {
@@ -51,6 +52,11 @@ export const AddCardComponent = (props: { card: Card }) => {
     //   })
     // );
   };
+
+  const makeCard = (cardType: any) => {
+    if(cardType === "TX"){
+    }
+  }
 
   return (
     <S.CardContainer>
@@ -69,7 +75,7 @@ export const AddCardComponent = (props: { card: Card }) => {
             justifyContent="center"
             alignItems="center"
           >
-            {card.id}
+            {card.Index}
           </S.InnerContainer>
           {/* 카드 이름 자리_name*/}
           <S.InnerContainer

@@ -1,18 +1,15 @@
 // Recoil
 import { useRecoilState } from "recoil";
-import { CardState } from "../../state/create/CreateState";
+import { CardState, TxTaState } from "../../state/create/CreateState";
 //style
 import * as S from "./FormStyle";
 //Component
 import { AboutContainer } from "../common/About/AboutContainer";
 import { Card } from "../../state/create/CreateState";
 
-// interface TxFormProps {
-//   content: string;
-// }
-
 export const TXForm = (props: { card: Card }) => {
-  const [cards, setCards] = useRecoilState(CardState);
+  const [txCard, setTxCard] = useRecoilState(TxTaState); // 카드를 임시로 저장하는 state
+  const [cards, setCards] = useRecoilState(CardState); // 카드를 저장하는 state
 
   return (
     <AboutContainer
