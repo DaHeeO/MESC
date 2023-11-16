@@ -81,48 +81,48 @@ const Table: React.FC<TableProps> = ({
   //   }
   // }, []);
 
-  useEffect(() => {
-    if (!IsLastPage) {
-      loadMoreData();
-    }
-    setRowCnt2(rowCnt);
-  }, [rowCnt]);
+  // useEffect(() => {
+  //   if (!IsLastPage) {
+  //     loadMoreData();
+  //   }
+  //   setRowCnt2(rowCnt);
+  // }, [rowCnt]);
 
-  const loadMoreData = async () => {
-    if (IsLastPage) return;
+  // const loadMoreData = async () => {
+  //   if (IsLastPage) return;
 
-    const body = {
-      conditions: '',
-    };
+  //   const body = {
+  //     conditions: '',
+  //   };
 
-    try {
-      const response = await customAxios.post(
-        `api/worker/data/${actionId}/${currentPage}`,
-        body,
-      );
-      const newData = response.data.data.rowList;
-      if (response.data.data.isLastPage) {
-        setIsLastPage(true); // setIsLastPage를 사용하여 상태를 업데이트합니다.
-      }
-      setMoreRowList(prevRowList => [...prevRowList, ...newData]);
-      setCurruntPage(currentPage => currentPage + 1);
-      setRowCnt2(response.data.data.rowCnt);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //   try {
+  //     const response = await customAxios.post(
+  //       `api/worker/data/${actionId}/${currentPage}`,
+  //       body,
+  //     );
+  //     const newData = response.data.data.rowList;
+  //     if (response.data.data.isLastPage) {
+  //       setIsLastPage(true); // setIsLastPage를 사용하여 상태를 업데이트합니다.
+  //     }
+  //     setMoreRowList(prevRowList => [...prevRowList, ...newData]);
+  //     setCurruntPage(currentPage => currentPage + 1);
+  //     setRowCnt2(response.data.data.rowCnt);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  // console.log('currentPage================', currentPage);
-  const handleScroll = (event: any) => {
-    const offsetY = event.nativeEvent.contentOffset.y;
-    const contentHeight = event.nativeEvent.contentSize.height;
-    const viewHeight = event.nativeEvent.layoutMeasurement.height;
+  // // console.log('currentPage================', currentPage);
+  // const handleScroll = (event: any) => {
+  //   const offsetY = event.nativeEvent.contentOffset.y;
+  //   const contentHeight = event.nativeEvent.contentSize.height;
+  //   const viewHeight = event.nativeEvent.layoutMeasurement.height;
 
-    // 스크롤이 중간 지점에 도달했을 때 데이터 로드
-    if (offsetY + viewHeight >= contentHeight / 2) {
-      loadMoreData();
-    }
-  };
+  //   // 스크롤이 중간 지점에 도달했을 때 데이터 로드
+  //   if (offsetY + viewHeight >= contentHeight / 2) {
+  //     loadMoreData();
+  //   }
+  // };
 
   // 셀 너비 설정
   const minColumnWidth = 75;
@@ -227,9 +227,7 @@ const Table: React.FC<TableProps> = ({
           {title && <S.Title>{title}</S.Title>}
           {showCountInfo && rowCnt !== undefined && totalCnt !== undefined && (
             <S.CountInfo>
-              <S.CountText>
-                {rowCnt2}/{totalCnt}
-              </S.CountText>
+              <S.CountText>total : {totalCnt}</S.CountText>
             </S.CountInfo>
           )}
           {showButton && title && (
@@ -268,7 +266,7 @@ const Table: React.FC<TableProps> = ({
                 ))}
               </View>
               <ScrollView
-                onScroll={handleScroll}
+                // onScroll={handleScroll}
                 nestedScrollEnabled={true}
                 showsVerticalScrollIndicator={false}>
                 {rowList.map((row, rowIndex) => (
