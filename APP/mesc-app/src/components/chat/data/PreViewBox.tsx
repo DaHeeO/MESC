@@ -82,7 +82,7 @@ const PreViewBox: React.FC<PreViewBoxProps> = ({
   return (
     <S.DataBoxContainer {...panResponder.panHandlers}>
       {renderContent()}
-      {OkayBtn({
+      {/* {OkayBtn({
         content: 'Commit',
         height: '30px',
         onPress: async () => {
@@ -94,8 +94,8 @@ const PreViewBox: React.FC<PreViewBoxProps> = ({
             putBlockToRecoil(BlockType.OperationOutput, {query: commitQuery});
           }
         },
-      })}
-      {OkayBtn({
+      })} */}
+      {/* {OkayBtn({
         content: 'Rollback',
         height: '30px',
         onPress: () => {
@@ -105,7 +105,7 @@ const PreViewBox: React.FC<PreViewBoxProps> = ({
           ]);
           putBlockToRecoil(BlockType.QueryInput, {});
         },
-      })}
+      })} */}
     </S.DataBoxContainer>
   );
 };
