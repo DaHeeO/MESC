@@ -16,10 +16,17 @@ import {BlockType} from '../../const/constants';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
 import {CommitQuery} from '../../states/CommitQuery';
+import {MultipleCommitQuery} from '../..//states/MultipleCommitQuery';
+import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
+import {ActionIdState, ActionIdTitleState} from '../../states/ReadDataState';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+
+  // 다중 쿼리
+  const [multipleCommitQuery, setMultipleCommitQuery] =
+    useRecoilState(MultipleCommitQuery);
 
   // 모달 띄우기 관련
   const [isModalVisible, setIsModalVisible] =
@@ -29,6 +36,12 @@ function ChatInput() {
 
   // commitQuery 관련
   const [commitQuery, setCommitQuery] = useRecoilState(CommitQuery);
+
+  //actionId 관련
+  const [actionId, setActionId] = useRecoilState(ActionIdState);
+
+  //actionIdTitle 관련
+  const [actionIdTitle, setActionIdTitle] = useRecoilState(ActionIdTitleState);
 
   // plus 버튼 눌렀을 때 효과
   const [inputShow, setInputShow] = useState(false);
@@ -220,8 +233,16 @@ function ChatInput() {
 
     if (upperQuery.startsWith('SELECT ')) {
       // 조회
-      const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, {
+
+      // 조회할 때 queryList도 같이 body에 보내주기
+
+      const body = {
         query: userMessage,
+        queryList: multipleCommitQuery,
+      };
+
+      const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, {
+        body,
       });
       // 에러처리 추가해줘야함
       if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
@@ -241,9 +262,12 @@ function ChatInput() {
 
       // 쿼리 에러 발생 했을 때 처리
       // 인풋창에 그대로 두기
+      console.log('nextBlock====================', nextBlock);
       if (!nextBlock.cardList[1].table) {
         setInput(input);
       } else {
+        // 다중 커밋 쿼리 배열에 추가
+        setMultipleCommitQuery(prev => [...prev, userMessage]);
         setInput('');
       }
     } else {
@@ -253,9 +277,37 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
+    console.log('bbbbb          ', body);
     const newBlock = await getBlock(blockId, body);
+
     if (newBlock) setBlock(newBlock);
     return newBlock;
+  };
+
+  const commit = async () => {
+    if (await handleFingerPrint()) {
+      // 지문인식이 성공 커밋 가능
+      // 커밋 했으니 빈 배열로 초기화
+
+      putBlockToRecoil(BlockType.OperationOutput, {multipleCommitQuery});
+
+      setMultipleCommitQuery([]);
+    }
+  };
+
+  const recentData = async () => {
+    const body = {
+      actionId: actionId,
+      title: actionIdTitle,
+      conditions: '',
+      queryList: multipleCommitQuery.length > 0 ? multipleCommitQuery : null,
+    };
+
+    const nextBlock: any = await putBlockToRecoil(BlockType.SearchChocie, body);
+
+    console.log('nextBlock====================', nextBlock);
+
+    console.log('최근 데이터');
   };
 
   function getNewBlock(title: string) {
@@ -268,6 +320,7 @@ function ChatInput() {
       blockId = BlockType.SearchList;
     } else if (title === '로그') {
       blockId = BlockType.LogKeyword;
+    } else if (title === '최근 공정 데이터') {
     }
     return async () => {
       const newBlock = await putBlockToRecoil(blockId, {});
@@ -341,6 +394,9 @@ function ChatInput() {
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
           <S.ButtonContainer>
+            <S.ButtonBox onPress={getNewBlock('최근 공정 데이터')}>
+              <S.ButtonText>최근 공정 조회</S.ButtonText>
+            </S.ButtonBox>
             <S.ButtonBox onPress={getNewBlock('커밋')}>
               <S.ButtonText>Commit</S.ButtonText>
             </S.ButtonBox>

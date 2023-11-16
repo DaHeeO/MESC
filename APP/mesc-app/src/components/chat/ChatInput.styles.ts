@@ -50,8 +50,8 @@ export const PlusBox = styled.TouchableOpacity`
 export const InputBox = styled.TextInput`
   background-color: #ececec;
   width: 80%;
-  height: 40px;
-  max-height: 100px;
+  height: auto;
+  max-height: 80px;
   padding-left: 15px;
   display: flex;
   flex: 1;
@@ -119,7 +119,29 @@ export const WordText = styled.Text`
   color: black;
 `;
 
-export const MenuBox = styled.TouchableOpacity<InputProps>`
+export const MenuBox = styled.View<InputProps>`
+  // border: 1px solid red;
+  width: ${({width}) => (width ? width : '70px')};
+  height: ${({height}) => (height ? height : '70px')};
+  margin: ${({margin}) => (margin ? margin : '0px')};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // background-color: skyblue;
+`;
+
+export const CommitBox = styled.TouchableOpacity<InputProps>`
+  // border: 1px solid red;
+  width: ${({width}) => (width ? width : '70px')};
+  height: ${({height}) => (height ? height : '70px')};
+  margin: ${({margin}) => (margin ? margin : '0px')};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // background-color: skyblue;
+`;
+
+export const RecentDataBox = styled.TouchableOpacity<InputProps>`
   // border: 1px solid red;
   width: ${({width}) => (width ? width : '70px')};
   height: ${({height}) => (height ? height : '70px')};

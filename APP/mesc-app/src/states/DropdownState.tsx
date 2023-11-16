@@ -11,11 +11,12 @@ type dropdown = {
   columnName: string;
   tableName: string;
   type: string;
-  valuesList: value[];
+  valuesList: Value[];
 };
 
-type value = {
+type Value = {
   id: number;
   value: string;
   linkId: number;
+  comId: number;
 };
