@@ -30,9 +30,9 @@ function Settings({navigation}: SettingsProps) {
           <S.ProfileContainer>
             <S.AvatarBox>
               <S.Avatar source={profile} />
-              <S.AvatarEdit onPress={() => console.log('press')}>
+              {/* <S.AvatarEdit onPress={() => console.log('press')}>
                 <Edit />
-              </S.AvatarEdit>
+              </S.AvatarEdit> */}
             </S.AvatarBox>
             <S.ProfileBox>
               <S.BoldText size={18} color={C.colors.primary}>
@@ -90,20 +90,20 @@ function Settings({navigation}: SettingsProps) {
           <S.CardContainer>
             <S.ToChat source={require('../../assets/images/rate.png')}>
               <S.ChatDiv>
-                <S.BoldText size={16} color={C.colors.white}>
+                <S.BoldText size={18} color={C.colors.white}>
                   피드백을 남겨주세요!
                 </S.BoldText>
-                <S.Text size={12} color={C.colors.white}>
+                <S.Text size={13} color={C.colors.white}>
                   개발팀으로 피드백을 남겨주세요.
                   {'\n'}궁금하신점도 보내주시면
                   {'\n'}빠르게 답변드리겠습니다.
                 </S.Text>
               </S.ChatDiv>
-              <S.ChatButton>
+              {/* <S.ChatButton>
                 <S.BoldText size={12} color={C.colors.white}>
-                  리뷰 남기기
+                  피드백 남기기
                 </S.BoldText>
-              </S.ChatButton>
+              </S.ChatButton> */}
             </S.ToChat>
           </S.CardContainer>
         </S.Body>

@@ -10,6 +10,8 @@ import Intro3 from '../../assets/images/main3.png';
 import OnBoarding from '../../components/introComponent/OnBoarding';
 import BackgroundImg from '../../assets/images/background-intro.png';
 
+import Chat from '../../screens/chat/Chat';
+
 function Main({navigation}: any) {
   // const DATA = [
   //   {
@@ -130,7 +132,7 @@ function Main({navigation}: any) {
               </S.Text>
             </S.ChatDiv>
             {/* <TouchableOpacity onPress={() => navigation.navigate('Chat')}> */}
-            <S.ChatButton>
+            <S.ChatButton onPress={handleChatButtonPress}>
               <S.BoldText size={12} color={C.colors.white}>
                 채팅 바로가기
               </S.BoldText>

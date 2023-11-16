@@ -74,7 +74,7 @@ const RealLogin = ({navigation}: LoginProps) => {
             <S.TextBox>
               <S.KnoxText source={KnoxText} />
             </S.TextBox>
-            <S.Text>Knox 계정을 연동해 로그인해주세요</S.Text>
+            <S.Text>Knox 계정을 연동해 로그인 해주세요.</S.Text>
             {/* <S.Text>로그인해주세요</S.Text> */}
           </S.NnoxContainer>
         </S.Body>

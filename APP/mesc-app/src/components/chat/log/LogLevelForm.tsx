@@ -50,7 +50,7 @@ const LogLevelForm = () => {
   // 완료 버튼 눌렀을 때
   const submit = async () => {
     if (selectedLevelsArray.length === 0) {
-      Alert.alert('로그 레벨이 선택되지 않았습니다.');
+      Alert.alert('로그 레벨을 선택해주세요.');
       return;
     }
     setIsModalVisible(false);
