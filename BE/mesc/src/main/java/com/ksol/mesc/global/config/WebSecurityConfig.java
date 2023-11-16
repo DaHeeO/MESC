@@ -88,7 +88,7 @@ public class WebSecurityConfig {
 		corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 		// corsConfiguration.addAllowedHeader("*");
 		corsConfiguration.addAllowedMethod("*");
-		// corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
+		corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
 		corsConfiguration.setAllowCredentials(true);
 		source.registerCorsConfiguration("/**", corsConfiguration);
 		return source;
