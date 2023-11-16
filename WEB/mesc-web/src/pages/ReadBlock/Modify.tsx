@@ -118,8 +118,6 @@ export const Modify = () => {
     //   }
     // });
     setCards(nowCards);
-    console.log("확인해보자");
-    console.log(nowCards);
 
     fetchData(); // 함수 호출
   }, [blockInfo]);
@@ -127,41 +125,54 @@ export const Modify = () => {
 
   // Block 이름 변경 및 API 호출 (버튼 클릭시)
   const UpdateBlockName = (newName: string) => {
-    setBlockState((prevBlockState) => ({
-      ...prevBlockState,
+    console.log(cards);
+    console.log(blockInfo);
+    const body = {
       blockInfo: {
-        ...prevBlockState.blockInfo,
-        name: newName,
+        id: blockInfo.id,
+        name: blockInfo.name,
       },
-    }));
-    // Block 생성 API 호출===================================
-    console.log("newName==================", newName);
-    if (cards.length > 0) {
-      const cardRequest = {
-        name: cards[cards.length - 1].name,
-        sequence: cards[cards.length - 1].sequence,
-        cardType: cards[cards.length - 1].cardType,
-        content: cards[cards.length - 1].content,
-        actionId: 0,
-      };
+      cardReqList: cards.map((card) => ({
+        ...card,
+        blockId: blockInfo.id,
+        state: "ACTIVE",
+        // componentList : card.componentList.map((component) => ({
+        // })
+      })),
+    };
+    // setBlockState((prevBlockState) => ({
+    //   ...prevBlockState,
+    //   blockInfo: {
+    //     ...prevBlockState.blockInfo,
+    //     name: newName,
+    //   },
+    // }));
+    // if (cards.length > 0) {
+    //   const cardRequest = {
+    //     name: cards[cards.length - 1].name,
+    //     sequence: cards[cards.length - 1].sequence,
+    //     cardType: cards[cards.length - 1].cardType,
+    //     content: cards[cards.length - 1].content,
+    //     actionId: 0,
+    //   };
 
-      if (cardRequest.cardType === "TA") {
-        cardRequest.actionId = 1;
-      }
+    //   if (cardRequest.cardType === "TA") {
+    //     cardRequest.actionId = 1;
+    //   }
 
-      api
-        .patch(`block/admin/${blockInfo.id}`, {
-          blockInfo: { name: newName, id: blockInfo.id },
-          cardRequestList: cardRequest,
-        })
-        .then((res) => {
-          console.log("card==================", cards);
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    //   api
+    //     .patch(`block/admin/${blockInfo.id}`, {
+    //       blockInfo: { name: newName, id: blockInfo.id },
+    //       cardRequestList: cardRequest,
+    //     })
+    //     .then((res) => {
+    //       console.log("card==================", cards);
+    //       console.log(res);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
   };
   // =======================================================
 
@@ -189,6 +200,7 @@ export const Modify = () => {
   const showCards = cards.map((card) => {
     return <AddCardComponent card={card} />;
   });
+
   // =======================================================
 
   return (
@@ -202,7 +214,7 @@ export const Modify = () => {
             overflowY: "auto",
           }}
         >
-          <SelectBlockv2 data={[]} />
+          <SelectBlockv2 type={"modify"} />
         </AboutContainer>
       </AboutContainer>
       {/* 우측 블록 컨트롤 */}

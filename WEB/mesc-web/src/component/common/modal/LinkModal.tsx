@@ -5,6 +5,14 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { SelectBlockv2 } from "../../Block/Select/SelectBlockv2";
 import { InnerBoxContainer } from "./LinkModalStyle";
+import { LinkIdState } from "../../../state/linkId";
+import { useRecoilState } from "recoil";
+import {
+  Card,
+  CardState,
+  Btn,
+  ComponentItem,
+} from "../../../state/create/CreateState";
 
 const style = {
   width: "80%",
@@ -20,13 +28,44 @@ const style = {
 };
 
 interface LinkModalProps {
-  linkNum: number;
+  card: Card;
+  btnIndex: number;
 }
 
 export default function LinkModal(props: LinkModalProps) {
+  const [cards, setCards] = useRecoilState(CardState);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setCards((prevCards) => {
+      const originBtn = props.card.componentList[props.btnIndex].object;
+      const btn: Btn = {
+        ...originBtn,
+        link: linkId,
+      };
+      const originComponent = props.card.componentList[props.btnIndex];
+      const componentItem: ComponentItem = {
+        ...originComponent,
+        object: btn,
+      };
+      const originComponentList = props.card.componentList;
+      const componentList = originComponentList.map((component) => {
+        return component.sequence === originComponent.sequence
+          ? componentItem
+          : component;
+      });
+
+      return prevCards.map((nowCard) => {
+        // console.log(nowCard.sequence, "   ", props.card.sequence);
+        return nowCard.sequence === props.card.sequence
+          ? { ...nowCard, componentList: componentList }
+          : nowCard;
+      });
+    });
+    setOpen(false);
+    console.log(cards);
+  };
+  const [linkId, setLinkId] = useRecoilState(LinkIdState);
 
   return (
     <div>
@@ -47,7 +86,7 @@ export default function LinkModal(props: LinkModalProps) {
             }}
           >
             <InnerBoxContainer width="50%">
-              <SelectBlockv2 data={[]} />
+              <SelectBlockv2 type={"linkModal"} />
             </InnerBoxContainer>
             {/* ====정보=== */}
             <InnerBoxContainer width="50%" height="80%">
@@ -55,7 +94,7 @@ export default function LinkModal(props: LinkModalProps) {
                 링크 :
               </InnerBoxContainer>
               <InnerBoxContainer width="70%" height="50%">
-                {props.linkNum}
+                {linkId}
               </InnerBoxContainer>
             </InnerBoxContainer>
             {/* ====버튼=== */}

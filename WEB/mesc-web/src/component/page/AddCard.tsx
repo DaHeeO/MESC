@@ -46,11 +46,6 @@ export const AddCardComponent = (props: { card: Card }) => {
     );
   };
 
-  const makeCard = (cardType: any) => {
-    if (cardType === "TX") {
-    }
-  };
-
   return (
     <S.CardContainer>
       <S.InnerContainer width="100%" height="85%" flexDirection="column">
@@ -63,7 +58,7 @@ export const AddCardComponent = (props: { card: Card }) => {
         >
           {/* 버튼 자리 */}
           <S.InnerContainer width="50%" height="70%" justifyContent="center">
-            <LinkModal linkNum={0} />
+            <LinkModal card={card} btnIndex={0} />
           </S.InnerContainer>
           <S.InnerContainer width="50%" height="70%" justifyContent="center">
             <Button variant="contained" size="small" onClick={deleteCard}>
