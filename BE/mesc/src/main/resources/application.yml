@@ -26,7 +26,7 @@ spring:
   data:
     redis:
       host: localhost
-      port: 8201
+      port: 6379
 
   # 이메일
   mail:
