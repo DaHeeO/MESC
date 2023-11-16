@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormContainer, TextBox} from './ConditionFormStyle';
-import {AboutSelect} from '../../common/about/ProcessSelect';
+import {AboutSelect} from '../../common/about/ProductSelect';
 
 export const ConditionSelet = () => {
   return (

@@ -16,10 +16,22 @@ import {BlockType} from '../../const/constants';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
 import {CommitQuery} from '../../states/CommitQuery';
+import {MultipleCommitQuery} from '../..//states/MultipleCommitQuery';
+import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
+import {ActionIdState, ActionIdTitleState} from '../../states/ReadDataState';
+import ChatbotMessage from './ChatbotMessage';
+import {ChatChooseSection1} from '../message/Btn/ChatChooseSection1';
+import ChatbotProfile from './ChatbotProfileComponent';
+import {Query} from './data/Query.styles';
+import QueryResultMessage from './QueryResultMessage';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+
+  // 다중 쿼리
+  const [multipleCommitQuery, setMultipleCommitQuery] =
+    useRecoilState(MultipleCommitQuery);
 
   // 모달 띄우기 관련
   const [isModalVisible, setIsModalVisible] =
@@ -29,6 +41,12 @@ function ChatInput() {
 
   // commitQuery 관련
   const [commitQuery, setCommitQuery] = useRecoilState(CommitQuery);
+
+  //actionId 관련
+  const [actionId, setActionId] = useRecoilState(ActionIdState);
+
+  //actionIdTitle 관련
+  const [actionIdTitle, setActionIdTitle] = useRecoilState(ActionIdTitleState);
 
   // plus 버튼 눌렀을 때 효과
   const [inputShow, setInputShow] = useState(false);
@@ -220,8 +238,16 @@ function ChatInput() {
 
     if (upperQuery.startsWith('SELECT ')) {
       // 조회
-      const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, {
+
+      // 조회할 때 queryList도 같이 body에 보내주기
+
+      const body = {
         query: userMessage,
+        queryList: multipleCommitQuery,
+      };
+
+      const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, {
+        body,
       });
       // 에러처리 추가해줘야함
       if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
@@ -244,6 +270,8 @@ function ChatInput() {
       if (!nextBlock.cardList[1].table) {
         setInput(input);
       } else {
+        // 다중 커밋 쿼리 배열에 추가
+        setMultipleCommitQuery(prev => [...prev, userMessage]);
         setInput('');
       }
     } else {
@@ -254,26 +282,62 @@ function ChatInput() {
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
     const newBlock = await getBlock(blockId, body);
+
     if (newBlock) setBlock(newBlock);
     return newBlock;
   };
 
+  // 커밋 버튼 눌렀을 때 처리하는 함수
+  const commit = async () => {
+    if (multipleCommitQuery.length === 0) {
+      Alert.alert('Commit 할 데이터가 없습니다.');
+      return;
+    }
+    if (await handleFingerPrint()) {
+      // 지문인식이 성공 커밋 가능
+      // 커밋 했으니 빈 배열로 초기화
+
+      customAxios
+        .post('api/developer/commit', {queryList: multipleCommitQuery})
+        .then(response => {
+          if (response.data.data.result) {
+            //커밋 성공시
+            const newBlock = putBlockToRecoil(BlockType.CommitResult, {});
+          } else {
+            //커밋 실패시
+            const newBlock = putBlockToRecoil(BlockType.CommitError, {});
+          }
+
+          //배열 비우고
+          setMultipleCommitQuery([]);
+        });
+    }
+  };
+
+  // 최근 본 공정 데이터
+  const recentData = async () => {
+    const body = {
+      actionId: actionId,
+      title: actionIdTitle,
+      conditions: '',
+      queryList: multipleCommitQuery.length > 0 ? multipleCommitQuery : null,
+    };
+
+    const nextBlock: any = await putBlockToRecoil(BlockType.SearchChocie, body);
+  };
+
   function getNewBlock(title: string) {
     let blockId = 1;
-    if (title === '커밋') {
-    } else if (title === '롤백') {
-    } else if (title === '데이터') {
-      // console.log('데이터=======================');
-      // getData();
+    if (title === '데이터') {
       blockId = BlockType.SearchList;
     } else if (title === '로그') {
       blockId = BlockType.LogKeyword;
     }
     return async () => {
       const newBlock = await putBlockToRecoil(blockId, {});
-      console.log('newBlock', newBlock);
       if (blockId === BlockType.SearchList) {
         setIsModalVisible(true);
+        loadSuggestions;
         setModalId('SF');
       }
 
@@ -285,10 +349,7 @@ function ChatInput() {
     const blockId = BlockType.SearchList;
 
     return async () => {
-      console.log('blockId', blockId);
       const newBlock = await putBlockToRecoil(blockId, {});
-      console.log('newBlock', newBlock);
-
       setInput('');
     };
   }
@@ -341,7 +402,10 @@ function ChatInput() {
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
           <S.ButtonContainer>
-            <S.ButtonBox onPress={getNewBlock('커밋')}>
+            <S.ButtonBox onPress={recentData}>
+              <S.ButtonText>최근 공정 조회</S.ButtonText>
+            </S.ButtonBox>
+            <S.ButtonBox onPress={commit}>
               <S.ButtonText>Commit</S.ButtonText>
             </S.ButtonBox>
             <S.ButtonBox onPress={getNewBlock('롤백')}>

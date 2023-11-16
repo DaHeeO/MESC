@@ -24,6 +24,7 @@ import {DropdownState} from '../../../states/DropdownState';
 import {ActionIdState} from '../../../states/ReadDataState';
 import {BlockType} from '../../../const/constants';
 import {is} from 'date-fns/locale';
+import {ConditionState} from '../../../states/ConditionState';
 
 type TableProps = {
   title?: string;
@@ -57,6 +58,7 @@ const Table: React.FC<TableProps> = ({
     useRecoilState(ConditionModifyState);
   const [modalId, setModalId] = useRecoilState(modalIdState);
   const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
+  const [conditionState, setConditionState] = useRecoilState(ConditionState);
   const [actionId, setActionId] = useRecoilState(ActionIdState);
   // const conditionId = useRecoilValue(ConditionIdState);
   const [isModalBoxVisible, setModalBoxVisible] = useState(false);
@@ -81,14 +83,12 @@ const Table: React.FC<TableProps> = ({
 
   useEffect(() => {
     if (!IsLastPage) {
-      console.log('loadMoreData() 호출');
       loadMoreData();
     }
     setRowCnt2(rowCnt);
   }, [rowCnt]);
 
   const loadMoreData = async () => {
-    console.log('IsLastPage================', IsLastPage);
     if (IsLastPage) return;
 
     const body = {
@@ -100,7 +100,6 @@ const Table: React.FC<TableProps> = ({
         `api/worker/data/${actionId}/${currentPage}`,
         body,
       );
-      console.log('reponse.data.data', response.data.data);
       const newData = response.data.data.rowList;
       if (response.data.data.isLastPage) {
         setIsLastPage(true); // setIsLastPage를 사용하여 상태를 업데이트합니다.
@@ -198,6 +197,10 @@ const Table: React.FC<TableProps> = ({
   const handlePress = async () => {
     // 여기서 modal true로 바꿔주기
     setModalVisible(true);
+    setConditionState(prevCondition => ({
+      ...prevCondition,
+      title: title,
+    }));
 
     const cardId = parseInt(conditionId, 10);
     const card = await getCard(cardId, {});
@@ -217,12 +220,6 @@ const Table: React.FC<TableProps> = ({
     totalCnt: number | undefined,
     isModalVisible: boolean,
   ) {
-    console
-      .log
-      // 'Table makeHeader===================================================================',
-      ();
-    // console.log('title:', title);
-    console.log('rowCnt:', rowCnt2, 'totalCnt:', totalCnt);
     const showCountInfo = isModalVisible || !showButton;
     return (
       <S.Header>

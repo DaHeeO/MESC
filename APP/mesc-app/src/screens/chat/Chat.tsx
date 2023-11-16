@@ -76,10 +76,11 @@ function Chat() {
 
   const makeChatbotBlock = (data: any) => {
     let newButtonComponent = <></>;
-    if (data.section === 2) {
+    console.log(data);
+    if (data.section === 1) {
       if (role === 12) newButtonComponent = <ChatChooseSection1 />;
       else newButtonComponent = <ChatChooseSection2 />;
-    }
+    } else if (data.section === 2) newButtonComponent = <ChatChooseSection2 />;
     // console.log('newButtonComponent', newButtonComponent);
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
     const cardComponents = data.cardList.map((card: any, index: any) => (

@@ -18,14 +18,13 @@ export async function handleFingerPrint() {
   };
 
   try {
-    const isSupported = await TouchID.isSupported(optionalConfigObject);
+    const isSupported = await TouchID.isSupported();
   } catch (err) {
     message = '지문인식을 지원하지 않습니다.';
     return;
   }
 
   try {
-    console.log('44');
     const res = await TouchID.authenticate(
       '지문을 인식해주세요.',
       optionalConfigObject,

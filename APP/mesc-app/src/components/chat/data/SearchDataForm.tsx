@@ -11,7 +11,7 @@ import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import UserMessage from '../UserMessage';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {is} from 'date-fns/locale';
-import {ActionIdState} from '../../../states/ReadDataState';
+import {ActionIdState, ActionIdTitleState} from '../../../states/ReadDataState';
 import {ProcessNameState} from '../../../states/ProcessNameState';
 
 type ButtonItem = {
@@ -24,8 +24,11 @@ type ButtonItem = {
 
 const SearchDataForm = () => {
   const [block, setBlock] = useRecoilState(BlockResponseData);
+  //액션 아이디
   const [actionId, setActionId] = useRecoilState(ActionIdState);
   const [processName, setProcessName] = useState<string[]>([]);
+  //액션 타이틀
+  const [actionIdTitle, setActionIdTitle] = useRecoilState(ActionIdTitleState);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   // 모달 띄우기 관련
@@ -63,6 +66,7 @@ const SearchDataForm = () => {
     };
     const block = await getBlock(4, body);
     setBlock(block);
+    setActionIdTitle(button.name);
   };
 
   return (

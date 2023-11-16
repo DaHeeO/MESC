@@ -71,7 +71,6 @@ const Detail = ({navigation}: ContactsProps) => {
     customAxios
       .get(`mesc/group/member/${groupInfoValue.groupId}`, {})
       .then(response => {
-        console.log(response.data.data);
         setData(response.data.data.userList);
       })
       .catch(error => {
