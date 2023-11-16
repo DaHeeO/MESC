@@ -182,8 +182,10 @@ public class BlockServiceImpl implements BlockService {
 			// 	cardMap.put("singleTable", requestPostToMes("/developer/data", cardReqDto, cardType));
 			// 	break;
 			case QU:    //select 쿼리 입력
-				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(), 1,
+				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(),
 					cardReqDto.getQueryList());
+				// LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(), 1,
+				// 	cardReqDto.getQueryList());
 				Boolean result = (Boolean)tableByQuery.get("result");
 				cardMap.put("result", result);
 				if (result) {
@@ -196,18 +198,19 @@ public class BlockServiceImpl implements BlockService {
 				break;
 			case QR:
 				String query = cardReqDto.getQuery();
-				LinkedHashMap<String, Object> tableByQueryRollback = apiService.getTableByQueryRollback(query, 1);
+				LinkedHashMap<String, Object> tableByQueryRollback = apiService.getTableByQueryRollback(query);
+				// LinkedHashMap<String, Object> tableByQueryRollback = apiService.getTableByQueryRollback(query, 1);
 				result = (Boolean)tableByQueryRollback.get("result");
 				cardMap.put("result", result);
 				tableByQueryRollback.remove("result");
 				if (result) {
 					tableByQueryRollback.remove("tableList");
-					if((Integer)tableByQueryRollback.get("rowCnt") == 0) {
+					if ((Integer)tableByQueryRollback.get("rowCnt") == 0) {
 						cardMap.put("content", "해당 조건을 만족하는 데이터가 존재하지 않습니다.");
 						cardMap.put("cardType", "TX");
 					} else {
-						List<String> tableList = (List<String>) tableByQueryRollback.get("tableList");
-						if (tableList!= null) {
+						List<String> tableList = (List<String>)tableByQueryRollback.get("tableList");
+						if (tableList != null) {
 							cardMap.put("title", tableList.get(0));
 						}
 						cardMap.put("table", tableByQueryRollback);
@@ -571,7 +574,8 @@ public class BlockServiceImpl implements BlockService {
 		url += cardReqDto.getActionId();
 
 		return Objects.requireNonNull(Objects.requireNonNull(webClient.post()
-					.uri(url + "/1")
+					// .uri(url + "/1")
+					.uri(url)
 					.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 					.contentType(MediaType.APPLICATION_JSON)
 					.body(BodyInserters.fromValue(cardReqDto))

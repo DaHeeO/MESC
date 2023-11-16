@@ -33,16 +33,17 @@ public class ApiServiceImpl implements ApiService {
 
 	@Override
 	public String getStartMessage(String name) {
-		return "안녕하세요! " + name + "님\n무엇을 도와드릴까요?\n버튼을 눌러 원하시는 작업을 선택해주세요!";
+		return "안녕하세요! " + name + "님\n무엇을 도와드릴까요?\n원하시는 작업을 선택해주세요!";
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getTableByQuery(String query, Integer page, List<String> queryList) {
+	// public LinkedHashMap<String, Object> getTableByQuery(String query, Integer page, List<String> queryList) {
+	public LinkedHashMap<String, Object> getTableByQuery(String query, List<String> queryList) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 
 		Object data = webClient.post()
-			// .uri("/developer/data")
-			.uri("/developer/data/" + page)
+			.uri("/developer/data")
+			// .uri("/developer/data/" + page)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue(new DeveloperDataRequestDto(query, queryList))
@@ -78,11 +79,13 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getTableByActionId(Integer actionId, String conditions, Integer page,
+	// public LinkedHashMap<String, Object> getTableByActionId(Integer actionId, String conditions, Integer page,
+	public LinkedHashMap<String, Object> getTableByActionId(Integer actionId, String conditions,
 		List<String> queryList) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 		Object data = webClient.post()
-			.uri("/worker/data/" + actionId + "/" + page)
+			.uri("/worker/data/" + actionId)
+			// .uri("/worker/data/" + actionId + "/" + page)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(Mono.just(new WorkerDataRequestDto(conditions, queryList)), WorkerDataRequestDto.class)
@@ -113,10 +116,12 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> getTableByQueryRollback(String query, Integer page) {
+	// public LinkedHashMap<String, Object> getTableByQueryRollback(String query, Integer page) {
+	public LinkedHashMap<String, Object> getTableByQueryRollback(String query) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
 		Object data = webClient.post()
-			.uri("/developer/query/rollback/" + page)
+			.uri("/developer/query/rollback")
+			// .uri("/developer/query/rollback/" + page)
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue(new DeveloperQueryRequestDto(query, null))
