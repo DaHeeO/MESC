@@ -212,16 +212,6 @@ public class JdbcUtil {
 		}
 	}
 
-	// public void rollbackTransaction() {
-	// 	Connection connection = null;
-	// 	try {
-	// 		connection = dataSource.getConnection();
-	// 		connection.rollback();
-	// 	} catch (SQLException e) {
-	// 		throw new RuntimeException(e);
-	// 	}
-	// }
-
 	private String getSelectQuery(String modifyQuery) {
 		// update 테이블명 set ~~~ where 조건문
 		// UPDATE `mes`.`action_map` SET `ACTION_ID` = '21213', `QUERY` = 'select * from query_viewsdfsa', `QUERY_TYPE` = 'select123' WHERE (`ACTION_ID` = '21');

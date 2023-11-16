@@ -13,6 +13,4 @@ public interface DeveloperService {
 	Table executeQueryWithRollback(String query, Integer page, List<String> queryList) throws SQLException;
 
 	Integer executeQueryList(List<String> queryList) throws SQLException;
-
-	// void commitTransation();
 }

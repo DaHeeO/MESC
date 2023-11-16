@@ -56,11 +56,4 @@ public class DeveloperServiceImpl implements DeveloperService {
 	public Table executeQueryWithRollback(String query, Integer page, List<String> queryList) throws SQLException {
 		return jdbcUtil.selectAfterModify(query, page);
 	}
-
-	// @Override
-	// @Transactional(propagation = Propagation.REQUIRED)
-	// public void commitTransation() {
-	// 	jdbcUtil.commitTransaction();
-	// }
-
 }
