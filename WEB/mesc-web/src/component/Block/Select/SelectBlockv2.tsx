@@ -55,19 +55,14 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
     api
       .post(`/block/${id}`, {})
       .then((res) => {
-        console.log("id=======", res);
-        console.log("card(결과값)=======", res.request.response.data);
-        setCardList((prevCardList) => ({
-          ...prevCardList,
-          result: res.request.response,
-        }));
-        setBlockInfo((prevBlockState) => ({
-          ...prevBlockState,
-          blockInfo: {
-            id: id,
-            name: res.data.data.blockName,
-          },
-        }));
+        // console.log("id=======", res);
+        // console.log("card(결과값)=======", res.request.response.data);
+        console.log(res.data.data.cardList);
+        setCardList(res.data.data.cardList);
+        setBlockInfo({
+          id: id,
+          name: res.data.data.blockName,
+        });
         // console.log("res==================", res.data.data.blockName);
       })
       .catch((err) => {
