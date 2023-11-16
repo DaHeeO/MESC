@@ -1,5 +1,5 @@
 //style
-import * as S from "./FormStyle";
+import * as S from "./CH1Form.styles";
 import * as C from "../../pages/AddBlock/AddStyle";
 //Component
 import { AboutContainer } from "../common/About/AboutContainer";
@@ -10,6 +10,7 @@ import { Ch1State, Ch1StateProps } from "../../state/create/CreateState";
 import { Card, CardState } from "../../state/create/CreateState";
 // imgae
 import chatbot from "../../assest/image/chatbot.png";
+import Robot from "../../assest/image/robot.png";
 import { ComponentBtn } from "./ComponentBtn";
 
 export interface Value {
@@ -30,78 +31,45 @@ export const CH1Form = (props: { card: Card }) => {
   //=====================================================================
 
   return (
-    <S.ComponentContainer height="85%" width="100%" radius="30px">
-      <AboutContainer
-        width="95%"
-        height="95%"
-        flexDirection="column"
-        style={{ borderRadius: "10px" }}
+    <S.FormContainer>
+      {/*로봇 머리 있는 공간 content 1개 있음 */}
+      <S.TopContainer
+        style={{
+          backgroundImage: `url(${Robot})`,
+          backgroundSize: "164px 92px",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "right 10px bottom ",
+        }}
       >
-        {/*로봇 머리 있는 공간 content 1개 있음 */}
-        <C.InnerContainer
-          width="100%"
-          height="50%"
-          flexDirection="row"
-          alignItems="end"
-          style={{
-            backgroundColor: "#7879f1",
-            borderRadius: "10px 10px 0px 0px",
+        <S.TopInput
+          placeholder="제목을 입력하세요"
+          onChange={(e) => {
+            setCh1State((ch1State) =>
+              ch1State.sequence === props.card.sequence
+                ? { ...ch1State, name: e.target.value }
+                : ch1State
+            );
           }}
-        >
-          <S.FormInput
-            height="20%"
-            width="60%"
-            placeholder="카드 이름"
-            onChange={(e) => {
-              setCh1State((ch1State) =>
-                ch1State.sequence === props.card.sequence
-                  ? { ...ch1State, name: e.target.value }
-                  : ch1State
-              );
-            }}
-          />
-          <C.InnerContainer
-            width="40%"
-            height="100%"
-            style={{
-              backgroundImage: `url(${chatbot})`,
-              backgroundSize: "80% 80%",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center bottom",
-            }}
-          />
-        </C.InnerContainer>
-        {/* 하단 공간  */}
-        <C.InnerContainer width="100%" height="50%" flexDirection="column">
-          {/* 버튼 위 text 공간 */}
-          <C.InnerContainer width="100%" height="30%" alignItems="center">
-            <S.FormInput
-              width="60%"
-              height="30%"
-              placeholder="내용 1"
-              onChange={(e) => {
-                setCards((prevCards) =>
-                  prevCards.map((nowCard) =>
-                    nowCard.sequence === props.card.sequence
-                      ? { ...nowCard, content: e.target.value }
-                      : nowCard
-                  )
-                );
-              }}
-            />
-          </C.InnerContainer>
-          <C.InnerContainer
-            width="100%"
-            height="70%"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <ComponentBtn card={card} index={0} />
-          </C.InnerContainer>
+        />
+      </S.TopContainer>
+      {/* 하단 공간  */}
+      <S.BottomContainer>
+        {/* 버튼 위 text 공간 */}
+        <S.Context
+          placeholder="내용을 입력하세요"
+          onChange={(e) => {
+            setCards((prevCards) =>
+              prevCards.map((nowCard) =>
+                nowCard.sequence === props.card.sequence
+                  ? { ...nowCard, content: e.target.value }
+                  : nowCard
+              )
+            );
+          }}
+        />
 
-          {/* 버튼 있는 공간  */}
-        </C.InnerContainer>
-      </AboutContainer>
-    </S.ComponentContainer>
+        <ComponentBtn card={card} index={0} />
+      </S.BottomContainer>
+    </S.FormContainer>
   );
 };
