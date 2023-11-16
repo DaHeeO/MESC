@@ -8,7 +8,7 @@ import EyeOff from "../assest/icon/eye-off.svg";
 import Eye from "../assest/icon/eye.svg";
 
 import { useNavigate } from "react-router-dom";
-import { api } from "../apis/Api";
+import { api, api1 } from "../apis/Api";
 import { userInfo } from "../state/UserInfo";
 import { useRecoilState } from "recoil";
 
@@ -42,7 +42,7 @@ function Login() {
   const doLogin = async () => {
     let loginPass = false;
 
-    api
+    api1
       .post("/mesc/user/login", {
         // email: email,
         // password: password,

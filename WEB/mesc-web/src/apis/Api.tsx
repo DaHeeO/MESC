@@ -10,3 +10,10 @@ export const api = axios.create({
     Authorization: token,
   },
 });
+
+export const api1 = axios.create({
+  baseURL: "https://www.mesc.kr/api/",
+  headers: {
+    // Authorization: token,
+  },
+});
