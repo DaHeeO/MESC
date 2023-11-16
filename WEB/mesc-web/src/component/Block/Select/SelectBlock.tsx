@@ -35,7 +35,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
 
   useEffect(() => {
     api
-      .get("block/admin")
+      .get("/block/admin")
       .then((res) => {
         setResData(res.data.data);
         setLoading(false);
