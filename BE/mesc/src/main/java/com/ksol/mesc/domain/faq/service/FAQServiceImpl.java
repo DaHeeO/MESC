@@ -37,6 +37,7 @@ public class FAQServiceImpl implements FAQService {
 
 	@Override
 	public List<FAQRes> selectAllFAQBySection(Integer sectionId) {
+		faqSectionRepository.findById(sectionId).orElseThrow(() -> new EntityNotFoundException("Section Id Not Found"));
 		List<FAQ> faqList = faqRepository.findBySection(sectionId);
 		List<FAQRes> faqResList = new ArrayList<>();
 		for (FAQ faq : faqList) {
