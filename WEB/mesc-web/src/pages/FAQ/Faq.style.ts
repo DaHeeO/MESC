@@ -74,6 +74,7 @@ export const AddButton = styled.div`
   padding: 6px 20px;
   margin-left: 10px;
   &:hover {
+    box-shadow: 0px 0px 10px rgba(68, 97, 242, 0.3);
     cursor: pointer;
   }
 `;

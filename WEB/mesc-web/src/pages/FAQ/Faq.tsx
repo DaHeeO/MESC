@@ -1,9 +1,9 @@
 // React
-import React, { useEffect } from "react";
+import { useState } from "react";
 
 //Recoil
 import { useRecoilState } from "recoil";
-import { userInfo } from "../../state/UserInfo";
+import { FAQState } from "../../state/FAQState";
 
 //style
 import * as S from "./Faq.style";
@@ -13,27 +13,29 @@ import * as C from "../../component/common/theme";
 import { AboutBody } from "../../component/common/About/AboutBody";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
 import { Header } from "../../component/common/Header/Header";
-
-// Navigate
-import { useNavigate } from "react-router-dom";
+import { FAQBlock } from "../../component/Block/FAQ/FAQBlock";
+import { FAQForm } from "../../component/Block/FAQ/FAQForm";
 
 //etc
-import Arrow from "../../assest/icon/arrowRight.svg";
-import User from "../../assest/icon/userBlue.svg";
-import DataBase from "../../assest/icon/database.svg";
-import Contacts from "../../assest/icon/contacts.svg";
 
 export const Faq = () => {
-  const navigate = useNavigate();
+  const [focusedButtonIndex, setFocusedButtonIndex] = useState(0);
+  const [selectedItem, setSelectedItem] = useRecoilState(FAQState);
+  const [addButton, setAddButton] = useState(false);
 
-  const [userInfoValue, setUserInfoValue] = useRecoilState(userInfo);
+  const handleButtonClick = (index: number) => {
+    setFocusedButtonIndex(index);
+  };
 
-  const goMeun1 = () => {
-    navigate(`/Add`);
+  const handleAddButtonClick = () => {
+    setSelectedItem(null);
+    setAddButton(true);
   };
-  const goFAQ = () => {
-    navigate(`/Faq`);
+
+  const handleCancelButtonClick = () => {
+    setAddButton(false);
   };
+
   return (
     // 메인페이지 전체
     <AboutBody>
@@ -58,35 +60,61 @@ export const Faq = () => {
                 >
                   FAQ
                 </S.Text>
-                <S.ButtonHug isFocused={true}>
-                  <S.ButtonText isFocused={true}>전체보기</S.ButtonText>
+                <S.ButtonHug
+                  isFocused={focusedButtonIndex === 0}
+                  onClick={() => handleButtonClick(0)}
+                >
+                  <S.ButtonText isFocused={focusedButtonIndex === 0}>
+                    전체보기
+                  </S.ButtonText>
                 </S.ButtonHug>
-                <S.ButtonHug isFocused={false}>
-                  <S.ButtonText isFocused={false}>로그인</S.ButtonText>
+                <S.ButtonHug
+                  isFocused={focusedButtonIndex === 1}
+                  onClick={() => handleButtonClick(1)}
+                >
+                  <S.ButtonText isFocused={focusedButtonIndex === 1}>
+                    로그인
+                  </S.ButtonText>
                 </S.ButtonHug>
-                <S.ButtonHug isFocused={false}>
-                  <S.ButtonText isFocused={false}>챗봇</S.ButtonText>
+                <S.ButtonHug
+                  isFocused={focusedButtonIndex === 2}
+                  onClick={() => handleButtonClick(2)}
+                >
+                  <S.ButtonText isFocused={focusedButtonIndex === 2}>
+                    챗봇
+                  </S.ButtonText>
                 </S.ButtonHug>
-                <S.ButtonHug isFocused={false}>
-                  <S.ButtonText isFocused={false}>연락처</S.ButtonText>
+                <S.ButtonHug
+                  isFocused={focusedButtonIndex === 3}
+                  onClick={() => handleButtonClick(3)}
+                >
+                  <S.ButtonText isFocused={focusedButtonIndex === 3}>
+                    연락처
+                  </S.ButtonText>
                 </S.ButtonHug>
               </S.CategoryDiv>
-              <S.AddButton>
-                <S.Text
-                  size={16}
-                  color={C.colors.buttonBlueBackground}
-                  weight={500}
-                >
-                  추가
-                </S.Text>
-              </S.AddButton>
+              {focusedButtonIndex !== 0 && (
+                <S.AddButton onClick={handleAddButtonClick}>
+                  <S.Text
+                    size={16}
+                    color={C.colors.buttonBlueBackground}
+                    weight={500}
+                  >
+                    추가
+                  </S.Text>
+                </S.AddButton>
+              )}
             </S.HeaderDiv>
           </S.LeftHeader>
-          <S.LeftBody>HI</S.LeftBody>
+          <S.LeftBody>
+            <FAQBlock data={[]} focusedIndex={focusedButtonIndex} />
+          </S.LeftBody>
         </S.LeftDiv>
         {/* MainBody의 오른쪽 - FAQ 추가 폼*/}
         <S.RightDiv>
-          <S.RightBody>HI</S.RightBody>
+          {(selectedItem !== null || addButton) && (
+            <FAQForm data={selectedItem} onCancel={handleCancelButtonClick} />
+          )}
         </S.RightDiv>
       </AboutContainer>
     </AboutBody>
