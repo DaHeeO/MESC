@@ -10,16 +10,31 @@ import Left from '../../assets/icons/left.svg';
 import Search from '../../assets/icons/search.svg';
 import Filter from '../../assets/icons/filter.svg';
 
-import image1 from '../../assets/images/test/용명킴.jpg';
-import image2 from '../../assets/images/test/민겸킴.jpg';
-import image3 from '../../assets/images/test/왁ㅋ.png';
-import image4 from '../../assets/images/test/진영팍.jpg';
-import image5 from '../../assets/images/test/문상훈.jpg';
-import image6 from '../../assets/images/test/침착맨.png';
-import image7 from '../../assets/images/test/전현무.jpg';
-import image8 from '../../assets/images/test/나무니.jpg';
-import image9 from '../../assets/images/test/왕뚜껑.png';
-import image10 from '../../assets/images/test/행벅.jpg';
+import image1 from '../../assets/images/profile/강현.png';
+import image2 from '../../assets/images/profile/김라현.png';
+import image3 from '../../assets/images/profile/김소연.png';
+import image4 from '../../assets/images/profile/김은지.png';
+import image5 from '../../assets/images/profile/김재이.png';
+import image6 from '../../assets/images/profile/김지희.png';
+import image7 from '../../assets/images/profile/문준호.png';
+import image8 from '../../assets/images/profile/박기현.png';
+import image9 from '../../assets/images/profile/손수형.png';
+import image10 from '../../assets/images/profile/손승연.png';
+import image11 from '../../assets/images/profile/송소연.png';
+import image12 from '../../assets/images/profile/연제경.png';
+import image13 from '../../assets/images/profile/오다희.png';
+import image14 from '../../assets/images/profile/유민국.png';
+import image15 from '../../assets/images/profile/이덕용.png';
+import image16 from '../../assets/images/profile/이세훈.png';
+import image17 from '../../assets/images/profile/이은성.png';
+import image18 from '../../assets/images/profile/이은성2.png';
+import image19 from '../../assets/images/profile/이정섭.png';
+import image20 from '../../assets/images/profile/이채림.png';
+import image21 from '../../assets/images/profile/조환희.png';
+import image22 from '../../assets/images/profile/차지은.png';
+import image23 from '../../assets/images/profile/최규호.png';
+import image24 from '../../assets/images/profile/한성현.png';
+import image25 from '../../assets/images/profile/황준혁.png';
 
 interface ContactsProps {
   navigation: any;
@@ -43,6 +58,24 @@ const Images = [
   image7,
   image8,
   image9,
+  image10,
+  image11,
+  image12,
+  image13,
+  image14,
+  image15,
+  image16,
+  image17,
+  image18,
+  image19,
+  image20,
+  image21,
+  image22,
+  image23,
+  image24,
+  image25,
+  image10,
+  image10,
   image10,
 ];
 
@@ -99,7 +132,7 @@ const Contacts = ({navigation}: ContactsProps) => {
               <S.ContactDiv key={item.userId}>
                 <S.ContactBox>
                   <S.ImageBox>
-                    <S.Img source={Images[index % 10]} />
+                    <S.Img source={Images[index]} />
                   </S.ImageBox>
                   <S.InfoBox>
                     <S.BoldText size={17} color={colors.primary}>

@@ -9,6 +9,7 @@ import FAQ from '../../assets/icons/faq.svg';
 import Right from '../../assets/icons/right.svg';
 import Bell from '../../assets/icons/bell.svg';
 import Alert from '../../assets/icons/alert.svg';
+import profile from '../../assets/images/profile/손승연.png';
 
 interface SettingsProps {
   navigation: any;
@@ -28,17 +29,17 @@ function Settings({navigation}: SettingsProps) {
           {/* 상단 프로필 */}
           <S.ProfileContainer>
             <S.AvatarBox>
-              <S.Avatar source={Avatar} />
+              <S.Avatar source={profile} />
               <S.AvatarEdit onPress={() => console.log('press')}>
                 <Edit />
               </S.AvatarEdit>
             </S.AvatarBox>
             <S.ProfileBox>
               <S.BoldText size={18} color={C.colors.primary}>
-                오다희
+                김싸피
               </S.BoldText>
               <S.Text size={15} color={C.colors.primary} style={{marginTop: 5}}>
-                test@samsung.com
+                kim@ssafy.com
               </S.Text>
             </S.ProfileBox>
           </S.ProfileContainer>
@@ -90,11 +91,11 @@ function Settings({navigation}: SettingsProps) {
             <S.ToChat source={require('../../assets/images/rate.png')}>
               <S.ChatDiv>
                 <S.BoldText size={16} color={C.colors.white}>
-                  별점을 남겨주세요!
+                  피드백을 남겨주세요!
                 </S.BoldText>
                 <S.Text size={12} color={C.colors.white}>
-                  플레이스토어에서 별점을 남겨주세요!
-                  {'\n'} 궁금하신점도 리뷰에 남겨주시면
+                  개발팀으로 피드백을 남겨주세요.
+                  {'\n'}궁금하신점도 보내주시면
                   {'\n'}빠르게 답변드리겠습니다.
                 </S.Text>
               </S.ChatDiv>

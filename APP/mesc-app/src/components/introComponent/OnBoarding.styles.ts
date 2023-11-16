@@ -15,11 +15,12 @@ export const Indicator = styled.View<{focused: boolean}>`
   height: 14px;
   border-radius: 7px;
   margin: 0px 7px;
+  // background-color: green;
 `;
 
 export const IndicatorWrapper = styled.View`
   flex-direction: row;
-  height: 70px;
+  height: 50px;
   // background-color: blue;
   justify-content: center;
   align-items: center;
@@ -29,7 +30,7 @@ export const Bottom = styled.View`
   align-items: center;
   width: 80%;
   height: 15%;
-  // background-color: green;
+  // background-color: yellow;
 `;
 
 export const Button = styled.TouchableOpacity`

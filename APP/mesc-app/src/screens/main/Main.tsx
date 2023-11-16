@@ -3,20 +3,9 @@ import {View, Text, TouchableOpacity, FlatList, Image} from 'react-native';
 import * as S from './Main.styles';
 import * as C from '../../components/common/Theme';
 
-import Avatar from '../../assets/images/avatar.png';
-import Menu from '../../assets/icons/menu.svg';
-import Plus from '../../assets/icons/navigationPlus.svg';
-import Dots from '../../assets/icons/dotsVertical.svg';
-
-import Group1 from '../../assets/images/group/group1.png';
-import Group2 from '../../assets/images/group/group2.png';
-import Group3 from '../../assets/images/group/group3.png';
-import Group4 from '../../assets/images/group/group4.png';
-
-import Intro from '../intro/Intro';
-import Intro1 from '../../assets/images/intro1.png';
-import Intro2 from '../../assets/images/intro2.png';
-import Intro3 from '../../assets/images/intro3.png';
+import Intro1 from '../../assets/images/main1.png';
+import Intro2 from '../../assets/images/main2.png';
+import Intro3 from '../../assets/images/main3.png';
 
 import OnBoarding from '../../components/introComponent/OnBoarding';
 import BackgroundImg from '../../assets/images/background-intro.png';

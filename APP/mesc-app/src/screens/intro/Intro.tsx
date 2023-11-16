@@ -3,9 +3,9 @@ import * as S from './Intro.styles';
 import OnBoarding from '../../components/introComponent/OnBoarding';
 
 import BackgroundIntro from '../../assets/images/background-intro.png';
-import intro1 from '../../assets/images/intro1.png';
-import intro2 from '../../assets/images/intro2.png';
-import intro3 from '../../assets/images/intro3.png';
+import intro1 from '../../assets/images/main1.png';
+import intro2 from '../../assets/images/main2.png';
+import intro3 from '../../assets/images/main3.png';
 
 interface LoginProps {
   navigation: any;
