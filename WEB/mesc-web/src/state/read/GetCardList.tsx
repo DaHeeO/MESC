@@ -1,12 +1,6 @@
 import { atom } from "recoil";
 
-interface CardListProps {
-  result: string;
-}
-
-export const CardListState = atom<CardListProps>({
+export const CardListState = atom<any[]>({
   key: "CardListState",
-  default: {
-    result: "",
-  },
+  default: [],
 });

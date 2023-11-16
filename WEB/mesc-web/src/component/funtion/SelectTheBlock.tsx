@@ -7,13 +7,10 @@ export const SelectTheBlock = (id: number) => {
   api
     .post(`/block/${id}`, {})
     .then((res) => {
-      SetBlockInfo((prevBlockState) => ({
-        ...prevBlockState,
-        blockInfo: {
-          ...prevBlockState.blockInfo,
-          name: res.data.data.blockName,
-        },
-      }));
+      SetBlockInfo({
+        id: res.data.data.blockId,
+        name: res.data.data.blockName,
+      });
       // console.log("res==================", res.data.data.blockName);
       // console.log("blockInfo(td)==================", blockInfo);
     })

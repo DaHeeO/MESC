@@ -9,9 +9,12 @@ export interface Block {
   id?: number;
 }
 
-export const BlockState = atom<Record<string, Block>>({
+export const BlockState = atom<Block>({
   key: "BlockState",
-  default: {},
+  default: {
+    name: "",
+    id: 0,
+  },
 });
 
 // cart state
@@ -36,7 +39,7 @@ export interface Value {
   value?: string;
 }
 
-interface Object {
+export interface Btn {
   name?: string;
   columnName?: string;
   tableName?: string;
@@ -49,8 +52,8 @@ interface Object {
 
 export interface ComponentItem {
   type?: string;
-  sequence?: string;
-  object?: Object;
+  sequence?: number;
+  object?: Btn;
 }
 
 interface Component {

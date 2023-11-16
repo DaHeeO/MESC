@@ -12,6 +12,7 @@ import { SelectLabels } from "../../pages/AddBlock/CardSelect";
 // component
 import { ComponentIdSwitch } from "../form/SwitchForm";
 import { Card, CardState } from "../../state/create/CreateState";
+import LinkModal from "../common/modal/LinkModal";
 
 interface AddCardProps {
   key: number;
@@ -43,20 +44,6 @@ export const AddCardComponent = (props: { card: Card }) => {
           : nowCard;
       })
     );
-    // console.log(cards);
-    // setCards(
-    //   cards.map((nowCard) => {
-    //     if (nowCard.id == card.id) {
-    //       nowCard.cardType = cardType;
-    //     }
-    //     return nowCard;
-    //   })
-    // );
-  };
-
-  const makeCard = (cardType: any) => {
-    if (cardType === "TX") {
-    }
   };
 
   return (
