@@ -32,6 +32,7 @@ export const CustomTable = styled.table`
   }
 `;
 export const HoverTd = styled.td`
+  width: 100%;
   cursor: pointer;
   transition: background-color 0.3s ease;
   background-color: initial;

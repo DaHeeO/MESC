@@ -14,14 +14,18 @@ import { CardIdState } from "../../state/CardIdState";
 // API
 import { api } from "../../apis/Api";
 // style
-import * as S from "../AddBlock/AddStyle";
+import * as S from "./Modify.styles";
+import * as C from "../../component/common/theme";
 // component
 import BasicSpeedDial from "../../component/common/About/AboutBtn";
 import { AddCardComponent } from "../../component/page/AddCard";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
+import { AboutBody } from "../../component/common/About/AboutBody";
+import { Header } from "../../component/common/Header/Header";
 import { SaveBtn } from "../../component/common/About/AboutBtn";
 import { SelectBlockv2 } from "../../component/Block/Select/SelectBlockv2";
 import { CardListState } from "../../state/read/GetCardList";
+import { AddSpeedDial } from "../../component/common/About/AboutBtn";
 import { TxTaState } from "../../state/create/CreateState";
 import { CH1Form } from "../../component/form/CH1Form";
 import { TAForm } from "../../component/form/TAForm";
@@ -38,6 +42,7 @@ export const Modify = () => {
   const [cards, setCards] = useRecoilState(CardState); //카드
   const [blockName, setBlockName] = useState("");
   const [cardList, setCardList] = useRecoilState(CardListState);
+  const [selectedValue, setSelectedValue] = useState("TX");
 
   useEffect(() => {
     async function fetchData() {
@@ -181,14 +186,18 @@ export const Modify = () => {
 
   // 카드 타입을 저장하고 있는 recoil
 
+  const handleClick = (value: string) => {
+    setSelectedValue(value);
+  };
+
   // 카드 추가 함수
-  const addCard = () => {
+  const addCard = (cardType: string) => {
     const newCard: Card = {
       // Index: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
       sequence: cards.length,
       // cardType: CardType, // 이 부분도 수정이 필요합니다.
-      cardType: "TX", // 이 부분도 수정이 필요합니다.
+      cardType: cardType, // 이 부분도 수정이 필요합니다.
       content: "",
       componentList: [],
     };
@@ -198,6 +207,10 @@ export const Modify = () => {
     setCards((prevCards) => [...prevCards, newCard]);
   };
 
+  const resetRecoilState = () => {
+    setCards([]); // Reset cards to an empty array or initial state
+  };
+
   const showCards = cards.map((card) => {
     return <AddCardComponent card={card} />;
   });
@@ -205,55 +218,123 @@ export const Modify = () => {
   // =======================================================
 
   return (
-    <AboutContainer height="100%" width="100%">
-      {/* 좌측 데이터 보기 */}
-      <AboutContainer height="100%" width="20%">
-        <AboutContainer
-          width="100%"
-          height="100%"
-          style={{
-            overflowY: "auto",
-          }}
-        >
-          <SelectBlockv2 type={"modify"} />
-        </AboutContainer>
+    <AboutBody>
+      {/* 헤더 height: 13%  width 89% */}
+      <Header />
+      {/* 제목 height: 6% width 89% */}
+      <AboutContainer
+        height="87%"
+        width="89%"
+        justifyContent="space-between"
+        align="flex-start"
+      >
+        {/* 좌측 데이터 보기 */}
+        <S.LeftDiv>
+          <S.LeftHeader>
+            <S.HeaderDiv>
+              <S.CategoryDiv>
+                <S.Text size={18} color={C.colors.textBlack} weight={800}>
+                  블록 수정하기
+                </S.Text>
+              </S.CategoryDiv>
+            </S.HeaderDiv>
+          </S.LeftHeader>
+          <S.LeftBody>
+            <SelectBlockv2 type={"modify"} />
+          </S.LeftBody>
+        </S.LeftDiv>
+        {/* 우측 블록 컨트롤 */}
+        <S.RightDiv>
+          <S.RightBody>
+            <S.BlockHeader>
+              <S.InputBox color={C.colors.buttonBlueBackground}>
+                <S.Input
+                  type="text"
+                  defaultValue={blockName}
+                  onChange={(e) => setBlockTitleTyping(e.target.value)}
+                />
+              </S.InputBox>
+              <S.AddButton
+                onClick={() => {
+                  UpdateBlockName(blockTitleTyping);
+                }}
+              >
+                <S.Text size={16} color="white" weight={500}>
+                  저장
+                </S.Text>
+              </S.AddButton>
+            </S.BlockHeader>
+            {/* 중간 - 카드리스트 고르기 */}
+            <S.BlockMiddle>
+              <S.SelectBox>
+                <S.Text
+                  size={18}
+                  color={C.colors.textBlack}
+                  weight={800}
+                  style={{ paddingRight: "30px" }}
+                >
+                  카드 추가
+                </S.Text>
+                <S.ButtonHug
+                  isFocused={selectedValue === "TX"}
+                  onClick={() => handleClick("TX")}
+                >
+                  <S.ButtonText isFocused={selectedValue === "TX"}>
+                    텍스트형
+                  </S.ButtonText>
+                </S.ButtonHug>
+                <S.ButtonHug
+                  isFocused={selectedValue === "CH1"}
+                  onClick={() => handleClick("CH1")}
+                >
+                  <S.ButtonText isFocused={selectedValue === "CH1"}>
+                    버튼 1개 카드형
+                  </S.ButtonText>
+                </S.ButtonHug>
+                <S.ButtonHug
+                  isFocused={selectedValue === "CH2"}
+                  onClick={() => handleClick("CH2")}
+                >
+                  <S.ButtonText isFocused={selectedValue === "CH2"}>
+                    버튼 2개 카드형
+                  </S.ButtonText>
+                </S.ButtonHug>
+                <S.ButtonHug
+                  isFocused={selectedValue === "TA"}
+                  onClick={() => handleClick("TA")}
+                >
+                  <S.ButtonText isFocused={selectedValue === "TA"}>
+                    스크롤형
+                  </S.ButtonText>
+                </S.ButtonHug>
+              </S.SelectBox>
+              <S.AddButton
+                color={C.colors.buttonRedBackground}
+                onClick={resetRecoilState}
+              >
+                <S.Text size={16} color={C.colors.buttonRed} weight={700}>
+                  초기화
+                </S.Text>
+              </S.AddButton>
+            </S.BlockMiddle>
+
+            {/* 하단 - 카드리스트 */}
+            <AboutContainer
+              height="85%"
+              width="100%"
+              flexDirection="row"
+              style={{
+                overflowX: "auto",
+                overflowY: "auto",
+                // overflowY: "hidden",
+              }}
+            >
+              {showCards}
+              <AddSpeedDial onClick={() => addCard(selectedValue)} />
+            </AboutContainer>
+          </S.RightBody>
+        </S.RightDiv>
       </AboutContainer>
-      {/* 우측 블록 컨트롤 */}
-      <AboutContainer height="100%" width="80%" flexDirection="column">
-        <AboutContainer height="10%" width="100%">
-          <AboutContainer height="100%" width="90%">
-            <S.BlockNameInput
-              type="text"
-              defaultValue={blockName}
-              onChange={(e) => setBlockTitleTyping(e.target.value)}
-            />
-          </AboutContainer>
-        </AboutContainer>
-        <AboutContainer
-          height="85%"
-          width="100%"
-          flexDirection="row"
-          style={{ flexWrap: "wrap", overflow: "auto" }}
-        >
-          {/* 여기에 기존에 있는 카드들 보여줘야해 */}
-          <div style={{ border: "1px solid red", width: "80%", height: "40%" }}>
-            {/* {result} */}
-          </div>
-          {showCards}
-        </AboutContainer>
-        <AboutContainer
-          height="5%"
-          width="100%"
-          // style={{ border: "1px solid black" }}
-        >
-          <SaveBtn
-            onClick={() => {
-              UpdateBlockName(blockTitleTyping);
-            }}
-          />
-          <BasicSpeedDial onClick={addCard} />
-        </AboutContainer>
-      </AboutContainer>
-    </AboutContainer>
+    </AboutBody>
   );
 };

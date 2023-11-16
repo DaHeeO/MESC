@@ -13,6 +13,7 @@ import { SelectLabels } from "../../pages/AddBlock/CardSelect";
 import { ComponentIdSwitch } from "../form/SwitchForm";
 import { Card, CardState } from "../../state/create/CreateState";
 import LinkModal from "../common/modal/LinkModal";
+import Trash from "../../assest/icon/trash.svg";
 
 interface AddCardProps {
   key: number;
@@ -48,6 +49,11 @@ export const AddCardComponent = (props: { card: Card }) => {
 
   return (
     <S.CardContainer>
+      <S.CardHeader>
+        <LinkModal card={card} btnIndex={0} />
+        <img width={18} height={18} src={Trash} onClick={deleteCard} />
+      </S.CardHeader>
+
       <S.InnerContainer width="100%" height="90%" flexDirection="column">
         {/* 카드 내 contentForm */}
         <ComponentIdSwitch card={card} />

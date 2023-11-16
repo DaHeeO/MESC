@@ -40,32 +40,6 @@ export const CardContainer = styled.div`
   margin: 1%; // 카드 사이의 간격을 설정
 `;
 
-interface AddCardProps {
-  content: string;
-  // clickEvent?: () => void;
-}
-
-export const AddCardMenu = (props: AddCardProps) => {
-  return (
-    <InnerContainer width="100%" height="100%" flexDirection="column">
-      <InnerContainer
-        width="100%"
-        height="80%"
-        // onClick={props.clickEvent}
-      ></InnerContainer>
-      <InnerContainer
-        width="100%"
-        height="20%"
-        justifyContent="center"
-        alignItems="center"
-        style={{ fontWeight: "bold" }}
-      >
-        {props.content}
-      </InnerContainer>
-    </InnerContainer>
-  );
-};
-
 interface TextProps {
   size: number;
   color: string;

@@ -21,6 +21,13 @@ export const CardContainer = styled.div`
   margin-right: 3%; // 카드 사이의 간격을 설정
 `;
 
+export const CardHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const InnerContainer = styled.div<AddProps>`
   box-sizing: border-box;
   width: ${(props) => props.width};
