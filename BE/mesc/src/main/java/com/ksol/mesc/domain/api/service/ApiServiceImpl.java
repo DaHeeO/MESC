@@ -33,7 +33,7 @@ public class ApiServiceImpl implements ApiService {
 
 	@Override
 	public String getStartMessage(String name) {
-		return "안녕하세요! " + name + "님\n무엇을 도와드릴까요?? 아래 버튼을 눌러 원하시는 작업을 선택해주세요!!";
+		return "안녕하세요! " + name + "님\n무엇을 도와드릴까요?\n버튼을 눌러 원하시는 작업을 선택해주세요!";
 	}
 
 	@Override
