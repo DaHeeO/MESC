@@ -262,7 +262,6 @@ function ChatInput() {
 
       // 쿼리 에러 발생 했을 때 처리
       // 인풋창에 그대로 두기
-      console.log('nextBlock====================', nextBlock);
       if (!nextBlock.cardList[1].table) {
         setInput(input);
       } else {
@@ -277,7 +276,6 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
-    console.log('bbbbb          ', body);
     const newBlock = await getBlock(blockId, body);
 
     if (newBlock) setBlock(newBlock);
@@ -304,10 +302,6 @@ function ChatInput() {
     };
 
     const nextBlock: any = await putBlockToRecoil(BlockType.SearchChocie, body);
-
-    console.log('nextBlock====================', nextBlock);
-
-    console.log('최근 데이터');
   };
 
   function getNewBlock(title: string) {
@@ -324,7 +318,6 @@ function ChatInput() {
     }
     return async () => {
       const newBlock = await putBlockToRecoil(blockId, {});
-      console.log('newBlock', newBlock);
       if (blockId === BlockType.SearchList) {
         setIsModalVisible(true);
         setModalId('SF');
@@ -338,10 +331,7 @@ function ChatInput() {
     const blockId = BlockType.SearchList;
 
     return async () => {
-      console.log('blockId', blockId);
       const newBlock = await putBlockToRecoil(blockId, {});
-      console.log('newBlock', newBlock);
-
       setInput('');
     };
   }

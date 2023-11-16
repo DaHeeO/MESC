@@ -37,7 +37,6 @@ const Group = ({navigation}: ContactsProps) => {
     customAxios
       .get(`mesc/group`, {})
       .then(response => {
-        console.log(response.data.data);
         setData(response.data.data);
       })
       .catch(error => {

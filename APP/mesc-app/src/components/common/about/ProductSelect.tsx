@@ -14,7 +14,7 @@ interface Value {
   comId: number;
 }
 
-export const ProcessSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
+export const ProductSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
   const [condition, setCondition] = useRecoilState(ConditionState);
 
   const [open, setOpen] = useState(false);
@@ -37,14 +37,12 @@ export const ProcessSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
         }));
       setItems(formattedItems);
 
-      console.log(formattedItems);
-
       if (formattedItems.length > 0) {
         setDefaultValue(formattedItems[0].comId.toString());
         setValue(formattedItems[0].value.toString());
         setCondition(prevCondition => ({
           ...prevCondition,
-          product: formattedItems[0].comId.toString(),
+          line: formattedItems[0].comId,
         }));
       }
     }
@@ -54,11 +52,11 @@ export const ProcessSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
     if (value) {
       const selectedComId =
         items.find(item => {
-          return item.label === value;
+          return item.value === value;
         })?.comId || 0; // Use 0 as default if not found
       setCondition(prevCondition => ({
         ...prevCondition,
-        product: selectedComId.toString(),
+        product: selectedComId,
       }));
     }
   }, [value, items]);

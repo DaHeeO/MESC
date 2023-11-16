@@ -1,19 +1,21 @@
 import {atom} from 'recoil';
 
 interface ConditionState {
-  product: string;
+  product: number;
   startDate: string;
   endDate: string;
-  line: string;
+  line: number;
   query: string | undefined;
+  title: string | undefined;
 }
 export const ConditionState = atom<ConditionState>({
   key: 'conditionState',
   default: {
-    product: '',
+    product: 0,
     startDate: '',
     endDate: '',
-    line: '',
+    line: 0,
     query: '',
+    title: '',
   },
 });

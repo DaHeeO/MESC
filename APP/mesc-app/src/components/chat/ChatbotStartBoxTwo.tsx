@@ -58,10 +58,6 @@ export const ChatbotStartBoxTwo = (props: {card: Card}) => {
 
   const putBlockToRecoil = async (blockId: number) => {
     const newBlock = await getBlock(blockId, {});
-    console.log('============================');
-
-    console.log('새로운블럭', newBlock);
-
     setBlock(newBlock);
   };
 
