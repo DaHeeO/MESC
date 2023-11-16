@@ -14,12 +14,14 @@ import {BlockResponseData} from '../../states/BlockResponseState';
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
 import {set} from 'lodash';
+import {ProcessNameState} from '../../states/ProcessNameState';
 
 export const ChatbotStartBoxTwo = (props: {card: Card}) => {
   const [block, setBlock] = useRecoilState(BlockResponseData);
   const [isModalVisible, setModalVisible] = useState(false);
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+  const [processName, setProcessName] = useRecoilState(ProcessNameState);
 
   const [isModalPossible, setIsModalVisible] =
     useRecoilState(ConditionModifyState);

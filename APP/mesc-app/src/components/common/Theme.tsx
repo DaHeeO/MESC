@@ -9,7 +9,7 @@ export const colors = {
   icy: '#F5F8FC',
   red: '#FF0000',
 
-  backgroundGray: '#EBECEF',
+  backgroundGray: '#EBECED',
   backgroundIris: '#F2F2FE',
   background: '#323639',
 
@@ -19,6 +19,11 @@ export const colors = {
   // 파란색 버튼
   button: '#3C56A0',
 
-  // 파란색 텍스트
+  // 남색 텍스트
   text: '#182655',
+
+  // 라벨 색
+  label: '#D129AC',
+
+  // 연한 배경
 };

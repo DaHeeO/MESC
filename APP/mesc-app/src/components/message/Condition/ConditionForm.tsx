@@ -1,4 +1,5 @@
 import React from 'react';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ConditionState} from '../../../states/ConditionState';
 import {DropdownState} from '../../../states/DropdownState';
@@ -44,7 +45,7 @@ export const ConditionForm = () => {
   return (
     <FormContainer direction="column">
       {/* 조건초기화, 적용 버튼 Container */}
-      <S.Header style={{backgroundColor: 'yellow'}}>
+      <S.Header>
         {/* 조건초기화 */}
         {/* <FormContainer
           width="100px"
@@ -96,8 +97,8 @@ export const ConditionForm = () => {
           width="100%"
           direction="column"
           style={{
-            backgroundColor: 'gold',
-            zIndex: 3000,
+            // backgroundColor: 'gold',
+            zIndex: 4000,
           }}>
           <FormContainer height="30%" width="100%">
             <TextBox>{dropdownList[0].name}</TextBox>
@@ -107,7 +108,8 @@ export const ConditionForm = () => {
             height="70%"
             width="90%"
             align="flex-start"
-            style={{backgroundColor: 'skyblue'}}>
+            // style={{backgroundColor: 'skyblue'}}
+          >
             {/* AboutSelect 컴포넌트에 dropdownList를 props로 전달 */}
             <ProcessSelect valuesList={dropdownList[0].valuesList} />
           </FormContainer>
@@ -119,26 +121,30 @@ export const ConditionForm = () => {
           width="100%"
           direction="column"
           style={{
-            backgroundColor: 'pink',
+            // backgroundColor: 'pink',
             zIndex: 2900,
           }}>
           <FormContainer
-            height="20%"
+            height="16%"
             width="100%"
-            style={{backgroundColor: 'gray'}}>
+            align="flex-start"
+            // style={{backgroundColor: 'gray'}}
+          >
             <TextBox>기간설정</TextBox>
           </FormContainer>
 
           <FormContainer
             height="80%"
-            width="95%"
+            width="93%"
             align="flex-start"
             direction="column"
-            style={{backgroundColor: 'skyblue'}}>
+            // style={{backgroundColor: 'skyblue'}}
+          >
             <FormContainer
               width="100%"
               height="50%"
-              style={{backgroundColor: 'yellow'}}>
+              // style={{backgroundColor: 'yellow'}}
+            >
               <DatePicker date={'start'} />
             </FormContainer>
             <FormContainer width="100%" height="50%">
@@ -149,9 +155,10 @@ export const ConditionForm = () => {
         {/* 조건3 */}
 
         <FormContainer
-          height="30%"
+          height="24%"
           width="100%"
           direction="column"
+          justify="flex-start"
           style={{
             zIndex: 3000,
           }}>
@@ -159,7 +166,7 @@ export const ConditionForm = () => {
             <TextBox>{dropdownList[1].name}</TextBox>
           </FormContainer>
 
-          <FormContainer height="70%" width="90%" align="flex-start">
+          <FormContainer height="50%" width="90%" align="flex-start">
             {/* AboutSelect 컴포넌트에 dropdownList를 props로 전달 */}
             <LineSelect valuesList={dropdownList[1].valuesList} />
           </FormContainer>

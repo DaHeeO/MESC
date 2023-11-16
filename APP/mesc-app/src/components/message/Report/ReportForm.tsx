@@ -11,9 +11,11 @@ import {
   ReportContainer,
   ReportFormContainer,
   ReportText,
+  ReportText2,
   ReportTextInput,
   ReportTouchContainer,
   UserTag,
+  Container,
 } from './ReportForm.styles';
 import {ScrollView, Text} from 'react-native';
 import {OkayBtn} from '../Btn/SaveBtn';
@@ -25,6 +27,7 @@ import {set} from 'lodash';
 import Check from '../../../assets/icons/check.svg';
 import Close from '../../../assets/icons/x.svg';
 import * as S from './ReportForm.styles';
+import {sub} from 'date-fns';
 
 //interface
 interface BottomSheetProps {
@@ -46,6 +49,7 @@ export const ReportForm = (props: BottomSheetProps) => {
   const [user, setUser] = useRecoilState(checkContactState);
   const [complite, setComplite] = useState(false);
   const userName = getUserName();
+  // console.log('usernaem', userName);
 
   // useEffect(() => {
   //   setUser({users: []});
@@ -58,18 +62,22 @@ export const ReportForm = (props: BottomSheetProps) => {
   };
   // const name = AsyncStorage.getItem('userName');
 
-  const emailExample = `
-  공장 이슈 발생 안내 \n
+  const contentExample = `
+  ※ 공장 이슈 발생 안내 \n
   안녕하세요 '${userName}'입니다.\n
-  현재 공장에 이슈가 발생했습니다.\n\n
+  현재 공장에 이슈가 발생했습니다.\n
+  이슈 상황에 대해 아래와 같이 알려드리니 확인하시고 조치 부탁드립니다.\n\n
   - 이슈 상황 :\n 
   - 요청 내용 :\n\n
   확인 부탁드립니다.\n
   감사합니다.\n
   `;
+
+  const subjectExample = `[MESC] 공장에 이슈가 발생했습니다.`;
+
   const [emails, setemails] = useState<string[]>([]); //이메일 주소
-  const [subject, setsubject] = useState(''); //이메일 제목
-  const [content, setContent] = useState(emailExample); //이메일 내용
+  const [subject, setsubject] = useState(subjectExample); //이메일 제목
+  const [content, setContent] = useState(contentExample); //이메일 내용
 
   useEffect(() => {
     checkContact.users.forEach(user => {
@@ -143,17 +151,22 @@ export const ReportForm = (props: BottomSheetProps) => {
         <ReportFormContainer>
           <ReportContainer
             height="10%"
+            width="100%"
             direction="row"
-            // style={{backgroundColor: 'pink'}}
+            style={{backgroundColor: 'pink'}}
             justifyContent="flex-end">
             <ReportContainer
-              width="110px"
-              height="80%"
+              width="20%"
+              height="75%"
+              justifyContent="center"
               // justifyContent="flex-end"
               // alignItems="flex-start"
               // style={{backgroundColor: 'skyblue'}}
             >
-              <OkayBtn content={'전송'} height="80%" onPress={sendEmail} />
+              <S.SendBtn>
+                <S.SendText> 전송 </S.SendText>
+                {/* <OkayBtn content={'전송'} height="75%" onPress={sendEmail} /> */}
+              </S.SendBtn>
             </ReportContainer>
             {/* <ReportContainer
               width="55%"
@@ -163,14 +176,15 @@ export const ReportForm = (props: BottomSheetProps) => {
           </ReportContainer>
 
           {/* 보내는 사람 Container */}
-          <ReportContainer height="15%">
+          <ReportContainer height="90px">
             {/* 보내는 사람 subjectContainer */}
             <ReportContainer height="50%" style={{flexDirection: 'row'}}>
               <ReportContainer
                 height="100%"
                 width="80%"
-                style={{backgroundColor: 'pink'}}>
-                <ReportText>받는 사람</ReportText>
+                // style={{backgroundColor: 'gold'}}
+              >
+                <ReportText2>받는 사람</ReportText2>
               </ReportContainer>
               {/* 주소록 추가 Btn */}
               <ReportContainer
@@ -178,7 +192,7 @@ export const ReportForm = (props: BottomSheetProps) => {
                 width="20%"
                 justifyContent="center">
                 <AddPersonBtn onPress={reChooseContact}>
-                  <Text> + 주소록 </Text>
+                  <S.ContactBtn> + 주소록 </S.ContactBtn>
                 </AddPersonBtn>
               </ReportContainer>
             </ReportContainer>
@@ -189,11 +203,10 @@ export const ReportForm = (props: BottomSheetProps) => {
                 direction="row"
                 style={{
                   marginLeft: 5,
-                  backgroundColor: 'gold',
+                  // backgroundColor: 'gold',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
-                {/* 보내는 사람 Tag */}
                 {checkContact.users.map(renderName)}
               </ReportContainer>
             </ScrollView>
@@ -207,7 +220,7 @@ export const ReportForm = (props: BottomSheetProps) => {
             {/* 이메일 input */}
             <ReportContainer height="50%" width="100%" alignItems="center">
               <ReportTextInput
-                placeholder="제목"
+                defaultValue={subjectExample}
                 value={subject}
                 onChangeText={text => setsubject(text)}
               />
@@ -220,7 +233,7 @@ export const ReportForm = (props: BottomSheetProps) => {
             // style={{backgroundColor: 'green'}}
           >
             <CustomTextArea
-              defaultValue={emailExample}
+              defaultValue={contentExample}
               value={content}
               onChangeText={text => setContent(text)}
               multiline
@@ -228,7 +241,9 @@ export const ReportForm = (props: BottomSheetProps) => {
           </ReportContainer>
         </ReportFormContainer>
       ) : (
-        <ContactListForm />
+        <ReportFormContainer>
+          <ContactListForm />
+        </ReportFormContainer>
       )}
     </>
   );

@@ -52,7 +52,7 @@ function ChatInput() {
 
   useEffect(() => {
     if (inputShow == true) {
-      setInputHeight('145px');
+      setInputHeight('130px');
       setInputJustify('space-between');
       setShowBox('flex');
       setNoMargin('15px');
@@ -80,7 +80,7 @@ function ChatInput() {
       return;
     }
 
-    setLoading(true);
+    // setLoading(true);
     try {
       const response = await customAxios.get('api/mesc/autocomplete', {
         params: {prefix: kw},
@@ -90,7 +90,7 @@ function ChatInput() {
       console.error('Error fetching suggestions', error);
       setSuggestions([]);
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   }, []);
 
@@ -244,13 +244,9 @@ function ChatInput() {
       const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, {
         body,
       });
-
-      // console.log(nextBlock);
       // 에러처리 추가해줘야함
-      if (nextBlock.cardList[1].content) {
+      if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
         setInput(input);
-      } else {
-        setInput('');
       }
     } else if (
       // 수정, 추가, 삭제
@@ -314,6 +310,42 @@ function ChatInput() {
     console.log('최근 데이터');
   };
 
+  function getNewBlock(title: string) {
+    let blockId = 1;
+    if (title === '커밋') {
+    } else if (title === '롤백') {
+    } else if (title === '데이터') {
+      // console.log('데이터=======================');
+      // getData();
+      blockId = BlockType.SearchList;
+    } else if (title === '로그') {
+      blockId = BlockType.LogKeyword;
+    } else if (title === '최근 공정 데이터') {
+    }
+    return async () => {
+      const newBlock = await putBlockToRecoil(blockId, {});
+      console.log('newBlock', newBlock);
+      if (blockId === BlockType.SearchList) {
+        setIsModalVisible(true);
+        setModalId('SF');
+      }
+
+      setInput('');
+    };
+  }
+
+  function getData() {
+    const blockId = BlockType.SearchList;
+
+    return async () => {
+      console.log('blockId', blockId);
+      const newBlock = await putBlockToRecoil(blockId, {});
+      console.log('newBlock', newBlock);
+
+      setInput('');
+    };
+  }
+
   return (
     <S.Input>
       {suggestions.length > 0 && (
@@ -361,38 +393,23 @@ function ChatInput() {
           </S.SendBox>
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
-          <S.MenuBox margin="5px">
-            <S.CommitBox width="100%" height="65%" onPress={commit}>
-              <S.Img source={require('../../assets/images/Gostart3.png')} />
-            </S.CommitBox>
-            <S.CommitBox width="100%" height="35%">
-              <Text style={{color: 'black'}}>Commit</Text>
-            </S.CommitBox>
-          </S.MenuBox>
-          <S.MenuBox margin="5px">
-            <S.RecentDataBox width="100%" height="65%" onPress={recentData}>
-              <S.Img source={require('../../assets/images/GoDB.png')} />
-            </S.RecentDataBox>
-            <S.MenuBox width="100%" height="35%">
-              <Text style={{color: 'black'}}>최근 데이터</Text>
-            </S.MenuBox>
-          </S.MenuBox>
-          <S.MenuBox margin="5px">
-            <S.MenuBox width="100%" height="65%">
-              <S.Img source={require('../../assets/images/Goreport3.png')} />
-            </S.MenuBox>
-            <S.MenuBox width="100%" height="35%">
-              <Text style={{color: 'black'}}>롤백</Text>
-            </S.MenuBox>
-          </S.MenuBox>
-          <S.MenuBox margin="5px">
-            <S.MenuBox width="100%" height="65%">
-              <S.Img source={require('../../assets/images/Goreport3.png')} />
-            </S.MenuBox>
-            <S.MenuBox width="100%" height="35%">
-              <Text style={{color: 'black'}}>보고하기</Text>
-            </S.MenuBox>
-          </S.MenuBox>
+          <S.ButtonContainer>
+            <S.ButtonBox onPress={getNewBlock('최근 공정 데이터')}>
+              <S.ButtonText>최근 공정 조회</S.ButtonText>
+            </S.ButtonBox>
+            <S.ButtonBox onPress={getNewBlock('커밋')}>
+              <S.ButtonText>Commit</S.ButtonText>
+            </S.ButtonBox>
+            <S.ButtonBox onPress={getNewBlock('롤백')}>
+              <S.ButtonText>Rollback</S.ButtonText>
+            </S.ButtonBox>
+            <S.ButtonBox onPress={getNewBlock('데이터')}>
+              <S.ButtonText>데이터 조회</S.ButtonText>
+            </S.ButtonBox>
+            <S.ButtonBox onPress={getNewBlock('로그')}>
+              <S.ButtonText>로그 조회</S.ButtonText>
+            </S.ButtonBox>
+          </S.ButtonContainer>
         </S.HiddenContainer>
       </S.ChatInput>
     </S.Input>

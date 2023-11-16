@@ -37,7 +37,8 @@ export const Header = styled.View`
   width: 100%;
   flex-direction: row;
   // background-color: blue;
-  // align-items: center;
+  align-items: center;
+  padding-bottom: 5px;
 `;
 
 export const Title = styled.Text`
@@ -115,3 +116,15 @@ export const Cell = styled.Text`
 `;
 
 export const ModalButton = styled.TouchableOpacity``;
+
+export const CountInfo = styled.View`
+  // margin-top: 5px;
+  // margin-right: 5px;
+  // background-color: yellow;
+`;
+
+export const CountText = styled.Text`
+  color: ${colors.secondary};
+  font-size: 16px;
+  font-weight: bold;
+`;
