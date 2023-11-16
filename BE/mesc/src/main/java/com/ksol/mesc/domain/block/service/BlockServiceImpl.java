@@ -376,13 +376,24 @@ public class BlockServiceImpl implements BlockService {
 		if (cardReqList != null) {
 			for (CardReq cardReq : cardReqList) {
 				cardReq.setBlock(block);
+				updateButtonLinkId(cardReq.getComponentList());
 			}
-			saveCardInfo(cardReqList);
+			// saveCardInfo(cardReqList);
 		}
 
 		//컴포넌트 저장 및 수정
 		if (componentReqs != null) {
 			saveComponent(componentReqs);
+		}
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void updateButtonLinkId(List<ComponentReq> componentReqList) {
+		for (ComponentReq componentReq : componentReqList) {
+			saveComponentEntityByType(ComponentType.BU, componentReq.getObject(), componentReq, false);
+
+			// ButtonRes button = (ButtonRes)componentReq.getObject();
+			// buttonRepository.updateLinkId(button.getId(), button.getLink());
 		}
 	}
 
@@ -413,7 +424,7 @@ public class BlockServiceImpl implements BlockService {
 
 					//3-1. 요소 추가 + 컴포넌트 추가
 					ComponentType componentType = componentReq.getType();
-					saveComponentEntityByType(componentType, object, componentReq);
+					saveComponentEntityByType(componentType, object, componentReq, true);
 				}
 			}
 		}
@@ -429,13 +440,14 @@ public class BlockServiceImpl implements BlockService {
 
 			//3-1. 요소 수정 + 컴포넌트 수정
 			ComponentType componentType = componentReq.getType();
-			saveComponentEntityByType(componentType, object, componentReq);
+			saveComponentEntityByType(componentType, object, componentReq, true);
 		}
 	}
 
 	//type 별 객체 저장
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveComponentEntityByType(ComponentType componentType, Object object, ComponentReq componentReq) {
+	public void saveComponentEntityByType(ComponentType componentType, Object object, ComponentReq componentReq,
+		Boolean flag) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			String json = objectMapper.writeValueAsString(object);
@@ -467,8 +479,11 @@ public class BlockServiceImpl implements BlockService {
 			}
 
 			//컴포넌트 추가
-			Component component = Component.toEntity(componentReq);
-			componentRepository.save(component);
+			if (flag) {
+				Component component = Component.toEntity(componentReq);
+				componentRepository.save(component);
+			}
+
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}

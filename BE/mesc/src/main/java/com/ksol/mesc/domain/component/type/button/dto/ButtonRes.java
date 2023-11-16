@@ -11,7 +11,7 @@ public class ButtonRes {
 	private Integer id;
 	private String name;
 	private String linkType;
-	private String link;
+	private Integer link;
 	private Integer actionId;
 	private Integer iconId;
 	private String response;

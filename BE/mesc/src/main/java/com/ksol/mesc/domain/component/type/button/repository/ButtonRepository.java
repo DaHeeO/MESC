@@ -15,4 +15,8 @@ public interface ButtonRepository extends JpaRepository<Button, Integer> {
 	@Modifying
 	@Query("update Button b set b.state=:state where b.id=:id")
 	void updateState(@Param("id") Integer id, @Param("state") EntityState state);
+
+	@Modifying
+	@Query("update Button b set b.link=:linkId where b.id=:id")
+	void updateLinkId(@Param("id") Integer id, @Param("linkId") Integer linkId);
 }
