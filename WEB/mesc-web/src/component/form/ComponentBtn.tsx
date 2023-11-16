@@ -7,7 +7,7 @@ import {
   ComponentState,
 } from "../../state/create/CreateState";
 // style
-import * as S from "./FormStyle";
+import * as S from "./CH1Form.styles";
 
 // export interface Value {
 //   value?: string;
@@ -64,11 +64,9 @@ export const ComponentBtn = (props: { card: Card; index: number }) => {
   console.log(card.componentList[index]);
 
   return (
-    <S.FormBtn height="50%">
-      <S.FormInput
-        width="80%"
-        height="30%"
-        placeholder="버튼 1"
+    <S.Button>
+      <S.ButtonText
+        placeholder="버튼 이름을 입력하세요"
         onChange={(e) =>
           handleInputChange(
             e,
@@ -82,6 +80,6 @@ export const ComponentBtn = (props: { card: Card; index: number }) => {
         }
         value={card.componentList[index]?.object?.name}
       />
-    </S.FormBtn>
+    </S.Button>
   );
 };

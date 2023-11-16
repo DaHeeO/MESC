@@ -71,3 +71,17 @@ export const CardBtn = (props: BtnProps) => {
     </Tooltip>
   );
 };
+
+export function AddSpeedDial(props: BtnProps) {
+  return (
+    <Tooltip title="카드추가" arrow>
+      <Fab
+        color="primary"
+        onClick={props.onClick}
+        sx={{ position: "absolute", bottom: 16, right: 16 }}
+      >
+        <SpeedDialIcon />
+      </Fab>
+    </Tooltip>
+  );
+}

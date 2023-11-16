@@ -1,7 +1,7 @@
 //React
 import { useState } from "react";
 //style
-import * as S from "../../pages/AddBlock/AddStyle";
+import * as S from "./AddCard.styles";
 //recoil
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CardIdState } from "../../state/CardIdState";
@@ -48,77 +48,9 @@ export const AddCardComponent = (props: { card: Card }) => {
 
   return (
     <S.CardContainer>
-      <S.InnerContainer width="100%" height="85%" flexDirection="column">
-        <S.InnerContainer
-          width="100%"
-          height="15%"
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          {/* 버튼 자리 */}
-          <S.InnerContainer width="50%" height="70%" justifyContent="center">
-            <LinkModal card={card} btnIndex={0} />
-          </S.InnerContainer>
-          <S.InnerContainer width="50%" height="70%" justifyContent="center">
-            <Button variant="contained" size="small" onClick={deleteCard}>
-              삭제
-            </Button>
-          </S.InnerContainer>
-        </S.InnerContainer>
-        {/* 카드 헤더 */}
-        <AboutContainer
-          width="100%"
-          height="15%"
-          justifyContent="center"
-          align="center"
-        >
-          {/* 카드 인덱스 자리_squence */}
-          <S.InnerContainer
-            width="10%"
-            height="100%"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {card.sequence}
-          </S.InnerContainer>
-          {/* 카드 이름 자리_name*/}
-          <S.InnerContainer
-            width="60%"
-            height="100%"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <input
-              type="text"
-              placeholder={card.name}
-              onChange={(e) => {
-                setCards((prevCards) =>
-                  prevCards.map((nowCard) =>
-                    nowCard.sequence === props.card.sequence
-                      ? { ...nowCard, name: e.target.value }
-                      : nowCard
-                  )
-                );
-              }}
-              style={{ width: "90%", height: "90%" }}
-            />
-          </S.InnerContainer>
-          {/* 카드 종류자리_cardType*/}
-          <S.InnerContainer
-            width="30%"
-            height="100%"
-            justifyContent="center"
-            alignItems="center"
-          >
-            {/* 카드 type 선택 */}
-            <SelectLabels onType={typeChange} />
-          </S.InnerContainer>
-        </AboutContainer>
+      <S.InnerContainer width="100%" height="90%" flexDirection="column">
         {/* 카드 내 contentForm */}
-        {/* ==================================== */}
         <ComponentIdSwitch card={card} />
-        {/* ==================================== */}
       </S.InnerContainer>
     </S.CardContainer>
   );

@@ -10,6 +10,7 @@ import * as C from "../../common/theme";
 import { api } from "../../../apis/Api";
 import { useRecoilState } from "recoil";
 import { FAQState } from "../../../state/FAQState";
+import { FAQListState } from "../../../state/FAQState";
 
 // function
 
@@ -19,7 +20,7 @@ interface TableProps {
 }
 
 export const FAQBlock: React.FC<TableProps> = ({ data, focusedIndex }) => {
-  const [resdata, setResData] = useState<any[]>([]);
+  const [resdata, setResData] = useRecoilState(FAQListState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useRecoilState(FAQState);
@@ -41,11 +42,13 @@ export const FAQBlock: React.FC<TableProps> = ({ data, focusedIndex }) => {
       .catch((err) => {
         setError("데이터를 조회하는데 실패하였습니다.");
         setLoading(false);
+        console.log(err);
       });
-  }, [focusedIndex]);
+  }, [focusedIndex, selectedItem]);
 
   const handleTableDivClick = (item: any) => {
     setSelectedItem(item);
+    console.log(item);
   };
 
   if (loading) {
