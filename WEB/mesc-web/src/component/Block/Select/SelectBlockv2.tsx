@@ -9,22 +9,20 @@ import { useRecoilState } from "recoil";
 import { CreatBlockState } from "../../../state/create/AddBlock";
 import { BlockState } from "../../../state/create/CreateState";
 import { CardListState } from "../../../state/read/GetCardList";
+import { LinkIdState } from "../../../state/linkId";
 
 interface TableProps {
-  data: {
-    index: number;
-    BlockName: string;
-    BlockContent: string;
-  }[];
+  type: string;
 }
 
-export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
+export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
   const [resdata, setResData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // recoil에서 block값 가져오기
   const [cardList, setCardList] = useRecoilState(CardListState);
+  const [linkId, setLinkId] = useRecoilState(LinkIdState);
   // 데이터 조회하기 ============================>
 
   useEffect(() => {
@@ -47,27 +45,20 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
   if (error) {
     return <p>Error: {error}</p>;
   }
-  //  ====================================>
 
-  //  ====================================>
   // 단일 블록 조회하기 ============================>
   const SelectTheBlock = (id: number) => {
     api
       .post(`/block/${id}`, {})
       .then((res) => {
-        console.log("id=======", res);
-        console.log("card(결과값)=======", res.request.response.data);
-        setCardList((prevCardList) => ({
-          ...prevCardList,
-          result: res.request.response,
-        }));
-        setBlockInfo((prevBlockState) => ({
-          ...prevBlockState,
-          blockInfo: {
-            id: id,
-            name: res.data.data.blockName,
-          },
-        }));
+        // console.log("id=======", res);
+        // console.log("card(결과값)=======", res.request.response.data);
+        console.log(res.data.data.cardList);
+        setCardList(res.data.data.cardList);
+        setBlockInfo({
+          id: id,
+          name: res.data.data.blockName,
+        });
         // console.log("res==================", res.data.data.blockName);
       })
       .catch((err) => {
@@ -90,12 +81,16 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
             <td>{item.id}</td>
             <HoverTd
               onClick={() => {
-                if (item.id > 16 && item.id !== 1035) {
-                  SelectTheBlock(item.id);
-                } else if (item.id <= 16) {
-                  alert("이 블록은 수정할 수 없습니다.");
-                } else if (item.id === 1035) {
-                  alert("이 블록은 수정할 수 없습니다.");
+                if (type == "linkModal") {
+                  setLinkId(item.id);
+                } else if (type == "modify") {
+                  if (item.id <= 14) {
+                    alert("이 블록은 수정할 수 없습니다.");
+                  } else if (item.id === 1035) {
+                    alert("이 블록은 수정할 수 없습니다.");
+                  } else {
+                    SelectTheBlock(item.id);
+                  }
                 }
               }}
               className={

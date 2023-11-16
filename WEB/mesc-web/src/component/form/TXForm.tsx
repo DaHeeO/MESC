@@ -39,6 +39,7 @@ export const TXForm = (props: { card: Card }) => {
               )
             );
           }}
+          value={props.card.content}
         />
       </S.ComponentContainer>
     </AboutContainer>

@@ -104,13 +104,13 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
     api
       .post(`/block/${id}`, {})
       .then((res) => {
-        setBlockInfo((prevBlockState) => ({
-          ...prevBlockState,
-          blockInfo: {
-            ...prevBlockState.blockInfo,
-            name: res.data.data.blockName,
-          },
-        }));
+        // setBlockInfo((prevBlockState) => ({
+        //   ...prevBlockState,
+        //   blockInfo: {
+        //     ...prevBlockState.blockInfo,
+        //     name: res.data.data.blockName,
+        //   },
+        // }));
         console.log("GoBlock", res);
         navigate(`/Modify`);
       })

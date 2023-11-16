@@ -12,6 +12,7 @@ import { SelectLabels } from "../../pages/AddBlock/CardSelect";
 // component
 import { ComponentIdSwitch } from "../form/SwitchForm";
 import { Card, CardState } from "../../state/create/CreateState";
+import LinkModal from "../common/modal/LinkModal";
 
 interface AddCardProps {
   key: number;
@@ -43,25 +44,28 @@ export const AddCardComponent = (props: { card: Card }) => {
           : nowCard;
       })
     );
-    // console.log(cards);
-    // setCards(
-    //   cards.map((nowCard) => {
-    //     if (nowCard.id == card.id) {
-    //       nowCard.cardType = cardType;
-    //     }
-    //     return nowCard;
-    //   })
-    // );
-  };
-
-  const makeCard = (cardType: any) => {
-    if (cardType === "TX") {
-    }
   };
 
   return (
     <S.CardContainer>
       <S.InnerContainer width="100%" height="85%" flexDirection="column">
+        <S.InnerContainer
+          width="100%"
+          height="15%"
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {/* 버튼 자리 */}
+          <S.InnerContainer width="50%" height="70%" justifyContent="center">
+            <LinkModal card={card} btnIndex={0} />
+          </S.InnerContainer>
+          <S.InnerContainer width="50%" height="70%" justifyContent="center">
+            <Button variant="contained" size="small" onClick={deleteCard}>
+              삭제
+            </Button>
+          </S.InnerContainer>
+        </S.InnerContainer>
         {/* 카드 헤더 */}
         <AboutContainer
           width="100%"
@@ -115,25 +119,6 @@ export const AddCardComponent = (props: { card: Card }) => {
         {/* ==================================== */}
         <ComponentIdSwitch card={card} />
         {/* ==================================== */}
-      </S.InnerContainer>
-      <S.InnerContainer
-        width="100%"
-        height="15%"
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-        {/* 버튼 자리 */}
-        <S.InnerContainer width="50%" height="70%" justifyContent="center">
-          <Button variant="contained" size="small">
-            저장
-          </Button>
-        </S.InnerContainer>
-        <S.InnerContainer width="50%" height="70%" justifyContent="center">
-          <Button variant="contained" size="small" onClick={deleteCard}>
-            삭제
-          </Button>
-        </S.InnerContainer>
       </S.InnerContainer>
     </S.CardContainer>
   );

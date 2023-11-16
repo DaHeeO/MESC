@@ -88,6 +88,7 @@ export const CH1Form = (props: { card: Card }) => {
                   )
                 );
               }}
+              value={props.card.content}
             />
           </C.InnerContainer>
           <C.InnerContainer

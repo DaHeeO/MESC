@@ -77,6 +77,7 @@ export const CH2Form = (props: { card: Card }) => {
                   )
                 );
               }}
+              value={props.card.content}
             />
           </C.InnerContainer>
           <C.InnerContainer width="100%" height="35%" justifyContent="center">

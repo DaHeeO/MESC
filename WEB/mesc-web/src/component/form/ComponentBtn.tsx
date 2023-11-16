@@ -60,6 +60,9 @@ export const ComponentBtn = (props: { card: Card; index: number }) => {
     );
   };
 
+  console.log("버튼");
+  console.log(card.componentList[index]);
+
   return (
     <S.FormBtn height="50%">
       <S.FormInput
@@ -77,6 +80,7 @@ export const ComponentBtn = (props: { card: Card; index: number }) => {
             setCards
           )
         }
+        value={card.componentList[index]?.object?.name}
       />
     </S.FormBtn>
   );

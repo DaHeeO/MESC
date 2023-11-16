@@ -92,7 +92,7 @@ export const Add = () => {
       componentList: [
         {
           type: "BU",
-          sequence: "1",
+          sequence: 1,
           object: {
             actionId: 0,
             name: "",
