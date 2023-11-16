@@ -281,6 +281,7 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
+    console.log('blockId============', blockId);
     const newBlock = await getBlock(blockId, body);
 
     if (newBlock) setBlock(newBlock);
@@ -326,8 +327,17 @@ function ChatInput() {
     const nextBlock: any = await putBlockToRecoil(BlockType.SearchChocie, body);
   };
 
+  // 롤백 버튼 함수
+  const rollback = async () =>{
+    setChatbotHistory(prev => [
+      ...prev,
+      <UserMessage message={'Rollback'} />,
+    ]);
+    putBlockToRecoil(BlockType.Rollback, {});
+  }
+
   function getNewBlock(title: string) {
-    let blockId = 1;
+    let blockId = 11;
     if (title === '데이터') {
       blockId = BlockType.SearchList;
     } else if (title === '로그') {
@@ -344,6 +354,8 @@ function ChatInput() {
       setInput('');
     };
   }
+
+
 
   function getData() {
     const blockId = BlockType.SearchList;
@@ -408,7 +420,7 @@ function ChatInput() {
             <S.ButtonBox onPress={commit}>
               <S.ButtonText>Commit</S.ButtonText>
             </S.ButtonBox>
-            <S.ButtonBox onPress={getNewBlock('롤백')}>
+            <S.ButtonBox onPress={rollback}>
               <S.ButtonText>Rollback</S.ButtonText>
             </S.ButtonBox>
             <S.ButtonBox onPress={getNewBlock('데이터')}>

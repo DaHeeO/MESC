@@ -14,4 +14,5 @@ export enum BlockType {
   CommitResult = 15,
   CommitError = 16,
   RollbackOutput = 1035,
+  Rollback = 17,
 }
