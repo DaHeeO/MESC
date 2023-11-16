@@ -63,17 +63,21 @@ export const ProfileContainer = styled.View`
   align-items: center;
   justify-content: center;
   height: 30%;
+  // background-color: yellow;
 `;
 
 export const AvatarBox = styled.View`
   width: 120px;
   height: 120px;
   position: relative;
+  border-radius: 60px;
+  // background-color: gray;
 `;
 
 export const Avatar = styled.Image`
   width: 100%;
   height: 100%;
+  border-radius: 60px;
 `;
 
 export const AvatarEdit = styled.Pressable`
@@ -156,7 +160,7 @@ export const ChatButton = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #edb01b;
+  background-color: ${colors.button};
   padding: 8px 16px 12px 16px;
   margin-top: 5%;
   border-radius: 6px;

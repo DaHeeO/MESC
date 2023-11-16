@@ -18,7 +18,7 @@ function ChatbotProfile() {
           // color="white"
           color="black"
           // color="#3C56A0"
-          >
+        >
           MESC
         </TextBox>
       </S.NameBox>

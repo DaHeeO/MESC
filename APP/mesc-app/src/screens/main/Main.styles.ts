@@ -64,7 +64,7 @@ export const Body = styled.View`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 79%;
+  height: 85%;
 `;
 
 export const ToChat = styled(ImageBackground)`

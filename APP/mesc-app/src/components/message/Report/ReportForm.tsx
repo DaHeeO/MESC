@@ -111,23 +111,25 @@ export const ReportForm = (props: BottomSheetProps) => {
       // console.log(item);
       if (item.name === '') return null;
       return (
-        <S.NameBox>
-          <UserTag>
-            <ReportContainer width="55px">
-              <Text>{item.name}</Text>
-            </ReportContainer>
-            <S.IconBox
-              onPress={() => {
-                // console.log(item.userId);
-                const array = checkContact.users.filter(user => {
-                  // console.log(user.userId !== item.userId);
-                  return user.userId !== item.userId;
-                });
-                setUser({users: array});
-              }}>
-              <Close />
-            </S.IconBox>
-            {/* <ReportTouchContainer
+        <>
+          {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}> */}
+          <S.NameBox>
+            <UserTag>
+              <ReportContainer width="40px">
+                <Text>{item.name}</Text>
+              </ReportContainer>
+              <S.IconBox
+                onPress={() => {
+                  // console.log(item.userId);
+                  const array = checkContact.users.filter(user => {
+                    // console.log(user.userId !== item.userId);
+                    return user.userId !== item.userId;
+                  });
+                  setUser({users: array});
+                }}>
+                <Close />
+              </S.IconBox>
+              {/* <ReportTouchContainer
             width="20px"
             onPress={() => {
               // console.log(item.userId);
@@ -139,8 +141,10 @@ export const ReportForm = (props: BottomSheetProps) => {
             }}>
             <Text style={{color: 'white'}}>X</Text>
           </ReportTouchContainer> */}
-          </UserTag>
-        </S.NameBox>
+            </UserTag>
+          </S.NameBox>
+          {/* </ScrollView> */}
+        </>
       );
     },
     [checkContact.users],
@@ -153,7 +157,6 @@ export const ReportForm = (props: BottomSheetProps) => {
             height="10%"
             width="100%"
             direction="row"
-           
             justifyContent="flex-end">
             <ReportContainer
               width="20%"

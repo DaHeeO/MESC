@@ -17,6 +17,8 @@ interface ReportContainerProps {
 }
 export const Text = styled.Text`
   font-size: 15px;
+  // line-height: 15px;
+  // margin-left: 3px;
 `;
 
 export const ReportContainer = styled.View<ReportContainerProps>`
@@ -129,7 +131,7 @@ export const CustomTextArea = styled.TextInput`
 `;
 
 export const UserTag = styled.TouchableOpacity`
-  background-color: #e0e9f7;
+  background-color: ${colors.backgroundLight};
   flex-direction: row;
   border-radius: 14px;
   width: 70px;
@@ -137,8 +139,8 @@ export const UserTag = styled.TouchableOpacity`
   justify-content: display-start;
   align-items: center;
   margin-right: 17px;
-  margin-left: 3px;
-  background-color: #d1e0f2;
+  margin-left: 4px;
+  // background-color: pink;
 `;
 
 export const ReportTouchContainer = styled.TouchableOpacity<ReportContainerProps>`
@@ -176,4 +178,5 @@ export const Container = styled.View`
   background-color: white;
   display: flex;
   align-items: center;
+  // justify-content: center;
 `;
