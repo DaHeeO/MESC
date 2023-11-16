@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ksol.mes.global.util.jdbc.JdbcUtil;
@@ -37,8 +36,20 @@ public class DeveloperServiceImpl implements DeveloperService {
 
 	@Override
 	@Transactional
-	public Integer executeQuery(String query) throws SQLException {
+	public Integer executeQuery(String query, List<String> queryList) throws SQLException {
 		return jdbcUtil.execute(getOnlyOneQuery(query));
+	}
+
+	@Override
+	@Transactional
+	public Integer executeQueryList(List<String> queryList) throws SQLException {
+		Integer queryCnt = queryList.size();
+		for (int i = 0; i < queryCnt; i++) {
+			String tempQuery = queryList.get(i);
+			getOnlyOneQuery(tempQuery);
+		}
+
+		return jdbcUtil.executeQueryList(queryList);
 	}
 
 	@Override
@@ -46,10 +57,10 @@ public class DeveloperServiceImpl implements DeveloperService {
 		return jdbcUtil.selectAfterModify(query, page);
 	}
 
-	@Override
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void commitTransation() {
-		jdbcUtil.commitTransaction();
-	}
+	// @Override
+	// @Transactional(propagation = Propagation.REQUIRED)
+	// public void commitTransation() {
+	// 	jdbcUtil.commitTransaction();
+	// }
 
 }

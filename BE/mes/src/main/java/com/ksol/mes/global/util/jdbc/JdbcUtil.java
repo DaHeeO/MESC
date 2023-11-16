@@ -136,6 +136,7 @@ public class JdbcUtil {
 			connection.setAutoCommit(false);
 			Statement statement = connection.createStatement();
 
+			log.info("getPaginationQuery : {}", getPaginationQuery(query, page));
 			ResultSet resultSet = statement.executeQuery(getPaginationQuery(query, page));
 			Integer total = getTotalCnt(query);
 			table = new Table(resultSet, page, total);
@@ -172,6 +173,35 @@ public class JdbcUtil {
 		return counts;
 	}
 
+	public Integer executeQueryList(List<String> queryList) throws SQLException {
+		Connection connection = null;
+		Statement statement = null;
+		Integer counts = 0;
+		try {
+			connection = dataSource.getConnection();
+			statement = connection.createStatement();
+
+			for (String tempQuery : queryList) {
+				statement.executeUpdate(tempQuery);
+			}
+
+			// counts = statement.executeUpdate(query);
+			statement.close();
+			connection.close();
+		} catch (SQLException e) {
+			if (statement != null) {
+				statement.close();
+			}
+			if (connection != null) {
+				connection.close();
+			}
+			log.info(e.getMessage());
+			throw new SQLException(e);
+		}
+
+		return counts;
+	}
+
 	public void commitTransaction() {
 		Connection connection = null;
 		try {
@@ -182,15 +212,15 @@ public class JdbcUtil {
 		}
 	}
 
-	public void rollbackTransaction() {
-		Connection connection = null;
-		try {
-			connection = dataSource.getConnection();
-			connection.rollback();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+	// public void rollbackTransaction() {
+	// 	Connection connection = null;
+	// 	try {
+	// 		connection = dataSource.getConnection();
+	// 		connection.rollback();
+	// 	} catch (SQLException e) {
+	// 		throw new RuntimeException(e);
+	// 	}
+	// }
 
 	private String getSelectQuery(String modifyQuery) {
 		// update 테이블명 set ~~~ where 조건문
@@ -217,9 +247,9 @@ public class JdbcUtil {
 		// 문자(글자 또는 숫자)라면
 		String selectQuery = "select * from " + tableName + ' ' + whereClause;
 		if (selectQuery.charAt(selectQuery.length() - 1) == ';') {
-//			System.out.println("selectQuery = " + selectQuery);
+			//			System.out.println("selectQuery = " + selectQuery);
 			selectQuery = selectQuery.substring(0, selectQuery.length() - 1);
-//			System.out.println("selectQuery = " + selectQuery);
+			//			System.out.println("selectQuery = " + selectQuery);
 		}
 		return selectQuery;
 	}
@@ -232,9 +262,9 @@ public class JdbcUtil {
 
 	private Integer getTotalCnt(String selectQuery) throws SQLException {
 		if (selectQuery.charAt(selectQuery.length() - 1) == ';') {
-//			System.out.println("selectQuery = " + selectQuery);
+			//			System.out.println("selectQuery = " + selectQuery);
 			selectQuery = selectQuery.substring(0, selectQuery.length() - 1);
-//			System.out.println("selectQuery = " + selectQuery);
+			//			System.out.println("selectQuery = " + selectQuery);
 		}
 		String totalQuery = "SELECT COUNT(*) 'total' FROM (" + selectQuery + ") as tempTable";
 		try {

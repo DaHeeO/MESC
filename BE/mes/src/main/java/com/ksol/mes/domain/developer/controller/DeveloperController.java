@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mes.domain.common.dto.response.CommonResponseDto;
+import com.ksol.mes.domain.developer.dto.request.DeveloperCommitRequestDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperDataRequestDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperQueryRequestDto;
 import com.ksol.mes.domain.developer.dto.response.DeveloperDataResponseDto;
@@ -63,7 +63,8 @@ public class DeveloperController {
 		log.info("query : {}", developerQueryRequestDto.getQuery());
 		try {
 			String query = developerQueryRequestDto.getQuery();
-			Integer modifiedCount = developerService.executeQuery(query);
+			List<String> queryList = developerQueryRequestDto.getQueryList();
+			Integer modifiedCount = developerService.executeQuery(query, queryList);
 			String method = "추가";
 			if (query.startsWith("update")) {
 				method = "수정";
@@ -100,10 +101,15 @@ public class DeveloperController {
 		return new ResponseEntity<>(CommonResponseDto.success(developerDataResponseDto), HttpStatus.OK);
 	}
 
-	//커밋 수행
-	@GetMapping("/commit")
-	public ResponseEntity<CommonResponseDto<?>> confirmCommit() {
-		developerService.commitTransation();
+	// //커밋 수행
+	@PostMapping("/commit")
+	public ResponseEntity<CommonResponseDto<?>> confirmCommit(
+		@RequestBody @Validated DeveloperCommitRequestDto developerCommitRequestDto, BindingResult bindingResult) {
+		try {
+			developerService.executeQueryList(developerCommitRequestDto.getQueryList());
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 		return new ResponseEntity<>(CommonResponseDto.success(null), HttpStatus.OK);
 	}
 
