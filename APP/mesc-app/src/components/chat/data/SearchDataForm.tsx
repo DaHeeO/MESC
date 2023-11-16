@@ -58,6 +58,8 @@ const SearchDataForm = () => {
       <UserMessage message={button.name} />,
     ]);
 
+    console.log('actionId=======================', button.actionId);
+    
     setActionId(button.actionId);
     const body = {
       actionId: button.actionId,
@@ -65,6 +67,8 @@ const SearchDataForm = () => {
       conditions: '',
     };
     const block = await getBlock(4, body);
+    console.log('block==============================',block);
+    
     setBlock(block);
     setActionIdTitle(button.name);
   };

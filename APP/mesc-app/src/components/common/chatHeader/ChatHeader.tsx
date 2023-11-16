@@ -7,15 +7,15 @@ import {useNavigation} from '@react-navigation/native';
 
 export const HeaderBody = styled.View`
   position: 'fixed';
-  // background: #182655;
-  // background : #3C56A0;
-  // background: white;
+  /* background: #182655;*/
+  /* background : #3C56A0;*/
+  /* background: white;*/
   border-bottom-width: 1px;
   border-bottom-color: #d2d2d2;
   top: 0;
   height: 7%;
   display: flex;
-  //border: 1px solid red;
+  /*border: 1px solid red;*/
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -53,7 +53,7 @@ function Header() {
       </View>
       <View style={{width: '80%', display: 'flex', justifyContent: 'center'}}>
         <Text style={{fontWeight: 'bold'}}>MESC</Text>
-        <Text style={{fontSize: 12}}>secured By Knox</Text>
+        <Text style={{fontSize: 12}}>secured by Knox</Text>
       </View>
       <View
         style={{

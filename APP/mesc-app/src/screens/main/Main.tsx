@@ -140,13 +140,13 @@ function Main({navigation}: any) {
                 채팅을 통해 더욱 빠르게{'\n'} 데이터베이스를 조작할 수 있어요.
               </S.Text>
             </S.ChatDiv>
-            <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('Chat')}> */}
             <S.ChatButton>
               <S.BoldText size={12} color={C.colors.white}>
                 채팅 바로가기
               </S.BoldText>
             </S.ChatButton>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
           </S.ToChat>
           <S.GroupContainer>
             <S.GroupNav>

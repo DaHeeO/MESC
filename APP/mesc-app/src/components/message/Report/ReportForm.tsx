@@ -153,7 +153,7 @@ export const ReportForm = (props: BottomSheetProps) => {
             height="10%"
             width="100%"
             direction="row"
-            style={{backgroundColor: 'pink'}}
+           
             justifyContent="flex-end">
             <ReportContainer
               width="20%"
@@ -163,7 +163,7 @@ export const ReportForm = (props: BottomSheetProps) => {
               // alignItems="flex-start"
               // style={{backgroundColor: 'skyblue'}}
             >
-              <S.SendBtn>
+              <S.SendBtn onPress={sendEmail}>
                 <S.SendText> 전송 </S.SendText>
                 {/* <OkayBtn content={'전송'} height="75%" onPress={sendEmail} /> */}
               </S.SendBtn>
