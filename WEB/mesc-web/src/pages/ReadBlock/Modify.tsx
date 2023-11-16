@@ -42,32 +42,8 @@ export const Modify = () => {
   }
 
   // JSON 문자열을 JavaScript 객체로 변환
-  const cardData = JSON.parse(`{${reponseCardList}}`);
-  let tranchformedData = {};
-
-  // 값 추출 및 다른 형식으로 변환하는 함수
-  function convertCardData(cardData: any) {
-    const { cardId, cardType, cardName, content, title, button } = cardData;
-
-    // 다른 형식으로 변환하여 반환
-    tranchformedData = {
-      cardId,
-      cardType,
-      cardName,
-      content,
-      title,
-      buttonId: button[0].id, // 버튼의 첫 번째 아이디를 추출
-      buttonName: button[0].name, // 버튼의 첫 번째 이름을 추출
-      // 추가적으로 필요한 속성들을 추출하여 변환할 수 있습니다.
-    };
-
-    return tranchformedData;
-  }
-  console.log(convertCardData(cardData));
 
   // 함수를 사용하여 변환된 데이터 얻기
-  const transformedCardData = convertCardData(cardData);
-  console.log(transformedCardData);
 
   useEffect(() => {
     async function fetchData() {
@@ -182,10 +158,9 @@ export const Modify = () => {
           flexDirection="row"
           style={{ flexWrap: "wrap", overflow: "auto" }}
         >
-          {/* {blockState.blockInfo.name} */}
           {/* 여기에 기존에 있는 카드들 보여줘야해 */}
           <div style={{ border: "1px solid red", width: "80%", height: "40%" }}>
-            {/* {tranchformedData} */}
+            {result}
           </div>
           {showCards}
         </AboutContainer>

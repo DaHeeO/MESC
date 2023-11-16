@@ -27,7 +27,7 @@ function App() {
             <Route path="Menu3" element={<Menu3 />} />
             <Route path="Menu4" element={<Menu4 />} />
             <Route path="MyChatbot" element={<MyChatbot />} />
-            <Route path="Fqa" element={<Faq />} />
+            <Route path="Faq" element={<Faq />} />
             <Route path="" element={<MainPage />} />
             <Route
               path="Modify/*"
