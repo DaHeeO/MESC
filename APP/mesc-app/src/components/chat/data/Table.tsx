@@ -221,6 +221,7 @@ const Table: React.FC<TableProps> = ({
     isModalVisible: boolean,
   ) {
     const showCountInfo = isModalVisible || !showButton;
+    console.log('title===========', title);
     return (
       <S.Header>
         <S.HeaderContainer>

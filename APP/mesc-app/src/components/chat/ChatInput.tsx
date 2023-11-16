@@ -281,7 +281,6 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
-    console.log('blockId============', blockId);
     const newBlock = await getBlock(blockId, body);
 
     if (newBlock) setBlock(newBlock);
