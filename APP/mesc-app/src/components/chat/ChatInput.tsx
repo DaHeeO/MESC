@@ -246,9 +246,9 @@ function ChatInput() {
         queryList: multipleCommitQuery,
       };
 
-      const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, {
+      const nextBlock: any = await putBlockToRecoil(BlockType.SelectOutput, 
         body,
-      });
+      );
       // 에러처리 추가해줘야함
       if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
         setInput(input);
@@ -304,13 +304,13 @@ function ChatInput() {
           if (response.data.data.result) {
             //커밋 성공시
             const newBlock = putBlockToRecoil(BlockType.CommitResult, {});
+            //배열 비우고
+            setMultipleCommitQuery([]);
           } else {
             //커밋 실패시
             const newBlock = putBlockToRecoil(BlockType.CommitError, {});
           }
 
-          //배열 비우고
-          setMultipleCommitQuery([]);
         });
     }
   };
