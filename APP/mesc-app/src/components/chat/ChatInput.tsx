@@ -19,6 +19,11 @@ import {CommitQuery} from '../../states/CommitQuery';
 import {MultipleCommitQuery} from '../..//states/MultipleCommitQuery';
 import {handleFingerPrint} from '../../components/figerprint/FingerPrint';
 import {ActionIdState, ActionIdTitleState} from '../../states/ReadDataState';
+import ChatbotMessage from './ChatbotMessage';
+import {ChatChooseSection1} from '../message/Btn/ChatChooseSection1';
+import ChatbotProfile from './ChatbotProfileComponent';
+import {Query} from './data/Query.styles';
+import QueryResultMessage from './QueryResultMessage';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
@@ -277,24 +282,40 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
-    console.log('bbbbb          ', body);
     const newBlock = await getBlock(blockId, body);
 
     if (newBlock) setBlock(newBlock);
     return newBlock;
   };
 
+  // 커밋 버튼 눌렀을 때 처리하는 함수
   const commit = async () => {
+    if (multipleCommitQuery.length === 0) {
+      Alert.alert('Commit 할 데이터가 없습니다.');
+      return;
+    }
     if (await handleFingerPrint()) {
       // 지문인식이 성공 커밋 가능
       // 커밋 했으니 빈 배열로 초기화
 
-      putBlockToRecoil(BlockType.OperationOutput, {multipleCommitQuery});
+      customAxios
+        .post('api/developer/commit', {queryList: multipleCommitQuery})
+        .then(response => {
+          if (response.data.data.result) {
+            //커밋 성공시
+            const newBlock = putBlockToRecoil(BlockType.CommitResult, {});
+          } else {
+            //커밋 실패시
+            const newBlock = putBlockToRecoil(BlockType.CommitError, {});
+          }
 
-      setMultipleCommitQuery([]);
+          //배열 비우고
+          setMultipleCommitQuery([]);
+        });
     }
   };
 
+  // 최근 본 공정 데이터
   const recentData = async () => {
     const body = {
       actionId: actionId,
@@ -304,29 +325,20 @@ function ChatInput() {
     };
 
     const nextBlock: any = await putBlockToRecoil(BlockType.SearchChocie, body);
-
-    console.log('nextBlock====================', nextBlock);
-
-    console.log('최근 데이터');
   };
 
   function getNewBlock(title: string) {
     let blockId = 1;
-    if (title === '커밋') {
-    } else if (title === '롤백') {
-    } else if (title === '데이터') {
-      // console.log('데이터=======================');
-      // getData();
+    if (title === '데이터') {
       blockId = BlockType.SearchList;
     } else if (title === '로그') {
       blockId = BlockType.LogKeyword;
-    } else if (title === '최근 공정 데이터') {
     }
     return async () => {
       const newBlock = await putBlockToRecoil(blockId, {});
-      console.log('newBlock', newBlock);
       if (blockId === BlockType.SearchList) {
         setIsModalVisible(true);
+        loadSuggestions;
         setModalId('SF');
       }
 
@@ -338,9 +350,7 @@ function ChatInput() {
     const blockId = BlockType.SearchList;
 
     return async () => {
-      console.log('blockId', blockId);
       const newBlock = await putBlockToRecoil(blockId, {});
-      console.log('newBlock', newBlock);
 
       setInput('');
     };
@@ -394,10 +404,10 @@ function ChatInput() {
         </S.OtherContainer>
         <S.HiddenContainer display={showBox}>
           <S.ButtonContainer>
-            <S.ButtonBox onPress={getNewBlock('최근 공정 데이터')}>
+            <S.ButtonBox onPress={recentData}>
               <S.ButtonText>최근 공정 조회</S.ButtonText>
             </S.ButtonBox>
-            <S.ButtonBox onPress={getNewBlock('커밋')}>
+            <S.ButtonBox onPress={commit}>
               <S.ButtonText>Commit</S.ButtonText>
             </S.ButtonBox>
             <S.ButtonBox onPress={getNewBlock('롤백')}>

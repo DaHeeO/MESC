@@ -18,7 +18,7 @@ export async function handleFingerPrint() {
   };
 
   try {
-    const isSupported = await TouchID.isSupported(optionalConfigObject);
+    const isSupported = await TouchID.isSupported();
   } catch (err) {
     message = '지문인식을 지원하지 않습니다.';
     return;
