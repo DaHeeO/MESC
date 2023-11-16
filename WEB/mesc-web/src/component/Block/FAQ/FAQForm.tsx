@@ -80,10 +80,11 @@ export const FAQForm: React.FC<TableProps> = ({ data, onCancel, category }) => {
     }
     // 수정
     else {
+      console.log(FAQId, question, answer, category);
       api
-        .patch(`/faq/${selectedItem?.id}`, {
-          question: selectedItem?.question,
-          answer: selectedItem?.answer,
+        .patch(`/faq/${FAQId}`, {
+          question: question,
+          answer: answer,
           sectionId: category,
         })
         .then((res) => {
