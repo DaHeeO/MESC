@@ -1,7 +1,7 @@
 // React
 import React, { useEffect, useState } from "react";
 // style
-import { CustomTable, HoverTd } from "./SelectBlockStyle";
+import { CustomTable, HoverTd, TitleBox } from "./SelectBlockStyle";
 // api
 import { api } from "../../../apis/Api";
 // recoil
@@ -10,6 +10,9 @@ import { CreatBlockState } from "../../../state/create/AddBlock";
 import { BlockState } from "../../../state/create/CreateState";
 import { CardListState } from "../../../state/read/GetCardList";
 import { LinkIdState } from "../../../state/linkId";
+
+import * as S from "./SelectBlockv2.styles";
+import * as C from "../../common/theme";
 
 interface TableProps {
   type: string;
@@ -68,40 +71,56 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
 
   //===================================================>
   return (
-    <CustomTable>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>이름</th>
-        </tr>
-      </thead>
-      <tbody>
+    <S.Total>
+      {/* header */}
+      <S.TitleBox>
+        <S.TitleDiv width={"30%"}>
+          <S.Text size={16} color={"#94918A"} weight={500}>
+            Id
+          </S.Text>
+        </S.TitleDiv>
+        <S.TitleDiv width={"70%"}>
+          <S.Text size={16} color={"#94918A"} weight={500}>
+            블록 이름
+          </S.Text>
+        </S.TitleDiv>
+      </S.TitleBox>
+      {/* body */}
+      <S.TableContainer>
         {resdata.map((item: any) => (
-          <tr key={item.index}>
-            <td>{item.id}</td>
-            <HoverTd
-              onClick={() => {
-                if (type == "linkModal") {
-                  setLinkId(item.id);
-                } else if (type == "modify") {
-                  if (item.id <= 14) {
-                    alert("이 블록은 수정할 수 없습니다.");
-                  } else if (item.id === 1035) {
-                    alert("이 블록은 수정할 수 없습니다.");
-                  } else {
-                    SelectTheBlock(item.id);
-                  }
+          <S.TableDiv
+            key={item.id}
+            onClick={() => {
+              if (type == "linkModal") {
+                setLinkId(item.id);
+              } else if (type == "modify") {
+                if (item.id <= 14) {
+                  alert("이 블록은 수정할 수 없습니다.");
+                } else if (item.id === 1035) {
+                  alert("이 블록은 수정할 수 없습니다.");
+                } else {
+                  SelectTheBlock(item.id);
                 }
-              }}
-              className={
-                item.id <= 16 || item.id === 1035 ? "disabled-row" : ""
               }
-            >
-              {item.name}
-            </HoverTd>
-          </tr>
+            }}
+            className={item.id <= 16 || item.id === 1035 ? "disabled-row" : ""}
+          >
+            <S.TableDiv key={item.Index}>
+              <S.TitleDiv width={"30%"}>
+                <S.Text size={16} color={C.colors.textBlack} weight={500}>
+                  {item.id}
+                </S.Text>
+              </S.TitleDiv>
+
+              <S.TitleDiv width={"70%"}>
+                <S.Text size={16} color={C.colors.textBlack} weight={500}>
+                  {item.name}
+                </S.Text>
+              </S.TitleDiv>
+            </S.TableDiv>
+          </S.TableDiv>
         ))}
-      </tbody>
-    </CustomTable>
+      </S.TableContainer>
+    </S.Total>
   );
 };
