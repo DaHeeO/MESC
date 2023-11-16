@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AutoCompleteService {
 
-	private static final String AUTOCOMPLETE_KEY = "autocomplete";
+	private static final String AUTOCOMPLETE_KEY = "mesc";
 	private static final String UNICODE_MAX_CHAR = "\ufff0";
 	private static final String WORD_TERMINATOR = "*";
 
@@ -26,15 +26,15 @@ public class AutoCompleteService {
 		ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
 
 		Range<String> range = Range.from(Range.Bound.inclusive(prefix))
-								   .to(Range.Bound.exclusive(prefix + UNICODE_MAX_CHAR));
+			.to(Range.Bound.exclusive(prefix + UNICODE_MAX_CHAR));
 
 		Set<String> results = zSetOperations.rangeByLex(AUTOCOMPLETE_KEY, range);
 
 		// 결과를 필터링하여 *로 끝나는 항목만 반환하고 리스트로 변환
 		List<String> autocompleteList = results.stream()
-											   .filter(word -> word.endsWith(WORD_TERMINATOR))
-											   .map(word -> word.substring(0, word.length() - 1)) // *를 제거
-											   .collect(Collectors.toList());
+			.filter(word -> word.endsWith(WORD_TERMINATOR))
+			.map(word -> word.substring(0, word.length() - 1)) // *를 제거
+			.collect(Collectors.toList());
 		Collections.sort(autocompleteList);
 		return autocompleteList;
 	}
