@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ksol.mesc.domain.api.dto.request.DeveloperCommitRequestDto;
 import com.ksol.mesc.domain.api.dto.request.DeveloperDataRequestDto;
 import com.ksol.mesc.domain.api.dto.request.DeveloperQueryRequestDto;
 import com.ksol.mesc.domain.api.dto.request.WorkerDataRequestDto;
@@ -116,6 +117,17 @@ public class ApiController {
 				HttpStatus.NOT_ACCEPTABLE);
 		}
 		return ResponseEntity.ok(CommonResponseDto.success(countsByActionId));
+	}
+
+	@Operation(summary = "commit API", description = "commit을 수행한다.")
+	@PostMapping("/developer/commit")
+	public ResponseEntity<?> commit(@RequestBody @Validated DeveloperCommitRequestDto developerCommitRequestDto,
+		BindingResult bindingResult) {
+		checkValidates(bindingResult);
+		List<String> queryList = developerCommitRequestDto.getQueryList();
+		apiService.commit(queryList);
+
+		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}
 
 	private static void checkValidates(BindingResult bindingResult) {

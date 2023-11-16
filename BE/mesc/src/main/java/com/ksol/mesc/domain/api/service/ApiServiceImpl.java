@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import com.ksol.mesc.domain.api.dto.request.DeveloperCommitRequestDto;
 import com.ksol.mesc.domain.api.dto.request.DeveloperDataRequestDto;
 import com.ksol.mesc.domain.api.dto.request.DeveloperQueryRequestDto;
 import com.ksol.mesc.domain.api.dto.request.WorkerDataRequestDto;
@@ -119,6 +120,23 @@ public class ApiServiceImpl implements ApiService {
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
 			.bodyValue(new DeveloperQueryRequestDto(query, null))
+			.retrieve()
+			.toEntity(JsonResponse.class)
+			.onErrorMap(e -> new MesServerException(e.getMessage()))
+			.block()
+			.getBody()
+			.getData();
+		return (LinkedHashMap<String, Object>)data;
+	}
+
+	@Override
+	public LinkedHashMap<String, Object> commit(List<String> queryList) {
+		String accessToken = jwtAuthenticationFilter.getAccessToken();
+		Object data = webClient.post()
+			.uri("/developer/commit")
+			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+			.contentType(MediaType.APPLICATION_JSON)
+			.bodyValue(new DeveloperCommitRequestDto(queryList))
 			.retrieve()
 			.toEntity(JsonResponse.class)
 			.onErrorMap(e -> new MesServerException(e.getMessage()))
