@@ -11,5 +11,7 @@ export enum BlockType {
   DEVELOPER = 12,
   LogDate = 13,
   LogLevel = 14,
+  CommitResult = 15,
+  CommitError = 16,
   RollbackOutput = 1035,
 }
