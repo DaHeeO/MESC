@@ -43,29 +43,34 @@ export const Add = () => {
       },
     }));
 
-    console.log(newName);
-    console.log(cards);
-
     // Block 생성 API 호출===================================
-    // api
-    //   .post("block/admin", {
-    //     blockInfo: { name: newName },
-    //     cardReqList: cards,
-    //   })
-    //   .then((res) => {
-    //     console.log("card==================", cards);
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    api
+      .post("block/admin", {
+        blockInfo: { name: newName },
+        cardReqList: [
+          {
+            name: cards[0].name,
+            sequence: cards.length,
+            cardType: cards[0].cardType,
+            content: cards[0].content,
+            componentList: cards[0].componentList,
+          },
+        ],
+      })
+      .then((res) => {
+        // console.log("card==================", cards);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   // =======================================================
 
   // plus 버튼 누를 때 새로운 카드 생성===================================
 
   // 화면에 보여지는 카드 useState
-  console.log("cards==================", cards);
+  // console.log("cards==================", cards);
 
   // 카드 추가 함수
   const addCard = () => {
@@ -77,10 +82,9 @@ export const Add = () => {
     }
 
     const newCard: Card = {
-      Index: newIndex,
       name: "카드 이름을 작성해주세요.",
       sequence: newIndex,
-      cardType: CardType,
+      cardType: "TX",
       content: content,
       componentList: [
         {

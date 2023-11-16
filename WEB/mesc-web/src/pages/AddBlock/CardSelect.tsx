@@ -4,9 +4,6 @@ import { useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-// recoil
-import { useRecoilState } from "recoil";
-import { CardIdState } from "../../state/CardIdState";
 
 interface SelectLabelsProps {
   onType: (type: any) => void;
@@ -20,9 +17,6 @@ export const SelectLabels = ({ onType }: SelectLabelsProps) => {
 
   // let cardType = "TX";
   const handleChange = (event: SelectChangeEvent) => {
-    // setcardType(event.target.value);
-    // console.log("cardType===================", cardType);
-    // cardType = event.target.value;
     setCardIdState(event.target.value);
     onType(event.target.value);
   };

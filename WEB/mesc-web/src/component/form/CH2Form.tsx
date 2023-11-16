@@ -9,28 +9,14 @@ import { Card, Ch2State, Ch2StateProps } from "../../state/create/CreateState";
 import { CardState } from "../../state/create/CreateState";
 //Component
 import { AboutContainer } from "../common/About/AboutContainer";
+import { ComponentBtn } from "./ComponentBtn";
+import { ComponentBtn2 } from "./ComponentBtn2";
 
-interface CH2FormProps {
-  card: Card;
-  content?: string;
-}
-
-export const CH2Form = (props: CH2FormProps) => {
+export const CH2Form = (props: { card: Card }) => {
   //카드 recoil
   const [ch2State, setCh2State] = useRecoilState(Ch2State);
-
-  // ch2State를 업데이트하는 함수
-  const updateCh2State = (newValue: Ch2StateProps) => {
-    setCh2State(newValue);
-  };
-
-  // ch2State의 특정 속성 업데이트하는 함수
-  const updateCh2Name = (newName: string) => {
-    setCh2State((prevCh2State) => ({
-      ...prevCh2State,
-      name: newName,
-    }));
-  };
+  const [cards, setCards] = useRecoilState(CardState);
+  const { card } = props;
 
   return (
     <S.ComponentContainer height="85%" width="100%" radius="30px">
@@ -83,63 +69,21 @@ export const CH2Form = (props: CH2FormProps) => {
               height="30%"
               placeholder="내용 1"
               onChange={(e) => {
-                props.content = e.target.value;
+                setCards((prevCards) =>
+                  prevCards.map((nowCard) =>
+                    nowCard.sequence === props.card.sequence
+                      ? { ...nowCard, content: e.target.value }
+                      : nowCard
+                  )
+                );
               }}
             />
           </C.InnerContainer>
           <C.InnerContainer width="100%" height="35%" justifyContent="center">
-            <S.FormBtn>
-              <S.FormInput
-                width="80%"
-                height="30%"
-                placeholder="버튼 1"
-                onChange={(e) => {
-                  setCh2State((prevCh2State) => ({
-                    ...prevCh2State,
-                    componentList: [
-                      ...(prevCh2State.componentList || []),
-                      {
-                        type: "bu",
-                        sequence: "0",
-                        object: {
-                          actionId: 0,
-                          name: e.target.value,
-                          linkType: "",
-                          link: "",
-                        },
-                      },
-                    ],
-                  }));
-                }}
-              />
-            </S.FormBtn>
+            <ComponentBtn card={card} index={0} />
           </C.InnerContainer>
           <C.InnerContainer width="100%" height="35%" justifyContent="center">
-            <S.FormBtn>
-              <S.FormInput
-                width="80%"
-                height="30%"
-                placeholder="버튼 1"
-                onChange={(e) => {
-                  setCh2State((prevCh2State) => ({
-                    ...prevCh2State,
-                    componentList: [
-                      ...(prevCh2State.componentList || []),
-                      {
-                        type: "bu",
-                        sequence: "1",
-                        object: {
-                          actionId: 0,
-                          name: e.target.value,
-                          linkType: "",
-                          link: "",
-                        },
-                      },
-                    ],
-                  }));
-                }}
-              />
-            </S.FormBtn>
+            <ComponentBtn card={card} index={1} />
           </C.InnerContainer>
           {/* 버튼 있는 공간  */}
         </C.InnerContainer>

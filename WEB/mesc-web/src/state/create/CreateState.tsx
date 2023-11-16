@@ -16,7 +16,7 @@ export const BlockState = atom<Record<string, Block>>({
 
 // cart state
 export interface Card {
-  Index?: number;
+  // Index?: number;
   id?: number;
   name: string;
   sequence: number;

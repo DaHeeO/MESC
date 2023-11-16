@@ -20,20 +20,13 @@ export const CH1Form = (props: { card: Card }) => {
   //카드 recoil
   const [ch1State, setCh1State] = useRecoilState(Ch1State);
   const [cards, setCards] = useRecoilState(CardState);
-  const {card} = props;
+  const { card } = props;
 
   // ch1State를 업데이트하는 함수
   const updateCh1State = (newValue: Ch1StateProps) => {
     setCh1State(newValue);
   };
 
-  // ch1State의 특정 속성 업데이트하는 함수
-  const updateCh1Name = (newName: string) => {
-    setCh1State((prevCh1State) => ({
-      ...prevCh1State,
-      name: newName,
-    }));
-  };
   //=====================================================================
 
   return (
@@ -103,7 +96,7 @@ export const CH1Form = (props: { card: Card }) => {
             justifyContent="center"
             alignItems="center"
           >
-            <ComponentBtn card={card}/>
+            <ComponentBtn card={card} index={0} />
           </C.InnerContainer>
 
           {/* 버튼 있는 공간  */}

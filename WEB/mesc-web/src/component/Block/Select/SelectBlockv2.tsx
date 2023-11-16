@@ -56,7 +56,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
       .post(`/block/${id}`, {})
       .then((res) => {
         console.log("id=======", res);
-        console.log("card(결과값)=======", res.request.response);
+        console.log("card(결과값)=======", res.request.response.data);
         setCardList((prevCardList) => ({
           ...prevCardList,
           result: res.request.response,

@@ -99,7 +99,7 @@ export const Modify = () => {
   // 카드 추가 함수
   const addCard = () => {
     const newCard: Card = {
-      Index: cards.length + 1, // id를 적절히 부여합니다.
+      // Index: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
       sequence: cards.length,
       // cardType: CardType, // 이 부분도 수정이 필요합니다.
@@ -148,6 +148,7 @@ export const Modify = () => {
           style={{ flexWrap: "wrap", overflow: "auto" }}
         >
           {/* {blockState.blockInfo.name} */}
+          {/* 여기에 기존에 있는 카드들 보여줘야해 */}
           {showCards}
         </AboutContainer>
         <AboutContainer
