@@ -29,7 +29,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 			return jdbcUtil.select(getOnlyOneQuery(query));
 			// return jdbcUtil.select(getOnlyOneQuery(query), page);
 		else
-			return jdbcUtil.selectAfterAllModify(query, queryList);
+			return jdbcUtil.selectAfterAllModify(getOnlyOneQuery(query), queryList);
 		// return jdbcUtil.selectAfterAllModify(query, queryList, page);
 	}
 

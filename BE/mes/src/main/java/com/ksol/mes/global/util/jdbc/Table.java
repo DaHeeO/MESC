@@ -21,6 +21,7 @@ public class Table {
 	private Integer totalCnt = 0;
 	private Integer rowCnt = 0;
 	private Integer pageSize = 20;
+	private String title;
 
 	// public Table(ResultSet resultSet, Integer page, Integer totalSize) throws SQLException {
 	public Table(ResultSet resultSet, Integer totalSize) throws SQLException {
@@ -29,6 +30,7 @@ public class Table {
 		int columnCount = metaData.getColumnCount();
 		this.columns = new ArrayList<>();
 		for (int i = 1; i <= columnCount; i++) {
+			this.title = metaData.getTableName(i);
 			this.tableList.add(metaData.getTableName(i));
 			this.columns.add(new ColumnData(metaData, i));
 		}
@@ -142,5 +144,9 @@ public class Table {
 
 	public Integer getRowCnt() {
 		return rowCnt;
+	}
+
+	public String getTitle() {
+		return title;
 	}
 }
