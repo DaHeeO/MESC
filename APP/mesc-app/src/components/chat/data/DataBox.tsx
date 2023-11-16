@@ -11,6 +11,9 @@ type DataBoxProps = {
         columnNameList: string[];
         columnTypeList: string[];
         rowList: string[][];
+        isLastPage?: boolean;
+        rowCnt?: number;
+        totalCnt?: number;
       }
     | undefined
     | null;
@@ -45,6 +48,8 @@ const DataBox: React.FC<DataBoxProps> = ({
 
   const renderContent = () => {
     if (table) {
+      // console.log('DataBox쪽 rowCnt!!!!!!!!!!!!!!!!!!!!!!', table.rowCnt);
+      // console.log('DataBox쪽 totalCnt!!!!!!!!!!!!!!!!!!!!!!', table.totalCnt);
       return (
         <Table
           title={title}
@@ -54,6 +59,9 @@ const DataBox: React.FC<DataBoxProps> = ({
           isModal={false}
           showButton={showButton}
           query={query}
+          isLastPage={table.isLastPage}
+          rowCnt={table.rowCnt}
+          totalCnt={table.totalCnt}
         />
       );
     } else if (query) {

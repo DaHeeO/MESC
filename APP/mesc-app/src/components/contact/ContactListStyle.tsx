@@ -18,7 +18,7 @@ export const Div = styled.View`
 
 export const Top = styled.View`
   width: 100%;
-  height: 16%;
+  height: 20%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,34 +52,40 @@ export const BoldText = styled.Text<{size: number; color: string}>`
 `;
 
 export const TitleBox = styled.View`
+  height: 30px;
   width: 60%;
   display: flex;
   align-items: center;
+  // background-color: yellow;
 `;
 
 export const Title = styled.Text`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: ${colors.primary};
-  padding-bottom: 4px;
 `;
 
 export const Right = styled.TouchableOpacity`
   width: 20%;
+  height: 30px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
+  background-color: pink;
+  height: 40px;
 `;
 
 export const Search = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: ${colors.icy};
+  background-color: ${colors.backgroundGray};
   border-radius: 10px;
-  height: 48px;
+  height: 40px;
   width: 100%;
   padding: 0 16px;
+  // background-color: aqua;
 `;
 
 export const SearchText = styled.TextInput`
@@ -87,6 +93,7 @@ export const SearchText = styled.TextInput`
   color: ${colors.tertiary};
   padding-left: 12px;
   width: 95%;
+  line-height: 40px;
 `;
 
 export const Body = styled.View`
@@ -94,14 +101,19 @@ export const Body = styled.View`
   align-items: center;
   width: 100%;
   height: 75%;
+  // background-color: pink;
 `;
 
 export const FilterDiv = styled.View`
+  height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
-  padding: 20px 8px;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 export const FilterText = styled.Text`
@@ -111,74 +123,40 @@ export const FilterText = styled.Text`
 `;
 
 export const ContactDiv = styled.TouchableOpacity`
-  display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 8px 16px;
-  // background-color: green;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  border-bottom-width: 0.7px;
+  // justify-content: space-between;
+  // width: 100%;
+  // border: 1px solid ${colors.tertiary};
 `;
 
 export const ContactBox = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 80%;
-`;
-
-export const ImageBox = styled.View`
-  height: 50px;
-  width: 50px;
-  border-radius: 100px;
-  overflow: hidden;
-`;
-
-export const Img = styled(Image)`
-  width: 100%;
+  width: 90%;
+  margin-bottom: 10px;
   height: 100%;
+  // background-color: skyblue;
 `;
 
-export const InfoBox = styled.View`
-  display: flex;
+export const NameBox = styled.View`
+  width: 70px;
   flex-direction: column;
-  margin-left: 16px;
-`;
-
-export const RankBox = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20%;
-  padding: 6px;
-  background-color: ${colors.icy};
-  border-radius: 100px;
-`;
-
-export const DeleteContainer = styled(Animated.View)`
-  display: flex;
-  height: 100%;
-  align-items: center;
+  margin-left: 10px;
+  // background-color: red;
   justify-content: center;
 `;
 
-export const DeleteBox = styled.TouchableOpacity`
-  display: flex;
-  align-items: center;
+export const EmailBox = styled.View`
+  width: 230px;
+  flex-direction: column;
+  margin-left: 10px;
+  // background-color: red;
   justify-content: center;
-  height: 80%;
-  padding: 0px 16px
-  background-color: ${colors.red};';
-`;
-
-export const MContactDiv = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 16px;
-  margin-bottom: 16px;
 `;
 
 export const CheckBox = styled.TouchableOpacity`
@@ -189,5 +167,35 @@ export const CheckBox = styled.TouchableOpacity`
   height: 24px;
   padding: 6px;
   border-radius: 12px;
-  border: 1.5px solid ${colors.quaternary};
+  border: 1.5px solid ${colors.header};
+`;
+
+export const Row = styled.View`
+  width: 100%;
+  // background-color: green;
+  // border: 1px solid ${colors.tertiary};
+`;
+
+export const CheckboxContainer = styled.TouchableOpacity`
+  width: 10%;
+  align-items: center;
+  justify-content: center;
+  // background-color: yellow;
+  margin-bottom: 10px;
+`;
+
+export const SendBtn = styled.TouchableOpacity`
+  height: 30px;
+  width: 70px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  text-size: 15px;
+  background: #3c56a0;
+`;
+
+export const SendText = styled.Text`
+  // font-weight: bold;
+  font-size: 16px;
+  color: #fff;
 `;

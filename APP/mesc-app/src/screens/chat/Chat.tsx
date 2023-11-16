@@ -26,6 +26,7 @@ import {ContactModalState} from '../../states/BottomSheetState';
 function Chat() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+  const [role, setRole] = useState(12);
   const [block, setBlock] = useRecoilState(BlockResponseData);
 
   const [inputState, setInputState] = useRecoilState(InputState);
@@ -41,8 +42,7 @@ function Chat() {
   const modalId = useRecoilValue(modalIdState);
   const realModalId = ModalIdSwitch({modalId});
 
-  const [buttonComponent, setButtonComponent] =
-    useState<React.JSX.Element | null>(null);
+  const [buttonComponent, setButtonComponent] = useState<React.JSX.Element>();
 
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
   // 모달이 보여질 때 호출되는 함수
@@ -59,24 +59,28 @@ function Chat() {
     putStartBlockToRecoil();
   }, []);
 
+  // 사용자가 작업자인지, 개발자인지에 따라 호출되는 블럭 다르게 설정
+  const putStartBlockToRecoil = async () => {
+    let roleFromServer = await getRoleBlockId();
+    setRole(roleFromServer);
+    const newBlock = await getBlock(roleFromServer, {});
+    if (newBlock) setBlock(newBlock);
+  };
+
   useEffect(() => {
     // console.log(block);
-
     if (block.blockId === 0) return;
     const chatbotBlock = makeChatbotBlock(block);
     setChatbotHistory(prev => [...prev, chatbotBlock]);
   }, [block]);
 
   const makeChatbotBlock = (data: any) => {
-    let newButtonComponent = <ChatChooseSection1 />;
-    if (data.section === 1) {
-      newButtonComponent = <ChatChooseSection1 />;
-    } else if (data.section === 2) {
-      newButtonComponent = <ChatChooseSection2 />;
+    let newButtonComponent = <></>;
+    if (data.section === 2) {
+      if (role === 12) newButtonComponent = <ChatChooseSection1 />;
+      else newButtonComponent = <ChatChooseSection2 />;
     }
-    setButtonComponent(newButtonComponent);
-    // setInputState(data.isPossible);
-
+    // console.log('newButtonComponent', newButtonComponent);
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
     const cardComponents = data.cardList.map((card: any, index: any) => (
       <View key={index}>{ChatComponentIdSwitch(card)}</View>
@@ -86,13 +90,14 @@ function Chat() {
       <>
         <ChatbotProfile />
         {cardComponents}
-        {buttonComponent}
+        {newButtonComponent}
       </>
     );
   };
 
   // chatbotHistory 변경될 때마다 스크롤
   useLayoutEffect(() => {
+    // console.log('chatbotHistory 변경됨');
     scrollToBottom();
   }, [chatbotHistory, buttonComponent]);
 
@@ -100,12 +105,6 @@ function Chat() {
     setTimeout(() => {
       chatLayoutRef.current?.scrollToEnd({animated: true});
     }, 10);
-  };
-
-  const putStartBlockToRecoil = async () => {
-    const role = await getRoleBlockId();
-    const newBlock = await getBlock(role, {});
-    if (newBlock) setBlock(newBlock);
   };
 
   const getRoleBlockId = async () => {

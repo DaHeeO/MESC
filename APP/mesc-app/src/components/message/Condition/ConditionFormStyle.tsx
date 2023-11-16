@@ -13,14 +13,14 @@ export const FormContainer = styled.View`
   flex-direction: ${(props: FormContainerProps) => props.direction || 'row'};
   justify-content: ${(props: FormContainerProps) => props.justify || 'center'};
   align-items: ${(props: FormContainerProps) => props.align || 'center'};
-  border: 1px solid green;
+  // border: 1px solid green;
 `;
 
 export const Header = styled.View`
   width: 95%
   height: 50px;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-left: 5px;
   margin-right: 5px;

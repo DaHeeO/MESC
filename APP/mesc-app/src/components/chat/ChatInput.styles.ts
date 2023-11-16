@@ -23,14 +23,6 @@ export const OtherContainer = styled.View<InputProps>`
   // background-color: pink;
 `;
 
-export const HiddenContainer = styled.View<InputProps>`
-  display: ${({display}) => (display ? display : 'none')};
-  // background-color: blue;
-  // height: 90%;
-  width: 100%;
-  flex-direction: row;
-`;
-
 // input 구역
 export const ChatInput = styled.View<InputProps>`
   // border: 1px solid yellow;
@@ -141,4 +133,40 @@ export const MenuBox = styled.TouchableOpacity<InputProps>`
 export const Img = styled.Image`
   width: 60%;
   height: 92%;
+`;
+
+export const HiddenContainer = styled.View<InputProps>`
+  display: ${({display}) => (display ? display : 'none')};
+  // background-color: blue;
+  height: 50%;
+  width: 100%;
+  // align-items: center;
+  flex-direction: row;
+`;
+
+export const ButtonContainer = styled.View`
+  width: 100%;
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  // background-color: yellow;
+`;
+
+export const ButtonBox = styled.TouchableOpacity`
+  width: 80px;
+  height: 38px;
+  margin-left: 7px;
+  margin-right: 7px;
+  background-color: ${colors.label};
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  padding: 3px;
+`;
+
+export const ButtonText = styled.Text`
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
 `;

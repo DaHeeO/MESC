@@ -21,6 +21,9 @@ type TableData = {
   columnNameList: string[];
   columnTypeList: string[];
   rowList: string[][];
+  isLastPage?: boolean;
+  rowCnt?: number;
+  totalCnt?: number;
 };
 
 type ButtonItem = {
@@ -45,6 +48,7 @@ function DataComponent(props: {card: Card}) {
 
   // 카드 테이블이 존재하면(select문 성공 시)
   const tableData: TableData | null | undefined = card.table;
+
   if (card.button) {
     // console.log('card.button', card.button);
     // console.log('card.button[0].link', card.button[0].link);
@@ -142,6 +146,8 @@ function DataComponent(props: {card: Card}) {
             title={TableTitle || ''}
             showButton={true}
             query={query}
+            // rowCnt={tableData?.rowCnt}
+            // totalCnt={tableData?.totalCnt}
           />
         </S.DataSection>
 

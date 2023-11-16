@@ -36,24 +36,29 @@ export const SearchText = styled.TextInput`
 `;
 
 export const ButtonContainer = styled.View`
+  margin-top: 20px;
   // border: 3px solid green;
-  height: 85%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ButtonRow = styled.TouchableOpacity`
   border-bottom-width: 0.7px;
   // border: 1px solid red;
-  width: 100%;
-  height: 50px;
+  width: 95%;
+  height: 55px;
   flex-direction: row;
   justify-content: space-around;
   // background-color: pink;
+  align-items: center;
+  margin-left: 10px;
 `;
 
 export const ButtonName = styled.Text`
   height: 50px;
   width: 70%;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: bold;
   color: black;
   line-height: 50px;
