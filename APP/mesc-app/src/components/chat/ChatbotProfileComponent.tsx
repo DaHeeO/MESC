@@ -12,10 +12,13 @@ function ChatbotProfile() {
       </S.ImgBox>
       <S.NameBox style={{pointerEvents: 'none'}}>
         <TextBox
-          fontSize="13px"
+          fontSize="15px"
           fontWeight="bold"
           textAlign="center"
-          color="white">
+          // color="white"
+          color="black"
+          // color="#3C56A0"
+          >
           MESC
         </TextBox>
       </S.NameBox>

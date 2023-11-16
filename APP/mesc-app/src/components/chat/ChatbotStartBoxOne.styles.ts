@@ -23,14 +23,14 @@ export const TopBox = styled.View`
 
 export const NameBox = styled.View`
   width: 45%;
-  //background-color: green;
+  // background-color: green;
   heigth: 100%;
 `;
 
 export const ImgBox = styled.View`
   width: 55%;
   display: flex;
-  //background-color: yellow;
+  // background-color: yellow;
   heigth: 100%;
   align-items: center;
 `;

@@ -191,7 +191,7 @@ function ChatInput() {
       }
     } else {
       // 아무것도 입력하지 않고 전송할 경우
-      Alert.alert('명령어 또는 쿼리문을 입력해주세요.');
+      Alert.alert('[명령어] 또는 [쿼리문]을 입력해주세요.');
     }
   };
 

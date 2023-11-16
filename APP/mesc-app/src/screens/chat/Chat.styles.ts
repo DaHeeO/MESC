@@ -4,7 +4,11 @@ import {colors} from '../../components/common/Theme';
 
 // 채팅화면
 export const Container = styled.View`
-  background-color: #323639;
+  // background-color: #323639;
+  // background-color: #f2f2f4;
+  // background-color: #F5F9FF;
+  // background-color: #e7f0ff85;
+  background-color: ${colors.backgroundGray};
   display: flex;
   flex: 1;
   // height: 91%;

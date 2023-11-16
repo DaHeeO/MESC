@@ -70,6 +70,12 @@ function Main({navigation}: any) {
     },
   ];
 
+  const handleChatButtonPress = () => {
+    // 여기에 Chat 버튼을 눌렀을 때 수행할 동작을 정의
+    // 예: 채팅 화면으로 이동
+    navigation.navigate('Chat'); // 'Chat'은 실제로 이동하고자 하는 채팅 화면의 이름
+  };
+
   // function renderItem({item}: any) {
   //   return (
   //     <S.ItemContainer>
@@ -105,7 +111,10 @@ function Main({navigation}: any) {
     <S.Container>
       <S.Div>
         <S.Top>
-          <S.InfoDiv>
+          <S.BoldText size={16} color={C.colors.text}>
+                SAMSUNG SDI MESC
+          </S.BoldText>
+          {/*<S.InfoDiv>
             <S.Avatar source={Avatar} />
             <S.WelcomeBox>
               <S.BoldText size={16} color={C.colors.primary}>
@@ -118,23 +127,26 @@ function Main({navigation}: any) {
           </S.InfoDiv>
           <TouchableOpacity>
             <Menu />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </S.Top>
         <S.Body>
           <S.ToChat source={require('../../assets/images/goToChat.png')}>
             <S.ChatDiv>
               <S.BoldText size={16} color={C.colors.white}>
-                채팅을 시작해 보아요
+                {/* 채팅을 시작해 보아요 */}
+                챗봇 이용
               </S.BoldText>
               <S.Text size={12} color={C.colors.white}>
                 채팅을 통해 더욱 빠르게{'\n'} 데이터베이스를 조작할 수 있어요.
               </S.Text>
             </S.ChatDiv>
+            <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
             <S.ChatButton>
               <S.BoldText size={12} color={C.colors.white}>
                 채팅 바로가기
               </S.BoldText>
             </S.ChatButton>
+            </TouchableOpacity>
           </S.ToChat>
           <S.GroupContainer>
             <S.GroupNav>
