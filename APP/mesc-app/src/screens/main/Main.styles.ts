@@ -87,7 +87,7 @@ export const ChatButton = styled.TouchableOpacity`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${colors.lightiris};
+  background-color: ${colors.button};
   padding: 8px 16px 12px 16px;
   margin-top: 5%;
   border-radius: 6px;

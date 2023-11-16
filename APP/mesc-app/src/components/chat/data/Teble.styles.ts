@@ -71,7 +71,7 @@ export const Body = styled.View`
 `;
 
 export const ColumnNameBox = styled.View`
-  background-color: ${colors.quaternary};
+  background-color: ${colors.backgroundGray};
   padding: 3px;
   border: 0.7px solid ${colors.secondary};
   min-height: 25px;
@@ -81,7 +81,7 @@ export const ColumnNameBox = styled.View`
 `;
 
 export const ColumnTypeBox = styled.View`
-  background-color: ${colors.quaternary};
+  background-color: ${colors.backgroundGray};
   padding: 3px;
   border: 0.7px solid ${colors.secondary};
   height: 25px;

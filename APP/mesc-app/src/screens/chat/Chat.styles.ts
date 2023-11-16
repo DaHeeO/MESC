@@ -6,9 +6,10 @@ import {colors} from '../../components/common/Theme';
 export const Container = styled.View`
   // background-color: #323639;
   // background-color: #f2f2f4;
-  // background-color: #F5F9FF;
+  // background-color: #f5f9ff;
   // background-color: #e7f0ff85;
-  background-color: ${colors.backgroundGray};
+  background-color: #e7e9eb;
+  // background-color: ${colors.backgroundLight};
   display: flex;
   flex: 1;
   // height: 91%;
