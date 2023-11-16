@@ -76,7 +76,7 @@ function Chat() {
 
   const makeChatbotBlock = (data: any) => {
     let newButtonComponent = <></>;
-    console.log(data);
+    console.log('data===============', data);
     if (data.section === 1) {
       if (role === 12) newButtonComponent = <ChatChooseSection1 />;
       else newButtonComponent = <ChatChooseSection2 />;

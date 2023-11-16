@@ -63,16 +63,16 @@ export const ButtonName = styled.Text`
   color: black;
   line-height: 50px;
   margin-left: 20px;
-  // border: 3px solid yellow;
+  /* border: 3px solid yellow;*/
 `;
 
 export const ImageBox = styled.View`
   justify-content: center;
   align-items: center;
-  // border: 3px solid aqua;
+  /* border: 3px solid aqua; */
   height: 50px;
   width: 50px;
   margin-left: 10px;
-  // margin-right: 20px;
-  // background-color: aqua;
+  /* margin-right: 20px; */
+  /* background-color: aqua; */
 `;

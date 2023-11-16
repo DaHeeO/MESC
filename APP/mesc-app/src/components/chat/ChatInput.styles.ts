@@ -127,18 +127,18 @@ export const MenuBox = styled.View<InputProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // background-color: skyblue;
+  /* background-color: skyblue;*/
 `;
 
 export const CommitBox = styled.TouchableOpacity<InputProps>`
-  // border: 1px solid red;
+  /* border: 1px solid red; */
   width: ${({width}) => (width ? width : '70px')};
   height: ${({height}) => (height ? height : '70px')};
   margin: ${({margin}) => (margin ? margin : '0px')};
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // background-color: skyblue;
+  /* background-color: skyblue; */
 `;
 
 export const RecentDataBox = styled.TouchableOpacity<InputProps>`
@@ -149,7 +149,7 @@ export const RecentDataBox = styled.TouchableOpacity<InputProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // background-color: skyblue;
+  /* background-color: skyblue; */
 `;
 
 export const Img = styled.Image`
@@ -159,10 +159,10 @@ export const Img = styled.Image`
 
 export const HiddenContainer = styled.View<InputProps>`
   display: ${({display}) => (display ? display : 'none')};
-  // background-color: blue;
+  /* background-color: blue; */
   height: 50%;
   width: 100%;
-  // align-items: center;
+  /* align-items: center; */
   flex-direction: row;
 `;
 
@@ -172,7 +172,7 @@ export const ButtonContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  // background-color: yellow;
+  /* background-color: yellow;*/
 `;
 
 export const ButtonBox = styled.TouchableOpacity`
