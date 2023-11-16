@@ -90,16 +90,16 @@ export const SelectBlockv2: React.FC<TableProps> = ({ data }) => {
             <td>{item.id}</td>
             <HoverTd
               onClick={() => {
-                if (item.id > 14 && item.id !== 1035) {
+                if (item.id > 16 && item.id !== 1035) {
                   SelectTheBlock(item.id);
-                } else if (item.id <= 14) {
+                } else if (item.id <= 16) {
                   alert("이 블록은 수정할 수 없습니다.");
                 } else if (item.id === 1035) {
                   alert("이 블록은 수정할 수 없습니다.");
                 }
               }}
               className={
-                item.id <= 14 || item.id === 1035 ? "disabled-row" : ""
+                item.id <= 16 || item.id === 1035 ? "disabled-row" : ""
               }
             >
               {item.name}

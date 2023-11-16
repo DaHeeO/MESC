@@ -24,13 +24,14 @@ export const Modify = () => {
   const [blockTitleTyping, setBlockTitleTyping] = useState<string>("");
   const [blockState, setBlockState] = useRecoilState(CreatBlockState);
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
-  const [cards, setCards] = useRecoilState(CardState);
+  const [cards, setCards] = useRecoilState(CardState); //카드
   const [blockName, setBlockName] = useState("");
   const [cardList, setCardList] = useRecoilState(CardListState);
 
+  // string 읽고 card에 미리 넣어두기
   // console.log("blockTitleTyping==================", blockTitleTyping);
-  console.log("cards==================", cards);
-  console.log("cardList==================", cardList.result);
+  // console.log("cards==================", cards);
+  // console.log("cardList==================", cardList.result);
   const reponseCardList = cardList.result;
   const cardListString = reponseCardList.match(/"cardList":\[.*?\]/);
   let result = "";
@@ -63,6 +64,7 @@ export const Modify = () => {
   }, [blockInfo]);
   // // =======================================================
 
+  console.log("cards==================", cards);
   // Block 이름 변경 및 API 호출 (버튼 클릭시)
   const UpdateBlockName = (newName: string) => {
     setBlockState((prevBlockState) => ({
@@ -75,17 +77,20 @@ export const Modify = () => {
     // Block 생성 API 호출===================================
     console.log("newName==================", newName);
     if (cards.length > 0) {
+      console.log("1================================================");
       const cardRequest = {
-        name: cards[cards.length - 1].name,
-        sequence: cards[cards.length - 1].sequence,
-        cardType: cards[cards.length - 1].cardType,
-        content: cards[cards.length - 1].content,
+        name: cards[cards.length].name,
+        sequence: cards[cards.length].sequence,
+        cardType: cards[cards.length].cardType,
+        content: cards[cards.length].content,
         actionId: 0,
       };
+      console.log("2================================================");
 
       if (cardRequest.cardType === "TA") {
         cardRequest.actionId = 1;
       }
+      console.log("3=============================================");
 
       api
         .patch(`block/admin/${blockInfo.blockInfo.id}`, {
@@ -93,11 +98,14 @@ export const Modify = () => {
           cardRequestList: cardRequest,
         })
         .then((res) => {
+          console.log("1====================");
+          console.log("res====================", res);
+          console.log("2====================");
           console.log("card==================", cards);
-          console.log(res);
+          console.log("3====================");
         })
         .catch((err) => {
-          console.log(err);
+          console.log("err===================", err);
         });
     }
   };

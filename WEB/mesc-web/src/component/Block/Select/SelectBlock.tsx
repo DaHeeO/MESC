@@ -160,7 +160,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
               </S.Text>
             </S.TitleDiv>
 
-            {item.id <= 14 ? (
+            {item.id <= 16 ? (
               <S.TitleDiv width={"21%"} justify="center">
                 <S.Text
                   size={16}
@@ -185,7 +185,7 @@ export const SelectBlock: React.FC<TableProps> = ({ data }) => {
               </S.TitleDiv>
             )}
 
-            {item.id <= 14 ? (
+            {item.id <= 16 ? (
               <S.TitleDiv width={"21%"} justify="center">
                 <S.Text
                   size={16}
