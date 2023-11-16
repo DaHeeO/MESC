@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AutoCompleteService {
 
-	private static final String AUTOCOMPLETE_KEY = "mesc";
+	private static final String AUTOCOMPLETE_KEY = "sql";
 	private static final String UNICODE_MAX_CHAR = "\ufff0";
 	private static final String WORD_TERMINATOR = "*";
 
