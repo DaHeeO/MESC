@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Alert} from 'react-native';
 import * as S from './LogLevelForm.styles';
 import Check from '../../../assets/icons/check.svg';
 import {OkayBtn} from '../../message/Btn/SaveBtn';
@@ -48,6 +49,10 @@ const LogLevelForm = () => {
 
   // 완료 버튼 눌렀을 때
   const submit = async () => {
+    if (selectedLevelsArray.length === 0) {
+      Alert.alert('로그 레벨이 선택되지 않았습니다.');
+      return;
+    }
     setIsModalVisible(false);
     setChatbotHistory([
       ...chatbotHistory,
