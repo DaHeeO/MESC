@@ -9,6 +9,7 @@ import * as C from "../../common/theme";
 import { api } from "../../../apis/Api";
 import { useRecoilState } from "recoil";
 import { FAQState } from "../../../state/FAQState";
+import { FAQListState } from "../../../state/FAQState";
 
 // function
 
@@ -28,6 +29,7 @@ interface FAQItem {
 }
 
 export const FAQForm: React.FC<TableProps> = ({ data, onCancel, category }) => {
+  const [resdata, setResData] = useRecoilState(FAQListState);
   const [selectedItem, setSelectedItem] = useRecoilState(FAQState);
   const [question, setQuestion] = useState(
     selectedItem ? selectedItem.question : ""
@@ -93,6 +95,19 @@ export const FAQForm: React.FC<TableProps> = ({ data, onCancel, category }) => {
         .catch((err) => {
           console.log(err);
         });
+    }
+
+    // Recoil 상태 업데이트
+    // FAQList에 FAQItem추가
+    if (FAQId === 0) {
+      setResData([...resdata, updatedFAQItem]);
+    }
+    // 아니면 수정
+    else {
+      const index = resdata.findIndex((item) => item.id === FAQId);
+      const updatedResData = [...resdata];
+      updatedResData[index] = updatedFAQItem;
+      setResData(updatedResData);
     }
 
     setSelectedItem(null);
