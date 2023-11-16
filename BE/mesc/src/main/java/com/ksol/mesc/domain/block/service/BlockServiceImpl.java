@@ -176,6 +176,7 @@ public class BlockServiceImpl implements BlockService {
 				cardMap.put("labels", tableInfo.get("label"));
 				tableInfo.remove("label");
 				cardMap.put("table", tableInfo);
+
 				break;
 			// case STA:    //단일 Table
 			// 	cardMap.put("singleTable", requestPostToMes("/developer/data", cardReqDto, cardType));
@@ -200,9 +201,14 @@ public class BlockServiceImpl implements BlockService {
 				cardMap.put("result", result);
 				tableByQueryRollback.remove("result");
 				if (result) {
-					cardMap.put("title", ((List<String>)tableByQueryRollback.get("tableList")).get(0));
 					tableByQueryRollback.remove("tableList");
-					cardMap.put("table", tableByQueryRollback);
+					if((Integer)tableByQueryRollback.get("rowCnt") == 0) {
+						cardMap.put("content", "해당 조건을 만족하는 데이터가 존재하지 않습니다.");
+						cardMap.put("cardType", "TX");
+					} else {
+						cardMap.put("title", ((List<String>)tableByQueryRollback.get("tableList")).get(0));
+						cardMap.put("table", tableByQueryRollback);
+					}
 				} else {
 					cardMap.putAll(tableByQueryRollback);
 				}
@@ -230,8 +236,14 @@ public class BlockServiceImpl implements BlockService {
 				String date = cardReqDto.getDate();
 				List<String> levelList = cardReqDto.getLevelList();
 				String command = logSerivce.getCommand(keyword, date, levelList);
-				cardMap.put("command", command);
-				cardMap.put("logs", logSerivce.getLogs(command));
+				String logs = logSerivce.getLogs(command);
+				if (logs.isBlank()) {
+					cardMap.put("content", "조회된 결과가 없습니다.");
+					cardMap.put("cardType", "TX");
+				} else {
+					cardMap.put("command", command);
+					cardMap.put("logs", logs);
+				}
 				break;
 			case CH, CH1, CH2:// 일반 챗봇
 				cardMap.put("title", card.getName());
