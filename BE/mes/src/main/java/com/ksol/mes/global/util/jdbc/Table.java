@@ -18,7 +18,7 @@ public class Table {
 	private List<List<String>> rows;
 	private Set<String> tableList;
 	private Boolean isLastPage = false;
-	private Integer totalCnt;
+	private Integer totalCnt = 0;
 	private Integer rowCnt = 0;
 	private Integer pageSize = 20;
 

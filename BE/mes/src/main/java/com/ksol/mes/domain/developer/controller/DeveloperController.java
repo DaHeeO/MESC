@@ -17,6 +17,7 @@ import com.ksol.mes.domain.common.dto.response.CommonResponseDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperCommitRequestDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperDataRequestDto;
 import com.ksol.mes.domain.developer.dto.request.DeveloperQueryRequestDto;
+import com.ksol.mes.domain.developer.dto.response.DeveloperCommitResponseDto;
 import com.ksol.mes.domain.developer.dto.response.DeveloperDataResponseDto;
 import com.ksol.mes.domain.developer.dto.response.DeveloperQueryResponseDto;
 import com.ksol.mes.domain.developer.service.DeveloperService;
@@ -105,12 +106,17 @@ public class DeveloperController {
 	@PostMapping("/commit")
 	public ResponseEntity<CommonResponseDto<?>> confirmCommit(
 		@RequestBody @Validated DeveloperCommitRequestDto developerCommitRequestDto, BindingResult bindingResult) {
+		DeveloperCommitResponseDto developerCommitResponseDto = new DeveloperCommitResponseDto();
 		try {
 			developerService.executeQueryList(developerCommitRequestDto.getQueryList());
+			developerCommitResponseDto.setResult(true);
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			// throw new RuntimeException(e);
+			log.error(e.getMessage());
+			developerCommitResponseDto.setResult(false);
+			developerCommitResponseDto.setContent(e.getMessage());
 		}
-		return new ResponseEntity<>(CommonResponseDto.success(null), HttpStatus.OK);
+		return new ResponseEntity<>(CommonResponseDto.success(developerCommitResponseDto), HttpStatus.OK);
 	}
 
 	private static void checkValidates(BindingResult bindingResult) {

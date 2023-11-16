@@ -179,6 +179,7 @@ public class JdbcUtil {
 		Integer counts = 0;
 		try {
 			connection = dataSource.getConnection();
+			connection.setAutoCommit(false);
 			statement = connection.createStatement();
 
 			for (String tempQuery : queryList) {
@@ -186,6 +187,7 @@ public class JdbcUtil {
 			}
 
 			// counts = statement.executeUpdate(query);
+			connection.commit();
 			statement.close();
 			connection.close();
 		} catch (SQLException e) {
