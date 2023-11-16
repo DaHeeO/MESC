@@ -127,7 +127,7 @@ public class ApiController {
 		List<String> queryList = developerCommitRequestDto.getQueryList();
 		apiService.commit(queryList);
 
-		return ResponseEntity.ok(CommonResponseDto.success(null));
+		return ResponseEntity.ok(CommonResponseDto.success("commit이 완료되었습니다."));
 	}
 
 	private static void checkValidates(BindingResult bindingResult) {

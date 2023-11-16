@@ -130,9 +130,9 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public LinkedHashMap<String, Object> commit(List<String> queryList) {
+	public void commit(List<String> queryList) {
 		String accessToken = jwtAuthenticationFilter.getAccessToken();
-		Object data = webClient.post()
+		webClient.post()
 			.uri("/developer/commit")
 			.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 			.contentType(MediaType.APPLICATION_JSON)
@@ -143,7 +143,7 @@ public class ApiServiceImpl implements ApiService {
 			.block()
 			.getBody()
 			.getData();
-		return (LinkedHashMap<String, Object>)data;
+		// return (LinkedHashMap<String, Object>)data;
 	}
 
 }

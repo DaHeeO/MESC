@@ -17,5 +17,5 @@ public interface ApiService {
 
 	LinkedHashMap<String, Object> getTableByQueryRollback(String query, Integer page);
 
-	LinkedHashMap<String, Object> commit(List<String> queryList);
+	void commit(List<String> queryList);
 }
