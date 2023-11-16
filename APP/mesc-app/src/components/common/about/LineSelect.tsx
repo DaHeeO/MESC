@@ -19,7 +19,9 @@ export const LineSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<string | null>(null);
-  const [items, setItems] = useState<{label: string; value: string}[]>([]);
+  const [items, setItems] = useState<
+    {label: string; value: string; comId: number}[]
+  >([]);
   const [defaultValue, setDefaultValue] = useState<string | null>(null);
 
   useEffect(() => {
@@ -36,28 +38,27 @@ export const LineSelect: React.FC<AboutSelectProps> = ({valuesList}) => {
 
       if (formattedItems.length > 0) {
         setDefaultValue(formattedItems[0].comId.toString());
-        setValue(formattedItems[0].comId.toString());
+        setValue(formattedItems[0].value.toString());
         setCondition(prevCondition => ({
           ...prevCondition,
-          line: formattedItems[0].comId.toString(),
+          line: formattedItems[0].comId,
         }));
-        console.log('line', formattedItems[0].comId);
       }
     }
   }, [valuesList]);
 
   useEffect(() => {
     if (value) {
-      const selectedLabel =
+      const selectedComId =
         items.find(item => {
           return item.value === value;
-        })?.label || '';
+        })?.comId || 0;
       setCondition(prevCondition => ({
         ...prevCondition,
-        line: selectedLabel,
+        line: selectedComId,
       }));
     }
-  }, [value, items]);
+  }, [value]);
 
   return (
     <DropDownPicker

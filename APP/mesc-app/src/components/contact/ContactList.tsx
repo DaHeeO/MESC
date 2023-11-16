@@ -47,8 +47,6 @@ export const ContactListForm = () => {
     phoneNumber: string,
     role: string,
   ) => {
-    console.log('체크박스 클릭됨' + userId);
-
     setCheckContact(prev => {
       // 이미 선택된 사용자인지 확인
       const isUserSelected = prev.users.some(user => user.userId === userId);

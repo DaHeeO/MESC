@@ -267,7 +267,6 @@ function ChatInput() {
 
       // 쿼리 에러 발생 했을 때 처리
       // 인풋창에 그대로 두기
-      console.log('nextBlock====================', nextBlock);
       if (!nextBlock.cardList[1].table) {
         setInput(input);
       } else {
@@ -351,7 +350,6 @@ function ChatInput() {
 
     return async () => {
       const newBlock = await putBlockToRecoil(blockId, {});
-
       setInput('');
     };
   }

@@ -25,7 +25,6 @@ export async function handleFingerPrint() {
   }
 
   try {
-    console.log('44');
     const res = await TouchID.authenticate(
       '지문을 인식해주세요.',
       optionalConfigObject,

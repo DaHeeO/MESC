@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {useRecoilState, useRecoilValue} from 'recoil';
 import {ConditionState} from '../../../states/ConditionState';
 import {DropdownState} from '../../../states/DropdownState';
 import {FormContainer, TextBox, TextBtn} from './ConditionFormStyle';
-import {ProcessSelect} from '../../common/about/ProcessSelect';
+import {ProductSelect} from '../../common/about/ProductSelect';
 import {LineSelect} from '../../common/about/LineSelect';
 import {OkayBtn} from '../Btn/SaveBtn';
 import {DatePicker} from '../../common/about/AboutDate';
@@ -26,6 +26,8 @@ export const ConditionForm = () => {
 
   // 액션 아이디
   const [actionId, setActionId] = useRecoilState(ActionIdState);
+
+  const chatLayoutRef = useRef<ScrollView | null>(null);
 
   // 조건 초기화 버튼
   // const resetCondition = () => {
@@ -68,22 +70,19 @@ export const ConditionForm = () => {
           <OkayBtn
             content={'적용'}
             color="#ECECEC"
-            onPress={() => {
-              const conditionsQuery = `where ${firstTableName}.${firstColumnName} = ${condition.product} and ${secondTableName}.${secondColumnName} = ${condition.line} and ${firstTableName}.WO_YMD between ${condition.startDate} and ${condition.endDate}`;
+            onPress={async () => {
+              const conditionsQuery = `where ${firstTableName}.${firstColumnName} = ${condition.line} and ${secondTableName}.${secondColumnName} = ${condition.product} and ${firstTableName}.WO_YMD between ${condition.startDate} and ${condition.endDate}`;
               setIsModalVisible(false);
-
-              console.log(condition.query);
-
-              console.log('쿠리=====================', conditionsQuery);
 
               const body = {
                 actionId: actionId,
                 conditions: conditionsQuery,
                 queryList: null,
+                title: condition.title,
               };
 
-              const newBlock = getBlock(4, body);
-              console.log(newBlock);
+              const newBlock = await getBlock(4, body);
+              setBlock(newBlock);
             }}
           />
         </FormContainer>
@@ -111,7 +110,7 @@ export const ConditionForm = () => {
             // style={{backgroundColor: 'skyblue'}}
           >
             {/* AboutSelect 컴포넌트에 dropdownList를 props로 전달 */}
-            <ProcessSelect valuesList={dropdownList[0].valuesList} />
+            <LineSelect valuesList={dropdownList[0].valuesList} />
           </FormContainer>
         </FormContainer>
 
@@ -166,9 +165,9 @@ export const ConditionForm = () => {
             <TextBox>{dropdownList[1].name}</TextBox>
           </FormContainer>
 
-          <FormContainer height="50%" width="90%" align="flex-start">
+          <FormContainer height="40%" width="90%" align="flex-start">
             {/* AboutSelect 컴포넌트에 dropdownList를 props로 전달 */}
-            <LineSelect valuesList={dropdownList[1].valuesList} />
+            <ProductSelect valuesList={dropdownList[1].valuesList} />
           </FormContainer>
         </FormContainer>
       </FormContainer>
