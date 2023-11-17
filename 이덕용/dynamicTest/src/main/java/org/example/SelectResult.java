@@ -1,11 +1,32 @@
-package org.example;
+package com.ksol.mesc.domain.api.classes;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectResult {
-    List<ColumnData> columns = new ArrayList<>();
-    List<List<String>> rows = new ArrayList<>();
+public class Table {
+    private List<ColumnData> columns;
+    private List<List<String>> rows;
+
+    public Table(ResultSet resultSet) throws SQLException {
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        this.columns = new ArrayList<>();
+        for(int i = 1; i <= columnCount; i++) {
+            this.columns.add(new ColumnData(metaData, i));
+        }
+        this.rows = new ArrayList<>();
+        while (resultSet.next()) {
+            List<String> row = new ArrayList<>();
+            for(int i = 0; i < columnCount; i++) {
+                row.add("" + resultSet.getObject(i + 1));
+            }
+            this.rows.add(row);
+        }
+        resultSet.close();
+    }
 
     public void printWithLabel() {
         System.out.println();
@@ -26,10 +47,7 @@ public class SelectResult {
                 }
             });
             System.out.println('|');
-
         }
-
-
     }
 
     private void printColumnLabels() {

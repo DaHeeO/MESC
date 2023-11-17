@@ -16,6 +16,10 @@ public enum ErrorCode {
 	EXPIRED_TOKEN(409, "U002", "Expired Token"),
 	USER_NOT_FOUND(400, "U003", "User Not Found"),
 
+	// Group
+	GROUP_NOT_FOUND(400, "G001", "Group Not Found"),
+	GROUP_AND_USER_MISMATCH(400, "G002", "Group And User Mismatch"),
+
 	// Common
 	INVALID_INPUT_VALUE(400, "C001", "Invalid Input Value"),
 	METHOD_NOT_ALLOWED(405, "C002", "Invalid Input Value"),
