@@ -1,0 +1,60 @@
+2023/10/31 21:51:11.418 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 19612 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 21:51:11.419 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 21:51:11.420 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 21:51:12.931 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 21:51:15.828 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.847 seconds (process running for 5.518) 
+2023/10/31 21:51:24.872 INFO  [http-nio-8081-exec-1] JwtTokenProvider[validateToken : 140] - ExpiredJwtException 
+2023/10/31 21:51:24.889 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /error request start 
+2023/10/31 21:51:24.944 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /error request done 
+2023/10/31 21:51:32.837 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:51:32.861 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:51:32.955 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:51:32.962 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:51:36.259 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:51:36.261 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:51:37.783 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:51:37.786 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:51:40.014 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:51:40.031 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:51:40.075 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:51:40.076 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:51:59.161 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 4056 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 21:51:59.162 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 21:51:59.163 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 21:52:00.657 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 21:52:03.500 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.784 seconds (process running for 5.64) 
+2023/10/31 21:52:04.988 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:52:05.014 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:52:05.063 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:52:05.126 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:52:09.198 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:52:09.212 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:52:09.261 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:52:09.263 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:52:33.534 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 436 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 21:52:33.535 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 21:52:33.535 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 21:52:34.962 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 21:52:37.409 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.287 seconds (process running for 5.065) 
+2023/10/31 21:53:28.635 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:53:28.660 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:53:28.713 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:53:28.773 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:54:42.841 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 20416 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 21:54:42.842 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 21:54:42.843 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 21:54:44.275 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 21:54:46.697 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.301 seconds (process running for 4.977) 
+2023/10/31 21:54:59.868 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:54:59.898 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:54:59.999 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:55:00.051 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:56:46.557 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 11208 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 21:56:46.558 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 21:56:46.559 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 21:56:47.962 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 21:56:50.289 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.138 seconds (process running for 4.704) 
+2023/10/31 21:57:07.248 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:57:07.277 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 
+2023/10/31 21:57:07.371 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /error request start 
+2023/10/31 21:57:07.419 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /error request done 

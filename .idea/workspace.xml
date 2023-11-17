@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a6f96a69-b3ae-4b4c-9a47-608ee9414ec2" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/APP/mesc-app/src/components/chat/ChatInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/APP/mesc-app/src/components/chat/ChatInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/mesc-app/src/components/chat/ChatbotStartBoxTwo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/APP/mesc-app/src/components/chat/ChatbotStartBoxTwo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/mesc-app/src/components/chat/data/SearchDataForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/APP/mesc-app/src/components/chat/data/SearchDataForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/mesc-app/src/screens/chat/Chat2.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/APP/mesc-app/src/screens/chat/Chat2.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/mesc-app/src/states/BlockState.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/mesc-app/src/states/CardState.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/APP/mesc-app/src/states/CardState.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/APP/mesc-app/src/states/example" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Xstr4fUL9qnwak2T0FPfqkCVuk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "C:/Users/SSAFY/Desktop/KSOL/fe/mesc/S09P31S105",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "configurable.group.language"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a6f96a69-b3ae-4b4c-9a47-608ee9414ec2" name="Changes" comment="" />
+      <created>1699429811031</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699429811031</updated>
+    </task>
+    <servers />
+  </component>
+</project>
