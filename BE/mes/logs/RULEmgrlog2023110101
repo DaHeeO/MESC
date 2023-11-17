@@ -1,0 +1,296 @@
+2023/11/01 10:29:54.592 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 24188 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:29:54.593 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:29:54.594 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:29:56.535 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:29:59.505 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.403 seconds (process running for 5.988) 
+2023/11/01 10:30:37.388 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/signup request start 
+2023/11/01 10:30:37.520 ERROR [http-nio-8081-exec-2] GlobalExceptionHandler[handleMethodArgumentNotValidException : 26] - handleMethodArgumentNotValidException 
+org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.ksol.mes.domain.user.controller.UserController.signup(com.ksol.mes.domain.user.dto.request.SignUpReq): [Field error in object 'signUpReq' on field 'password': rejected value [kim123!]; codes [Pattern.signUpReq.password,Pattern.password,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [signUpReq.password,password]; arguments []; default message [password],[Ljakarta.validation.constraints.Pattern$Flag;@a653609,^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()+|=])[A-Za-z\d~!@#$%^&*()+|=]{8,16}$]; default message [비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.]] 
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:144)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at com.ksol.mes.global.config.jwt.JwtExceptionFilter.doFilterInternal(JwtExceptionFilter.java:25)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.ksol.mes.global.config.jwt.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:33)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2023/11/01 10:30:47.329 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/signup request start 
+2023/11/01 10:30:47.474 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/signup request done 
+2023/11/01 10:31:03.010 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:31:03.081 DEBUG [http-nio-8081-exec-6] UserServiceImpl[login : 62] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=kim1234@naver.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 10:31:03.260 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:33:39.120 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 24328 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:33:39.121 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:33:39.122 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:33:40.796 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:33:44.598 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.904 seconds (process running for 6.434) 
+2023/11/01 10:33:46.223 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:33:46.664 DEBUG [http-nio-8081-exec-2] UserServiceImpl[login : 71] - role : DEVELOPER 
+2023/11/01 10:33:46.727 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:35:08.695 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 15244 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:35:08.696 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:35:08.697 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:35:10.342 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:35:14.410 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 6.199 seconds (process running for 6.762) 
+2023/11/01 10:35:15.643 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:35:16.130 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:35:40.606 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 23852 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:35:40.606 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:35:40.607 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:35:42.243 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:35:45.761 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.592 seconds (process running for 6.093) 
+2023/11/01 10:35:46.715 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:35:47.280 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:36:04.930 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:36:05.029 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:36:51.878 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 14828 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:36:51.879 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:36:51.880 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:36:53.517 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:36:57.487 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 6.057 seconds (process running for 6.574) 
+2023/11/01 10:36:59.637 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:37:00.161 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:41:01.805 INFO  [http-nio-8081-exec-5] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:41:01.809 INFO  [http-nio-8081-exec-5] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:41:27.488 INFO  [http-nio-8081-exec-8] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:41:27.488 INFO  [http-nio-8081-exec-8] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:41:36.842 INFO  [http-nio-8081-exec-7] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:41:36.843 INFO  [http-nio-8081-exec-7] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:42:53.114 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 18068 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:42:53.115 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:42:53.116 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:42:54.725 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:42:58.616 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 6.001 seconds (process running for 6.566) 
+2023/11/01 10:43:01.207 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:43:01.739 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:43:26.336 INFO  [http-nio-8081-exec-3] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:43:26.339 INFO  [http-nio-8081-exec-3] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:43:39.729 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 16944 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:43:39.730 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:43:39.730 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:43:41.371 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:43:45.192 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.904 seconds (process running for 6.475) 
+2023/11/01 10:43:45.707 INFO  [http-nio-8081-exec-1] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:43:45.712 INFO  [http-nio-8081-exec-1] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:43:49.401 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:43:49.902 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:45:07.995 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 25592 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:45:07.997 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:45:07.997 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:45:09.656 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:45:13.374 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.805 seconds (process running for 6.31) 
+2023/11/01 10:45:14.721 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:45:15.263 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:45:17.849 INFO  [http-nio-8081-exec-3] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:45:17.855 INFO  [http-nio-8081-exec-3] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 10:45:40.238 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 1996 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:45:40.240 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:45:40.240 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:45:41.921 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:45:45.603 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.818 seconds (process running for 6.366) 
+2023/11/01 10:45:45.919 ERROR [http-nio-8081-exec-1] GlobalExceptionHandler[handleHttpRequestMethodNotSupportedException : 60] - handleHttpRequestMethodNotSupportedException 
+org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.handleNoMatch(RequestMappingInfoHandlerMapping.java:265)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:441)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:382)
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:126)
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:68)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:505)
+	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1275)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1057)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at com.ksol.mes.global.config.jwt.JwtExceptionFilter.doFilterInternal(JwtExceptionFilter.java:25)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.ksol.mes.global.config.jwt.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:33)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+2023/11/01 10:45:52.580 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /mes/user/login request start 
+2023/11/01 10:45:52.997 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /mes/user/login request done 
+2023/11/01 10:48:47.680 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 8888 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:48:47.680 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:48:47.681 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:48:49.250 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:48:52.911 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.668 seconds (process running for 6.17) 
+2023/11/01 10:48:53.650 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 10:48:54.210 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 10:48:56.453 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /mes/user/login request start 
+2023/11/01 10:48:56.559 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /mes/user/login request done 
+2023/11/01 10:53:37.900 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 23672 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:53:37.901 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:53:37.902 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:53:39.514 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:53:42.541 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.077 seconds (process running for 5.615) 
+2023/11/01 10:53:50.072 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 16636 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/01 10:53:50.072 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 10:53:50.073 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 10:53:51.738 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 10:53:54.733 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.14 seconds (process running for 5.642) 

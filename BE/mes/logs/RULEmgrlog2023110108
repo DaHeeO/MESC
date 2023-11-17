@@ -1,0 +1,242 @@
+2023/11/01 17:04:07.763 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:04:07.772 DEBUG [http-nio-8081-exec-2] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:04:07.846 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:04:47.118 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:04:47.122 DEBUG [http-nio-8081-exec-4] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:04:47.197 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:10:47.101 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/reissue request start 
+2023/11/01 17:10:47.104 DEBUG [http-nio-8081-exec-5] UserServiceImpl[recreateToken : 71] - refreshToken=null 
+2023/11/01 17:10:47.110 ERROR [http-nio-8081-exec-5] GlobalExceptionHandler[handleBusinessException : 67] - handleEntityNotFoundException 
+com.ksol.mes.global.config.jwt.exception.InvalidTokenException: Invalid Token
+	at com.ksol.mes.domain.user.service.UserServiceImpl.recreateToken(UserServiceImpl.java:73)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:751)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:391)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:751)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:703)
+	at com.ksol.mes.domain.user.service.UserServiceImpl$$SpringCGLIB$$0.recreateToken(<generated>)
+	at com.ksol.mes.domain.user.controller.UserController.recreateToken(UserController.java:60)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at com.ksol.mes.global.config.jwt.JwtExceptionFilter.doFilterInternal(JwtExceptionFilter.java:25)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.ksol.mes.global.config.jwt.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:32)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:340)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023/11/01 17:13:20.007 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/reissue request start 
+2023/11/01 17:13:20.008 DEBUG [http-nio-8081-exec-7] UserServiceImpl[recreateToken : 71] - refreshToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJBdXRoIjoiVVNFUiIsImV4cCI6MTcwMDAzNTQ4N30.kcQ2Bv6bRKue6iOOQP2GlyhjWR6GaGJyyJRcmlUAAv0 
+2023/11/01 17:13:20.011 DEBUG [http-nio-8081-exec-7] UserServiceImpl[recreateToken : 75] - email=ssafy@gmail.com 
+2023/11/01 17:13:20.013 DEBUG [http-nio-8081-exec-7] UserServiceImpl[recreateToken : 77] - rtInRedis=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJBdXRoIjoiVVNFUiIsImV4cCI6MTcwMDAzNTQ4N30.kcQ2Bv6bRKue6iOOQP2GlyhjWR6GaGJyyJRcmlUAAv0 
+2023/11/01 17:13:20.021 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/reissue request done 
+2023/11/01 17:13:58.408 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:13:58.412 DEBUG [http-nio-8081-exec-8] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:13:58.487 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:19:39.715 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/reissue request start 
+2023/11/01 17:19:39.717 DEBUG [http-nio-8081-exec-6] UserServiceImpl[recreateToken : 71] - refreshToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJBdXRoIjoiVVNFUiIsImV4cCI6MTcwMDAzNjAzOH0.Z5UtbBNgCuwAZwCd49qK-WpqN6mQkDP5eXMFjnCNUBk 
+2023/11/01 17:19:39.720 DEBUG [http-nio-8081-exec-6] UserServiceImpl[recreateToken : 75] - email=ssafy@gmail.com 
+2023/11/01 17:19:39.721 DEBUG [http-nio-8081-exec-6] UserServiceImpl[recreateToken : 77] - rtInRedis=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJBdXRoIjoiVVNFUiIsImV4cCI6MTcwMDAzNjAzOH0.Z5UtbBNgCuwAZwCd49qK-WpqN6mQkDP5eXMFjnCNUBk 
+2023/11/01 17:19:39.729 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/reissue request done 
+2023/11/01 17:20:19.334 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:20:19.338 DEBUG [http-nio-8081-exec-1] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:20:19.415 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:26:55.273 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:26:55.291 DEBUG [http-nio-8081-exec-2] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:26:55.374 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:29:59.573 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/reissue request start 
+2023/11/01 17:29:59.576 DEBUG [http-nio-8081-exec-10] UserServiceImpl[recreateToken : 71] - refreshToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJBdXRoIjoiVVNFUiIsImV4cCI6MTcwMDAzNjgxNX0.eo4Sea7D3hC14vYnUnpQPLVxYvFk-S2cdD2RqPfMmyg 
+2023/11/01 17:29:59.578 DEBUG [http-nio-8081-exec-10] UserServiceImpl[recreateToken : 75] - email=ssafy@gmail.com 
+2023/11/01 17:29:59.579 DEBUG [http-nio-8081-exec-10] UserServiceImpl[recreateToken : 77] - rtInRedis=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJBdXRoIjoiVVNFUiIsImV4cCI6MTcwMDAzNjgxNX0.eo4Sea7D3hC14vYnUnpQPLVxYvFk-S2cdD2RqPfMmyg 
+2023/11/01 17:29:59.586 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/reissue request done 
+2023/11/01 17:31:23.679 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:31:23.682 DEBUG [http-nio-8081-exec-7] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:31:23.757 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:33:51.583 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.html request start 
+2023/11/01 17:33:51.593 INFO  [http-nio-8081-exec-9] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.html request done 
+2023/11/01 17:33:51.611 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui.css request start 
+2023/11/01 17:33:51.612 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.css request start 
+2023/11/01 17:33:51.615 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.css request done 
+2023/11/01 17:33:51.616 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui.css request done 
+2023/11/01 17:33:51.616 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request start 
+2023/11/01 17:33:51.616 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request start 
+2023/11/01 17:33:51.616 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-initializer.js request start 
+2023/11/01 17:33:51.623 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request done 
+2023/11/01 17:33:51.627 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-initializer.js request done 
+2023/11/01 17:33:51.630 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request done 
+2023/11/01 17:33:51.783 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs/swagger-config request start 
+2023/11/01 17:33:51.783 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/favicon-32x32.png request start 
+2023/11/01 17:33:51.786 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs/swagger-config request done 
+2023/11/01 17:33:51.787 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/favicon-32x32.png request done 
+2023/11/01 17:33:51.802 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs request start 
+2023/11/01 17:33:52.007 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs request done 
+2023/11/01 17:34:00.344 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:34:00.348 DEBUG [http-nio-8081-exec-8] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:34:00.423 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:34:25.513 INFO  [http-nio-8081-exec-9] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 17:34:57.843 INFO  [http-nio-8081-exec-3] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 17:35:18.255 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:35:18.260 DEBUG [http-nio-8081-exec-10] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:35:18.335 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:35:32.153 DEBUG [http-nio-8081-exec-5] JwtTokenProvider[getAuthentication : 105] - claims={sub=ssafy@gmail.com, Auth=USER, userId=1, exp=1698827778} 
+2023/11/01 17:35:32.154 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /developer/query request start 
+2023/11/01 17:35:32.168 DEBUG [http-nio-8081-exec-5] DeveloperController[executeQuery : 53] - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'string' at line 1 
+2023/11/01 17:35:32.169 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /developer/query request done 
+2023/11/01 17:35:58.611 DEBUG [http-nio-8081-exec-7] JwtTokenProvider[getAuthentication : 105] - claims={sub=ssafy@gmail.com, Auth=USER, userId=1, exp=1698827778} 
+2023/11/01 17:35:58.612 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /developer/query request start 
+2023/11/01 17:35:58.614 DEBUG [http-nio-8081-exec-7] DeveloperController[executeQuery : 53] - You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'string' at line 1 
+2023/11/01 17:35:58.615 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /developer/query request done 
+2023/11/01 17:36:32.784 INFO  [http-nio-8081-exec-8] JwtTokenProvider[validateToken : 140] - ExpiredJwtException 
+2023/11/01 17:36:32.786 INFO  [http-nio-8081-exec-8] UnauthorizedEntrypointHandler[commence : 18] - Responding with unauthorized error. Message := Full authentication is required to access this resource 
+2023/11/01 17:41:22.013 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 1100 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/11/01 17:41:22.014 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 17:41:22.014 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 17:41:23.293 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 17:41:25.491 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 3.864 seconds (process running for 4.412) 
+2023/11/01 17:41:30.807 INFO  [http-nio-8081-exec-1] JwtTokenProvider[validateToken : 140] - ExpiredJwtException 
+2023/11/01 17:42:31.901 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 11688 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/11/01 17:42:31.901 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 17:42:31.902 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 17:42:33.129 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 17:42:35.695 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.137 seconds (process running for 4.822) 
+2023/11/01 17:42:38.474 INFO  [http-nio-8081-exec-1] JwtTokenProvider[validateToken : 143] - ExpiredJwtException 
+2023/11/01 17:42:38.476 INFO  [http-nio-8081-exec-1] JwtExceptionFilter[doFilterInternal : 29] - ex.getMessage()=null 
+2023/11/01 17:42:38.476 INFO  [http-nio-8081-exec-1] JwtExceptionFilter[doFilterInternal : 30] - ex.getErrorCode()=EXPIRED_TOKEN 
+2023/11/01 17:43:04.574 INFO  [http-nio-8081-exec-2] JwtTokenProvider[validateToken : 143] - ExpiredJwtException 
+2023/11/01 17:43:04.575 INFO  [http-nio-8081-exec-2] JwtExceptionFilter[doFilterInternal : 29] - ex.getMessage()=null 
+2023/11/01 17:43:04.575 INFO  [http-nio-8081-exec-2] JwtExceptionFilter[doFilterInternal : 30] - ex.getErrorCode()=EXPIRED_TOKEN 
+2023/11/01 17:43:26.506 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:43:26.656 DEBUG [http-nio-8081-exec-3] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:43:27.185 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 17:43:47.404 INFO  [http-nio-8081-exec-4] JwtTokenProvider[validateToken : 152] - SignatureException 
+2023/11/01 17:43:47.406 INFO  [http-nio-8081-exec-4] JwtExceptionFilter[doFilterInternal : 29] - ex.getMessage()=null 
+2023/11/01 17:43:47.406 INFO  [http-nio-8081-exec-4] JwtExceptionFilter[doFilterInternal : 30] - ex.getErrorCode()=INVALID_TOKEN 
+2023/11/01 17:43:55.700 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/reissue request start 
+2023/11/01 17:43:55.702 DEBUG [http-nio-8081-exec-5] UserServiceImpl[recreateToken : 71] - refreshToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJleHAiOjE3MDAwMzc4MDZ9.3mQSKTgpgwk2q4S_sqWSOwUXOi0ZRUCUQC1skM19ByE 
+2023/11/01 17:43:55.705 DEBUG [http-nio-8081-exec-5] UserServiceImpl[recreateToken : 75] - email=ssafy@gmail.com 
+2023/11/01 17:43:55.708 DEBUG [http-nio-8081-exec-5] UserServiceImpl[recreateToken : 77] - rtInRedis=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJleHAiOjE3MDAwMzc4MDZ9.3mQSKTgpgwk2q4S_sqWSOwUXOi0ZRUCUQC1skM19ByE 
+2023/11/01 17:43:55.716 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/reissue request done 
+2023/11/01 17:49:09.118 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 14552 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/11/01 17:49:09.119 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 17:49:09.119 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 17:49:10.400 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 17:49:12.613 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 3.841 seconds (process running for 4.411) 
+2023/11/01 17:57:00.667 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.html request start 
+2023/11/01 17:57:00.687 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.html request done 
+2023/11/01 17:57:00.704 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui.css request start 
+2023/11/01 17:57:00.704 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.css request start 
+2023/11/01 17:57:00.704 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request start 
+2023/11/01 17:57:00.705 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request start 
+2023/11/01 17:57:00.705 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-initializer.js request start 
+2023/11/01 17:57:00.708 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.css request done 
+2023/11/01 17:57:00.709 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui.css request done 
+2023/11/01 17:57:00.711 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request done 
+2023/11/01 17:57:00.717 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request done 
+2023/11/01 17:57:00.733 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-initializer.js request done 
+2023/11/01 17:57:00.866 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/favicon-32x32.png request start 
+2023/11/01 17:57:00.866 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs/swagger-config request start 
+2023/11/01 17:57:00.870 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/favicon-32x32.png request done 
+2023/11/01 17:57:00.882 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs/swagger-config request done 
+2023/11/01 17:57:00.899 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs request start 
+2023/11/01 17:57:01.142 INFO  [http-nio-8081-exec-9] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs request done 
+2023/11/01 17:57:49.192 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 17:57:49.349 DEBUG [http-nio-8081-exec-10] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 17:57:49.928 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 

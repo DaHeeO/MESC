@@ -1,0 +1,121 @@
+2023/10/31 14:01:50.627 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:01:50.632 INFO  [http-nio-8081-exec-7] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@75c402ed]
+2023/10/31 14:01:50.634 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:02:59.681 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:02:59.685 INFO  [http-nio-8081-exec-9] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@549cad09]
+2023/10/31 14:02:59.697 INFO  [http-nio-8081-exec-9] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:04:10.418 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:04:10.420 INFO  [http-nio-8081-exec-1] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@160bcab5]
+2023/10/31 14:04:10.421 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:10:24.311 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:10:24.314 INFO  [http-nio-8081-exec-4] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@84b837c, com.ksol.mes.user1.User@48a933e5]
+2023/10/31 14:10:24.314 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:12:24.495 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:12:24.497 INFO  [http-nio-8081-exec-6] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@564c8439]
+2023/10/31 14:12:24.497 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:18:32.499 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:18:32.503 INFO  [http-nio-8081-exec-8] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@6c60450]
+2023/10/31 14:18:32.504 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:19:14.776 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:19:14.779 INFO  [http-nio-8081-exec-10] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@55ff75e3]
+2023/10/31 14:19:14.779 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:31:49.912 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:31:49.914 INFO  [http-nio-8081-exec-2] UserController[getUsers : 40] - test : [com.ksol.mes.user1.User@39908c3b]
+2023/10/31 14:31:49.915 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:32:30.310 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 3692 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/10/31 14:32:30.311 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 14:32:30.312 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 14:32:32.570 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 14:32:35.653 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.997 seconds (process running for 6.894) 
+2023/10/31 14:32:37.309 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:32:37.485 INFO  [http-nio-8081-exec-1] UserController[getUsers : 40] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null)] 
+2023/10/31 14:32:37.525 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:33:18.168 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 21632 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/10/31 14:33:18.169 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 14:33:18.170 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 14:33:20.773 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 14:33:24.300 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 6.921 seconds (process running for 7.702) 
+2023/10/31 14:33:29.099 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:33:29.219 INFO  [http-nio-8081-exec-1] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:33:29.235 INFO  [http-nio-8081-exec-1] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null)] 
+2023/10/31 14:33:29.275 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:34:17.191 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 8780 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/10/31 14:34:17.192 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 14:34:17.193 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 14:34:19.899 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 14:34:23.353 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 6.882 seconds (process running for 7.642) 
+2023/10/31 14:34:25.945 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:34:26.070 INFO  [http-nio-8081-exec-1] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:34:26.071 INFO  [http-nio-8081-exec-1] UserServiceImpl[getUser : 31] - idx : 2, 3 
+2023/10/31 14:34:26.088 INFO  [http-nio-8081-exec-1] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null)] 
+2023/10/31 14:34:26.134 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:36:19.246 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 16764 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/10/31 14:36:19.247 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 14:36:19.248 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 14:36:21.787 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 14:36:25.145 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 6.632 seconds (process running for 7.318) 
+2023/10/31 14:36:57.612 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 21324 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/10/31 14:36:57.614 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 14:36:57.615 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 14:37:00.265 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 14:37:03.717 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 6.717 seconds (process running for 7.591) 
+2023/10/31 14:37:06.487 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:37:06.629 INFO  [http-nio-8081-exec-1] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:37:06.631 INFO  [http-nio-8081-exec-1] UserServiceImpl[getUser : 33] - query : select * from Users where USER_ID in (2, 3) 
+2023/10/31 14:37:06.664 INFO  [http-nio-8081-exec-1] UserServiceImpl[getUser : 49] - resultUserList : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:37:06.666 INFO  [http-nio-8081-exec-1] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:37:06.739 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:40:36.243 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:40:36.245 INFO  [http-nio-8081-exec-3] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:40:36.245 INFO  [http-nio-8081-exec-3] UserServiceImpl[getUser : 33] - query : select * from Users where USER_ID in (2, 3) 
+2023/10/31 14:40:36.246 INFO  [http-nio-8081-exec-3] UserServiceImpl[getUser : 49] - resultUserList : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:40:36.247 INFO  [http-nio-8081-exec-3] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:40:36.249 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:42:32.699 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:42:32.700 INFO  [http-nio-8081-exec-5] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:42:32.700 INFO  [http-nio-8081-exec-5] UserServiceImpl[getUser : 33] - query : select * from Users where USER_ID in (2, 3) 
+2023/10/31 14:42:32.701 INFO  [http-nio-8081-exec-5] UserServiceImpl[getUser : 49] - resultUserList : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:42:32.702 INFO  [http-nio-8081-exec-5] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:42:32.703 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:44:24.370 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 7900 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/10/31 14:44:24.371 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 14:44:24.373 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 14:44:27.262 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 14:44:30.559 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 6.969 seconds (process running for 7.89) 
+2023/10/31 14:44:35.760 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:44:35.911 INFO  [http-nio-8081-exec-1] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:44:35.929 INFO  [http-nio-8081-exec-1] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:44:35.985 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:46:23.860 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:46:23.862 INFO  [http-nio-8081-exec-4] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:46:23.863 INFO  [http-nio-8081-exec-4] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:46:23.865 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:50:13.443 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 2372 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/10/31 14:50:13.445 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 14:50:13.445 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 14:50:15.684 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 14:50:18.673 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 5.856 seconds (process running for 6.552) 
+2023/10/31 14:50:22.605 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:50:22.762 INFO  [http-nio-8081-exec-1] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:50:22.781 INFO  [http-nio-8081-exec-1] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:50:22.822 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:50:23.031 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:50:23.033 INFO  [http-nio-8081-exec-2] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:50:23.035 INFO  [http-nio-8081-exec-2] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:50:23.036 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:51:25.293 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:51:25.294 INFO  [http-nio-8081-exec-4] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:51:25.295 INFO  [http-nio-8081-exec-4] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:51:25.298 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:53:35.800 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:53:35.802 INFO  [http-nio-8081-exec-6] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:53:35.804 INFO  [http-nio-8081-exec-6] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:53:35.806 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:53:35.933 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:53:35.934 INFO  [http-nio-8081-exec-7] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:53:35.935 INFO  [http-nio-8081-exec-7] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:53:35.937 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 
+2023/10/31 14:55:05.059 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user request start 
+2023/10/31 14:55:05.060 INFO  [http-nio-8081-exec-10] UserController[getUsers : 34] - userReq : UserReq(userList=[2, 3]) 
+2023/10/31 14:55:05.062 INFO  [http-nio-8081-exec-10] UserController[getUsers : 41] - test : [User(userId=2, userName=김길동, role=W, email=kim1234@naver.com, profile=null), User(userId=3, userName=이길동, role=W, email=Lee1234@naver.com, profile=null)] 
+2023/10/31 14:55:05.063 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user request done 

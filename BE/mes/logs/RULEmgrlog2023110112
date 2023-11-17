@@ -1,0 +1,33 @@
+2023/11/01 21:24:51.950 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 21:24:51.957 DEBUG [http-nio-8081-exec-6] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 21:24:52.076 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 21:29:09.319 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 21:29:09.344 DEBUG [http-nio-8081-exec-8] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 21:29:09.554 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 21:33:15.122 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 6516 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/11/01 21:33:15.123 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/01 21:33:15.124 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/01 21:33:17.870 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/11/01 21:33:22.957 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 8.548 seconds (process running for 9.655) 
+2023/11/01 21:33:28.803 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 21:33:29.259 DEBUG [http-nio-8081-exec-1] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 21:33:30.823 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 21:41:09.918 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 21:41:09.925 DEBUG [http-nio-8081-exec-3] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 21:41:10.018 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 21:42:42.114 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/reissue request start 
+2023/11/01 21:42:42.116 DEBUG [http-nio-8081-exec-5] UserServiceImpl[recreateToken : 71] - refreshToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJleHAiOjE3MDAwNTIwNzB9.JKf4MWmq5Gdmq3m_lIKCMnzho8P6Ej8Q3JUsVaB_BfM 
+2023/11/01 21:42:42.120 DEBUG [http-nio-8081-exec-5] UserServiceImpl[recreateToken : 75] - email=ssafy@gmail.com 
+2023/11/01 21:42:42.123 DEBUG [http-nio-8081-exec-5] UserServiceImpl[recreateToken : 77] - rtInRedis=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJleHAiOjE3MDAwNTIwNzB9.JKf4MWmq5Gdmq3m_lIKCMnzho8P6Ej8Q3JUsVaB_BfM 
+2023/11/01 21:42:42.134 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/reissue request done 
+2023/11/01 21:43:32.581 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 21:43:32.588 DEBUG [http-nio-8081-exec-6] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 21:43:32.679 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/11/01 21:45:24.556 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/reissue request start 
+2023/11/01 21:45:24.558 DEBUG [http-nio-8081-exec-8] UserServiceImpl[recreateToken : 71] - refreshToken=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJleHAiOjE3MDAwNTIyMTJ9.FCPFfn5mnqSZOEs4eGsRpxGByXLMRtxHHSh59FTKmBY 
+2023/11/01 21:45:24.562 DEBUG [http-nio-8081-exec-8] UserServiceImpl[recreateToken : 75] - email=ssafy@gmail.com 
+2023/11/01 21:45:24.564 DEBUG [http-nio-8081-exec-8] UserServiceImpl[recreateToken : 77] - rtInRedis=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzc2FmeUBnbWFpbC5jb20iLCJleHAiOjE3MDAwNTIyMTJ9.FCPFfn5mnqSZOEs4eGsRpxGByXLMRtxHHSh59FTKmBY 
+2023/11/01 21:45:24.577 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/reissue request done 
+2023/11/01 21:47:04.721 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/11/01 21:47:04.727 DEBUG [http-nio-8081-exec-10] UserServiceImpl[login : 60] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/11/01 21:47:04.817 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 

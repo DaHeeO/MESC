@@ -1,0 +1,6 @@
+2023/11/02 17:06:48.366 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 27128 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/02 17:06:48.367 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/02 17:06:48.368 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/11/02 17:07:27.006 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.9 with PID 24548 (C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\Desktop\KSOL\mes\S09P31S105\BE\mes) 
+2023/11/02 17:07:27.008 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/11/02 17:07:27.008 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
