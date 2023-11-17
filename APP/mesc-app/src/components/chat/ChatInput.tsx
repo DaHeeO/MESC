@@ -48,6 +48,27 @@ function ChatInput() {
   //actionIdTitle 관련
   const [actionIdTitle, setActionIdTitle] = useRecoilState(ActionIdTitleState);
 
+  const dataKeyword = [
+    '/데이터',
+    '/데이터조작',
+    '/데이터수정',
+    '데이터 수정',
+    '/데이터추가',
+    '/데이터 추가',
+    '/데이터삭제',
+    '/데이터 삭제',
+    '/쿼리문',
+    '/쿼리입력',
+    '/쿼리 입력',
+    '/수정',
+    '/추가',
+    '/삭제',
+    '/조회',
+    '/입력',
+    '/직접입력',
+    '/직접 입력',
+  ];
+
   // plus 버튼 눌렀을 때 효과
   const [inputShow, setInputShow] = useState(false);
   const [inputHeight, setInputHeight] = useState('70px');
@@ -166,7 +187,7 @@ function ChatInput() {
     if (userMessage === '') return;
 
     setChatbotHistory(prev => [...prev, <UserMessage message={userMessage} />]);
-    if (userMessage === '/로그' || userMessage === '/쿼리') {
+    if (dataKeyword.some(keyword => userMessage.includes(keyword))) {
       // 혹시라도 데이터 조작 버튼을 누르고 바로 그냥 명령문을 누르고 싶을 때
       defaultInput(userMessage);
 
@@ -215,9 +236,19 @@ function ChatInput() {
 
   const defaultInput = async (userMessage: String) => {
     const role = await getRoleBlockId();
-    if (userMessage === '/로그' && role === BlockType.DEVELOPER) {
+    if (
+      (userMessage === '/로그' ||
+        userMessage === '/로그보기' ||
+        userMessage === '로그조회' ||
+        userMessage === '로그 보기' ||
+        userMessage == '로그 조회') &&
+      role === BlockType.DEVELOPER
+    ) {
       putBlockToRecoil(BlockType.LogKeyword, {});
-    } else if (userMessage === '/쿼리' && role === BlockType.DEVELOPER) {
+    } else if (
+      dataKeyword.some(keyword => userMessage.includes(keyword)) &&
+      role === BlockType.DEVELOPER
+    ) {
       putBlockToRecoil(BlockType.QueryInput, {});
     } else {
       putBlockToRecoil(role, {});

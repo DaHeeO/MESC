@@ -63,13 +63,6 @@ function DataComponent(props: {card: Card}) {
 
   // 'TA' labels의 labelType이 'q'인 것 선택된 상태로 저장
   const queryLabel = card.labels?.find(label => label.labelType === 'q');
-  useEffect(() => {
-    if (queryLabel && !selectedLabel) {
-      setSelectedLabel(queryLabel);
-    }
-    setData2(queryLabel?.query); // query를 저장합니다.
-    setQuery(queryLabel?.query);
-  }, []);
 
   // 라벨을 선택하는 함수입니다.
   const handleSelectLabel = (labelItem: LabelItem) => {

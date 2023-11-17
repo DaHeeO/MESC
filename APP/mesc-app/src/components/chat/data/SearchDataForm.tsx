@@ -48,8 +48,6 @@ const SearchDataForm = () => {
     }
   }, [mlCard]);
 
-  // console.log('ProcessName==================', processName);
-
   const handleButtonClick = async (button: ButtonItem) => {
     // mlCard의 button 배열에서 각 name 추출 및 추가
     setIsModalVisible(false);
@@ -58,8 +56,6 @@ const SearchDataForm = () => {
       <UserMessage message={button.name} />,
     ]);
 
-    console.log('actionId=======================', button.actionId);
-    
     setActionId(button.actionId);
     const body = {
       actionId: button.actionId,
@@ -67,8 +63,9 @@ const SearchDataForm = () => {
       conditions: '',
     };
     const block = await getBlock(4, body);
-    console.log('block==============================',block);
-    
+
+    console.log('block================', block);
+
     setBlock(block);
     setActionIdTitle(button.name);
   };

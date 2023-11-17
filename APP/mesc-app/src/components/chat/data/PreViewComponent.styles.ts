@@ -16,7 +16,6 @@ interface DataBoxProps {
 }
 
 export const DataSection = styled.View<DataBoxProps>`
-  border: 1px solid blue;
   box-sizing: border-box;
   // width: {props => props.width};
   // height: {props => props.height};
