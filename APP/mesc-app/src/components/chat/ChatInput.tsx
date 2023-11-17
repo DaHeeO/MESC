@@ -100,6 +100,27 @@ function ChatInput() {
   const [loading, setLoading] = useState(false);
   const [isWordSelected, setIsWordSelected] = useState(false);
 
+  const dataKeyword = [
+    '/데이터',
+    '/데이터조작',
+    '/데이터수정',
+    '데이터 수정',
+    '/데이터추가',
+    '/데이터 추가',
+    '/데이터삭제',
+    '/데이터 삭제',
+    '/쿼리문',
+    '/쿼리입력',
+    '/쿼리 입력',
+    '/수정',
+    '/추가',
+    '/삭제',
+    '/조회',
+    '/입력',
+    '/직접입력',
+    '/직접 입력',
+  ];
+
   const loadSuggestions = useCallback(async (kw: string) => {
     if (!kw) {
       setSuggestions([]);
@@ -187,7 +208,7 @@ function ChatInput() {
     if (userMessage === '') return;
 
     setChatbotHistory(prev => [...prev, <UserMessage message={userMessage} />]);
-    if (dataKeyword.some(keyword => userMessage.includes(keyword))) {
+    if (dataKeyword.includes(userMessage)) {
       // 혹시라도 데이터 조작 버튼을 누르고 바로 그냥 명령문을 누르고 싶을 때
       defaultInput(userMessage);
 
@@ -234,7 +255,7 @@ function ChatInput() {
     }
   };
 
-  const defaultInput = async (userMessage: String) => {
+  const defaultInput = async (userMessage: string) => {
     const role = await getRoleBlockId();
     if (
       (userMessage === '/로그' ||
@@ -246,7 +267,7 @@ function ChatInput() {
     ) {
       putBlockToRecoil(BlockType.LogKeyword, {});
     } else if (
-      dataKeyword.some(keyword => userMessage.includes(keyword)) &&
+      dataKeyword.includes(userMessage) &&
       role === BlockType.DEVELOPER
     ) {
       putBlockToRecoil(BlockType.QueryInput, {});
@@ -347,6 +368,10 @@ function ChatInput() {
 
   // 최근 본 공정 데이터
   const recentData = async () => {
+    if (multipleCommitQuery.length == 0) {
+      Alert.alert('최근에 조회한 데이터가 없습니다.');
+      return;
+    }
     const body = {
       actionId: actionId,
       title: actionIdTitle,

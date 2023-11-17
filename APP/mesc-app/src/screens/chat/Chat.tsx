@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {PulseLoader} from 'react-spinners';
 import * as S from './Chat.styles';
 // Components
 import Header from '../../components/common/chatHeader/ChatHeader';
@@ -43,6 +44,7 @@ function Chat() {
   const realModalId = ModalIdSwitch({modalId});
 
   const [buttonComponent, setButtonComponent] = useState<React.JSX.Element>();
+  const [isLoading, setIsLoading] = useState(true);
 
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
   // 모달이 보여질 때 호출되는 함수
@@ -56,6 +58,7 @@ function Chat() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     putStartBlockToRecoil();
   }, []);
 
@@ -64,11 +67,13 @@ function Chat() {
     let roleFromServer = await getRoleBlockId();
     setRole(roleFromServer);
     const newBlock = await getBlock(roleFromServer, {});
+    setIsLoading(false);
     if (newBlock) setBlock(newBlock);
   };
 
   useEffect(() => {
     // console.log(block);
+
     if (block.blockId === 0) return;
     const chatbotBlock = makeChatbotBlock(block);
     setChatbotHistory(prev => [...prev, chatbotBlock]);
@@ -76,7 +81,7 @@ function Chat() {
 
   const makeChatbotBlock = (data: any) => {
     let newButtonComponent = <></>;
-    console.log('data===============', data);
+    // console.log(data);
     if (data.section === 1) {
       if (role === 12) newButtonComponent = <ChatChooseSection1 />;
       else newButtonComponent = <ChatChooseSection2 />;
@@ -89,9 +94,15 @@ function Chat() {
 
     return (
       <>
-        <ChatbotProfile />
-        {cardComponents}
-        {newButtonComponent}
+        {isLoading ? (
+          <PulseLoader color={'#182655'} loading={isLoading} size={8} />
+        ) : (
+          <>
+            <ChatbotProfile />
+            {cardComponents}
+            {newButtonComponent}
+          </>
+        )}
       </>
     );
   };

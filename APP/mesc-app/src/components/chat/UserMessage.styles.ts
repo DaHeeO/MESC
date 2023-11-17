@@ -23,4 +23,5 @@ export const TextBox = styled.View`
   align-items: center;
   justify-content: center;
   // background-color: ${colors.icy};
+  // background-color: gray;
 `;

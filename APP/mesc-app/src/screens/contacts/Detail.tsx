@@ -18,6 +18,18 @@
 // import Filter from '../../assets/icons/filter.svg';
 // import CheckBoxIcon from '../../assets/icons/checkbox.svg';
 
+<<<<<<< c36016d87858a3278b102856eba65f6d9017cb14
+// // import image1 from '../../assets/images/test/용명킴.jpg';
+// // import image2 from '../../assets/images/test/민겸킴.jpg';
+// // import image3 from '../../assets/images/test/왁ㅋ.png';
+// // import image4 from '../../assets/images/test/진영팍.jpg';
+// // import image5 from '../../assets/images/test/문상훈.jpg';
+// // import image6 from '../../assets/images/test/침착맨.png';
+// // import image7 from '../../assets/images/test/전현무.jpg';
+// // import image8 from '../../assets/images/test/나무니.jpg';
+// // import image9 from '../../assets/images/test/왕뚜껑.png';
+// // import image10 from '../../assets/images/test/행벅.jpg';
+=======
 // import image1 from '../../assets/images/test/용명킴.jpg';
 // import image2 from '../../assets/images/test/민겸킴.jpg';
 // import image3 from '../../assets/images/test/왁ㅋ.png';
@@ -28,6 +40,7 @@
 // import image8 from '../../assets/images/test/나무니.jpg';
 // import image9 from '../../assets/images/test/왕뚜껑.png';
 // import image10 from '../../assets/images/test/행벅.jpg';
+>>>>>>> 26e673ba285278f775dace9669bef907bbd220a8
 
 // interface ContactsProps {
 //   navigation: any;
