@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Contacts from './Contacts';
-import Detail from './Detail';
+// import Detail from './Detail';
 import Group from './Group';
 
 const Stack = createStackNavigator();
@@ -17,11 +17,11 @@ function ContactsStack() {
           component={Contacts}
           options={{headerShown: false}}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Detail"
           component={Detail}
           options={{headerShown: false}}
-        />
+        /> */}
         <Stack.Screen
           name="Group"
           component={Group}

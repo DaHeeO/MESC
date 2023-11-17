@@ -48,27 +48,6 @@ function ChatInput() {
   //actionIdTitle 관련
   const [actionIdTitle, setActionIdTitle] = useRecoilState(ActionIdTitleState);
 
-  const dataKeyword = [
-    '/데이터',
-    '/데이터조작',
-    '/데이터수정',
-    '데이터 수정',
-    '/데이터추가',
-    '/데이터 추가',
-    '/데이터삭제',
-    '/데이터 삭제',
-    '/쿼리문',
-    '/쿼리입력',
-    '/쿼리 입력',
-    '/수정',
-    '/추가',
-    '/삭제',
-    '/조회',
-    '/입력',
-    '/직접입력',
-    '/직접 입력',
-  ];
-
   // plus 버튼 눌렀을 때 효과
   const [inputShow, setInputShow] = useState(false);
   const [inputHeight, setInputHeight] = useState('70px');
