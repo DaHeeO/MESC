@@ -183,7 +183,7 @@ public class BlockServiceImpl implements BlockService {
 			// 	break;
 			case QU:    //select 쿼리 입력
 				LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(),
-					cardReqDto.getQueryList());
+					1, cardReqDto.getQueryList());
 				// LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(cardReqDto.getQuery(), 1,
 				// 	cardReqDto.getQueryList());
 				Boolean result = (Boolean)tableByQuery.get("result");
@@ -199,8 +199,8 @@ public class BlockServiceImpl implements BlockService {
 				break;
 			case QR:
 				String query = cardReqDto.getQuery();
-				LinkedHashMap<String, Object> tableByQueryRollback = apiService.getTableByQueryRollback(query);
-				// LinkedHashMap<String, Object> tableByQueryRollback = apiService.getTableByQueryRollback(query, 1);
+				// LinkedHashMap<String, Object> tableByQueryRollback = apiService.getTableByQueryRollback(query);
+				LinkedHashMap<String, Object> tableByQueryRollback = apiService.getTableByQueryRollback(query, 1);
 				result = (Boolean)tableByQueryRollback.get("result");
 				cardMap.put("result", result);
 				tableByQueryRollback.remove("result");
@@ -591,8 +591,8 @@ public class BlockServiceImpl implements BlockService {
 		url += cardReqDto.getActionId();
 
 		return Objects.requireNonNull(Objects.requireNonNull(webClient.post()
-					// .uri(url + "/1")
-					.uri(url)
+					.uri(url + "/1")
+					// .uri(url)
 					.header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
 					.contentType(MediaType.APPLICATION_JSON)
 					.body(BodyInserters.fromValue(cardReqDto))
