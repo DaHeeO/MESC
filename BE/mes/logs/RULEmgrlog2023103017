@@ -1,0 +1,67 @@
+2023/10/31 02:06:21.343 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 3208 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 02:06:21.344 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 02:06:21.344 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 02:06:22.745 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 02:06:25.083 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 4.09 seconds (process running for 4.802) 
+2023/10/31 02:11:53.752 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.html request start 
+2023/10/31 02:11:53.769 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.html request done 
+2023/10/31 02:11:53.794 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui.css request start 
+2023/10/31 02:11:53.797 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.css request start 
+2023/10/31 02:11:53.798 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-initializer.js request start 
+2023/10/31 02:11:53.798 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request start 
+2023/10/31 02:11:53.799 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request start 
+2023/10/31 02:11:53.801 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.css request done 
+2023/10/31 02:11:53.802 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui.css request done 
+2023/10/31 02:11:53.806 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request done 
+2023/10/31 02:11:53.812 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request done 
+2023/10/31 02:11:53.831 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-initializer.js request done 
+2023/10/31 02:11:54.031 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/favicon-32x32.png request start 
+2023/10/31 02:11:54.032 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs/swagger-config request start 
+2023/10/31 02:11:54.034 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/favicon-32x32.png request done 
+2023/10/31 02:11:54.047 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs/swagger-config request done 
+2023/10/31 02:11:54.067 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs request start 
+2023/10/31 02:11:54.310 INFO  [http-nio-8081-exec-9] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs request done 
+2023/10/31 02:12:00.048 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/signup request start 
+2023/10/31 02:12:00.245 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/signup request done 
+2023/10/31 02:22:13.454 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/api/login request start 
+2023/10/31 02:22:13.456 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/api/login request done 
+2023/10/31 02:22:13.460 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /error request start 
+2023/10/31 02:22:13.465 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /error request done 
+2023/10/31 02:23:49.806 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/api/login request start 
+2023/10/31 02:23:49.808 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/api/login request done 
+2023/10/31 02:23:49.809 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /error request start 
+2023/10/31 02:23:49.810 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /error request done 
+2023/10/31 02:25:11.396 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/10/31 02:25:11.486 DEBUG [http-nio-8081-exec-10] UserServiceImpl[login : 54] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/10/31 02:25:11.652 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
+2023/10/31 02:32:20.506 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 7188 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 02:32:20.507 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 02:32:20.508 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 02:32:21.741 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 02:32:23.959 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 3.785 seconds (process running for 4.42) 
+2023/10/31 02:34:17.426 INFO  [restartedMain] MesApplication[logStarting : 51] - Starting MesApplication using Java 17.0.8 with PID 3672 (C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes\out\production\classes started by SSAFY in C:\Users\SSAFY\gitrepo\S09P31S105-MES\BE\mes) 
+2023/10/31 02:34:17.427 DEBUG [restartedMain] MesApplication[logStarting : 52] - Running with Spring Boot v3.0.12, Spring v6.0.13 
+2023/10/31 02:34:17.428 INFO  [restartedMain] MesApplication[logStartupProfileInfo : 633] - No active profile set, falling back to 1 default profile: "default" 
+2023/10/31 02:34:18.652 DEBUG [restartedMain] JwtExceptionFilter[init : 240] - Filter 'jwtExceptionFilter' configured for use 
+2023/10/31 02:34:20.963 INFO  [restartedMain] MesApplication[logStarted : 57] - Started MesApplication in 3.911 seconds (process running for 4.476) 
+2023/10/31 02:35:23.928 INFO  [http-nio-8081-exec-1] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.html request start 
+2023/10/31 02:35:23.943 INFO  [http-nio-8081-exec-1] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.html request done 
+2023/10/31 02:35:23.963 INFO  [http-nio-8081-exec-2] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui.css request start 
+2023/10/31 02:35:23.963 INFO  [http-nio-8081-exec-3] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/index.css request start 
+2023/10/31 02:35:23.965 INFO  [http-nio-8081-exec-4] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request start 
+2023/10/31 02:35:23.965 INFO  [http-nio-8081-exec-6] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-initializer.js request start 
+2023/10/31 02:35:23.965 INFO  [http-nio-8081-exec-5] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request start 
+2023/10/31 02:35:23.968 INFO  [http-nio-8081-exec-3] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/index.css request done 
+2023/10/31 02:35:23.969 INFO  [http-nio-8081-exec-2] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui.css request done 
+2023/10/31 02:35:23.972 INFO  [http-nio-8081-exec-5] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-standalone-preset.js request done 
+2023/10/31 02:35:23.978 INFO  [http-nio-8081-exec-4] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-ui-bundle.js request done 
+2023/10/31 02:35:23.996 INFO  [http-nio-8081-exec-6] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/swagger-initializer.js request done 
+2023/10/31 02:35:24.124 INFO  [http-nio-8081-exec-7] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /swagger-ui/favicon-32x32.png request start 
+2023/10/31 02:35:24.125 INFO  [http-nio-8081-exec-8] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs/swagger-config request start 
+2023/10/31 02:35:24.128 INFO  [http-nio-8081-exec-7] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /swagger-ui/favicon-32x32.png request done 
+2023/10/31 02:35:24.142 INFO  [http-nio-8081-exec-8] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs/swagger-config request done 
+2023/10/31 02:35:24.155 INFO  [http-nio-8081-exec-10] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : GET : /v3/api-docs request start 
+2023/10/31 02:35:24.369 INFO  [http-nio-8081-exec-10] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : GET : /v3/api-docs request done 
+2023/10/31 02:35:47.018 INFO  [http-nio-8081-exec-9] LoggingInterceptor[preHandle : 21] - [preHandle][MES] : POST : /api/mes/user/login request start 
+2023/10/31 02:35:47.141 DEBUG [http-nio-8081-exec-9] UserServiceImpl[login : 54] - authenticationToken=UsernamePasswordAuthenticationToken [Principal=ssafy@gmail.com, Credentials=[PROTECTED], Authenticated=false, Details=null, Granted Authorities=[]] 
+2023/10/31 02:35:47.306 INFO  [http-nio-8081-exec-9] LoggingInterceptor[postHandle : 31] - [postHandle][MES] : POST : /api/mes/user/login request done 
