@@ -13,6 +13,8 @@ import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {is} from 'date-fns/locale';
 import {ActionIdState, ActionIdTitleState} from '../../../states/ReadDataState';
 import {ProcessNameState} from '../../../states/ProcessNameState';
+import {LoadingState} from '../../../states/LoadingState';
+import {set} from 'lodash';
 
 type ButtonItem = {
   id: number;
@@ -37,7 +39,7 @@ const SearchDataForm = () => {
   const [keyword, setKeyword] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isWordSelected, setIsWordSelected] = useState(false);
-
+  const [isLoading, setIsLoading] = useRecoilState(LoadingState);
   const cardList = block.cardList;
   const mlCard = cardList.find(card => card.cardType === 'ML');
 
@@ -62,8 +64,8 @@ const SearchDataForm = () => {
       title: button.name,
       conditions: '',
     };
-    const block = await getBlock(4, body);
 
+    const block = await getBlock(4, body);
     console.log('block================', block);
 
     setBlock(block);

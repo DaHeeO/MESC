@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import {PulseLoader} from 'react-spinners';
+import Spinner from 'react-native-spinkit';
 import * as S from './Chat.styles';
 // Components
 import Header from '../../components/common/chatHeader/ChatHeader';
@@ -23,6 +23,8 @@ import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal'
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
 import {ContactModalState} from '../../states/BottomSheetState';
+import {set} from 'lodash';
+import {LoadingState} from '../../states/LoadingState';
 
 function Chat() {
   const [chatbotHistory, setChatbotHistory] =
@@ -44,7 +46,9 @@ function Chat() {
   const realModalId = ModalIdSwitch({modalId});
 
   const [buttonComponent, setButtonComponent] = useState<React.JSX.Element>();
-  const [isLoading, setIsLoading] = useState(true);
+
+  const [isLoading, setIsLoading] = useRecoilState(LoadingState);
+  // const [isLoading, setIsLoading] = useState(true);
 
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
   // 모달이 보여질 때 호출되는 함수
@@ -58,7 +62,6 @@ function Chat() {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     putStartBlockToRecoil();
   }, []);
 
@@ -67,16 +70,17 @@ function Chat() {
     let roleFromServer = await getRoleBlockId();
     setRole(roleFromServer);
     const newBlock = await getBlock(roleFromServer, {});
-    setIsLoading(false);
+    // setIsLoading(false);
     if (newBlock) setBlock(newBlock);
   };
 
   useEffect(() => {
     // console.log(block);
-
     if (block.blockId === 0) return;
+    setIsLoading(true);
     const chatbotBlock = makeChatbotBlock(block);
     setChatbotHistory(prev => [...prev, chatbotBlock]);
+    setIsLoading(false);
   }, [block]);
 
   const makeChatbotBlock = (data: any) => {
@@ -94,11 +98,16 @@ function Chat() {
 
     return (
       <>
+        <ChatbotProfile />
         {isLoading ? (
-          <PulseLoader color={'#182655'} loading={isLoading} size={8} />
+          <Spinner
+            isVisible={true}
+            size={20}
+            type={'ThreeBounce'}
+            color={'#182655'}
+          />
         ) : (
           <>
-            <ChatbotProfile />
             {cardComponents}
             {newButtonComponent}
           </>

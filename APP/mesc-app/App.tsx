@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -13,10 +13,18 @@ import BottomTab from './src/components/common/bottomTab/BottomTab';
 import Main from './src/screens/main/Main';
 import Chat from './src/screens/chat/Chat';
 import {RecoilRoot} from 'recoil';
+import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createStackNavigator();
 
 function App() {
+  useEffect(() => {
+    //setTimeout을 이용하면 몇초간 스플래시 스크린을 보여주고 싶은지 설정할 수 있다.
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
+  }, []);
+
   return (
     <RecoilRoot>
       <NavigationContainer>
