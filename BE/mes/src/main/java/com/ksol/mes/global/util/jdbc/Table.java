@@ -23,8 +23,8 @@ public class Table {
 	private Integer pageSize = 20;
 	private String title;
 
-	// public Table(ResultSet resultSet, Integer page, Integer totalSize) throws SQLException {
-	public Table(ResultSet resultSet, Integer totalSize) throws SQLException {
+	public Table(ResultSet resultSet, Integer page, Integer totalSize) throws SQLException {
+		// public Table(ResultSet resultSet, Integer totalSize) throws SQLException {
 		ResultSetMetaData metaData = resultSet.getMetaData();
 		this.tableList = new HashSet<>();
 		int columnCount = metaData.getColumnCount();
