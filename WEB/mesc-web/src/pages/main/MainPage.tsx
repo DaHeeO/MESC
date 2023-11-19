@@ -14,10 +14,10 @@ import { Header } from "../../component/common/Header/Header";
 // Navigate
 import { useNavigate } from "react-router-dom";
 //etc
-import Arrow from "../../assest/icon/arrowRight.svg";
-import User from "../../assest/icon/userBlue.svg";
-import DataBase from "../../assest/icon/database.svg";
-import Contacts from "../../assest/icon/contacts.svg";
+import Arrow from "../../assets/icon/arrowRight.svg";
+import User from "../../assets/icon/userBlue.svg";
+import DataBase from "../../assets/icon/database.svg";
+import Contacts from "../../assets/icon/contacts.svg";
 import * as S from "./MainPage.style";
 import * as C from "../../component/common/theme";
 

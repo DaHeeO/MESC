@@ -7,7 +7,7 @@ import { userInfo } from "../../../state/UserInfo";
 import * as S from "./Header.styles";
 import * as C from "../theme";
 
-import Logo from "../../../assest/image/logo.png";
+import Logo from "../../../assets/img/logo.png";
 
 export const Header = () => {
   const [userInfoValue, setUserInfoValue] = useRecoilState(userInfo);

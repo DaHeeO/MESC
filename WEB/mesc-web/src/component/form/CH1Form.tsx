@@ -9,8 +9,8 @@ import { useRecoilState } from "recoil";
 import { Ch1State, Ch1StateProps } from "../../state/create/CreateState";
 import { Card, CardState } from "../../state/create/CreateState";
 // imgae
-import chatbot from "../../assest/image/chatbot.png";
-import Robot from "../../assest/image/robot.png";
+import chatbot from "../../assets/img/chatbot.png";
+import Robot from "../../assets/img/robot.png";
 import { ComponentBtn } from "./ComponentBtn";
 
 export interface Value {

@@ -13,7 +13,7 @@ import { SelectLabels } from "../../pages/AddBlock/CardSelect";
 import { ComponentIdSwitch } from "../form/SwitchForm";
 import { Card, CardState } from "../../state/create/CreateState";
 import LinkModal from "../common/modal/LinkModal";
-import Trash from "../../assest/icon/trash.svg";
+import Trash from "../../assets/icon/trash.svg";
 
 interface AddCardProps {
   key: number;

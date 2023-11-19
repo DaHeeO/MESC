@@ -1,14 +1,16 @@
 // React
 import React, { useState } from "react";
+
+import * as S from "./login.styles";
+import Background from "../assets/img/bg_visual.jpg";
+import Logo from "../assets/img/logo.png";
+
+import Circle from "../assets/icon/circle-x.svg";
+import EyeOff from "../assets/icon/eye-off.svg";
+import Eye from "../assets/icon/eye.svg";
+
 import { useNavigate } from "react-router-dom";
 // Styles
-import * as S from "./login.styles";
-//Assets
-import Background from "../../assests/image/bg_visual.jpg";
-import Logo from "../../assests/image/logo.png";
-import Circle from "../../assests/icon/circle-x.svg";
-import EyeOff from "../../assests/icon/eye-off.svg";
-import Eye from "../../assests/icon/eye.svg";
 //Api
 import { api, api1 } from "../../apis/Api";
 // Recoil
