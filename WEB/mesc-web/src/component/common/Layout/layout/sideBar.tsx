@@ -4,16 +4,16 @@ import { AboutContainer } from "../../About/AboutContainer";
 import * as C from "../../theme";
 import * as S from "./sideBar.styles";
 
-import HomeFocus from "../../../../assest/icon/homeFocus.svg";
-import AddFocus from "../../../../assest/icon/addFocus.svg";
-import EditFocus from "../../../../assest/icon/editFocus.svg";
-import FaqFocus from "../../../../assest/icon/faqFocus.svg";
-import LogoutFocus from "../../../../assest/icon/logoutFocus.svg";
-import Home from "../../../../assest/icon/home.svg";
-import Add from "../../../../assest/icon/add.svg";
-import Edit from "../../../../assest/icon/edit.svg";
-import Faq from "../../../../assest/icon/faq.svg";
-import Logout from "../../../../assest/icon/logout.svg";
+import HomeFocus from "../../../../assets/icon/homeFocus.svg";
+import AddFocus from "../../../../assets/icon/addFocus.svg";
+import EditFocus from "../../../../assets/icon/editFocus.svg";
+import FaqFocus from "../../../../assets/icon/faqFocus.svg";
+import LogoutFocus from "../../../../assets/icon/logoutFocus.svg";
+import Home from "../../../../assets/icon/home.svg";
+import Add from "../../../../assets/icon/add.svg";
+import Edit from "../../../../assets/icon/edit.svg";
+import Faq from "../../../../assets/icon/faq.svg";
+import Logout from "../../../../assets/icon/logout.svg";
 
 function SideBar() {
   const [hovered, setHovered] = useState(false);

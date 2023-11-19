@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import * as S from "./login.styles";
-import Background from "../assest/image/bg_visual.jpg";
-import Logo from "../assest/image/logo.png";
+import Background from "../assets/img/bg_visual.jpg";
+import Logo from "../assets/img/logo.png";
 
-import Circle from "../assest/icon/circle-x.svg";
-import EyeOff from "../assest/icon/eye-off.svg";
-import Eye from "../assest/icon/eye.svg";
+import Circle from "../assets/icon/circle-x.svg";
+import EyeOff from "../assets/icon/eye-off.svg";
+import Eye from "../assets/icon/eye.svg";
 
 import { useNavigate } from "react-router-dom";
 import { api, api1 } from "../apis/Api";

@@ -2,8 +2,8 @@
 import * as S from "./CH2Form.styles";
 import * as C from "../../pages/AddBlock/AddStyle";
 //imgae
-import chatbot from "../../assest/image/chatbot.png";
-import Robot from "../../assest/image/robot.png";
+import chatbot from "../../assets/img/chatbot.png";
+import Robot from "../../assets/img/robot.png";
 //Recoil
 import { useRecoilState } from "recoil";
 import { Card, Ch2State, Ch2StateProps } from "../../state/create/CreateState";
