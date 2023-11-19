@@ -1,15 +1,18 @@
+// React
 import React, { useState } from "react";
-import * as S from "./login.styles";
-import Background from "../assest/image/bg_visual.jpg";
-import Logo from "../assest/image/logo.png";
-
-import Circle from "../assest/icon/circle-x.svg";
-import EyeOff from "../assest/icon/eye-off.svg";
-import Eye from "../assest/icon/eye.svg";
-
 import { useNavigate } from "react-router-dom";
-import { api, api1 } from "../apis/Api";
-import { userInfo } from "../state/UserInfo";
+// Styles
+import * as S from "./login.styles";
+//Assets
+import Background from "../../assests/image/bg_visual.jpg";
+import Logo from "../../assests/image/logo.png";
+import Circle from "../../assests/icon/circle-x.svg";
+import EyeOff from "../../assests/icon/eye-off.svg";
+import Eye from "../../assests/icon/eye.svg";
+//Api
+import { api, api1 } from "../../apis/Api";
+// Recoil
+import { userInfo } from "../../state/UserInfo";
 import { useRecoilState } from "recoil";
 
 function Login() {
