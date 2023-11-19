@@ -48,7 +48,7 @@ public class Table {
 		log.info("rowcnt : {}", rowCnt);
 		if (rowCnt < pageSize)
 			isLastPage = true;
-		// rowCnt += (page - 1) * pageSize;
+		rowCnt += (page - 1) * pageSize;
 		resultSet.close();
 		this.totalCnt = totalSize;
 	}
