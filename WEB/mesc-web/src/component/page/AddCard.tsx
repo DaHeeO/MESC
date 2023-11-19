@@ -6,12 +6,10 @@ import * as S from "./AddCard.styles";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CardIdState } from "../../state/CardIdState";
 //mui
-import Button from "@mui/material/Button";
-import { AboutContainer } from "../common/About/AboutContainer";
-import { SelectLabels } from "../../pages/AddBlock/CardSelect";
 // component
 import { ComponentIdSwitch } from "../form/SwitchForm";
-import { Card, CardState } from "../../state/create/CreateState";
+import { Card, CardState } from "../../state/create/BlockState";
+import { CardListState } from "../../state/create/BlockState";
 import LinkModal from "../common/modal/LinkModal";
 import Trash from "../../assets/icon/trash.svg";
 
@@ -23,7 +21,7 @@ interface AddCardProps {
 }
 
 export const AddCardComponent = (props: { card: Card }) => {
-  const [cards, setCards] = useRecoilState(CardState);
+  const [cardList, setCardList] = useRecoilState(CardListState);
   const card = props.card;
 
   const componentId: string = useRecoilValue(CardIdState);
@@ -31,13 +29,15 @@ export const AddCardComponent = (props: { card: Card }) => {
   // const component = ComponentIdSwitch({ ComponentId: card.cardType });
 
   const deleteCard = () => {
-    setCards(cards.filter((nowCard) => nowCard.sequence !== card.sequence));
+    setCardList(
+      cardList.filter((nowCard) => nowCard.sequence !== card.sequence)
+    );
   };
 
   const typeChange = (cardType: any) => {
     // console.log(cardType);
     // const updatedCard = { ...card, /* 수정된 속성 추가 */ };
-    setCards((prevCards) =>
+    setCardList((prevCards) =>
       prevCards.map((nowCard) => {
         // console.log(nowCard.sequence, "   ", props.card.sequence);
         return nowCard.sequence === props.card.sequence
@@ -50,7 +50,7 @@ export const AddCardComponent = (props: { card: Card }) => {
   return (
     <S.CardContainer>
       <S.CardHeader>
-        <LinkModal card={card} btnIndex={0} />
+        {/* <LinkModal card={card} btnIndex={0} /> */}
         <img width={18} height={18} src={Trash} onClick={deleteCard} />
       </S.CardHeader>
 

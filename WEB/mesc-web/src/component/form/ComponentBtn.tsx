@@ -1,84 +1,54 @@
-import react, { useState } from "react";
-// Recoil
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import {
   Card,
-  CardState,
+  CardListState,
+  ComponentListState,
   ComponentState,
-} from "../../state/create/CreateState";
-// style
+} from "../../state/create/BlockState";
 import * as S from "./CH1Form.styles";
 
-// export interface Value {
-//   value?: string;
-// }
+export const ComponentBtn = (
+  props: { card: Card; index: number } // BtnProps를 기존 props와 합침
+) => {
+  const [cards, setCards] = useRecoilState(CardListState);
+  const [componentList, setComponentList] = useRecoilState(ComponentListState);
+  const [componentItem, setComponentItem] = useRecoilState(ComponentState);
 
-// export const ComponentBtn = (props: any) => {
-export const ComponentBtn = (props: { card: Card; index: number }) => {
-  const [cards, setCards] = useRecoilState(CardState);
-  const [btnValue, setBtnValue] = useRecoilState(ComponentState);
-  const [inputValue, setInputValue] = useState<string>("");
   const { card, index } = props;
-  // 이하 코드는 이전과 동일
 
-  const handleInputChange = (
-    e: any,
-    index: number,
-    prevComponentState: any,
-    setBtnValue: any,
-    props: any,
-    cards: any,
-    setCards: any
-  ) => {
-    const updatedComponentList = [
-      ...prevComponentState.componentList.slice(0, index),
-      {
-        type: "BU",
-        sequence: "1",
-        object: {
-          ...prevComponentState.componentList[index]?.object,
-          name: e.target.value,
-          linkType: "B",
-          link: 1,
-          actionId: 0,
-        },
-      },
-      ...prevComponentState.componentList.slice(index + 1),
-    ];
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
 
-    setBtnValue((prevComponentState: any) => ({
-      ...prevComponentState,
-      componentList: updatedComponentList,
+    // Update ComponentItem state
+    setComponentItem((prevItem) => ({
+      ...prevItem,
+      // You can add more properties if needed
+      text: inputValue,
     }));
 
-    setCards((prevCards: any) =>
-      prevCards.map((nowCard: any) =>
-        nowCard.sequence === props.card.sequence
-          ? { ...nowCard, componentList: updatedComponentList }
-          : nowCard
-      )
-    );
-  };
+    setComponentList((prevList) => [...prevList, componentItem]);
 
-  console.log("버튼");
-  console.log(card.componentList[index]);
+    // Reset ComponentItem state after adding to the list
+    setComponentItem({
+      type: "BU",
+      sequence: componentList.length,
+      object: {
+        name: "",
+        linkType: "B",
+        link: 0,
+        response: "",
+      },
+      // Initial values for the ComponentItem
+    });
+  };
 
   return (
     <S.Button>
       <S.ButtonText
-        placeholder="버튼 이름을 입력하세요"
-        onChange={(e) =>
-          handleInputChange(
-            e,
-            props.index,
-            btnValue,
-            setBtnValue,
-            props,
-            cards,
-            setCards
-          )
-        }
-        value={card.componentList[index]?.object?.name}
+        placeholder="버튼을 입력하세요"
+        value={componentItem.object.name}
+        onChange={handleInputChange}
       />
     </S.Button>
   );

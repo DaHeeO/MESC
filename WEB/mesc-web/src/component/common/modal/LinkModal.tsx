@@ -7,12 +7,8 @@ import { SelectBlockv2 } from "../../Block/Select/SelectBlockv2";
 import { InnerBoxContainer } from "./LinkModalStyle";
 import { LinkIdState } from "../../../state/linkId";
 import { useRecoilState } from "recoil";
-import {
-  Card,
-  CardState,
-  Btn,
-  ComponentItem,
-} from "../../../state/create/CreateState";
+import { CardState, Card } from "../../../state/create/BlockState";
+import { Btn, ComponentItem } from "../../../state/create/CreateState";
 
 const style = {
   width: "80%",
@@ -37,33 +33,32 @@ export default function LinkModal(props: LinkModalProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setCards((prevCards) => {
-      const originBtn = props.card.componentList[props.btnIndex].object;
-      const btn: Btn = {
-        ...originBtn,
-        link: linkId,
-      };
-      const originComponent = props.card.componentList[props.btnIndex];
-      const componentItem: ComponentItem = {
-        ...originComponent,
-        object: btn,
-      };
-      const originComponentList = props.card.componentList;
-      const componentList = originComponentList.map((component) => {
-        return component.sequence === originComponent.sequence
-          ? componentItem
-          : component;
-      });
-
-      return prevCards.map((nowCard) => {
-        // console.log(nowCard.sequence, "   ", props.card.sequence);
-        return nowCard.sequence === props.card.sequence
-          ? { ...nowCard, componentList: componentList }
-          : nowCard;
-      });
-    });
-    setOpen(false);
-    console.log(cards);
+    // setCards((prevCards) => {
+    //   const originBtn = props.card.componentList[props.btnIndex].object;
+    //   const btn: Btn = {
+    //     ...originBtn,
+    //     link: linkId,
+    //   };
+    //   const originComponent = props.card.componentList[props.btnIndex];
+    //   const componentItem: ComponentItem = {
+    //     ...originComponent,
+    //     object: btn,
+    //   };
+    //   const originComponentList = props.card.componentList;
+    //   const componentList = originComponentList.map((component) => {
+    //     return component.sequence === originComponent.sequence
+    //       ? componentItem
+    //       : component;
+    //   });
+    //   return prevCards.map((nowCard) => {
+    //     // console.log(nowCard.sequence, "   ", props.card.sequence);
+    //     return nowCard.sequence === props.card.sequence
+    //       ? { ...nowCard, componentList: componentList }
+    //       : nowCard;
+    //   });
+    // });
+    // setOpen(false);
+    // console.log(cards);
   };
   const [linkId, setLinkId] = useRecoilState(LinkIdState);
 

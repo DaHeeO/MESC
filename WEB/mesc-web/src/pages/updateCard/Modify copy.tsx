@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { CreatBlockState } from "../../state/create/AddBlock";
 import {
-  Card,
-  BlockListState,
-  CardListState,
   BlockState,
+  Card,
   CardState,
-  ComponentListState,
-} from "../../state/create/BlockState";
+  Btn,
+  ComponentItem,
+} from "../../state/create/CreateState"; // Card interface
 import { CardIdState } from "../../state/CardIdState";
 // API
 import { api } from "../../apis/Api";
@@ -18,51 +17,131 @@ import { api } from "../../apis/Api";
 import * as S from "./Modify.styles";
 import * as C from "../../component/common/theme";
 // component
+import BasicSpeedDial from "../../component/common/About/AboutBtn";
 import { AddCardComponent } from "../../component/page/AddCard";
 import { AboutContainer } from "../../component/common/About/AboutContainer";
 import { AboutBody } from "../../component/common/About/AboutBody";
 import { Header } from "../../component/common/Header/Header";
+import { SaveBtn } from "../../component/common/About/AboutBtn";
 import { SelectBlockv2 } from "../../component/Block/Select/SelectBlockv2";
+import { CardListState } from "../../state/read/GetCardList";
 import { AddSpeedDial } from "../../component/common/About/AboutBtn";
+import { TxTaState } from "../../state/create/CreateState";
+import { CH1Form } from "../../component/form/CH1Form";
+import { TAForm } from "../../component/form/TAForm";
+import { CH2Form } from "../../component/form/CH2Form";
+import { TXForm } from "../../component/form/TXForm";
 
 export const Modify = () => {
   // =====================================================================
 
   // 블록 이름 저장을 위한
-  const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
-  const [blockList, setBlockList] = useRecoilState(BlockListState);
-  const [cardList, setCardList] = useRecoilState(CardListState);
-  const [card, setCard] = useRecoilState(CardState);
+  const [blockTitleTyping, setBlockTitleTyping] = useState<string>("");
   const [blockState, setBlockState] = useRecoilState(CreatBlockState);
+  const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
+  const [cards, setCards] = useRecoilState(CardState); //카드
+  const [blockName, setBlockName] = useState("");
+  const [cardList, setCardList] = useRecoilState(CardListState);
   const [selectedValue, setSelectedValue] = useState("TX");
-  const [ComponentList, setComponentList] = useRecoilState(ComponentListState);
-
-  const [blockName, setBlockName] = useState(blockInfo ? blockInfo.name : "");
 
   useEffect(() => {
-    setBlockName(blockInfo ? blockInfo.name : "");
+    async function fetchData() {
+      try {
+        // 결과를 처리하고 상태를 업데이트
+        if (blockInfo && blockInfo.name) {
+          setBlockName(blockInfo.name);
+        } else {
+          setBlockName("블럭이름을 작성해주세요.");
+        }
+      } catch (error) {
+        // 오류 처리
+        console.error("Error fetching data: ", error);
+      }
+    }
+    let sequence = 1;
+    const nowCards = cardList.map((card) => {
+      const cardType = card.cardType;
+      let btnSequence = 1;
+      const componentList = card.button?.map(
+        (btn: Btn) =>
+          ({
+            type: btn.type,
+            sequence: btnSequence,
+            object: btn,
+          } as ComponentItem)
+      );
+      if (cardType === "TX") {
+        return {
+          name: card.cardName,
+          sequence: sequence++,
+          cardType: card.cardType,
+          content: card.content,
+          componentList: componentList,
+        };
+      } else if (cardType === "TA") {
+        console.log("TA는 처리필요. Modify.tsx 62 line");
+        return {
+          // 이건 막함
+          name: card.cardName,
+          sequence: sequence++,
+          cardType: card.cardType,
+          content: card.content,
+          componentList: componentList,
+        };
+      } else if (cardType === "CH1") {
+        return {
+          // 이건 막함
+          name: card.cardName,
+          sequence: sequence++,
+          cardType: card.cardType,
+          content: card.content,
+          componentList: componentList,
+        };
+      } else if (cardType === "CH2") {
+        return {
+          // 이건 막함
+          name: card.cardName,
+          sequence: sequence++,
+          cardType: card.cardType,
+          content: card.content,
+          componentList: componentList,
+        };
+      }
+      return {};
+    });
+
+    // const cards = cardList.map((card) => {
+    //   const cardType = card.cardType;
+    //   if (cardType === "TX") {
+    //     return TXForm({ card: card });
+    //   } else if (cardType === "TA") {
+    //     return <></>;
+    //   } else if (cardType === "CH1") {
+    //     return CH1Form({ card: card });
+    //   } else if (cardType === "CH2") {
+    //     return CH2Form({ card: card });
+    //   }
+    // });
+    setCards(nowCards);
+
+    fetchData(); // 함수 호출
   }, [blockInfo]);
+  // // =======================================================
+
+  console.log("cards==================", cards);
 
   const deleteBlock = (id?: number) => {
     api
       .delete(`block/admin/all/${id}`)
       .then((res) => {
         // Update Recoil state after successful deletion
-        setBlockList((prevBlockList) => {
-          // Ensure prevBlockList is an array before using filter
-          if (Array.isArray(prevBlockList)) {
-            return prevBlockList.filter((block) => block.id !== id);
-          } else {
-            console.error("prevBlockList is not an array:", prevBlockList);
-            return prevBlockList; // Return the original state if it's not an array
-          }
-        });
-        console.log(id);
+
         console.log("삭제완료");
         alert("삭제완료");
 
         // Reset the Recoil state
         setBlockInfo({ id: 0, name: "" });
+        setCards([]);
         setCardList([]);
       })
       .catch((err) => {
@@ -72,26 +151,54 @@ export const Modify = () => {
 
   // Block 이름 변경 및 API 호출 (버튼 클릭시)
   const UpdateBlockName = (newName: string) => {
-    const updatedBlockItem = {
-      id: blockInfo.id,
-      name: blockName,
-    };
-    console.log(cardList);
+    console.log(cards);
     console.log(blockInfo);
-    api
-      .post(`block/admin`, {
-        blockInfo: blockInfo,
-        cardReqList: cardList,
-      })
-      .then((res) => {
-        console.log("card==================", cardList);
-        console.log(res);
-        console.log(blockInfo, cardList);
-        alert("저장완료");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const body = {
+      blockInfo: {
+        id: blockInfo.id,
+        name: blockInfo.name,
+      },
+      cardReqList: cards.map((card) => ({
+        ...card,
+        blockId: blockInfo.id,
+        state: "ACTIVE",
+        // componentList : card.componentList.map((component) => ({
+        // })
+      })),
+    };
+    // setBlockState((prevBlockState) => ({
+    //   ...prevBlockState,
+    //   blockInfo: {
+    //     ...prevBlockState.blockInfo,
+    //     name: newName,
+    //   },
+    // }));
+    // if (cards.length > 0) {
+    //   const cardRequest = {
+    //     name: cards[cards.length - 1].name,
+    //     sequence: cards[cards.length - 1].sequence,
+    //     cardType: cards[cards.length - 1].cardType,
+    //     content: cards[cards.length - 1].content,
+    //     actionId: 0,
+    //   };
+
+    //   if (cardRequest.cardType === "TA") {
+    //     cardRequest.actionId = 1;
+    //   }
+
+    //   api
+    //     .patch(`block/admin/${blockInfo.id}`, {
+    //       blockInfo: { name: newName, id: blockInfo.id },
+    //       cardRequestList: cardRequest,
+    //     })
+    //     .then((res) => {
+    //       console.log("card==================", cards);
+    //       console.log(res);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
   };
   // =======================================================
 
@@ -108,7 +215,7 @@ export const Modify = () => {
     const newCard: Card = {
       // Index: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
-      sequence: cardList.length + 1,
+      sequence: cards.length,
       // cardType: CardType, // 이 부분도 수정이 필요합니다.
       cardType: cardType, // 이 부분도 수정이 필요합니다.
       content: "",
@@ -117,14 +224,14 @@ export const Modify = () => {
 
     // Recoil을 사용하여 카드 상태 갱신
     // setCreateCard((prevCardState) => [...prevCardState, newCard]);
-    setCardList((prevCardList) => [...prevCardList, newCard]);
+    setCards((prevCards) => [...prevCards, newCard]);
   };
 
   const resetRecoilState = () => {
-    setCardList([]);
+    setCards([]); // Reset cards to an empty array or initial state
   };
 
-  const showCards = cardList.map((card) => {
+  const showCards = cards.map((card) => {
     return <AddCardComponent card={card} />;
   });
 
@@ -163,9 +270,8 @@ export const Modify = () => {
               <S.InputBox color={C.colors.buttonBlueBackground}>
                 <S.Input
                   type="text"
-                  placeholder="제목을 입력해주세요."
-                  value={blockName}
-                  onChange={(e) => setBlockName(e.target.value)}
+                  defaultValue={blockName}
+                  onChange={(e) => setBlockTitleTyping(e.target.value)}
                 />
               </S.InputBox>
               <S.ButtonDiv>
@@ -180,7 +286,7 @@ export const Modify = () => {
                 </S.DeleteButton>
                 <S.AddButton
                   onClick={() => {
-                    UpdateBlockName(blockName);
+                    UpdateBlockName(blockTitleTyping);
                   }}
                 >
                   <S.Text size={16} color="white" weight={500}>
