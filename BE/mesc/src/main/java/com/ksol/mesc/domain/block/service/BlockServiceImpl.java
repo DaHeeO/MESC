@@ -172,6 +172,7 @@ public class BlockServiceImpl implements BlockService {
 					Optional<Button> button = buttonRepository.findById(component.getLinkId());
 					if (button.isEmpty())
 						break;
+					log.info("ButtonRes : {}", ButtonRes.toResponse(button.get()));
 					componentResList.add(ComponentRes.toResponse(component, ButtonRes.toResponse(button.get())));
 					break;
 				case DD:

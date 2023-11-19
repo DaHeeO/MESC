@@ -13,8 +13,8 @@ public class ButtonRes {
 	private String linkType;
 	private Integer link;
 	private Integer actionId;
-	private Integer iconId;
-	private String response;
+	// private Integer iconId;
+	// private String response;
 
 	public static ButtonRes toResponse(Button button) {
 		return ButtonRes.builder()
@@ -23,8 +23,8 @@ public class ButtonRes {
 			.linkType(button.getLinkType().toString())
 			.link(button.getLink())
 			.actionId(button.getActionId())
-			.iconId(button.getIconId())
-			.response(button.getResponse())
+			// .iconId(button.getIconId())
+			// .response(button.getResponse())
 			.build();
 	}
 }
