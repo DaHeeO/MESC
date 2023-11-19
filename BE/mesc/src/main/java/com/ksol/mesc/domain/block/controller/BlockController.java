@@ -51,6 +51,16 @@ public class BlockController {
 		return ResponseEntity.ok(CommonResponseDto.success(null));
 	}
 
+	// @Operation(summary = "컴포넌트 추가 및 수정 API", description = "컴포넌트를 DB에 저장한다.")
+	// @PostMapping("/admin/component/{cardId}")
+	// public ResponseEntity<CommonResponseDto<?>> addComponentByCard(@Parameter(description = "카드 ID", required = true)
+	// @PathVariable @Valid Integer cardId, @Parameter(description = "컴포넌트 정보", required = true)
+	// @RequestBody @Validated ComponentListDto componentList) {
+	// 	blockService.addComponentByCard(cardId, componentList);
+	//
+	// 	return ResponseEntity.ok(CommonResponseDto.success(null));
+	// }
+
 	// @Operation(summary = "블록 내용 수정 API", description = "수정할 블록과 엮여 있는 정보를 수정한다.")
 	// @PatchMapping("/admin/{blockId}")
 	// public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)

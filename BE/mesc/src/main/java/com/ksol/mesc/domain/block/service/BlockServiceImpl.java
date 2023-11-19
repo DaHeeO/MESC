@@ -22,6 +22,7 @@ import com.ksol.mesc.domain.api.service.ApiService;
 import com.ksol.mesc.domain.block.dto.request.BlockInfoDto;
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
+import com.ksol.mesc.domain.block.dto.request.ComponentListDto;
 import com.ksol.mesc.domain.block.dto.response.BlockInfoRes;
 import com.ksol.mesc.domain.block.dto.response.BlockRes;
 import com.ksol.mesc.domain.block.entity.Block;
@@ -172,7 +173,6 @@ public class BlockServiceImpl implements BlockService {
 					Optional<Button> button = buttonRepository.findById(component.getLinkId());
 					if (button.isEmpty())
 						break;
-					log.info("ButtonRes : {}", ButtonRes.toResponse(button.get()));
 					componentResList.add(ComponentRes.toResponse(component, ButtonRes.toResponse(button.get())));
 					break;
 				case DD:
@@ -480,6 +480,21 @@ public class BlockServiceImpl implements BlockService {
 					ComponentType componentType = componentReq.getType();
 					saveComponentEntityByType(componentType, object, componentReq);
 				}
+			}
+		}
+	}
+
+	@Override
+	public void addComponentByCard(Integer cardId, ComponentListDto componentList) {
+		List<ComponentReq> componentReqList = componentList.getComponentList();
+		Card card = cardRepository.findById(cardId).orElseThrow(() -> new EntityNotFoundException("Card Not Found"));
+
+		if (componentReqList != null) {
+			for (ComponentReq componentReq : componentReqList) {
+				componentReq.setCard(card);    //카드 정보 추가
+				Object object = componentReq.getObject();
+				ComponentType componentType = componentReq.getType();
+				saveComponentEntityByType(componentType, object, componentReq);
 			}
 		}
 	}
