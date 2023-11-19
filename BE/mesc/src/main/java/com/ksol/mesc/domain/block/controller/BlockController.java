@@ -45,7 +45,7 @@ public class BlockController {
 	@Operation(summary = "블록, 카드, 컴포넌트 추가 API", description = "새로운 블록, 카드, 컴포넌트을 DB에 저장한다.")
 	@PostMapping("/admin")
 	public ResponseEntity<CommonResponseDto<?>> addBlockInfo(@Parameter(description = "블록명", required = true)
-	@RequestBody BlockReqDto blockReqDto, Authentication authentication) {
+	@RequestBody BlockReqDto blockReqDto) {
 		blockService.addBlockContent(blockReqDto);
 
 		return ResponseEntity.ok(CommonResponseDto.success(null));
@@ -83,6 +83,20 @@ public class BlockController {
 	@Operation(summary = "블록 조회 API", description = "요청한 블록과 엮여 있는 정보를 조회한다.")
 	@PostMapping("/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> selectBlock(
+		@Parameter(description = "블록 id", required = true)
+		@PathVariable @Valid Integer blockId,
+		@Parameter(description = "카드 정보")
+		@RequestBody @Validated CardReqDto cardReqDto,
+		Authentication authentication) {
+		Integer userId = Integer.parseInt(authentication.getName());
+		LinkedHashMap<String, Object> responseMap = blockService.selectBlockInfo(blockId, cardReqDto, userId);
+
+		return ResponseEntity.ok(CommonResponseDto.success(responseMap));
+	}
+
+	@Operation(summary = "관리자 페이지 블록 조회 API", description = "관리자 페이지에서 요청한 블록과 엮여 있는 정보를 조회한다.")
+	@PostMapping("/admin/{blockId}")
+	public ResponseEntity<CommonResponseDto<?>> selectBlockByAdmin(
 		@Parameter(description = "블록 id", required = true)
 		@PathVariable @Valid Integer blockId,
 		@Parameter(description = "카드 정보")
