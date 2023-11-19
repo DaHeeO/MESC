@@ -5,12 +5,15 @@ import java.util.List;
 
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
+import com.ksol.mesc.domain.block.dto.response.BlockInfoRes;
 import com.ksol.mesc.domain.block.dto.response.BlockRes;
 import com.ksol.mesc.domain.card.entity.Card;
 import com.ksol.mesc.domain.card.entity.CardType;
 
 public interface BlockService {
 	List<BlockRes> selectAllBlock();
+
+	BlockInfoRes selectBlockByAdmin(Integer blockId);
 
 	void addBlockContent(BlockReqDto blockReqDto);
 

@@ -22,16 +22,19 @@ import com.ksol.mesc.domain.api.service.ApiService;
 import com.ksol.mesc.domain.block.dto.request.BlockInfoDto;
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
+import com.ksol.mesc.domain.block.dto.response.BlockInfoRes;
 import com.ksol.mesc.domain.block.dto.response.BlockRes;
 import com.ksol.mesc.domain.block.entity.Block;
 import com.ksol.mesc.domain.block.repository.BlockRepository;
 import com.ksol.mesc.domain.card.dto.request.CardReq;
+import com.ksol.mesc.domain.card.dto.rsponse.CardRes;
 import com.ksol.mesc.domain.card.entity.Card;
 import com.ksol.mesc.domain.card.entity.CardType;
 import com.ksol.mesc.domain.card.repository.CardRepository;
 import com.ksol.mesc.domain.common.EntityState;
 import com.ksol.mesc.domain.common.dto.response.JsonResponse;
 import com.ksol.mesc.domain.component.dto.request.ComponentReq;
+import com.ksol.mesc.domain.component.dto.response.ComponentRes;
 import com.ksol.mesc.domain.component.entity.Component;
 import com.ksol.mesc.domain.component.entity.ComponentType;
 import com.ksol.mesc.domain.component.repository.ComponentRepository;
@@ -130,6 +133,67 @@ public class BlockServiceImpl implements BlockService {
 		}
 		objMap.put("section", sectionId);
 		return objMap;
+	}
+
+	//관리자 블록 조회
+	public BlockInfoRes selectBlockByAdmin(Integer blockId) {
+		//블록 조회
+		Block block = blockRepository.findActiveById(blockId, EntityState.ACTIVE)
+			.orElseThrow(() -> new EntityNotFoundException("Active Block Not Found"));
+		BlockInfoRes blockInfoRes = new BlockInfoRes();
+
+		blockInfoRes.setBlockInfo(BlockRes.toResponse(block));
+		// LinkedHashMap<String, Object> objMap = new LinkedHashMap<>();
+
+		//카드 조회 + 컴포넌트 조회
+		List<Card> cardList = cardRepository.findByBlockId(blockId, EntityState.ACTIVE);
+		List<CardRes> cardResList = new ArrayList<>();
+		if (cardList != null) {
+			for (Card card : cardList) {
+				List<Component> componentList = componentRepository.findByCard(card, EntityState.ACTIVE);
+				List<ComponentRes> components = selectComponentByAdmin(componentList);
+				cardResList.add(CardRes.toResponse(card, components));
+			}
+		}
+		blockInfoRes.setCardResList(cardResList);
+
+		return blockInfoRes;
+	}
+
+	//component type에 따른 조회
+	public List<ComponentRes> selectComponentByAdmin(List<Component> componentList) {
+		List<ComponentRes> componentResList = new ArrayList<>();
+
+		for (Component component : componentList) {
+			ComponentType componentType = component.getComponentType();
+
+			switch (componentType) {
+				case BU:
+					Optional<Button> button = buttonRepository.findById(component.getLinkId());
+					if (button.isEmpty())
+						break;
+					componentResList.add(ComponentRes.toResponse(component, ButtonRes.toResponse(button.get())));
+					break;
+				case DD:
+					Optional<Dropdown> dropdownOpt = dropdownRepository.findById(component.getLinkId());
+					if (dropdownOpt.isEmpty())
+						break;
+					Dropdown dropdown = dropdownOpt.get();
+					List<ComponentValue> valuesList = valuesRepository.findByDropdown(dropdown, EntityState.ACTIVE);
+					List<ValuesRes> valuesResList = valuesList.stream()
+						.map(ValuesRes::toResponse)
+						.collect(Collectors.toList());
+
+					componentResList.add(
+						ComponentRes.toResponse(component, DropdownRes.toResponse(dropdown, valuesResList)));
+					break;
+				default:
+					throw new IllegalArgumentException("Invalid ComponentType");
+
+			}
+		}
+
+		return componentResList;
 	}
 
 	//card type에 따른 조회
