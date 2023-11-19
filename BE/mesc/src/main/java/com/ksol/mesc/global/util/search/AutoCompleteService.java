@@ -18,13 +18,28 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AutoCompleteService {
 
-	private static final String AUTOCOMPLETE_KEY = "mesc";
+	private static String AUTOCOMPLETE_KEY = "";
 	private static final String UNICODE_MAX_CHAR = "\ufff0";
 	private static final String WORD_TERMINATOR = "*";
 
 	private final RedisTemplate<String, String> redisTemplate;
 
-	public List<String> autocomplete(String prefix) {
+	public List<String> getSql(String prefix) {
+		AUTOCOMPLETE_KEY = "query";
+		return autocomplete(prefix, AUTOCOMPLETE_KEY);
+	}
+
+	public List<String> getTable(String prefix) {
+		AUTOCOMPLETE_KEY = "table";
+		return autocomplete(prefix, AUTOCOMPLETE_KEY);
+	}
+
+	public List<String> getColumn(String prefix) {
+		AUTOCOMPLETE_KEY = "column";
+		return autocomplete(prefix, AUTOCOMPLETE_KEY);
+	}
+
+	public List<String> autocomplete(String prefix, String AUTOCOMPLETE_KEY) {
 		ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
 
 		Range<String> range = Range.from(Range.Bound.inclusive(prefix))
@@ -41,5 +56,6 @@ public class AutoCompleteService {
 		log.info("autoList : {}", autocompleteList);
 		return autocompleteList;
 	}
+
 
 }

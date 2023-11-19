@@ -19,7 +19,17 @@ public class AutoCompleteController {
 	private final AutoCompleteService autocompleteService;
 
 	@GetMapping
-	public List<String> autocomplete(@RequestParam String prefix) {
-		return autocompleteService.autocomplete(prefix);
+	public List<String> getSql(@RequestParam String prefix) {
+		return autocompleteService.getSql(prefix);
+	}
+
+	@GetMapping("/table")
+	public List<String> getTable(@RequestParam String prefix) {
+		return autocompleteService.getTable(prefix);
+	}
+
+	@GetMapping("/column")
+	public List<String> getColumn(@RequestParam String prefix) {
+		return autocompleteService.getColumn(prefix);
 	}
 }
