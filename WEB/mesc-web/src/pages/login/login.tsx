@@ -1,4 +1,6 @@
+// React
 import React, { useState } from "react";
+
 import * as S from "./login.styles";
 import Background from "../assets/img/bg_visual.jpg";
 import Logo from "../assets/img/logo.png";
@@ -8,8 +10,11 @@ import EyeOff from "../assets/icon/eye-off.svg";
 import Eye from "../assets/icon/eye.svg";
 
 import { useNavigate } from "react-router-dom";
-import { api, api1 } from "../apis/Api";
-import { userInfo } from "../state/UserInfo";
+// Styles
+//Api
+import { api, api1 } from "../../apis/Api";
+// Recoil
+import { userInfo } from "../../state/UserInfo";
 import { useRecoilState } from "recoil";
 
 function Login() {

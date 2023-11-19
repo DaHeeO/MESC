@@ -6,13 +6,11 @@ import Layout from "./pages/layout";
 // Subpages
 import { MainPage } from "./pages/main/MainPage";
 import { Add } from "./pages/AddBlock/Add";
-import { Modify } from "./pages/ReadBlock/Modify";
+import { Modify } from "./pages/updateCard/Modify";
 import Menu3 from "./pages/menu3";
-import Menu4 from "./pages/menu4";
-import MyChatbot from "./pages/myChatbot";
 import { Faq } from "./pages/FAQ/Faq";
 // Layout excluding page
-import Login from "./pages/login";
+import Login from "./pages/login/login";
 
 function App() {
   return (
@@ -25,8 +23,6 @@ function App() {
             <Route path="Modify/:id" element={<Modify />} />
             {/* <Route path="Modify" element={<Modify />} /> */}
             <Route path="Menu3" element={<Menu3 />} />
-            <Route path="Menu4" element={<Menu4 />} />
-            <Route path="MyChatbot" element={<MyChatbot />} />
             <Route path="Faq" element={<Faq />} />
             <Route path="" element={<MainPage />} />
             <Route
