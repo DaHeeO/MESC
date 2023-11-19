@@ -31,7 +31,7 @@ public class Table {
 		this.columns = new ArrayList<>();
 		for (int i = 1; i <= columnCount; i++) {
 			this.title = metaData.getTableName(i);
-			this.tableList.add(metaData.getTableName(i));
+			if(metaData.getTableName(i) != "") this.tableList.add(metaData.getTableName(i));
 			this.columns.add(new ColumnData(metaData, i));
 		}
 		this.rows = new ArrayList<>();
