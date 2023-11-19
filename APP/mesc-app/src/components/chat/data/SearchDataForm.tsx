@@ -52,6 +52,7 @@ const SearchDataForm = () => {
   }, [mlCard]);
 
   const handleButtonClick = async (button: ButtonItem) => {
+    setIsLoading(true);
     // mlCard의 button 배열에서 각 name 추출 및 추가
     setIsModalVisible(false);
     setChatbotHistory([
@@ -67,8 +68,8 @@ const SearchDataForm = () => {
     };
 
     const block = await getBlock(4, body);
-    console.log('block================', block);
-
+    // console.log('block================', block);
+    setIsLoading(false);
     setBlock(block);
     setActionIdTitle(button.name);
   };

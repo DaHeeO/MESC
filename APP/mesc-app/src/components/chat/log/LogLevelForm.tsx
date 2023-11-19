@@ -11,6 +11,7 @@ import {BlockResponseData} from '../../../states/BlockResponseState';
 import {LogSearchOption} from '../../../states/LogSearchOption';
 import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import UserMessage from '../../chat/UserMessage';
+import {LoadingState} from '../../../states/LoadingState';
 
 const logLevels = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR'];
 
@@ -27,6 +28,7 @@ const LogLevelForm = () => {
   const [logSearchOption, setLogSearchOption] = useRecoilState(LogSearchOption);
 
   const [selectedLevels, setSelectedLevels] = useState(new Set());
+  const [isLoading, setIsLoading] = useRecoilState(LoadingState);
 
   // 로그 레벨 버튼 눌렀을 때
   const toggleLevel = (level: string) => {
@@ -49,6 +51,7 @@ const LogLevelForm = () => {
 
   // 완료 버튼 눌렀을 때
   const submit = async () => {
+    setIsLoading(true);
     if (selectedLevelsArray.length === 0) {
       Alert.alert('로그 레벨을 선택해주세요.');
       return;
@@ -66,6 +69,7 @@ const LogLevelForm = () => {
     const newBlock = await getBlock(BlockType.LogOutput, logSearchOption);
 
     if (newBlock) setBlock(newBlock);
+    setIsLoading(false);
   };
 
   return (
