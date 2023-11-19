@@ -63,10 +63,10 @@ function ChatInput() {
 
   useEffect(() => {
     if (inputShow == true) {
-      setInputHeight('140px');
+      setInputHeight('130px');
       setInputJustify('space-between');
       setShowBox('flex');
-      setNoMargin('15px');
+      setNoMargin('0px');
     } else {
       setInputHeight('auto');
       setInputJustify('center');
@@ -446,7 +446,7 @@ function ChatInput() {
           </ScrollView>
         </S.SuggestionsBox>
       )}
-      <S.ChatInput height={inputHeight} justifyContent={inputJustify}>
+      <S.ChatInput justifyContent={inputJustify}>
         <S.OtherContainer marginTop={noMagin}>
           <S.PlusBox
             onPress={() => {

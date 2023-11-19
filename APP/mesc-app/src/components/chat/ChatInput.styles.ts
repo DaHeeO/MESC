@@ -152,7 +152,7 @@ export const RecentDataBox = styled.TouchableOpacity<InputProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: skyblue; */
+  // background-color: skyblue;
 `;
 
 export const Img = styled.Image`
@@ -175,8 +175,7 @@ export const ButtonContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  // background-color: yellow;
-  margin-top: 5px;
+  // background-color: aqua;
   margin-left: 5px;
 `;
 
