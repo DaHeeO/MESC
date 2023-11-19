@@ -25,11 +25,15 @@ import ChatbotProfile from './ChatbotProfileComponent';
 import {Query} from './data/Query.styles';
 import QueryResultMessage from './QueryResultMessage';
 import {LoadingState} from '../../states/LoadingState';
+import {SingleTableQueryState} from '../../states/SingleTableQueryState';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   const [isLoading, setIsLoading] = useRecoilState(LoadingState);
+  const [singleTableQuery, setSingleTableQuery] = useRecoilState(
+    SingleTableQueryState,
+  );
 
   // 다중 쿼리
   const [multipleCommitQuery, setMultipleCommitQuery] =
@@ -279,11 +283,12 @@ function ChatInput() {
       // 조회
 
       // 조회할 때 queryList도 같이 body에 보내주기
-      setIsLoading(true);
+      // setIsLoading(true);
       const body = {
         query: userMessage,
         queryList: multipleCommitQuery,
       };
+      setSingleTableQuery(userMessage);
       console.log('axios 가져오기 전==========', isLoading);
 
       const nextBlock: any = await putBlockToRecoil(
@@ -327,7 +332,7 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const newBlock = await getBlock(blockId, body);
 
     if (newBlock) setBlock(newBlock);
@@ -395,7 +400,7 @@ function ChatInput() {
     return async () => {
       const newBlock = await putBlockToRecoil(blockId, {});
       if (blockId === BlockType.SearchList) {
-        setIsModalVisible(true);
+        // setIsModalVisible(true);
         loadSuggestions;
         setModalId('SF');
       }

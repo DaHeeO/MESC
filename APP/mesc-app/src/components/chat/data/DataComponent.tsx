@@ -51,7 +51,7 @@ function DataComponent(props: {card: Card}) {
   const TableTitle = card.title;
   // 카드 테이블이 존재하면(select문 성공 시)
   const tableData: TableData | null | undefined = card.table;
-  // console.log('tableData', tableData);
+  console.log('tableData', tableData);
   // console.log('tableData?.rowCnt', tableData?.rowCnt);
   // console.log('tableData?.totalCnt', tableData?.totalCnt);
 
@@ -127,7 +127,7 @@ function DataComponent(props: {card: Card}) {
             </S.LabelContainer>
           </ScrollView>
         </S.DataSection>
-        <S.DataSection style={{height: 230}}>
+        <S.DataSection>
           {/* 세 번째 섹션: 선택된 라벨에 따라 DataBox 렌더링*/}
           {/* data2가 string 타입면 query prop, 아니면 table prop으로 */}
           {typeof data2 === 'string' ? (
@@ -148,7 +148,7 @@ function DataComponent(props: {card: Card}) {
   return (
     <View>
       <S.DataContainer>
-        <S.DataSection style={{height: 230}}>
+        <S.DataSection>
           {/* 첫 번째 섹션: data1 렌더링 */}
           <DataBox
             table={tableData}
