@@ -9,6 +9,7 @@ function ChatbotMessage(props: {card: Card}) {
   const [dynamicWidth, setDynamicWidth] = useState<number>(250);
   const {card} = props;
   const context = card.content;
+  const [textStyle, setTextStyle] = useState({});
 
   useEffect(() => {
     let lines: string[] = [];
@@ -16,16 +17,21 @@ function ChatbotMessage(props: {card: Card}) {
       lines = context.split('\n');
     }
 
+    if (
+      context !== null &&
+      context !== undefined &&
+      context.includes('SQLSyntaxErrorException')
+    ) {
+      setTextStyle({color: 'red'});
+    } else {
+      setTextStyle({color: '#323639'}); // 기본 색상
+    }
+
     const maxLength =
       lines.length === 0 ? 10 : Math.max(...lines.map(line => line.length));
 
     if (maxLength * 10 < 230) {
-      // 만약 가장 긴 줄의 길이가 width 미만이라면 동적으로 width를 재설정
-      if (maxLength * 10 < 230) {
-        setDynamicWidth(maxLength * 12);
-      } else {
-        setDynamicWidth(230);
-      }
+      setDynamicWidth(maxLength * 12);
     } else {
       setDynamicWidth(230);
     }

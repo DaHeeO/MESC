@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {LoadingState} from './src/states/LoadingState';
 
 // 로컬 스토리지에 accessToken 값 추출
 export async function getAccessToken() {

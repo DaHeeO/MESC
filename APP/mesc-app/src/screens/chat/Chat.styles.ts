@@ -32,3 +32,8 @@ export const ModalContainer = styled.View`
   flex: 1;
   background-color: rgba(0, 0, 0, 0.8);
 `;
+
+export const Loading = styled.View`
+  // margin-top: 10px;
+  margin-left: 56px;
+`;

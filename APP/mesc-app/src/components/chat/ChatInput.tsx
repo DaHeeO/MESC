@@ -24,10 +24,12 @@ import {ChatChooseSection1} from '../message/Btn/ChatChooseSection1';
 import ChatbotProfile from './ChatbotProfileComponent';
 import {Query} from './data/Query.styles';
 import QueryResultMessage from './QueryResultMessage';
+import {LoadingState} from '../../states/LoadingState';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
+  const [isLoading, setIsLoading] = useRecoilState(LoadingState);
 
   // 다중 쿼리
   const [multipleCommitQuery, setMultipleCommitQuery] =
@@ -180,6 +182,7 @@ function ChatInput() {
   // 전송 버튼을 눌렀을 때 처리하는 함수
   const handleSendButtonPress = async () => {
     setInputState(false);
+    // setIsLoading(true);
     setTimeout(() => {
       setInputState(true);
     }, 2000);
@@ -244,13 +247,18 @@ function ChatInput() {
         userMessage == '로그 조회') &&
       role === BlockType.DEVELOPER
     ) {
+      // setIsLoading(false);
       putBlockToRecoil(BlockType.LogKeyword, {});
     } else if (
       dataKeyword.includes(userMessage) &&
       role === BlockType.DEVELOPER
     ) {
+      // setIsLoading(true);
       putBlockToRecoil(BlockType.QueryInput, {});
+      // setIsLoading(false);
     } else {
+      // console.log('asdfasffff===============');
+
       putBlockToRecoil(role, {});
     }
     setInput(''); // 입력 필드 지우기.
@@ -271,16 +279,22 @@ function ChatInput() {
       // 조회
 
       // 조회할 때 queryList도 같이 body에 보내주기
-
+      setIsLoading(true);
       const body = {
         query: userMessage,
         queryList: multipleCommitQuery,
       };
+      console.log('axios 가져오기 전==========', isLoading);
 
       const nextBlock: any = await putBlockToRecoil(
         BlockType.SelectOutput,
         body,
       );
+      setIsLoading(false);
+
+      console.log('axios 가져온 후==========', isLoading);
+      setInput('');
+
       // 에러처리 추가해줘야함
       if (nextBlock.cardList[1].content.toLowerCase().includes('error')) {
         setInput(input);
@@ -294,8 +308,8 @@ function ChatInput() {
       const nextBlock: any = await putBlockToRecoil(BlockType.RollbackOutput, {
         query: userMessage,
       });
-
       setCommitQuery(userMessage);
+      setIsLoading(false);
 
       // 쿼리 에러 발생 했을 때 처리
       // 인풋창에 그대로 두기
@@ -313,6 +327,7 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
+    setIsLoading(true);
     const newBlock = await getBlock(blockId, body);
 
     if (newBlock) setBlock(newBlock);
@@ -347,10 +362,12 @@ function ChatInput() {
 
   // 최근 본 공정 데이터
   const recentData = async () => {
-    if (multipleCommitQuery.length == 0) {
+    if (actionId == 0) {
       Alert.alert('최근에 조회한 데이터가 없습니다.');
       return;
     }
+    setIsLoading(true);
+    console.log('isLoading', isLoading);
     const body = {
       actionId: actionId,
       title: actionIdTitle,
@@ -359,6 +376,7 @@ function ChatInput() {
     };
 
     const nextBlock: any = await putBlockToRecoil(BlockType.SearchChocie, body);
+    setIsLoading(false);
   };
 
   // 롤백 버튼 함수
