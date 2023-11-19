@@ -71,7 +71,7 @@ public class BlockController {
 	}
 
 	@Operation(summary = "카드 삭제 API", description = "카드를 삭제한다.")
-	@PostMapping("/admin/delete/{blockId}")
+	@PostMapping("/admin/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> deleteBlockInfo(@Parameter(description = "블록 id", required = true)
 	@PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
 	@RequestBody @Validated BlockReqDto blockReqDto) {
@@ -94,7 +94,7 @@ public class BlockController {
 		return ResponseEntity.ok(CommonResponseDto.success(responseMap));
 	}
 
-	@Operation(summary = "관리자 페이지 블록 조회 API", description = "관리자 페이지에서 요청한 블록과 엮여 있는 정보를 조회한다.")
+	@Operation(summary = "관리자 블록 조회 API", description = "관리자 페이지에서 요청한 블록과 엮여 있는 정보를 조회한다.")
 	@GetMapping("/admin/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> selectBlockByAdmin(
 		@Parameter(description = "블록 id", required = true)

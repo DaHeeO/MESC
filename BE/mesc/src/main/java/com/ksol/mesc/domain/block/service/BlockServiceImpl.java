@@ -583,10 +583,7 @@ public class BlockServiceImpl implements BlockService {
 		List<CardReq> cardReqList = blockReqDto.getCardReqList();
 		List<ComponentReq> componentReqList = blockReqDto.getComponentList();
 
-		//1. 블록 삭제의 경우 -> 블록 연관된 것 삭제
-		// deleteBlock(blockId);
-
-		//2. 카드 삭제의 경우 -> 연관된 것 삭제
+		//1. 카드 삭제의 경우 -> 연관된 것 삭제
 		Optional.ofNullable(cardReqList)
 			.ifPresent(list -> list.forEach(cardReq -> {
 				cardReq.setBlockId(blockId);
