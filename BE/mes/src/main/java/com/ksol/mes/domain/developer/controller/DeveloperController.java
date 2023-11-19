@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,20 +36,20 @@ public class DeveloperController {
 
 	private final DeveloperService developerService;
 
-	// @PostMapping("/data/{page}")
-	@PostMapping("/data")
+	@PostMapping("/data/{page}")
+	// @PostMapping("/data")
 	public ResponseEntity<CommonResponseDto<?>> getData(
-		// @PathVariable(required = true) Integer page,
+		@PathVariable(required = true) Integer page,
 		@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto, BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		log.info("query1 : {}", developerDataRequestDto.getQuery());
 		DeveloperDataResponseDto developerDataResponseDto;
 
 		try {
-			// Table table = developerService.getTable(developerDataRequestDto.getQuery(), page,
-			// 	developerDataRequestDto.getQueryList());
-			Table table = developerService.getTable(developerDataRequestDto.getQuery(),
+			Table table = developerService.getTable(developerDataRequestDto.getQuery(), page,
 				developerDataRequestDto.getQueryList());
+			// Table table = developerService.getTable(developerDataRequestDto.getQuery(),
+			// 	developerDataRequestDto.getQueryList());
 			developerDataResponseDto = new DeveloperDataResponseDto(table);
 		} catch (SQLException e) {
 			log.error(e.getMessage());
@@ -84,10 +85,10 @@ public class DeveloperController {
 		return new ResponseEntity<>(CommonResponseDto.success(developerQueryResponseDto), HttpStatus.OK);
 	}
 
-	// @PostMapping("/query/rollback/{page}")
-	@PostMapping("/query/rollback")
+	@PostMapping("/query/rollback/{page}")
+	// @PostMapping("/query/rollback")
 	public ResponseEntity<CommonResponseDto<?>> executeQueryWithRollback(
-		// @PathVariable(required = true) Integer page,
+		@PathVariable(required = true) Integer page,
 		@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		DeveloperDataResponseDto developerDataResponseDto;
@@ -95,8 +96,8 @@ public class DeveloperController {
 		try {
 			String query = developerQueryRequestDto.getQuery();
 			List<String> queryList = developerQueryRequestDto.getQueryList();
-			Table table = developerService.executeQueryWithRollback(query, queryList);
-			// Table table = developerService.executeQueryWithRollback(query, page, queryList);
+			// Table table = developerService.executeQueryWithRollback(query, queryList);
+			Table table = developerService.executeQueryWithRollback(query, page, queryList);
 			developerDataResponseDto = new DeveloperDataResponseDto(table);
 		} catch (SQLException e) {
 			log.error(e.getMessage());
