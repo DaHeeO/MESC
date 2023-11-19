@@ -401,7 +401,6 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	//블록 수정
-	@Override
 	@Transactional
 	public void updateBlockContent(Integer blockId, BlockReqDto blockReqDto) {
 		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
@@ -617,6 +616,7 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	//component Type 별 수정
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void updateComponentEntityByType(Component component) {
 		ComponentType componentType = component.getComponentType();
