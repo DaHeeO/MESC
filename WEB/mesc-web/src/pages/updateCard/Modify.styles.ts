@@ -65,6 +65,26 @@ export const ButtonText = styled.div<{ isFocused: boolean }>`
   font-weight: ${(props) => (props.isFocused ? 500 : 600)};
 `;
 
+export const ButtonDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const DeleteButton = styled.div<{ color?: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) =>
+    props.color ? props.color : colors.buttonRed};
+  border-radius: 8px;
+  padding: 6px 20px;
+  margin-left: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const AddButton = styled.div<{ color?: string }>`
   display: flex;
   align-items: center;

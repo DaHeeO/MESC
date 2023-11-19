@@ -1,14 +1,15 @@
 // React
 import React, { useEffect, useState } from "react";
-// style
-import { CustomTable, HoverTd, TitleBox } from "./SelectBlockStyle";
 // api
 import { api } from "../../../apis/Api";
 // recoil
 import { useRecoilState } from "recoil";
 import { CreatBlockState } from "../../../state/create/AddBlock";
-import { BlockState } from "../../../state/create/CreateState";
-import { CardListState } from "../../../state/read/GetCardList";
+import {
+  BlockListState,
+  BlockState,
+  CardListState,
+} from "../../../state/create/BlockState";
 import { LinkIdState } from "../../../state/linkId";
 
 import * as S from "./SelectBlockv2.styles";
@@ -19,11 +20,12 @@ interface TableProps {
 }
 
 export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
-  const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
-  const [resdata, setResData] = useState<any[]>([]);
+  // block List 저장
+  const [blockList, setBlockList] = useRecoilState(BlockListState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // recoil에서 block값 가져오기
+  const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
   const [cardList, setCardList] = useRecoilState(CardListState);
   const [linkId, setLinkId] = useRecoilState(LinkIdState);
   // 데이터 조회하기 ============================>
@@ -32,7 +34,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
     api
       .get("/block/admin")
       .then((res) => {
-        setResData(res.data.data);
+        setBlockList(res.data.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -52,17 +54,10 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
   // 단일 블록 조회하기 ============================>
   const SelectTheBlock = (id: number) => {
     api
-      .post(`/block/${id}`, {})
+      .get(`/block/admin/${id}`, {})
       .then((res) => {
-        // console.log("id=======", res);
-        // console.log("card(결과값)=======", res.request.response.data);
-        console.log(res.data.data.cardList);
-        setCardList(res.data.data.cardList);
-        setBlockInfo({
-          id: id,
-          name: res.data.data.blockName,
-        });
-        // console.log("res==================", res.data.data.blockName);
+        setBlockInfo(res.data.data.blockInfo);
+        setCardList(res.data.data.cardResList);
       })
       .catch((err) => {
         console.log(err);
@@ -87,7 +82,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
       </S.TitleBox>
       {/* body */}
       <S.TableContainer>
-        {resdata.map((item: any) => (
+        {blockList.map((item: any) => (
           <S.TableDiv
             key={item.id}
             onClick={() => {
