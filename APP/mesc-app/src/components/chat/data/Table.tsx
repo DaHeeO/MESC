@@ -25,6 +25,8 @@ import {ActionIdState} from '../../../states/ReadDataState';
 import {BlockType} from '../../../const/constants';
 import {is} from 'date-fns/locale';
 import {ConditionState} from '../../../states/ConditionState';
+import {MultipleCommitQuery} from '../../../states/MultipleCommitQuery';
+import {SingleTableQueryState} from '../../../states/SingleTableQueryState';
 
 type TableProps = {
   title?: string;
@@ -35,9 +37,10 @@ type TableProps = {
   showButton?: boolean;
   onPress?: () => void;
   query?: string | undefined;
-  isLastPage?: boolean;
   rowCnt?: number;
   totalCnt?: number;
+  cardType?: string;
+  isLastPage?: boolean;
 };
 
 const Table: React.FC<TableProps> = ({
@@ -49,9 +52,10 @@ const Table: React.FC<TableProps> = ({
   showButton,
   onPress,
   query,
-  isLastPage,
   rowCnt,
   totalCnt,
+  cardType,
+  isLastPage,
 }) => {
   // 모달 관련 여부
   const [isModalVisible, setModalVisible] =
@@ -60,6 +64,11 @@ const Table: React.FC<TableProps> = ({
   const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
   const [conditionState, setConditionState] = useRecoilState(ConditionState);
   const [actionId, setActionId] = useRecoilState(ActionIdState);
+
+  // 다중 커밋관련
+  const multipleCommitQuery = useRecoilValue(MultipleCommitQuery);
+  const singleTableQuery = useRecoilValue(SingleTableQueryState);
+
   // const conditionId = useRecoilValue(ConditionIdState);
   const [isModalBoxVisible, setModalBoxVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState<{
@@ -72,57 +81,84 @@ const Table: React.FC<TableProps> = ({
   const [IsLastPage, setIsLastPage] = useState(isLastPage);
   const [moreRowList, setMoreRowList] = useState(rowList);
   const [currentPage, setCurruntPage] = useState(2);
+
+  // 보여지는 rowCnt, totalCnt
   const [rowCnt2, setRowCnt2] = useState(rowCnt);
+  const [totalCnt2, setTotalCnt2] = useState(totalCnt);
+  const [tableType, setTableType] = useState(cardType);
+
+  useEffect(() => {
+    setRowCnt2(rowCnt);
+    setTotalCnt2(totalCnt);
+    setTableType(cardType);
+    setMoreRowList(rowList);
+    setIsLastPage(isLastPage);
+  }, [rowCnt, totalCnt, cardType, rowList, isLastPage]);
 
   // useEffect(() => {
-  //   if (!IsLastPage) {
-  //     console.log('loadMoreData() 호출');
-  //     loadMoreData();
-  //   }
-  // }, []);
+  //   setIsLastPage(IsLastPage);
+  // }, [IsLastPage]);
+  // console.log('IsLastPage', IsLastPage);
+  // console.log('Table쪽 rowCnt!!!!!!!!!!!!!!!!!!!!!!', rowCnt2);
+  // console.log('Table쪽 totalCnt!!!!!!!!!!!!!!!!!!!!!!', totalCnt2);
 
-  // useEffect(() => {
-  //   if (!IsLastPage) {
-  //     loadMoreData();
-  //   }
-  //   setRowCnt2(rowCnt);
-  // }, [rowCnt]);
+  console.log('Table 쪽 cardType================', cardType);
 
-  // const loadMoreData = async () => {
-  //   if (IsLastPage) return;
+  const loadMoreData = async () => {
+    console.log('loadMoreData() 호출');
+    console.log('IsLasePage', IsLastPage);
+    if (IsLastPage) {
+      console.log('마지막 페이지입니다.');
+      return;
+    }
 
-  //   const body = {
-  //     conditions: '',
-  //   };
+    console.log('11111111111111111111111111111');
+    console.log('actionId', actionId);
+    console.log('currentPage', currentPage);
 
-  //   try {
-  //     const response = await customAxios.post(
-  //       `api/worker/data/${actionId}/${currentPage}`,
-  //       body,
-  //     );
-  //     const newData = response.data.data.rowList;
-  //     if (response.data.data.isLastPage) {
-  //       setIsLastPage(true); // setIsLastPage를 사용하여 상태를 업데이트합니다.
-  //     }
-  //     setMoreRowList(prevRowList => [...prevRowList, ...newData]);
-  //     setCurruntPage(currentPage => currentPage + 1);
-  //     setRowCnt2(response.data.data.rowCnt);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+    // cardType에 따라 다른 api 호출
+    let body = {};
+    let apiUrl = '';
+    if (tableType === 'TA') {
+      body = {
+        conditions: '',
+      };
+      apiUrl = `api/worker/data/${actionId}/${currentPage}`;
+    } else if (tableType === 'QU') {
+      body = {
+        conditions: '',
+        query: singleTableQuery,
+        queryList: multipleCommitQuery,
+      };
+      apiUrl = `api/developer/data/${currentPage}`;
+    }
+
+    try {
+      const response = await customAxios.post(apiUrl, body);
+      console.log('response.data.data', response.data.data);
+      const newData = response.data.data.rowList;
+      if (response.data.data.isLastPage) {
+        setIsLastPage(true); // setIsLastPage를 사용하여 상태를 업데이트합니다.
+      }
+      setMoreRowList(prevRowList => [...prevRowList, ...newData]);
+      setCurruntPage(currentPage => currentPage + 1);
+      setRowCnt2(response.data.data.rowCnt);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // // console.log('currentPage================', currentPage);
-  // const handleScroll = (event: any) => {
-  //   const offsetY = event.nativeEvent.contentOffset.y;
-  //   const contentHeight = event.nativeEvent.contentSize.height;
-  //   const viewHeight = event.nativeEvent.layoutMeasurement.height;
+  const handleScroll = (event: any) => {
+    const offsetY = event.nativeEvent.contentOffset.y;
+    const contentHeight = event.nativeEvent.contentSize.height;
+    const viewHeight = event.nativeEvent.layoutMeasurement.height;
 
-  //   // 스크롤이 중간 지점에 도달했을 때 데이터 로드
-  //   if (offsetY + viewHeight >= contentHeight / 2) {
-  //     loadMoreData();
-  //   }
-  // };
+    // 스크롤이 끝에 도달했을 때 데이터 로드
+    if (offsetY + viewHeight >= contentHeight - 100) {
+      loadMoreData();
+    }
+  };
 
   // 셀 너비 설정
   const minColumnWidth = 75;
@@ -213,11 +249,11 @@ const Table: React.FC<TableProps> = ({
     setModalId('CF');
   };
 
-  const tableHeader = makeHeader(title, rowCnt2, totalCnt, isModalVisible);
+  const tableHeader = makeHeader(title, rowCnt2, totalCnt2, isModalVisible);
   function makeHeader(
     title: String | undefined,
     rowCnt2: number | undefined,
-    totalCnt: number | undefined,
+    totalCnt2: number | undefined,
     isModalVisible: boolean,
   ) {
     const showCountInfo = isModalBoxVisible || !showButton;
@@ -225,11 +261,15 @@ const Table: React.FC<TableProps> = ({
       <S.Header>
         <S.HeaderContainer>
           {title && <S.Title>{title}</S.Title>}
-          {showCountInfo && rowCnt !== undefined && totalCnt !== undefined && (
-            <S.CountInfo>
-              <S.CountText>total : {totalCnt}</S.CountText>
-            </S.CountInfo>
-          )}
+          {showCountInfo &&
+            rowCnt2 !== undefined &&
+            totalCnt2 !== undefined && (
+              <S.CountInfo>
+                <S.CountText>
+                  {rowCnt2}/{totalCnt2}
+                </S.CountText>
+              </S.CountInfo>
+            )}
           {showButton && title && (
             <S.Button>
               <ConditionModify onPress={handlePress} query={query} />
@@ -266,10 +306,10 @@ const Table: React.FC<TableProps> = ({
                 ))}
               </View>
               <ScrollView
-                // onScroll={handleScroll}
+                onScroll={handleScroll}
                 nestedScrollEnabled={true}
                 showsVerticalScrollIndicator={false}>
-                {rowList.map((row, rowIndex) => (
+                {moreRowList.map((row, rowIndex) => (
                   <TouchableOpacity
                     key={`row-${rowIndex}`}
                     onPressIn={() => handleTouchStart(rowIndex)}
@@ -310,11 +350,13 @@ const Table: React.FC<TableProps> = ({
           table={{
             columnNameList: columnName,
             columnTypeList: columnType,
-            rowList: rowList,
-            rowCnt: rowCnt,
-            totalCnt: totalCnt,
+            rowList: moreRowList,
+            rowCnt: rowCnt2,
+            totalCnt: totalCnt2,
+            isLastPage: false,
           }}
           onPress={hideModal}
+          cardType={tableType}
         />
       </Modal>
     </S.Container>

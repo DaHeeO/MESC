@@ -8,7 +8,8 @@ import {useRecoilState} from 'recoil';
 import {SingleTableTitleState} from '../../../states/DataTitleState';
 import {Card} from '../../../states/CardState';
 import {ConditionIdState} from '../../../states/ConditionIdState';
-import {cond} from 'lodash';
+import {SingleTableQueryState} from '../../../states/SingleTableQueryState';
+import {cond, set} from 'lodash';
 
 type LabelItem = {
   name: string;
@@ -43,11 +44,16 @@ function DataComponent(props: {card: Card}) {
   const [singleTableTitle, setSingleTableTitle] = useRecoilState(
     SingleTableTitleState,
   );
+  const [singleTableQuery, setSingleTableQuery] = useRecoilState(
+    SingleTableQueryState,
+  );
   const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
   const TableTitle = card.title;
-
   // 카드 테이블이 존재하면(select문 성공 시)
   const tableData: TableData | null | undefined = card.table;
+  // console.log('tableData', tableData);
+  // console.log('tableData?.rowCnt', tableData?.rowCnt);
+  // console.log('tableData?.totalCnt', tableData?.totalCnt);
 
   if (card.button) {
     // console.log('card.button', card.button);
@@ -78,6 +84,7 @@ function DataComponent(props: {card: Card}) {
       setData2(query); // query를 유지합니다.
     } else if (labelItem.labelType === 't') {
       fetchData(labelItem.query); // 테이블 데이터를 가져옵니다.
+      setSingleTableQuery(labelItem.query);
       setSingleTableTitle(labelItem.name);
     }
   };
@@ -93,6 +100,7 @@ function DataComponent(props: {card: Card}) {
       const singleTableData = response.cardList.filter(
         (card: Card) => card.cardType === 'QU',
       );
+      // console.log('singleTableData', singleTableData[0].table);
       setData2(singleTableData[0].table);
     } catch (error) {
       console.error('Fetching data failed: ', error);
@@ -129,6 +137,7 @@ function DataComponent(props: {card: Card}) {
               table={data2 as TableData}
               title={singleTableTitle}
               showButton={false}
+              cardType="QU"
             />
           )}
         </S.DataSection>
@@ -146,6 +155,7 @@ function DataComponent(props: {card: Card}) {
             title={TableTitle || ''}
             showButton={true}
             query={query}
+            cardType="TA"
             // rowCnt={tableData?.rowCnt}
             // totalCnt={tableData?.totalCnt}
           />

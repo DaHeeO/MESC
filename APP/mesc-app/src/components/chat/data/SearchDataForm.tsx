@@ -41,6 +41,7 @@ const SearchDataForm = () => {
   const [isWordSelected, setIsWordSelected] = useState(false);
   const [isLoading, setIsLoading] = useRecoilState(LoadingState);
   const cardList = block.cardList;
+
   const mlCard = cardList.find(card => card.cardType === 'ML');
 
   useEffect(() => {

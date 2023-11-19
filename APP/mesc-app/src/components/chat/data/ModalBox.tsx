@@ -24,8 +24,9 @@ type ModalBoxProps = {
   onPress: () => void;
   isModal?: boolean;
   log?: LogEntry[];
-  rowCnt?: number;
-  totalCnt?: number;
+  cardType?: string;
+  // rowCnt?: number;
+  // totalCnt?: number;
 };
 
 type LogEntry = {
@@ -43,6 +44,7 @@ const ModalBox: React.FC<ModalBoxProps> = ({
   onPress,
   isModal,
   log,
+  cardType,
 }) => {
   const panResponder = useRef(
     PanResponder.create({
@@ -76,7 +78,9 @@ const ModalBox: React.FC<ModalBoxProps> = ({
           rowList={table.rowList}
           rowCnt={table.rowCnt}
           totalCnt={table.totalCnt}
+          isLastPage={table.isLastPage}
           isModal={true}
+          cardType={cardType}
         />
       );
     } else if (query) {

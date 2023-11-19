@@ -77,11 +77,26 @@ function Chat() {
   useEffect(() => {
     // console.log(block);
     if (block.blockId === 0) return;
-    setIsLoading(true);
+    // setIsLoading(true);
+    setChatbotHistory(prev => [...prev, makeLoaingBlock()]);
     const chatbotBlock = makeChatbotBlock(block);
-    setChatbotHistory(prev => [...prev, chatbotBlock]);
-    setIsLoading(false);
+    setChatbotHistory(prev => {
+      // 마지막 로딩 블록 제거
+      const updatedHistory = prev.slice(0, -1);
+      // 새로운 챗봇 블록 추가
+      return [...updatedHistory, chatbotBlock];
+    });
+    // setIsLoading(false);
   }, [block]);
+
+  const makeLoaingBlock = () => {
+    return (
+      <>
+        <ChatbotProfile />
+        <Spinner size={30} type={'ThreeBounce'} color={'#182655'} />
+      </>
+    );
+  };
 
   const makeChatbotBlock = (data: any) => {
     let newButtonComponent = <></>;
@@ -92,6 +107,7 @@ function Chat() {
     } else if (data.section === 2) newButtonComponent = <ChatChooseSection2 />;
     // console.log('newButtonComponent', newButtonComponent);
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
+
     const cardComponents = data.cardList.map((card: any, index: any) => (
       <View key={index}>{ChatComponentIdSwitch(card)}</View>
     ));
@@ -99,19 +115,8 @@ function Chat() {
     return (
       <>
         <ChatbotProfile />
-        {isLoading ? (
-          <Spinner
-            isVisible={true}
-            size={20}
-            type={'ThreeBounce'}
-            color={'#182655'}
-          />
-        ) : (
-          <>
-            {cardComponents}
-            {newButtonComponent}
-          </>
-        )}
+        {cardComponents}
+        {newButtonComponent}
       </>
     );
   };
@@ -143,7 +148,6 @@ function Chat() {
       <S.ChatLayout>
         <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
           {chatbotHistory.map((component, index) => (
-            // chatbotHistory 배열 순회하며 컴포넌트 렌더링
             <View key={index}>{component}</View>
           ))}
         </ScrollView>
