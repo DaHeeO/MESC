@@ -112,11 +112,19 @@ function ChatInput() {
       return;
     }
 
-    // setLoading(true);
+    let endpoint;
+    if (kw.startsWith('table.')) {
+      endpoint = 'api/mesc/autocomplete/table';
+    } else if (kw.startsWith('column.')) {
+      endpoint = 'api/mesc/autocomplete/column';
+    } else {
+      endpoint = 'api/mesc/autocomplete';
+    }
     try {
-      const response = await customAxios.get('api/mesc/autocomplete', {
+      const response = await customAxios.get(endpoint, {
         params: {prefix: kw},
       });
+      console.log('response.data', response.data);
       setSuggestions(response.data);
     } catch (error) {
       console.error('Error fetching suggestions', error);
@@ -467,20 +475,20 @@ function ChatInput() {
         <S.HiddenContainer display={showBox}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <S.ButtonContainer>
+              <S.CommitBox onPress={commit}>
+                <S.ButtonText>Commit</S.ButtonText>
+              </S.CommitBox>
+              <S.RollbackBox onPress={rollback}>
+                <S.ButtonText>Rollback</S.ButtonText>
+              </S.RollbackBox>
               <S.ButtonBox onPress={recentData}>
                 <S.ButtonText>최근공정조회</S.ButtonText>
               </S.ButtonBox>
-              <S.ButtonBox onPress={commit}>
-                <S.ButtonText>Commit</S.ButtonText>
-              </S.ButtonBox>
-              <S.ButtonBox onPress={rollback}>
-                <S.ButtonText>Rollback</S.ButtonText>
+              <S.ButtonBox onPress={getNewBlock('로그')}>
+                <S.ButtonText>로그 조회</S.ButtonText>
               </S.ButtonBox>
               <S.ButtonBox onPress={getNewBlock('데이터')}>
                 <S.ButtonText>데이터 조회</S.ButtonText>
-              </S.ButtonBox>
-              <S.ButtonBox onPress={getNewBlock('로그')}>
-                <S.ButtonText>로그 조회</S.ButtonText>
               </S.ButtonBox>
             </S.ButtonContainer>
           </ScrollView>

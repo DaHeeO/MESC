@@ -51,6 +51,7 @@ export async function getCard(cardId: number, body: {}) {
 // baseURL 설정
 export const customAxios = axios.create({
   baseURL: `https://www.mesc.kr/api/`,
+  // baseURL: `localhost:8080/mesc`,
 });
 
 // Add an interceptor to the request to set the Authorization header with the access token

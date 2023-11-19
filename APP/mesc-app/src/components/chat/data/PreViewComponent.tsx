@@ -12,44 +12,39 @@ import {cond} from 'lodash';
 import ChatbotProfile from '../ChatbotProfileComponent';
 import PreViewBox from './PreViewBox';
 
-type LabelItem = {
-  name: string;
-  labelType: string;
-  query: string;
-};
-
 type TableData = {
   // result?: string;
   columnNameList: string[];
   columnTypeList: string[];
   rowList: string[][];
-};
-
-type ButtonItem = {
-  id: number;
-  name: string;
-  linkType: string;
-  link: string;
-  iconId?: any | null;
-  response: string;
+  totalCnt: number;
 };
 
 function PreViewComponent(props: {card: Card}) {
   const {card} = props;
+  console.log('card', card);
   const [conditionId, setConditionId] = useRecoilState(ConditionIdState);
 
   return (
     <View>
-      <S.DataContainer>
+      {card.table && (
+        <DataBox
+          title={card.title || ''}
+          table={card.table}
+          showButton={false}
+          cardType="QR"
+        />
+      )}
+      {/* <S.DataContainer>
         <S.DataSection style={{height: 230}}>
-          {/* 첫 번째 섹션: data1 렌더링 */}
           <PreViewBox
             table={card.table}
             title={card.title || ''}
             showButton={false}
+            totalCnt={card.table?.totalCnt}
           />
         </S.DataSection>
-      </S.DataContainer>
+      </S.DataContainer> */}
     </View>
   );
 }

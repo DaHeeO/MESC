@@ -39,7 +39,7 @@ function ChatbotMessage(props: {card: Card}) {
 
   return (
     <View>
-      <S.MescContainer style={{width: dynamicWidth + 30}}>
+      <S.MescContainer style={{width: dynamicWidth + 10}}>
         <View
           style={{
             // backgroundColor: 'blue',

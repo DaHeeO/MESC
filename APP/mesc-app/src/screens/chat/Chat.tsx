@@ -123,7 +123,7 @@ function Chat() {
   useLayoutEffect(() => {
     // console.log('chatbotHistory 변경됨');
     scrollToBottom();
-  }, [chatbotHistory, buttonComponent]);
+  }, [chatbotHistory, buttonComponent, isLoading]);
 
   const scrollToBottom = () => {
     setTimeout(() => {

@@ -60,6 +60,9 @@ export const InputBox = styled.TextInput`
   line-height: 18px;
   margin-left: 15px;
   margin-right: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  // background-color: yellow;
 `;
 
 export const SendBox = styled.View`
@@ -130,16 +133,16 @@ export const MenuBox = styled.View<InputProps>`
   /* background-color: skyblue;*/
 `;
 
-export const CommitBox = styled.TouchableOpacity<InputProps>`
-  /* border: 1px solid red; */
-  width: ${({width}) => (width ? width : '70px')};
-  height: ${({height}) => (height ? height : '70px')};
-  margin: ${({margin}) => (margin ? margin : '0px')};
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* background-color: skyblue; */
-`;
+// export const CommitBox = styled.TouchableOpacity<InputProps>`
+//   /* border: 1px solid red; */
+//   width: ${({width}) => (width ? width : '70px')};
+//   height: ${({height}) => (height ? height : '70px')};
+//   margin: ${({margin}) => (margin ? margin : '0px')};
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   /* background-color: skyblue; */
+// `;
 
 export const RecentDataBox = styled.TouchableOpacity<InputProps>`
   // border: 1px solid red;
@@ -183,6 +186,30 @@ export const ButtonBox = styled.TouchableOpacity`
   margin-left: 7px;
   margin-right: 7px;
   background-color: ${colors.header};
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 3px;
+`;
+
+export const CommitBox = styled.TouchableOpacity`
+  width: 85px;
+  height: 40px;
+  margin-left: 7px;
+  margin-right: 7px;
+  background-color: #089752;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 3px;
+`;
+
+export const RollbackBox = styled.TouchableOpacity`
+  width: 85px;
+  height: 40px;
+  margin-left: 7px;
+  margin-right: 7px;
+  background-color: #cb2727;
   align-items: center;
   justify-content: center;
   border-radius: 20px;
