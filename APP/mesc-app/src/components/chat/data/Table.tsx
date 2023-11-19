@@ -1,5 +1,6 @@
 //React
 import React, {useState, useRef, useCallback, useEffect} from 'react';
+import Spinner from 'react-native-spinkit';
 //Style
 import {
   View,
@@ -41,6 +42,7 @@ type TableProps = {
   totalCnt?: number;
   cardType?: string;
   isLastPage?: boolean;
+  isLoading?: boolean;
 };
 
 const Table: React.FC<TableProps> = ({
@@ -56,6 +58,7 @@ const Table: React.FC<TableProps> = ({
   totalCnt,
   cardType,
   isLastPage,
+  isLoading,
 }) => {
   // 모달 관련 여부
   const [isModalVisible, setModalVisible] =
@@ -81,7 +84,7 @@ const Table: React.FC<TableProps> = ({
   const [IsLastPage, setIsLastPage] = useState(isLastPage);
   const [moreRowList, setMoreRowList] = useState(rowList);
   const [currentPage, setCurruntPage] = useState(2);
-
+  const [loading, setLoading] = useState(isLoading);
   // 보여지는 rowCnt, totalCnt
   const [rowCnt2, setRowCnt2] = useState(rowCnt);
   const [totalCnt2, setTotalCnt2] = useState(totalCnt);
@@ -102,19 +105,19 @@ const Table: React.FC<TableProps> = ({
   // console.log('Table쪽 rowCnt!!!!!!!!!!!!!!!!!!!!!!', rowCnt2);
   // console.log('Table쪽 totalCnt!!!!!!!!!!!!!!!!!!!!!!', totalCnt2);
 
-  console.log('Table 쪽 cardType================', cardType);
+  // console.log('Table 쪽 cardType================', cardType);
 
   const loadMoreData = async () => {
-    console.log('loadMoreData() 호출');
-    console.log('IsLasePage', IsLastPage);
+    // console.log('loadMoreData() 호출');
+    // console.log('IsLasePage', IsLastPage);
     if (IsLastPage) {
-      console.log('마지막 페이지입니다.');
+      // console.log('마지막 페이지입니다.');
       return;
     }
-
-    console.log('11111111111111111111111111111');
-    console.log('actionId', actionId);
-    console.log('currentPage', currentPage);
+    setLoading(true);
+    // console.log('11111111111111111111111111111');
+    // console.log('actionId', actionId);
+    // console.log('currentPage', currentPage);
 
     // cardType에 따라 다른 api 호출
     let body = {};
@@ -135,7 +138,7 @@ const Table: React.FC<TableProps> = ({
 
     try {
       const response = await customAxios.post(apiUrl, body);
-      console.log('response.data.data', response.data.data);
+      // console.log('response.data.data', response.data.data);
       const newData = response.data.data.rowList;
       if (response.data.data.isLastPage) {
         setIsLastPage(true); // setIsLastPage를 사용하여 상태를 업데이트합니다.
@@ -145,6 +148,8 @@ const Table: React.FC<TableProps> = ({
       setRowCnt2(response.data.data.rowCnt);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false); // 데이터 로딩 완료
     }
   };
 
@@ -340,6 +345,11 @@ const Table: React.FC<TableProps> = ({
           </ScrollView>
         </S.Body>
       </S.Table>
+      {loading && (
+        <>
+          <Spinner size={30} type={'FadingCircleAlt'} color={'#182655'} />
+        </>
+      )}
       <Modal
         animationType="slide"
         transparent={true}
@@ -357,6 +367,7 @@ const Table: React.FC<TableProps> = ({
           }}
           onPress={hideModal}
           cardType={tableType}
+          isLoading={loading}
         />
       </Modal>
     </S.Container>
