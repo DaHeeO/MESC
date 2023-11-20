@@ -126,7 +126,7 @@ export const SelectList = () => {
                                         } else {
                                         }
                                     }}
-                                />
+                                ></S.CancelBox>
                             </S.TitleDiv>
                         </S.TableDiv>
                     </S.TableDiv>
