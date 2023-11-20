@@ -1,14 +1,22 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
+import { api } from "../../../apis/Api";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { SelectBlockv2 } from "../../Block/Select/SelectBlockv2";
-import { InnerBoxContainer } from "./LinkModalStyle";
+import { InnerBoxContainer } from "./LinkModal.styles";
 import { LinkIdState } from "../../../state/linkId";
 import { useRecoilState } from "recoil";
-import { CardState, Card } from "../../../state/create/BlockState";
-import { Btn, ComponentItem } from "../../../state/create/CreateState";
+import {
+  CardState,
+  Card,
+  ModalCardListState,
+} from "../../../state/create/BlockState";
+import { AddCardComponent } from "./ModalSelectedItem";
+
+import * as S from "./LinkModal.styles";
+import * as C from "../../common/theme";
 
 const style = {
   width: "80%",
@@ -29,42 +37,63 @@ interface LinkModalProps {
 }
 
 export default function LinkModal(props: LinkModalProps) {
-  const [cards, setCards] = useRecoilState(CardState);
-  const [open, setOpen] = React.useState(false);
+  const [linkId, setLinkId] = useRecoilState(LinkIdState);
+  const [cardList, setCardList] = useRecoilState(ModalCardListState);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    // setCards((prevCards) => {
-    //   const originBtn = props.card.componentList[props.btnIndex].object;
-    //   const btn: Btn = {
-    //     ...originBtn,
-    //     link: linkId,
-    //   };
-    //   const originComponent = props.card.componentList[props.btnIndex];
-    //   const componentItem: ComponentItem = {
-    //     ...originComponent,
-    //     object: btn,
-    //   };
-    //   const originComponentList = props.card.componentList;
-    //   const componentList = originComponentList.map((component) => {
-    //     return component.sequence === originComponent.sequence
-    //       ? componentItem
-    //       : component;
-    //   });
-    //   return prevCards.map((nowCard) => {
-    //     // console.log(nowCard.sequence, "   ", props.card.sequence);
-    //     return nowCard.sequence === props.card.sequence
-    //       ? { ...nowCard, componentList: componentList }
-    //       : nowCard;
-    //   });
-    // });
-    // setOpen(false);
-    // console.log(cards);
+    // props.card 수정
+
+    const updatedCard = { ...props.card };
+
+    // componentList를 복사하여 새로운 배열 생성
+    const updatedComponentList = updatedCard.componentList.map((component) => {
+      // 원하는 btnIndex의 component를 찾아 복사
+      if (component.sequence === props.btnIndex) {
+        return {
+          ...component,
+          object: {
+            ...component.object,
+            link: linkId,
+          },
+        };
+      }
+      // 찾지 않은 경우 그대로 반환
+      return component;
+    });
+
+    // 새로운 componentList를 설정
+    updatedCard.componentList = updatedComponentList;
+
+    // 상태 업데이트
+    console.log("updatedCard", updatedCard);
+
+    //api 호출
+    api
+      .post(`/component/admin/${props.card.id}`, {
+        componentList: updatedCard.componentList,
+      })
+      .then((res) => {
+        alert("링크 생성 완료");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    setOpen(false);
   };
-  const [linkId, setLinkId] = useRecoilState(LinkIdState);
+
+  const showCards = cardList.map((card) => {
+    return <AddCardComponent card={card} />;
+  });
 
   return (
     <div>
-      <Button onClick={handleOpen}>경로설정</Button>
+      <S.AddButton onClick={handleOpen}>
+        <S.Text size={12} color={C.colors.buttonBlue} weight={500}>
+          버튼 {props.btnIndex}
+        </S.Text>
+      </S.AddButton>
       <Modal
         open={open}
         onClose={handleClose}
@@ -80,7 +109,7 @@ export default function LinkModal(props: LinkModalProps) {
               flexDirection: "row",
             }}
           >
-            <InnerBoxContainer width="50%">
+            <InnerBoxContainer width="20%">
               <SelectBlockv2 type={"linkModal"} />
             </InnerBoxContainer>
             {/* ====정보=== */}
@@ -91,9 +120,12 @@ export default function LinkModal(props: LinkModalProps) {
               <InnerBoxContainer width="70%" height="50%">
                 {linkId}
               </InnerBoxContainer>
+              {/* {showCards} */}
             </InnerBoxContainer>
+
+            {/* 오른쪽 기존 카드 보여주기 */}
             {/* ====버튼=== */}
-            <InnerBoxContainer width="100%" height="20%">
+            <InnerBoxContainer width="30%" height="20%">
               <Button onClick={handleClose}>저장</Button>
             </InnerBoxContainer>
           </div>

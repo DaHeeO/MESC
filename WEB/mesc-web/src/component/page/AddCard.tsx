@@ -56,7 +56,18 @@ export const AddCardComponent = (props: { card: Card }) => {
   return (
     <S.CardContainer>
       <S.CardHeader>
-        {/* <LinkModal card={card} btnIndex={0} /> */}
+        <S.LinkModalDiv>
+          {card.cardType === "CH1" || card.cardType === "CH2" ? (
+            <LinkModal card={card} btnIndex={1} />
+          ) : (
+            <span></span>
+          )}
+
+          {card.cardType === "CH2" ? (
+            <LinkModal card={card} btnIndex={2} />
+          ) : null}
+        </S.LinkModalDiv>
+
         <img
           width={18}
           height={18}

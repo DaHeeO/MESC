@@ -26,6 +26,7 @@ export const CardHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  maring-bottom: 4px;
 `;
 
 export const InnerContainer = styled.div<AddProps>`
@@ -37,4 +38,10 @@ export const InnerContainer = styled.div<AddProps>`
   justify-content: ${(props) => props.justifyContent};
   align-items: ${(props) => props.alignItems};
   flex-direction: ${(props) => props.flexDirection};
+`;
+
+export const LinkModalDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;

@@ -9,6 +9,7 @@ import {
   BlockListState,
   BlockState,
   CardListState,
+  ModalCardListState,
 } from "../../../state/create/BlockState";
 import { LinkIdState } from "../../../state/linkId";
 
@@ -28,6 +29,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
   const [cardList, setCardList] = useRecoilState(CardListState);
   const [linkId, setLinkId] = useRecoilState(LinkIdState);
+  const [modalCards, setModalCards] = useRecoilState(ModalCardListState);
   // 데이터 조회하기 ============================>
 
   useEffect(() => {
@@ -58,6 +60,20 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
       .then((res) => {
         setBlockInfo(res.data.data.blockInfo);
         setCardList(res.data.data.cardResList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const setModalCard = (id: number) => {
+    setModalCards([]);
+    api
+      .get(`/block/admin/${id}`, {})
+      .then((res) => {
+        setModalCards(res.data.data.cardResList);
+        console.log("modalCards", modalCards);
+        console.log("linkId", linkId);
       })
       .catch((err) => {
         console.log(err);
@@ -100,6 +116,8 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
             key={item.id}
             onClick={() => {
               if (type == "linkModal") {
+                // 마운트 문제...
+                // setModalCard(item.id);
                 setLinkId(item.id);
               } else if (type == "modify") {
                 if (item.id <= 14 && item.id >= 1) {
