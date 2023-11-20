@@ -35,7 +35,7 @@ public class AutoCompleteService {
 	}
 
 	public List<String> getColumn(String prefix) {
-		AUTOCOMPLETE_KEY = "column";
+		AUTOCOMPLETE_KEY = "column2";
 		return autocompleteSuggestion(prefix, AUTOCOMPLETE_KEY);
 	}
 
