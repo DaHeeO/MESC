@@ -1,14 +1,15 @@
 // React
 import React, { useEffect, useState } from "react";
-// style
-import { CustomTable, HoverTd, TitleBox } from "./SelectBlockStyle";
 // api
 import { api } from "../../../apis/Api";
 // recoil
 import { useRecoilState } from "recoil";
 import { CreatBlockState } from "../../../state/create/AddBlock";
-import { BlockState } from "../../../state/create/CreateState";
-import { CardListState } from "../../../state/read/GetCardList";
+import {
+  BlockListState,
+  BlockState,
+  CardListState,
+} from "../../../state/create/BlockState";
 import { LinkIdState } from "../../../state/linkId";
 
 import * as S from "./SelectBlockv2.styles";
@@ -19,11 +20,12 @@ interface TableProps {
 }
 
 export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
-  const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
-  const [resdata, setResData] = useState<any[]>([]);
+  // block List 저장
+  const [blockList, setBlockList] = useRecoilState(BlockListState);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // recoil에서 block값 가져오기
+  const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
   const [cardList, setCardList] = useRecoilState(CardListState);
   const [linkId, setLinkId] = useRecoilState(LinkIdState);
   // 데이터 조회하기 ============================>
@@ -32,7 +34,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
     api
       .get("/block/admin")
       .then((res) => {
-        setResData(res.data.data);
+        setBlockList(res.data.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -52,21 +54,22 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
   // 단일 블록 조회하기 ============================>
   const SelectTheBlock = (id: number) => {
     api
-      .post(`/block/${id}`, {})
+      .get(`/block/admin/${id}`, {})
       .then((res) => {
-        // console.log("id=======", res);
-        // console.log("card(결과값)=======", res.request.response.data);
-        console.log(res.data.data.cardList);
-        setCardList(res.data.data.cardList);
-        setBlockInfo({
-          id: id,
-          name: res.data.data.blockName,
-        });
-        // console.log("res==================", res.data.data.blockName);
+        setBlockInfo(res.data.data.blockInfo);
+        setCardList(res.data.data.cardResList);
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const addNewBlock = () => {
+    // BlockList 한개 추가 및 모든것 초기화
+    setBlockInfo({ id: 0, name: "" });
+    setCardList([]);
+
+    console.log("blockInfo", blockInfo);
   };
 
   //===================================================>
@@ -79,22 +82,27 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
             Id
           </S.Text>
         </S.TitleDiv>
-        <S.TitleDiv width={"70%"}>
+        <S.TitleDiv width={"70%"} justify="space-between">
           <S.Text size={16} color={"#94918A"} weight={500}>
             블록 이름
           </S.Text>
+          <S.BlueButton onClick={addNewBlock}>
+            <S.Text size={16} color={C.colors.buttonBlue} weight={600}>
+              추가
+            </S.Text>
+          </S.BlueButton>
         </S.TitleDiv>
       </S.TitleBox>
       {/* body */}
       <S.TableContainer>
-        {resdata.map((item: any) => (
+        {blockList.map((item: any) => (
           <S.TableDiv
             key={item.id}
             onClick={() => {
               if (type == "linkModal") {
                 setLinkId(item.id);
               } else if (type == "modify") {
-                if (item.id <= 14) {
+                if (item.id <= 14 && item.id >= 1) {
                   alert("이 블록은 수정할 수 없습니다.");
                 } else if (item.id === 1035) {
                   alert("이 블록은 수정할 수 없습니다.");

@@ -5,12 +5,14 @@ import { CH1Form } from "./CH1Form";
 import { CH2Form } from "./CH2Form";
 import { TAForm } from "./TAForm";
 
-import { Card } from "../../state/create/CreateState";
+import { Card } from "../../state/create/BlockState";
 
 export const ComponentIdSwitch = (props: { card: Card }) => {
   const card = props.card;
   switch (props.card.cardType) {
     case "TX":
+      return <TXForm card={card} />;
+    case "DT":
       return <TXForm card={card} />;
     case "CH1":
       return <CH1Form card={card} />;

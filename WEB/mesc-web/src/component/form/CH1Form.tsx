@@ -1,15 +1,17 @@
 //style
+import { useEffect } from "react";
 import * as S from "./CH1Form.styles";
-import * as C from "../../pages/AddBlock/AddStyle";
 //Component
-import { AboutContainer } from "../common/About/AboutContainer";
 //Recoil
 import { useRecoilState } from "recoil";
 //Recoil State
-import { Ch1State, Ch1StateProps } from "../../state/create/CreateState";
-import { Card, CardState } from "../../state/create/CreateState";
+import {
+  Card,
+  CardListState,
+  ComponentListState,
+  ComponentState,
+} from "../../state/create/BlockState";
 // imgae
-import chatbot from "../../assets/img/chatbot.png";
 import Robot from "../../assets/img/robot.png";
 import { ComponentBtn } from "./ComponentBtn";
 
@@ -19,14 +21,8 @@ export interface Value {
 
 export const CH1Form = (props: { card: Card }) => {
   //카드 recoil
-  const [ch1State, setCh1State] = useRecoilState(Ch1State);
-  const [cards, setCards] = useRecoilState(CardState);
+  const [cards, setCards] = useRecoilState(CardListState);
   const { card } = props;
-
-  // ch1State를 업데이트하는 함수
-  const updateCh1State = (newValue: Ch1StateProps) => {
-    setCh1State(newValue);
-  };
 
   //=====================================================================
 
@@ -43,11 +39,14 @@ export const CH1Form = (props: { card: Card }) => {
       >
         <S.TopInput
           placeholder="제목을 입력하세요"
+          value={props.card.name}
           onChange={(e) => {
-            setCh1State((ch1State) =>
-              ch1State.sequence === props.card.sequence
-                ? { ...ch1State, name: e.target.value }
-                : ch1State
+            setCards((prevCards) =>
+              prevCards.map((nowCard) =>
+                nowCard.sequence === props.card.sequence
+                  ? { ...nowCard, name: e.target.value }
+                  : nowCard
+              )
             );
           }}
         />
@@ -57,6 +56,7 @@ export const CH1Form = (props: { card: Card }) => {
         {/* 버튼 위 text 공간 */}
         <S.Context
           placeholder="내용을 입력하세요"
+          value={props.card.content}
           onChange={(e) => {
             setCards((prevCards) =>
               prevCards.map((nowCard) =>
