@@ -22,7 +22,7 @@ function ChatbotMessage(props: {card: Card}) {
       context !== undefined &&
       context.includes('SQLSyntaxErrorException')
     ) {
-      setTextStyle({color: 'red'});
+      setTextStyle({color: '#cb2727'});
     } else {
       setTextStyle({color: '#323639'}); // 기본 색상
     }
@@ -39,7 +39,7 @@ function ChatbotMessage(props: {card: Card}) {
 
   return (
     <View>
-      <S.MescContainer style={{width: dynamicWidth + 30}}>
+      <S.MescContainer style={{width: dynamicWidth + 10}}>
         <View
           style={{
             // backgroundColor: 'blue',
@@ -52,8 +52,8 @@ function ChatbotMessage(props: {card: Card}) {
             style={{
               fontSize: 14,
               textAlign: 'left',
-              color: '#323639',
               fontWeight: 'bold',
+              ...textStyle,
             }}>
             {context}
           </Text>

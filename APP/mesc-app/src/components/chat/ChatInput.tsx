@@ -25,11 +25,15 @@ import ChatbotProfile from './ChatbotProfileComponent';
 import {Query} from './data/Query.styles';
 import QueryResultMessage from './QueryResultMessage';
 import {LoadingState} from '../../states/LoadingState';
+import {SingleTableQueryState} from '../../states/SingleTableQueryState';
 
 function ChatInput() {
   const [chatbotHistory, setChatbotHistory] =
     useRecoilState(ChatbotHistoryState);
   const [isLoading, setIsLoading] = useRecoilState(LoadingState);
+  const [singleTableQuery, setSingleTableQuery] = useRecoilState(
+    SingleTableQueryState,
+  );
 
   // 다중 쿼리
   const [multipleCommitQuery, setMultipleCommitQuery] =
@@ -59,10 +63,10 @@ function ChatInput() {
 
   useEffect(() => {
     if (inputShow == true) {
-      setInputHeight('140px');
+      setInputHeight('130px');
       setInputJustify('space-between');
       setShowBox('flex');
-      setNoMargin('15px');
+      setNoMargin('0px');
     } else {
       setInputHeight('auto');
       setInputJustify('center');
@@ -108,11 +112,23 @@ function ChatInput() {
       return;
     }
 
-    // setLoading(true);
+    let endpoint;
+    if (kw.startsWith('table.')) {
+      endpoint = 'api/mesc/autocomplete/table';
+      kw = kw.replace('table.', '');
+    } else if (kw.startsWith('column.')) {
+      endpoint = 'api/mesc/autocomplete/column';
+      kw = kw.replace('column.', '');
+    } else {
+      endpoint = 'api/mesc/autocomplete';
+      kw = kw.toUpperCase();
+    }
+    // console.log('kw', kw);
     try {
-      const response = await customAxios.get('api/mesc/autocomplete', {
+      const response = await customAxios.get(endpoint, {
         params: {prefix: kw},
       });
+      // console.log('response.data', response.data);
       setSuggestions(response.data);
     } catch (error) {
       console.error('Error fetching suggestions', error);
@@ -279,11 +295,12 @@ function ChatInput() {
       // 조회
 
       // 조회할 때 queryList도 같이 body에 보내주기
-      setIsLoading(true);
+      // setIsLoading(true);
       const body = {
         query: userMessage,
         queryList: multipleCommitQuery,
       };
+      setSingleTableQuery(userMessage);
       console.log('axios 가져오기 전==========', isLoading);
 
       const nextBlock: any = await putBlockToRecoil(
@@ -327,7 +344,7 @@ function ChatInput() {
   };
 
   const putBlockToRecoil = async (blockId: number, body: object) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const newBlock = await getBlock(blockId, body);
 
     if (newBlock) setBlock(newBlock);
@@ -381,6 +398,8 @@ function ChatInput() {
 
   // 롤백 버튼 함수
   const rollback = async () => {
+    // 롤백할때 빈배열로 초기화
+    setMultipleCommitQuery([]);
     setChatbotHistory(prev => [...prev, <UserMessage message={'Rollback'} />]);
     putBlockToRecoil(BlockType.Rollback, {});
   };
@@ -433,7 +452,7 @@ function ChatInput() {
           </ScrollView>
         </S.SuggestionsBox>
       )}
-      <S.ChatInput height={inputHeight} justifyContent={inputJustify}>
+      <S.ChatInput justifyContent={inputJustify}>
         <S.OtherContainer marginTop={noMagin}>
           <S.PlusBox
             onPress={() => {
@@ -462,20 +481,20 @@ function ChatInput() {
         <S.HiddenContainer display={showBox}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <S.ButtonContainer>
+              <S.CommitBox onPress={commit}>
+                <S.ButtonText>Commit</S.ButtonText>
+              </S.CommitBox>
+              <S.RollbackBox onPress={rollback}>
+                <S.ButtonText>Rollback</S.ButtonText>
+              </S.RollbackBox>
               <S.ButtonBox onPress={recentData}>
                 <S.ButtonText>최근공정조회</S.ButtonText>
               </S.ButtonBox>
-              <S.ButtonBox onPress={commit}>
-                <S.ButtonText>Commit</S.ButtonText>
-              </S.ButtonBox>
-              <S.ButtonBox onPress={rollback}>
-                <S.ButtonText>Rollback</S.ButtonText>
+              <S.ButtonBox onPress={getNewBlock('로그')}>
+                <S.ButtonText>로그 조회</S.ButtonText>
               </S.ButtonBox>
               <S.ButtonBox onPress={getNewBlock('데이터')}>
                 <S.ButtonText>데이터 조회</S.ButtonText>
-              </S.ButtonBox>
-              <S.ButtonBox onPress={getNewBlock('로그')}>
-                <S.ButtonText>로그 조회</S.ButtonText>
               </S.ButtonBox>
             </S.ButtonContainer>
           </ScrollView>

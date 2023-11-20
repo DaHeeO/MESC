@@ -53,7 +53,9 @@ export function ChatComponentIdSwitch(card: Card) {
     // case 'QTA': // 쿼리입력(SELECT)에 따른 테이블
     //   return <Table header={[]} typeHeader={[]} body={[]} />;
     case 'QU':
-      return <DataComponent card={card}></DataComponent>;
+      return card.table ? (
+        <DataBox title={card.title ?? ''} table={card.table} cardType="QU" />
+      ) : null;
 
     // 직접입력 미리보기
     case 'QR': // 데이터 조회 테이블

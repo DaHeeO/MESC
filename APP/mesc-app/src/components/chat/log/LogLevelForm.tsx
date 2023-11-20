@@ -61,12 +61,16 @@ const LogLevelForm = () => {
       ...chatbotHistory,
       <UserMessage message={selectedLevelsArray.toString()} />,
     ]);
-    setLogSearchOption(prev => ({
-      ...prev,
-      levelList: selectedLevelsArray,
-    }));
+    // setLogSearchOption(prev => ({
+    //   ...prev,
+    //   levelList: selectedLevelsArray,
+    // }));
 
-    const newBlock = await getBlock(BlockType.LogOutput, logSearchOption);
+    // const newBlock = await getBlock(BlockType.LogOutput, logSearchOption);
+    const newBlock = await getBlock(BlockType.LogOutput, {
+      ...logSearchOption,
+      levelList: selectedLevelsArray,
+    });
 
     if (newBlock) setBlock(newBlock);
     setIsLoading(false);

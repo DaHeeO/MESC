@@ -128,11 +128,13 @@ const Table: React.FC<TableProps> = ({
       };
       apiUrl = `api/worker/data/${actionId}/${currentPage}`;
     } else if (tableType === 'QU') {
+      console.log('QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU');
       body = {
         conditions: '',
         query: singleTableQuery,
         queryList: multipleCommitQuery,
       };
+      console.log('multipleCommitQuery', multipleCommitQuery);
       apiUrl = `api/developer/data/${currentPage}`;
     }
 
