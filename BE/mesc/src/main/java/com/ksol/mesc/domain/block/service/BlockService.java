@@ -20,9 +20,9 @@ public interface BlockService {
 
 	List<ComponentRes> selectComponentByAdmin(List<Component> componentList);
 
-	void addBlockContent(BlockReqDto blockReqDto);
-	
-	void addComponentByCard(Integer cardId, ComponentListDto componentReqList);
+	BlockInfoRes addBlockContent(BlockReqDto blockReqDto);
+
+	List<ComponentRes> addComponentByCard(Integer cardId, ComponentListDto componentReqList);
 
 	void deleteBlock(Integer blockId);
 

@@ -46,9 +46,9 @@ public class BlockController {
 	@PostMapping("/admin")
 	public ResponseEntity<CommonResponseDto<?>> addBlockInfo(@Parameter(description = "블록명", required = true)
 	@RequestBody BlockReqDto blockReqDto) {
-		blockService.addBlockContent(blockReqDto);
+		BlockInfoRes blockInfoRes = blockService.addBlockContent(blockReqDto);
 
-		return ResponseEntity.ok(CommonResponseDto.success(null));
+		return ResponseEntity.ok(CommonResponseDto.success(blockInfoRes));
 	}
 
 	// @Operation(summary = "컴포넌트 추가 및 수정 API", description = "컴포넌트를 DB에 저장한다.")

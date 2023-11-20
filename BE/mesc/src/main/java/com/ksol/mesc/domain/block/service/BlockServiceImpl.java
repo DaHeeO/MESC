@@ -388,16 +388,21 @@ public class BlockServiceImpl implements BlockService {
 	//블록 추가
 	@Override
 	@Transactional
-	public void addBlockContent(BlockReqDto blockReqDto) {
+	public BlockInfoRes addBlockContent(BlockReqDto blockReqDto) {
+		BlockInfoRes blockInfoRes = new BlockInfoRes();
 		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
 		List<CardReq> cardReqList = blockReqDto.getCardReqList();
-		List<ComponentReq> componentReqs = blockReqDto.getComponentList();
+		// List<ComponentReq> componentReqs = blockReqDto.getComponentList();
 
 		//1. 블록 추가
 		Block block = saveBlock(blockInfoDto);
+		blockInfoRes.setBlockInfo(BlockRes.toResponse(block));
 
 		//2. 카드 추가 + 관련 컴포넌트 추가
-		saveCardAndComponent(block, cardReqList);
+		blockInfoRes.setCardResList(saveCardAndComponent(block, cardReqList));
+
+		return blockInfoRes;
+
 	}
 
 	//블록 수정
@@ -427,7 +432,7 @@ public class BlockServiceImpl implements BlockService {
 
 	//카드, 컴포넌트 저장 및 수정
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveCardAndComponent(Block block, List<CardReq> cardReqList) {
+	public List<CardRes> saveCardAndComponent(Block block, List<CardReq> cardReqList) {
 		//카드 저장 및 수정
 		if (cardReqList != null) {
 			//카드에 블록 정보 추가
@@ -435,13 +440,14 @@ public class BlockServiceImpl implements BlockService {
 				cardReq.setBlock(block);
 			}
 			List<Card> cardList = cardRepository.findByBlockId(block.getId(), EntityState.ACTIVE);
-			saveCardInfo(cardReqList, cardList);
+			return saveCardInfo(cardReqList, cardList);
 		}
 
 		//컴포넌트 저장 및 수정
 		// if (componentReqs != null) {
 		// 	saveComponent(componentReqs);
 		// }
+		return null;
 	}
 
 	// @Transactional(propagation = Propagation.REQUIRED)
@@ -465,25 +471,29 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveCardInfo(List<CardReq> cardReqList, List<Card> originCardList) {
+	public List<CardRes> saveCardInfo(List<CardReq> cardReqList, List<Card> originCardList) {
 		//2. cardReqList -> id 없으면 생성
 		//3. id 존재하면 update
 		List<Integer> newCardIdList = new ArrayList<>();
+		List<CardRes> cardResList = new ArrayList<>();
 
 		for (CardReq cardReq : cardReqList) {
 			log.info("cardReq : {}", cardReq);
 			Card savedCard = cardRepository.save(Card.toEntity(cardReq));
 			newCardIdList.add(savedCard.getId());
+
 			List<ComponentReq> componentReqList = cardReq.getComponentList();
 
 			//카드의 컴포넌트 추가
 			if (componentReqList != null) {
+				List<ComponentRes> componentResList = new ArrayList<>();
 				for (ComponentReq componentReq : componentReqList) {
 					componentReq.setCard(savedCard);    //카드 정보 추가
 					Object object = componentReq.getObject();
 					ComponentType componentType = componentReq.getType();
-					saveComponentEntityByType(componentType, object, componentReq);
+					componentResList.add(saveComponentEntityByType(componentType, object, componentReq));
 				}
+				cardResList.add(CardRes.toResponse(savedCard, componentResList));
 			}
 		}
 
@@ -498,22 +508,25 @@ public class BlockServiceImpl implements BlockService {
 					.forEach(this::updateComponentEntityByType);
 			}
 		}
-
+		return cardResList;
 	}
 
 	@Override
-	public void addComponentByCard(Integer cardId, ComponentListDto componentList) {
+	public List<ComponentRes> addComponentByCard(Integer cardId, ComponentListDto componentList) {
 		List<ComponentReq> componentReqList = componentList.getComponentList();
 		Card card = cardRepository.findById(cardId).orElseThrow(() -> new EntityNotFoundException("Card Not Found"));
+		List<ComponentRes> componentResList = new ArrayList<>();
 
 		if (componentReqList != null) {
 			for (ComponentReq componentReq : componentReqList) {
 				componentReq.setCard(card);    //카드 정보 추가
 				Object object = componentReq.getObject();
 				ComponentType componentType = componentReq.getType();
-				saveComponentEntityByType(componentType, object, componentReq);
+				ComponentRes componentRes = saveComponentEntityByType(componentType, object, componentReq);
+				componentResList.add(componentRes);
 			}
 		}
+		return componentResList;
 	}
 
 	// @Transactional(propagation = Propagation.REQUIRED)
@@ -532,8 +545,9 @@ public class BlockServiceImpl implements BlockService {
 
 	//type 별 객체 저장
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveComponentEntityByType(ComponentType componentType, Object object, ComponentReq componentReq) {
+	public ComponentRes saveComponentEntityByType(ComponentType componentType, Object object, ComponentReq componentReq) {
 		ObjectMapper objectMapper = new ObjectMapper();
+		ComponentRes componentRes = new ComponentRes();
 		try {
 			String json = objectMapper.writeValueAsString(object);
 
@@ -541,6 +555,7 @@ public class BlockServiceImpl implements BlockService {
 				case BU:
 					Button button = saveEntity(json, Button.class, buttonRepository);
 					componentReq.setLinkId(button.getId());
+					componentRes.setObject(ButtonRes.toResponse(button));
 					break;
 				// case CB:
 				// 	Checkbox checkbox = saveEntity(json, Checkbox.class, checkboxRepository);
@@ -558,6 +573,16 @@ public class BlockServiceImpl implements BlockService {
 							cv.setDropdown(dropdown);
 							valuesRepository.save(ComponentValue.toEntity(cv));
 						}));
+
+					//반환
+					List<ComponentValue> componentValueList = valuesRepository.findByDropdown(dropdown, EntityState.ACTIVE);
+					List<ValuesRes> valuesResList = new ArrayList<>();
+					for(ComponentValue componentValue : componentValueList){
+						ValuesRes valuesRes = ValuesRes.toResponse(componentValue);
+						valuesResList.add(valuesRes);
+					}
+
+					componentRes.setObject(DropdownRes.toResponse(dropdown, valuesResList));
 					break;
 				default:
 					throw new IllegalArgumentException("Invalid ComponentType");
@@ -567,7 +592,12 @@ public class BlockServiceImpl implements BlockService {
 			// if (flag) {
 			Component component = Component.toEntity(componentReq);
 			componentRepository.save(component);
+			componentRes.setId(component.getId());
+			componentRes.setType(component.getComponentType());
+			componentRes.setSequence(component.getSequence());
 			// }
+
+			return componentRes;
 
 		} catch (JsonProcessingException e) {
 			throw new RuntimeException(e);
