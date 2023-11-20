@@ -64,6 +64,14 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
       });
   };
 
+  const addNewBlock = () => {
+    // BlockList 한개 추가 및 모든것 초기화
+    setBlockInfo({ id: 0, name: "" });
+    setCardList([]);
+
+    console.log("blockInfo", blockInfo);
+  };
+
   //===================================================>
   return (
     <S.Total>
@@ -74,10 +82,15 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
             Id
           </S.Text>
         </S.TitleDiv>
-        <S.TitleDiv width={"70%"}>
+        <S.TitleDiv width={"70%"} justify="space-between">
           <S.Text size={16} color={"#94918A"} weight={500}>
             블록 이름
           </S.Text>
+          <S.BlueButton onClick={addNewBlock}>
+            <S.Text size={16} color={C.colors.buttonBlue} weight={600}>
+              추가
+            </S.Text>
+          </S.BlueButton>
         </S.TitleDiv>
       </S.TitleBox>
       {/* body */}
@@ -89,7 +102,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
               if (type == "linkModal") {
                 setLinkId(item.id);
               } else if (type == "modify") {
-                if (item.id <= 14) {
+                if (item.id <= 14 && item.id >= 1) {
                   alert("이 블록은 수정할 수 없습니다.");
                 } else if (item.id === 1035) {
                   alert("이 블록은 수정할 수 없습니다.");
