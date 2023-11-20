@@ -308,6 +308,7 @@ public class BlockServiceImpl implements BlockService {
 				String keyword = cardReqDto.getKeyword();
 				String date = cardReqDto.getDate();
 				List<String> levelList = cardReqDto.getLevelList();
+				log.info("keyword : {}, date : {}, levelList : {}", keyword, date, levelList);
 				String command = logSerivce.getCommand(keyword, date, levelList);
 				String logs = logSerivce.getLogs(command);
 				if (logs.isBlank()) {
