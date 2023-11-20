@@ -29,6 +29,8 @@ public class LogServiceImpl implements LogSerivce {
 
     @Override
     public String getCommand(String keyword, String date, List<String> levelList) {
+        log.info("levelList : {}", levelList);
+
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < date.length(); i++) {
             char ch = date.charAt(i);
