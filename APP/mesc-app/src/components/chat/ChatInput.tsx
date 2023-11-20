@@ -115,20 +115,20 @@ function ChatInput() {
     let endpoint;
     if (kw.startsWith('table.')) {
       endpoint = 'api/mesc/autocomplete/table';
-      kw = kw.replace('table.', '').toUpperCase();
+      kw = kw.replace('table.', '');
     } else if (kw.startsWith('column.')) {
       endpoint = 'api/mesc/autocomplete/column';
-      kw = kw.replace('column.', '').toUpperCase();
+      kw = kw.replace('column.', '');
     } else {
       endpoint = 'api/mesc/autocomplete';
       kw = kw.toUpperCase();
     }
-    console.log('kw', kw);
+    // console.log('kw', kw);
     try {
       const response = await customAxios.get(endpoint, {
         params: {prefix: kw},
       });
-      console.log('response.data', response.data);
+      // console.log('response.data', response.data);
       setSuggestions(response.data);
     } catch (error) {
       console.error('Error fetching suggestions', error);
@@ -398,6 +398,8 @@ function ChatInput() {
 
   // 롤백 버튼 함수
   const rollback = async () => {
+    // 롤백할때 빈배열로 초기화
+    setMultipleCommitQuery([]);
     setChatbotHistory(prev => [...prev, <UserMessage message={'Rollback'} />]);
     putBlockToRecoil(BlockType.Rollback, {});
   };
