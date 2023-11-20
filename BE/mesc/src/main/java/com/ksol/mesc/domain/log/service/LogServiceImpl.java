@@ -18,12 +18,14 @@ public class LogServiceImpl implements LogSerivce {
 
     @Override
     public String getLogs(String command) {
+        log.info("command2 : {}", command);
         String result = "";
         try {
             result = sshUtil.command(command);
         } catch (Exception e) {
             log.info(e.getMessage());
         }
+        log.info("result : {}", result);
         return result;
     }
 

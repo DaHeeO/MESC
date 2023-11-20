@@ -30,6 +30,7 @@ public class SSHUtil {
             throw new Exception();
         }
         String result = getResult(command, session);
+        log.info("sshResult : {}", result);
         session.disconnect();
         return result;
     }
