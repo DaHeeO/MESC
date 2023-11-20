@@ -30,7 +30,7 @@ function SideBar() {
 
     const goMenu3 = () => {
         navigate('/Menu3');
-    }
+    };
 
     const goMenu4 = () => {
         navigate('/Faq');
