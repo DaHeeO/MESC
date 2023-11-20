@@ -74,13 +74,13 @@ export const Modify = () => {
   const UpdateBlockName = (newName: string) => {
     const updatedBlockItem = {
       id: blockInfo.id,
-      name: blockName,
+      name: newName,
     };
     console.log(cardList);
     console.log(blockInfo);
     api
       .post(`block/admin`, {
-        blockInfo: blockInfo,
+        blockInfo: updatedBlockItem,
         cardReqList: cardList,
       })
       .then((res) => {
@@ -88,6 +88,20 @@ export const Modify = () => {
         console.log(res);
         console.log(blockInfo, cardList);
         alert("저장완료");
+        // 바뀐 이름으로 Recoil state 갱신
+        setBlockInfo(updatedBlockItem);
+        setCardList([]);
+        setBlockList((prevBlockList) => {
+          // Ensure prevBlockList is an array before using filter
+          if (Array.isArray(prevBlockList)) {
+            return prevBlockList.map((block) =>
+              block.id === blockInfo.id ? updatedBlockItem : block
+            );
+          } else {
+            console.error("prevBlockList is not an array:", prevBlockList);
+            return prevBlockList; // Return the original state if it's not an array
+          }
+        });
       })
       .catch((err) => {
         console.log(err);
