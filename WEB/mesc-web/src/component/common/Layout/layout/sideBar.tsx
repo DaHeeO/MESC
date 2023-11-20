@@ -23,9 +23,7 @@ function SideBar() {
   const goMain = () => {
     navigate("/");
   };
-  const goAdd = () => {
-    navigate("/Add");
-  };
+
   const goMenu2 = () => {
     navigate("/Modify");
   };
@@ -95,21 +93,7 @@ function SideBar() {
               홈
             </S.Text>
           </S.NavContainer>
-          <S.NavContainer onClick={goAdd}>
-            <img
-              width={18}
-              height={18}
-              src={isActive("/Add") ? AddFocus : Add}
-            />
-            <S.Text
-              size={14}
-              color={isActive("/Add") ? "white" : C.colors.textIcyGray}
-              weight={500}
-              style={{ paddingLeft: "14px" }}
-            >
-              블록 추가하기
-            </S.Text>
-          </S.NavContainer>
+
           <S.NavContainer onClick={goMenu2}>
             <img
               width={18}
@@ -122,7 +106,7 @@ function SideBar() {
               weight={500}
               style={{ paddingLeft: "14px" }}
             >
-              블록 수정하기
+              블록 관리하기
             </S.Text>
           </S.NavContainer>
           <S.NavContainer onClick={goMenu4}>

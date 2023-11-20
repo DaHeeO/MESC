@@ -10,6 +10,7 @@ import {
   BlockState,
   CardState,
   ComponentListState,
+  ComponentItem,
 } from "../../state/create/BlockState";
 import { CardIdState } from "../../state/CardIdState";
 // API
@@ -78,34 +79,57 @@ export const Modify = () => {
     };
     console.log(cardList);
     console.log(blockInfo);
-    api
-      .post(`block/admin`, {
-        blockInfo: updatedBlockItem,
-        cardReqList: cardList,
-      })
-      .then((res) => {
-        console.log("card==================", cardList);
-        console.log(res);
-        console.log(blockInfo, cardList);
-        alert("저장완료");
-        // 바뀐 이름으로 Recoil state 갱신
-        setBlockInfo(updatedBlockItem);
-        setCardList([]);
-        setBlockList((prevBlockList) => {
-          // Ensure prevBlockList is an array before using filter
-          if (Array.isArray(prevBlockList)) {
-            return prevBlockList.map((block) =>
-              block.id === blockInfo.id ? updatedBlockItem : block
-            );
-          } else {
-            console.error("prevBlockList is not an array:", prevBlockList);
-            return prevBlockList; // Return the original state if it's not an array
-          }
+
+    //block아이디가 1035번이상이어야 api 호출
+    if (blockInfo.id! > 1034 || blockInfo.id! === 0) {
+      if (blockInfo.id! === 0) {
+        updatedBlockItem.id = undefined;
+      }
+      api
+        .post(`block/admin`, {
+          blockInfo: updatedBlockItem,
+          cardReqList: cardList,
+        })
+        .then((res) => {
+          console.log("card==================", cardList);
+          console.log(res);
+          alert("저장완료");
+
+          // 바뀐 이름으로 Recoil state 갱신
+          setBlockInfo(updatedBlockItem);
+          setBlockList((prevBlockList) => {
+            if (Array.isArray(prevBlockList)) {
+              const blockExists = prevBlockList.some(
+                (block) => block.id === blockInfo.id
+              );
+
+              if (blockExists) {
+                return prevBlockList.map((block) =>
+                  block.id === blockInfo.id ? updatedBlockItem : block
+                );
+              } else {
+                // If the block with blockInfo.id doesn't exist, add it to the end
+                return [
+                  ...prevBlockList,
+                  { ...updatedBlockItem, id: res.data.data.blockInfo.id },
+                ];
+              }
+            } else {
+              console.error("prevBlockList is not an array:", prevBlockList);
+              return prevBlockList; // Return the original state if it's not an array
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+      // console.log(updatedBlockItem, "updatedBlockItem");
+      // console.log("cardList", cardList);
+    }
+    // block아이디가 0이면 생성
+    if (blockInfo.id! === 0) {
+    }
   };
   // =======================================================
 
@@ -120,15 +144,43 @@ export const Modify = () => {
   // 카드 추가 함수
   const addCard = (cardType: string) => {
     const newCard: Card = {
-      // Index: cards.length + 1, // id를 적절히 부여합니다.
       name: "카드 이름을 작성해주세요.",
       sequence: cardList.length + 1,
-      // cardType: CardType, // 이 부분도 수정이 필요합니다.
-      cardType: cardType, // 이 부분도 수정이 필요합니다.
+      cardType: cardType,
       content: "",
       componentList: [],
     };
 
+    if (cardType === "CH1" || cardType === "CH2") {
+      const First: ComponentItem = {
+        type: "BU",
+        sequence: 1,
+        object: {
+          name: "",
+          linkType: "B",
+          link: 1,
+          actionId: 0,
+          iconId: 0,
+          response: "",
+        },
+      };
+      newCard.componentList.push(First);
+    }
+    if (cardType === "CH2") {
+      const Second: ComponentItem = {
+        type: "BU",
+        sequence: 2,
+        object: {
+          name: "",
+          linkType: "B",
+          link: 1,
+          actionId: 0,
+          iconId: 0,
+          response: "",
+        },
+      };
+      newCard.componentList.push(Second);
+    }
     // Recoil을 사용하여 카드 상태 갱신
     // setCreateCard((prevCardState) => [...prevCardState, newCard]);
     setCardList((prevCardList) => [...prevCardList, newCard]);

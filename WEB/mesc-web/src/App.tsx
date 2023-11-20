@@ -5,7 +5,6 @@ import { Navigate } from "react-router-dom";
 import Layout from "./pages/layout";
 // Subpages
 import { MainPage } from "./pages/main/MainPage";
-import { Add } from "./pages/AddBlock/Add";
 import { Modify } from "./pages/updateCard/Modify";
 import Menu3 from "./pages/menu3";
 import { Faq } from "./pages/FAQ/Faq";
@@ -19,7 +18,6 @@ function App() {
         <Routes>
           <Route path="/Login" element={<Login />} />
           <Route path="/*" element={<Layout />}>
-            <Route path="Add" element={<Add />} />
             <Route path="Modify/:id" element={<Modify />} />
             {/* <Route path="Modify" element={<Modify />} /> */}
             <Route path="Menu3" element={<Menu3 />} />

@@ -22,9 +22,6 @@ export interface Value {
 export const CH1Form = (props: { card: Card }) => {
   //카드 recoil
   const [cards, setCards] = useRecoilState(CardListState);
-  const [componentListState, setComponentListState] =
-    useRecoilState(ComponentListState);
-  const [componentItem, setComponentItem] = useRecoilState(ComponentState);
   const { card } = props;
 
   //=====================================================================
