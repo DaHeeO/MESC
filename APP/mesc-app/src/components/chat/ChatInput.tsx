@@ -115,11 +115,15 @@ function ChatInput() {
     let endpoint;
     if (kw.startsWith('table.')) {
       endpoint = 'api/mesc/autocomplete/table';
+      kw = kw.replace('table.', '').toUpperCase();
     } else if (kw.startsWith('column.')) {
       endpoint = 'api/mesc/autocomplete/column';
+      kw = kw.replace('column.', '').toUpperCase();
     } else {
       endpoint = 'api/mesc/autocomplete';
+      kw = kw.toUpperCase();
     }
+    console.log('kw', kw);
     try {
       const response = await customAxios.get(endpoint, {
         params: {prefix: kw},
@@ -408,7 +412,7 @@ function ChatInput() {
     return async () => {
       const newBlock = await putBlockToRecoil(blockId, {});
       if (blockId === BlockType.SearchList) {
-        // setIsModalVisible(true);
+        setIsModalVisible(true);
         loadSuggestions;
         setModalId('SF');
       }
