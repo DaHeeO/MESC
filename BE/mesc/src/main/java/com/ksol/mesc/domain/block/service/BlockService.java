@@ -28,7 +28,9 @@ public interface BlockService {
 
 	void deleteBlockContent(Integer blockId, BlockReqDto blockReqDto);
 
-	void updateBlockContent(Integer blockId, BlockReqDto blockReqDto);
+	void updateComponentEntityByType(Component component);
+
+	// void updateBlockContent(Integer blockId, BlockReqDto blockReqDto);
 
 	LinkedHashMap<String, Object> selectBlockInfo(Integer blockId, CardReqDto cardReqDto, Integer userId);
 

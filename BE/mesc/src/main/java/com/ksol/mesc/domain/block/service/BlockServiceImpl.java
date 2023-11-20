@@ -401,7 +401,6 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	//블록 수정
-	@Override
 	@Transactional
 	public void updateBlockContent(Integer blockId, BlockReqDto blockReqDto) {
 		BlockInfoDto blockInfoDto = blockReqDto.getBlockInfo();
@@ -435,7 +434,8 @@ public class BlockServiceImpl implements BlockService {
 			for (CardReq cardReq : cardReqList) {
 				cardReq.setBlock(block);
 			}
-			saveCardInfo(cardReqList);
+			List<Card> cardList = cardRepository.findByBlockId(block.getId(), EntityState.ACTIVE);
+			saveCardInfo(cardReqList, cardList);
 		}
 
 		//컴포넌트 저장 및 수정
@@ -465,11 +465,15 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void saveCardInfo(List<CardReq> cardReqList) {
+	public void saveCardInfo(List<CardReq> cardReqList, List<Card> originCardList) {
+		//2. cardReqList -> id 없으면 생성
+		//3. id 존재하면 update
+		List<Integer> newCardIdList = new ArrayList<>();
+
 		for (CardReq cardReq : cardReqList) {
 			log.info("cardReq : {}", cardReq);
-
 			Card savedCard = cardRepository.save(Card.toEntity(cardReq));
+			newCardIdList.add(savedCard.getId());
 			List<ComponentReq> componentReqList = cardReq.getComponentList();
 
 			//카드의 컴포넌트 추가
@@ -482,6 +486,19 @@ public class BlockServiceImpl implements BlockService {
 				}
 			}
 		}
+
+		//카드 삭제
+		for(int i=0; i<originCardList.size(); i++){
+			Card card = originCardList.get(i);
+			Integer id = card.getId();
+			if(!newCardIdList.contains(id)){
+				cardRepository.updateState(id, EntityState.DELETE);
+
+				componentRepository.findByCard(card, EntityState.ACTIVE)
+					.forEach(this::updateComponentEntityByType);
+			}
+		}
+
 	}
 
 	@Override
@@ -617,6 +634,7 @@ public class BlockServiceImpl implements BlockService {
 	}
 
 	//component Type 별 수정
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void updateComponentEntityByType(Component component) {
 		ComponentType componentType = component.getComponentType();
