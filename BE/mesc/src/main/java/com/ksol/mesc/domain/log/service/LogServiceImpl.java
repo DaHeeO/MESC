@@ -37,10 +37,10 @@ public class LogServiceImpl implements LogSerivce {
         }
         date = sb.toString();
         System.out.println("date = " + date);
-        String level = levelList.isEmpty() ? null : "("+levelList.get(0);
+        String level = levelList.isEmpty() ? null : "("+levelList.get(0).toUpperCase();
         for (int i = 1; i < levelList.size(); i++) {
             // level += "\\|" + levelList.get(i);
-            level += "|" + levelList.get(i);
+            level += "|" + levelList.get(i).toUpperCase();
         }
         if(!levelList.isEmpty()) level += ")";
         String command = "";
