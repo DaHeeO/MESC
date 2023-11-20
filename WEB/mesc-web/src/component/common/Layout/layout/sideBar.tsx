@@ -28,6 +28,10 @@ function SideBar() {
         navigate('/Modify');
     };
 
+    const goMenu3 = () => {
+        navigate('/Menu3');
+    };
+
     const goMenu4 = () => {
         navigate('/Faq');
     };
@@ -89,6 +93,13 @@ function SideBar() {
                         <img width={18} height={18} src={isActive('/Modify') ? EditFocus : Edit} />
                         <S.Text size={14} color={isActive('/Modify') ? 'white' : C.colors.textIcyGray} weight={500} style={{ paddingLeft: '14px' }}>
                             블록 관리하기
+                        </S.Text>
+                    </S.NavContainer>
+                    <S.NavContainer onClick={goMenu3}>
+                        <img width={18} height={18} src={isActive('/Menu3') ? FaqFocus : Faq} />
+
+                        <S.Text size={14} color={isActive('/Menu3') ? 'white' : C.colors.textIcyGray} weight={500} style={{ paddingLeft: '14px' }}>
+                            리스트 관리하기
                         </S.Text>
                     </S.NavContainer>
                     <S.NavContainer onClick={goMenu4}>
