@@ -37,14 +37,22 @@ public class LogServiceImpl implements LogSerivce {
         }
         date = sb.toString();
         System.out.println("date = " + date);
-        String level = levelList.isEmpty() ? null : levelList.get(0);
+        String level = levelList.isEmpty() ? null : "("+levelList.get(0);
         for (int i = 1; i < levelList.size(); i++) {
-            level += "\\|" + levelList.get(i);
+            // level += "\\|" + levelList.get(i);
+            level += "|" + levelList.get(i);
         }
-        String command = "grep -i \"" + keyword + "\" _data/RULEmgrlog" + date + '*';
+        if(!levelList.isEmpty()) level += ")";
+        String command = "";
+        // String command = "grep -i \"" + keyword + "\" _data/RULEmgrlog" + date + '*';
         if (level != null) {
-            command += "| grep -i \"" + level + "\"";
+            command += "grep -E \'\\b"+level+"\\b\' _data/RULEmgrlog" + date + "*" + " | grep -i \"" + keyword + "\"";
+            // command += "| grep -i \"" + level + "\"";
         }
+        else{
+            command += "grep -i \"" + keyword + "\" _data/RULEmgrlog" + date + '*';
+        }
+        log.info("command : {}", command);
         return command;
     }
 }
