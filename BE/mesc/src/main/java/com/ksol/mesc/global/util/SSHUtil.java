@@ -70,7 +70,7 @@ public class SSHUtil {
             log.info("channel 오류 발생");
             throw new Exception();
         }
-
+        log.info("result!!!!!!!!! : {}", result);
         return result;
     }
 
