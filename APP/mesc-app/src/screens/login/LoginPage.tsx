@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, TouchableOpacity, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as S from './LoginPage.styles';
+import * as C from '../../components/common/Theme';
 
 import BackgroundImg from '../../assets/images/background333.png';
 import Logo from '../../assets/images/SDI_logo.png';
@@ -67,10 +68,9 @@ const RealLogin = ({navigation}: LoginProps) => {
       <S.BackgroundImg source={BackgroundImg} />
       <S.SubContainer>
         <S.Header>
-          <S.Logo>
-            <S.SDI source={Logo} />
-            <S.MESC>MESC</S.MESC>
-          </S.Logo>
+          <S.BoldText size={20} color={C.colors.text}>
+            SAMSUNG SDI MESC
+          </S.BoldText>
         </S.Header>
         <S.Body>
           <S.NnoxContainer>
