@@ -14,19 +14,14 @@ export const Container = styled.View`
 export const ImageBox = styled.View`
   width: 100%;
   height: 300px;
-  // background-color: yellow;
   align-items: center;
   justify-content: center;
 `;
 
 export const Img = styled(Image)`
   width: 100%;
-  height: 300px;
-  // background-color: blue;
-  border-radius: 10px;
   margin-bottom: 20px;
-  // align-items: center;
-  // justify-content: center;
+  resizemode: contain;
 `;
 
 export const View = styled.View`
