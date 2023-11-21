@@ -41,7 +41,8 @@ export default function LinkModal(props: LinkModalProps) {
   const [cardList, setCardList] = useRecoilState(ModalCardListState);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => {
+  const handleClose = () => setOpen(false);
+  const updateLink = () => {
     // props.card 수정
 
     const updatedCard = { ...props.card };
@@ -107,26 +108,30 @@ export default function LinkModal(props: LinkModalProps) {
               height: "100%",
               display: "flex",
               flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "center",
             }}
           >
             <InnerBoxContainer width="20%">
               <SelectBlockv2 type={"linkModal"} />
             </InnerBoxContainer>
-            {/* ====정보=== */}
-            <InnerBoxContainer width="50%" height="80%">
-              <InnerBoxContainer width="30%" height="50%">
-                링크 :
-              </InnerBoxContainer>
-              <InnerBoxContainer width="70%" height="50%">
+            <InnerBoxContainer width="80%">
+              <S.Text size={16} color="#4461F2">
                 {linkId}
-              </InnerBoxContainer>
+              </S.Text>
+              <S.Text size={16} color="black">
+                번 블록 연결
+              </S.Text>
+              <S.BlueButton onClick={updateLink}>
+                <S.ButtonText
+                  size={16}
+                  color={C.colors.buttonBlue}
+                  weight={500}
+                >
+                  링크 연결
+                </S.ButtonText>
+              </S.BlueButton>
               {/* {showCards} */}
-            </InnerBoxContainer>
-
-            {/* 오른쪽 기존 카드 보여주기 */}
-            {/* ====버튼=== */}
-            <InnerBoxContainer width="30%" height="20%">
-              <Button onClick={handleClose}>저장</Button>
             </InnerBoxContainer>
           </div>
         </Box>

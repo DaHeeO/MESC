@@ -102,11 +102,13 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
           <S.Text size={16} color={"#94918A"} weight={500}>
             블록 이름
           </S.Text>
-          <S.BlueButton onClick={addNewBlock}>
-            <S.Text size={16} color={C.colors.buttonBlue} weight={600}>
-              추가
-            </S.Text>
-          </S.BlueButton>
+          {type === "modify" ? (
+            <S.BlueButton onClick={addNewBlock}>
+              <S.Text size={16} color={C.colors.buttonBlue} weight={600}>
+                추가
+              </S.Text>
+            </S.BlueButton>
+          ) : null}
         </S.TitleDiv>
       </S.TitleBox>
       {/* body */}
