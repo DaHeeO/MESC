@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import {FlatList, Animated, Dimensions} from 'react-native';
 import * as S from './OnBoarding.styles';
 import OnBoardingItem from './OnBoardingItem';
-import BackgroundImg from '../../assets/images/background-intro.png';
+import BackgroundImg from '../../assets/images/background-carousel.png';
 
 interface IOnBoarding {
   pages: any[];
