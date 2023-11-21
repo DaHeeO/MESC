@@ -14,6 +14,8 @@ export const ComponentIdSwitch = (props: { card: Card }) => {
       return <TXForm card={card} />;
     case "DT":
       return <TXForm card={card} />;
+      case "DTX":
+      return <TXForm card={card} />;
     case "CH1":
       return <CH1Form card={card} />;
     case "CH2":
