@@ -89,16 +89,16 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
               if (type == "linkModal") {
                 setLinkId(item.id);
               } else if (type == "modify") {
-                if (item.id <= 14) {
-                  alert("이 블록은 수정할 수 없습니다.");
-                } else if (item.id === 1035) {
-                  alert("이 블록은 수정할 수 없습니다.");
-                } else {
-                  SelectTheBlock(item.id);
-                }
+                // if (item.id <= 14) {
+                //   alert("이 블록은 수정할 수 없습니다.");
+                // } else if (item.id === 1035) {
+                //   alert("이 블록은 수정할 수 없습니다.");
+                // } else {
+                SelectTheBlock(item.id);
+                // }
               }
             }}
-            className={item.id <= 16 || item.id === 1035 ? "disabled-row" : ""}
+            // className={item.id <= 16 || item.id === 1035 ? "disabled-row" : ""}
           >
             <S.TableDiv key={item.Index}>
               <S.TitleDiv width={"30%"}>
