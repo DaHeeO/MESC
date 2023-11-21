@@ -78,14 +78,10 @@ export const MainPage = () => {
               </S.Text>
             </S.BlockHeader>
             <S.InfoBody>
-              <S.UserImg>
-                <S.Text size={58} color={"white"} weight={800}>
-                  A
-                </S.Text>
-              </S.UserImg>
+              <S.UserImg></S.UserImg>
               <S.UpperText>
                 <S.Text size={18} color={C.colors.textBlack} weight={800}>
-                  {userInfoValue.name}
+                  {userInfoValue.name}님
                 </S.Text>
                 <S.RoleButton>
                   <S.Text size={10} color={C.colors.textIcyGray} weight={600}>

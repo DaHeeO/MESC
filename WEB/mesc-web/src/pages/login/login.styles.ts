@@ -99,6 +99,10 @@ export const InputBox = styled.div<{ color: string }>`
   margin-bottom: 20px;
   border-radius: 10px;
   background-color: ${(props) => props.color};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Input = styled.input`
