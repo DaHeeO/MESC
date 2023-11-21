@@ -28,6 +28,7 @@ import Check from '../../../assets/icons/check.svg';
 import Close from '../../../assets/icons/x.svg';
 import * as S from './ReportForm.styles';
 import {sub} from 'date-fns';
+import emailHeader from '../../../assets/images/emailHeader.png';
 
 //interface
 interface BottomSheetProps {
@@ -73,7 +74,7 @@ export const ReportForm = (props: BottomSheetProps) => {
   감사합니다.\n
   `;
 
-  const subjectExample = `[MESC] 공장에 이슈가 발생했습니다.`;
+  const subjectExample = `공장에 이슈가 발생했습니다.`;
 
   const [emails, setemails] = useState<string[]>([]); //이메일 주소
   const [subject, setsubject] = useState(subjectExample); //이메일 제목
@@ -235,6 +236,7 @@ export const ReportForm = (props: BottomSheetProps) => {
             justifyContent="flex-start"
             // style={{backgroundColor: 'green'}}
           >
+            <S.Header source={emailHeader} />
             <CustomTextArea
               defaultValue={contentExample}
               value={content}

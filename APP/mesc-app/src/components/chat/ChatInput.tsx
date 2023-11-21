@@ -113,12 +113,12 @@ function ChatInput() {
     }
 
     let endpoint;
-    if (kw.startsWith('table.')) {
+    if (kw.startsWith('t.')) {
       endpoint = 'api/mesc/autocomplete/table';
-      kw = kw.replace('table.', '');
-    } else if (kw.startsWith('column.')) {
+      kw = kw.replace('t.', '');
+    } else if (kw.startsWith('c.')) {
       endpoint = 'api/mesc/autocomplete/column';
-      kw = kw.replace('column.', '');
+      kw = kw.replace('c.', '');
     } else {
       endpoint = 'api/mesc/autocomplete';
       kw = kw.toUpperCase();
@@ -301,7 +301,6 @@ function ChatInput() {
         queryList: multipleCommitQuery,
       };
       setSingleTableQuery(userMessage);
-      console.log('axios 가져오기 전==========', isLoading);
 
       const nextBlock: any = await putBlockToRecoil(
         BlockType.SelectOutput,
@@ -309,7 +308,6 @@ function ChatInput() {
       );
       setIsLoading(false);
 
-      console.log('axios 가져온 후==========', isLoading);
       setInput('');
 
       // 에러처리 추가해줘야함
@@ -384,7 +382,6 @@ function ChatInput() {
       return;
     }
     setIsLoading(true);
-    console.log('isLoading', isLoading);
     const body = {
       actionId: actionId,
       title: actionIdTitle,

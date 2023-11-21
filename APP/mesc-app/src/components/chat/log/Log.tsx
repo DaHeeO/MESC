@@ -39,7 +39,8 @@ const Log = (props: {card: Card}) => {
     const logDetails = logEntries
       .map((entry: string) => {
         const pattern =
-          /(\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}\.\d{3}) (\w+)  \[(.*?)\] (\S+)\[(.*?) : (\d+)\] - (.*)/;
+          /(\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}\.\d{3}) (\w+) +\[(.*?)\] (\S+)\[(.*?) : (\d+)\] - (.*)/;
+
         const match = entry.match(pattern);
 
         if (match) {
@@ -51,6 +52,7 @@ const Log = (props: {card: Card}) => {
             message: match[7],
           };
         }
+
         return null; // 패턴과 맞지 않거나 필요하지 않은 경우 null을 반환합니다.
       })
       .filter((entry: LogEntry | null): entry is LogEntry => entry !== null); // null 값을 제거합니다.

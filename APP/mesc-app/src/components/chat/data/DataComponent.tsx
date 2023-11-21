@@ -51,7 +51,7 @@ function DataComponent(props: {card: Card}) {
   const TableTitle = card.title;
   // 카드 테이블이 존재하면(select문 성공 시)
   const tableData: TableData | null | undefined = card.table;
-  console.log('tableData', tableData);
+  // console.log('tableData', tableData);
   // console.log('tableData?.rowCnt', tableData?.rowCnt);
   // console.log('tableData?.totalCnt', tableData?.totalCnt);
 

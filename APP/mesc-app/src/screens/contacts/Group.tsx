@@ -263,7 +263,6 @@ const Group = ({navigation}: ContactsProps) => {
                               groupId: item.groupId,
                               groupName: item.groupName,
                             });
-                            console.log(groupInfoValue);
                             !editMode && navigation.navigate('Detail');
                           }
                         }}>

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {Image} from 'react-native';
 import {colors} from '../../common/Theme';
 
 export const ReportFormContainer = styled.View`
@@ -122,11 +123,11 @@ export const CustomTextArea = styled.TextInput`
   border-width: 1px;
   border-color: #000;
   width: 370px;
-  height: 85%;
+  height: 60%;
   flex-shrink: 1;
   border-radius: 12px;
   background-color: #fff;
-  margin-top: 25px;
+  margin-top: 10px;
   // background-color: pink;
 `;
 
@@ -179,4 +180,10 @@ export const Container = styled.View`
   display: flex;
   align-items: center;
   // justify-content: center;
+`;
+
+export const Header = styled(Image)`
+  width: 370px;
+  height: 120px;
+  margin-top: 10px;
 `;
