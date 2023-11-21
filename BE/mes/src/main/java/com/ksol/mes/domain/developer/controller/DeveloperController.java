@@ -42,7 +42,7 @@ public class DeveloperController {
 		@PathVariable(required = true) Integer page,
 		@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto, BindingResult bindingResult) {
 		checkValidates(bindingResult);
-		log.info("query1 : {}", developerDataRequestDto.getQuery());
+		log.info("{}", developerDataRequestDto.getQuery());
 		DeveloperDataResponseDto developerDataResponseDto;
 
 		try {
@@ -64,7 +64,7 @@ public class DeveloperController {
 		@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		DeveloperQueryResponseDto developerQueryResponseDto = new DeveloperQueryResponseDto();
-		log.info("query : {}", developerQueryRequestDto.getQuery());
+		log.info("{}", developerQueryRequestDto.getQuery());
 		try {
 			String query = developerQueryRequestDto.getQuery();
 			List<String> queryList = developerQueryRequestDto.getQueryList();
@@ -92,7 +92,7 @@ public class DeveloperController {
 		@RequestBody @Validated DeveloperQueryRequestDto developerQueryRequestDto, BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		DeveloperDataResponseDto developerDataResponseDto;
-		log.info("query : {}", developerQueryRequestDto.getQuery());
+		log.info("{}", developerQueryRequestDto.getQuery());
 		try {
 			String query = developerQueryRequestDto.getQuery();
 			List<String> queryList = developerQueryRequestDto.getQueryList();
