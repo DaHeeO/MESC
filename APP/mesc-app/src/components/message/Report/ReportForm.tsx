@@ -22,10 +22,11 @@ import {OkayBtn} from '../Btn/SaveBtn';
 import {checkContactState} from '../../../states/CheckContact';
 import {ContactListForm} from '../../contact/ContactList';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {userState} from '../../../states/UserState';
 import {set} from 'lodash';
-//
+
 import Check from '../../../assets/icons/check.svg';
-import Close from '../../../assets/icons/x.svg';
+import Close from '../../../assets/icons/closeBlue.svg';
 import * as S from './ReportForm.styles';
 import {sub} from 'date-fns';
 import emailHeader from '../../../assets/images/emailHeader.png';
@@ -49,7 +50,7 @@ export const ReportForm = (props: BottomSheetProps) => {
   const checkContact = useRecoilValue(checkContactState);
   const [user, setUser] = useRecoilState(checkContactState);
   const [complite, setComplite] = useState(false);
-  const userName = getUserName();
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   // console.log('usernaem', userName);
 
   // useEffect(() => {
@@ -65,7 +66,7 @@ export const ReportForm = (props: BottomSheetProps) => {
 
   const contentExample = `
   ※ 공장 이슈 발생 안내 \n
-  안녕하세요 '${userName}'입니다.\n
+  안녕하세요 '${userInfo.userName}'입니다.\n
   현재 공장에 이슈가 발생했습니다.\n
   이슈 상황에 대해 아래와 같이 알려드리니 확인하시고 조치 부탁드립니다.\n\n
   - 이슈 상황 :\n 

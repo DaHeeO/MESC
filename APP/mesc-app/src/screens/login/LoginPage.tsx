@@ -17,11 +17,15 @@ import FindId from './FindId';
 import FindPassword from './FindPassword';
 import customAxios from '../../../Api';
 
+import {userState} from '../../states/UserState';
+import {useRecoilState} from 'recoil';
 interface LoginProps {
   navigation: any;
 }
 
 const RealLogin = ({navigation}: LoginProps) => {
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+
   const pressedLoginButton = async () => {
     if (await doLogin()) {
       // console.log('aaa');
@@ -43,11 +47,13 @@ const RealLogin = ({navigation}: LoginProps) => {
       .then(res => {
         const accessToken = res.data.tokenInfo.accessToken;
         const userName = res.data.name;
+
         // console.log('usrName : ', userName);
         const userRole = res.data.role;
         AsyncStorage.setItem('accessToken', accessToken);
         AsyncStorage.setItem('userName', userName);
         AsyncStorage.setItem('userRole', userRole);
+        setUserInfo({userName: userName, userRole: userRole});
         loginPass = true;
       })
       .catch(() => {

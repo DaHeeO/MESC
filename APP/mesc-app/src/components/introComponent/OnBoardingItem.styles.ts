@@ -12,7 +12,7 @@ export const Container = styled.View`
 `;
 
 export const ImageBox = styled.View`
-  width: 300px;
+  width: 100%;
   height: 300px;
   // background-color: yellow;
   align-items: center;
@@ -20,11 +20,10 @@ export const ImageBox = styled.View`
 `;
 
 export const Img = styled(Image)`
-  width: 230px;
+  width: 100%;
   height: 300px;
   // background-color: blue;
   border-radius: 10px;
-  border: solid 1px gray;
   margin-bottom: 20px;
   // align-items: center;
   // justify-content: center;
