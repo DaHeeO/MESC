@@ -81,3 +81,8 @@ export const ComponentState = atom<ComponentItem>({
     },
   },
 });
+
+export const ModalCardListState = atom<Card[]>({
+  key: "CardListState",
+  default: [],
+});

@@ -9,6 +9,7 @@ import {
   BlockListState,
   BlockState,
   CardListState,
+  ModalCardListState,
 } from "../../../state/create/BlockState";
 import { LinkIdState } from "../../../state/linkId";
 
@@ -28,6 +29,7 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
   const [blockInfo, setBlockInfo] = useRecoilState(BlockState);
   const [cardList, setCardList] = useRecoilState(CardListState);
   const [linkId, setLinkId] = useRecoilState(LinkIdState);
+  const [modalCards, setModalCards] = useRecoilState(ModalCardListState);
   // 데이터 조회하기 ============================>
 
   useEffect(() => {
@@ -64,6 +66,28 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
       });
   };
 
+  const setModalCard = (id: number) => {
+    setModalCards([]);
+    api
+      .get(`/block/admin/${id}`, {})
+      .then((res) => {
+        setModalCards(res.data.data.cardResList);
+        console.log("modalCards", modalCards);
+        console.log("linkId", linkId);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const addNewBlock = () => {
+    // BlockList 한개 추가 및 모든것 초기화
+    setBlockInfo({ id: 0, name: "" });
+    setCardList([]);
+
+    console.log("blockInfo", blockInfo);
+  };
+
   //===================================================>
   return (
     <S.Total>
@@ -74,10 +98,17 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
             Id
           </S.Text>
         </S.TitleDiv>
-        <S.TitleDiv width={"70%"}>
+        <S.TitleDiv width={"70%"} justify="space-between">
           <S.Text size={16} color={"#94918A"} weight={500}>
             블록 이름
           </S.Text>
+          {type === "modify" ? (
+            <S.BlueButton onClick={addNewBlock}>
+              <S.Text size={16} color={C.colors.buttonBlue} weight={600}>
+                추가
+              </S.Text>
+            </S.BlueButton>
+          ) : null}
         </S.TitleDiv>
       </S.TitleBox>
       {/* body */}
@@ -87,6 +118,8 @@ export const SelectBlockv2: React.FC<TableProps> = ({ type }) => {
             key={item.id}
             onClick={() => {
               if (type == "linkModal") {
+                // 마운트 문제...
+                // setModalCard(item.id);
                 setLinkId(item.id);
               } else if (type == "modify") {
                 // if (item.id <= 14) {
