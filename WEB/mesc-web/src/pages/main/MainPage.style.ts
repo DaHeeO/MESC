@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Sonny from "../../assets/img/Mr.Son.jpg";
 
 interface TextProps {
   size: number;
@@ -83,8 +84,11 @@ export const UserImg = styled.div`
   width: 100px;
   height: 100px;
   border-radius: 50px;
-  background-color: #73d5be;
   justify-content: center;
+  background-image: url(${Sonny});
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
 `;
 
 export const UpperText = styled.div`

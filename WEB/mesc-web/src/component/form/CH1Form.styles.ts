@@ -20,12 +20,12 @@ export const TopContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #7879f1;
+  background-color: #3d55a0;
   border-radius: 10px 10px 0px 0px;
 `;
 
 export const TopInput = styled.textarea`
-  width: 40%;
+  width: 50%;
   height: 50%;
   background-color: transparent;
   border: none;
@@ -35,11 +35,15 @@ export const TopInput = styled.textarea`
   font-weight: bold;
   outline: none;
   font-family: inherit;
-  overflow-wrap: break-word; /* or overflow-wrap: anywhere; for more aggressive line breaking */
+  overflow-wrap: break-word;
   resize: none; /* Disable textarea resize */
 
   &::placeholder {
     color: white;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0;
   }
 `;
 

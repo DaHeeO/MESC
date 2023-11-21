@@ -25,6 +25,7 @@ export const AddButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 8px;
   &:hover {
     cursor: pointer;
   }

@@ -32,7 +32,7 @@ export const CH1Form = (props: { card: Card }) => {
       <S.TopContainer
         style={{
           backgroundImage: `url(${Robot})`,
-          backgroundSize: "164px 92px",
+          backgroundSize: "134px 75px",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "right 10px bottom ",
         }}
