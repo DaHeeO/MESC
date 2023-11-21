@@ -44,6 +44,15 @@ export const Header = styled.View`
   padding-top: 30px;
 `;
 
+export const BoldText = styled.Text<{
+  size: number;
+  color: string;
+}>`
+  font-size: ${props => props.size}px;
+  color: ${props => props.color};
+  font-weight: bold;
+`;
+
 export const Logo = styled.View`
   // background-color: yellow;
   flex-direction: row;

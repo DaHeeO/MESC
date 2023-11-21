@@ -14,7 +14,7 @@ import UserMessage from '../../chat/UserMessage';
 import {LoadingState} from '../../../states/LoadingState';
 import {set} from 'lodash';
 
-const logLevels = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR'];
+const logLevels = ['ERROR', 'WARN', 'DEBUG', 'INFO', 'TRACE'];
 
 const LogLevelForm = () => {
   const [chatbotHistory, setChatbotHistory] =
@@ -28,7 +28,8 @@ const LogLevelForm = () => {
   // 로그 레벨 저장
   const [logSearchOption, setLogSearchOption] = useRecoilState(LogSearchOption);
 
-  const [selectedLevels, setSelectedLevels] = useState(new Set());
+  // 첫 선택시 Error 체크
+  const [selectedLevels, setSelectedLevels] = useState(new Set(['ERROR']));
   const [isLoading, setIsLoading] = useRecoilState(LoadingState);
 
   // 로그 레벨 버튼 눌렀을 때
