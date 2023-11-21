@@ -6,6 +6,7 @@ import * as C from '../../components/common/Theme';
 import Intro1 from '../../assets/images/main1.png';
 import Intro2 from '../../assets/images/main2.png';
 import Intro3 from '../../assets/images/main3.png';
+import carousel1 from '../../assets/images/Carousel1.png';
 
 import OnBoarding from '../../components/introComponent/OnBoarding';
 import BackgroundImg from '../../assets/images/background-intro.png';
@@ -45,7 +46,7 @@ function Main({navigation}: any) {
       num: 1,
       maintext: '공장 데이터 조회',
       subtext: '복잡한 데이터를 실시간으로 파악할 수 있습니다.',
-      image: Intro1,
+      image: carousel1,
     },
     {
       num: 2,

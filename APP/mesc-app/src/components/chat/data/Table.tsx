@@ -128,13 +128,11 @@ const Table: React.FC<TableProps> = ({
       };
       apiUrl = `api/worker/data/${actionId}/${currentPage}`;
     } else if (tableType === 'QU') {
-      console.log('QUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQUQU');
       body = {
         conditions: '',
         query: singleTableQuery,
         queryList: multipleCommitQuery,
       };
-      console.log('multipleCommitQuery', multipleCommitQuery);
       apiUrl = `api/developer/data/${currentPage}`;
     }
 
@@ -324,17 +322,26 @@ const Table: React.FC<TableProps> = ({
                     style={[
                       {flexDirection: 'row'},
                       isTouched(rowIndex) && {
-                        backgroundColor: 'rgba(251, 224, 84, 0.5)',
+                        backgroundColor: 'rgba(251, 224, 84, 0.4)',
                       }, // 터치된 행에 배경색 적용
                     ]}
                     onPress={() => handleRowPress(rowIndex, row)}>
                     {row.map((cell, cellIndex) => (
                       <S.CellBox
                         key={`cell-${rowIndex}-${cellIndex}`}
-                        style={{width: dynamicColumnWidths[cellIndex]}}>
+                        style={{
+                          width: dynamicColumnWidths[cellIndex],
+                          zIndex: 3000,
+                        }}>
                         <S.Cell
                           style={
-                            isTouched(rowIndex) ? {color: '#182655'} : null
+                            isTouched(rowIndex)
+                              ? {
+                                  color: 'black',
+                                  fontWeight: 'bold',
+                                  zIndex: 30000,
+                                }
+                              : null
                           }>
                           {cell}
                         </S.Cell>

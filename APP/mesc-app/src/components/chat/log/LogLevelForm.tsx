@@ -12,6 +12,7 @@ import {LogSearchOption} from '../../../states/LogSearchOption';
 import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import UserMessage from '../../chat/UserMessage';
 import {LoadingState} from '../../../states/LoadingState';
+import {set} from 'lodash';
 
 const logLevels = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR'];
 
@@ -66,9 +67,13 @@ const LogLevelForm = () => {
     //   levelList: selectedLevelsArray,
     // }));
 
+    setLogSearchOption(prev => ({...prev, levelList: selectedLevelsArray}));
+
     // const newBlock = await getBlock(BlockType.LogOutput, logSearchOption);
+
     const newBlock = await getBlock(BlockType.LogOutput, {
-      ...logSearchOption,
+      keyword: logSearchOption.keyword,
+      date: logSearchOption.date,
       levelList: selectedLevelsArray,
     });
 

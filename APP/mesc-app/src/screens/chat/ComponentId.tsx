@@ -44,6 +44,9 @@ export function ChatComponentIdSwitch(card: Card) {
     case 'TX': // 텍스트
       return <ChatbotMessage card={card} />;
 
+    case 'DTX': // 텍스트
+      return <ChatbotMessage card={card} />;
+
     case 'TA': // 데이터 조회 테이블
       return <DataComponent card={card} />;
 
