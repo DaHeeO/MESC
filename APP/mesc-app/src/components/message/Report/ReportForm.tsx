@@ -22,12 +22,14 @@ import {OkayBtn} from '../Btn/SaveBtn';
 import {checkContactState} from '../../../states/CheckContact';
 import {ContactListForm} from '../../contact/ContactList';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
+import {userState} from '../../../states/UserState';
 import {set} from 'lodash';
-//
+
 import Check from '../../../assets/icons/check.svg';
-import Close from '../../../assets/icons/x.svg';
+import Close from '../../../assets/icons/closeBlue.svg';
 import * as S from './ReportForm.styles';
 import {sub} from 'date-fns';
+import emailHeader from '../../../assets/images/emailHeader.png';
 
 //interface
 interface BottomSheetProps {
@@ -48,7 +50,7 @@ export const ReportForm = (props: BottomSheetProps) => {
   const checkContact = useRecoilValue(checkContactState);
   const [user, setUser] = useRecoilState(checkContactState);
   const [complite, setComplite] = useState(false);
-  const userName = getUserName();
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   // console.log('usernaem', userName);
 
   // useEffect(() => {
@@ -64,7 +66,7 @@ export const ReportForm = (props: BottomSheetProps) => {
 
   const contentExample = `
   ※ 공장 이슈 발생 안내 \n
-  안녕하세요 '${userName}'입니다.\n
+  안녕하세요 '${userInfo.userName}'입니다.\n
   현재 공장에 이슈가 발생했습니다.\n
   이슈 상황에 대해 아래와 같이 알려드리니 확인하시고 조치 부탁드립니다.\n\n
   - 이슈 상황 :\n 
@@ -73,7 +75,7 @@ export const ReportForm = (props: BottomSheetProps) => {
   감사합니다.\n
   `;
 
-  const subjectExample = `[MESC] 공장에 이슈가 발생했습니다.`;
+  const subjectExample = `공장에 이슈가 발생했습니다.`;
 
   const [emails, setemails] = useState<string[]>([]); //이메일 주소
   const [subject, setsubject] = useState(subjectExample); //이메일 제목
@@ -235,6 +237,7 @@ export const ReportForm = (props: BottomSheetProps) => {
             justifyContent="flex-start"
             // style={{backgroundColor: 'green'}}
           >
+            <S.Header source={emailHeader} />
             <CustomTextArea
               defaultValue={contentExample}
               value={content}

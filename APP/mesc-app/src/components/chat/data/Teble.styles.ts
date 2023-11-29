@@ -71,7 +71,8 @@ export const Body = styled.View`
 `;
 
 export const ColumnNameBox = styled.View`
-  background-color: ${colors.backgroundGray};
+  // background-color: ${colors.backgroundGray};
+  background-color: #dcdfe2;
   padding: 3px;
   border: 0.7px solid ${colors.secondary};
   min-height: 25px;
@@ -81,7 +82,8 @@ export const ColumnNameBox = styled.View`
 `;
 
 export const ColumnTypeBox = styled.View`
-  background-color: ${colors.backgroundGray};
+  // background-color: ${colors.backgroundGray};
+  background-color: #dcdfe2;
   padding: 3px;
   border: 0.7px solid ${colors.secondary};
   height: 25px;
@@ -97,6 +99,7 @@ export const CellBox = styled.View`
   align-items: center;
   justify-content: center;
   // border: 1px solid blue;
+  // background-color: rgba(251, 224, 84, 0.3);
 `;
 
 export const ColumnName = styled.Text`

@@ -21,6 +21,8 @@ type DataBoxProps = {
   onPress?: () => void;
   isModal?: boolean;
   showButton?: boolean;
+  cardType?: string;
+  // isLastPage?: boolean;
 };
 
 const DataBox: React.FC<DataBoxProps> = ({
@@ -29,6 +31,8 @@ const DataBox: React.FC<DataBoxProps> = ({
   query,
   onPress,
   showButton,
+  cardType,
+  // isLastPage,
 }) => {
   const panResponder = useRef(
     PanResponder.create({
@@ -62,6 +66,8 @@ const DataBox: React.FC<DataBoxProps> = ({
           isLastPage={table.isLastPage}
           rowCnt={table.rowCnt}
           totalCnt={table.totalCnt}
+          cardType={cardType}
+          // isLastPage={isLastPage}
         />
       );
     } else if (query) {

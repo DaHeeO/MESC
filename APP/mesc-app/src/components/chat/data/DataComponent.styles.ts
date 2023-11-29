@@ -21,7 +21,9 @@ export const DataSection = styled.View<DataBoxProps>`
   // width: {props => props.width};
   // height: {props => props.height};
   // justify-content: center;
-  margin-top: 10px;
+  // margin-top: 10px;
+  // margin-bottom: 10px;
+  // background-color: yellow;
 }`;
 
 export const LabelContainer = styled.View`
@@ -29,6 +31,7 @@ export const LabelContainer = styled.View`
   flex-direction: row;
   // border: 1px solid aqua;
   height: 30px;
+  margin-top: 10px;
 `;
 
 export const ModalContainer = styled.View`

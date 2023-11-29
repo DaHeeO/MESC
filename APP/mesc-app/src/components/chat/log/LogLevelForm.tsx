@@ -11,8 +11,10 @@ import {BlockResponseData} from '../../../states/BlockResponseState';
 import {LogSearchOption} from '../../../states/LogSearchOption';
 import {ChatbotHistoryState} from '../../../states/ChatbotHistoryState';
 import UserMessage from '../../chat/UserMessage';
+import {LoadingState} from '../../../states/LoadingState';
+import {set} from 'lodash';
 
-const logLevels = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR'];
+const logLevels = ['ERROR', 'WARN', 'DEBUG', 'INFO', 'TRACE'];
 
 const LogLevelForm = () => {
   const [chatbotHistory, setChatbotHistory] =
@@ -26,7 +28,9 @@ const LogLevelForm = () => {
   // 로그 레벨 저장
   const [logSearchOption, setLogSearchOption] = useRecoilState(LogSearchOption);
 
-  const [selectedLevels, setSelectedLevels] = useState(new Set());
+  // 첫 선택시 Error 체크
+  const [selectedLevels, setSelectedLevels] = useState(new Set(['ERROR']));
+  const [isLoading, setIsLoading] = useRecoilState(LoadingState);
 
   // 로그 레벨 버튼 눌렀을 때
   const toggleLevel = (level: string) => {
@@ -49,6 +53,7 @@ const LogLevelForm = () => {
 
   // 완료 버튼 눌렀을 때
   const submit = async () => {
+    setIsLoading(true);
     if (selectedLevelsArray.length === 0) {
       Alert.alert('로그 레벨을 선택해주세요.');
       return;
@@ -58,14 +63,23 @@ const LogLevelForm = () => {
       ...chatbotHistory,
       <UserMessage message={selectedLevelsArray.toString()} />,
     ]);
-    setLogSearchOption(prev => ({
-      ...prev,
-      levelList: selectedLevelsArray,
-    }));
+    // setLogSearchOption(prev => ({
+    //   ...prev,
+    //   levelList: selectedLevelsArray,
+    // }));
 
-    const newBlock = await getBlock(BlockType.LogOutput, logSearchOption);
+    setLogSearchOption(prev => ({...prev, levelList: selectedLevelsArray}));
+
+    // const newBlock = await getBlock(BlockType.LogOutput, logSearchOption);
+
+    const newBlock = await getBlock(BlockType.LogOutput, {
+      keyword: logSearchOption.keyword,
+      date: logSearchOption.date,
+      levelList: selectedLevelsArray,
+    });
 
     if (newBlock) setBlock(newBlock);
+    setIsLoading(false);
   };
 
   return (

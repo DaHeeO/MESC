@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, TouchableOpacity, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as S from './LoginPage.styles';
+import * as C from '../../components/common/Theme';
 
 import BackgroundImg from '../../assets/images/background333.png';
 import Logo from '../../assets/images/SDI_logo.png';
@@ -17,11 +18,15 @@ import FindId from './FindId';
 import FindPassword from './FindPassword';
 import customAxios from '../../../Api';
 
+import {userState} from '../../states/UserState';
+import {useRecoilState} from 'recoil';
 interface LoginProps {
   navigation: any;
 }
 
 const RealLogin = ({navigation}: LoginProps) => {
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+
   const pressedLoginButton = async () => {
     if (await doLogin()) {
       // console.log('aaa');
@@ -43,11 +48,13 @@ const RealLogin = ({navigation}: LoginProps) => {
       .then(res => {
         const accessToken = res.data.tokenInfo.accessToken;
         const userName = res.data.name;
+
         // console.log('usrName : ', userName);
         const userRole = res.data.role;
         AsyncStorage.setItem('accessToken', accessToken);
         AsyncStorage.setItem('userName', userName);
         AsyncStorage.setItem('userRole', userRole);
+        setUserInfo({userName: userName, userRole: userRole});
         loginPass = true;
       })
       .catch(() => {
@@ -61,10 +68,9 @@ const RealLogin = ({navigation}: LoginProps) => {
       <S.BackgroundImg source={BackgroundImg} />
       <S.SubContainer>
         <S.Header>
-          <S.Logo>
-            <S.SDI source={Logo} />
-            <S.MESC>MESC</S.MESC>
-          </S.Logo>
+          <S.BoldText size={20} color={C.colors.text}>
+            SAMSUNG SDI MESC
+          </S.BoldText>
         </S.Header>
         <S.Body>
           <S.NnoxContainer>

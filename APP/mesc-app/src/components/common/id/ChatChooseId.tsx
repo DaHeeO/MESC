@@ -1,11 +1,10 @@
 import React from 'react';
 // icon
-import Home from '../../../assets/icons/homeIcon.svg';
-import Report from '../../../assets/icons/reportIcon.svg';
-import DataControll from '../../../assets/icons/dbIcon.svg';
+import Home from '../../../assets/icons/buttonIcon/home.svg';
+import Report from '../../../assets/icons/buttonIcon/email.svg';
+import DataControll from '../../../assets/icons/buttonIcon/database-edit.svg';
 import Filter from '../../../assets/icons/filterIcon.svg';
 import {AboutChatBtn} from '../../message/Btn/ChatChooseBtn';
-import Close from '../../../assets/icons/close.svg';
 //recoil
 import {useRecoilState} from 'recoil';
 import {ConditionModifyState} from '../../../states/BottomSheetState';
@@ -26,7 +25,7 @@ export const GoReport = () => {
 };
 
 export const GoDataControll = () => {
-  return <AboutChatBtn btnTitle={'데이터 조작'} icon={<DataControll />} />;
+  return <AboutChatBtn btnTitle={'데이터조작'} icon={<DataControll />} />;
 };
 
 // export const CloseModal = (props: chatBtnprops) => {
