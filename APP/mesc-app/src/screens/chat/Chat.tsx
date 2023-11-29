@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef, useLayoutEffect} from 'react';
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import {PulseLoader} from 'react-spinners';
+import Spinner from 'react-native-spinkit';
 import * as S from './Chat.styles';
 // Components
 import Header from '../../components/common/chatHeader/ChatHeader';
@@ -23,6 +23,9 @@ import {BottomSheet} from '../../components/common/bottomSheet/BottomSheetModal'
 import {ConditionModifyState} from '../../states/BottomSheetState';
 import {modalIdState} from '../../states/ModalIdState';
 import {ContactModalState} from '../../states/BottomSheetState';
+import {set} from 'lodash';
+import {LoadingState} from '../../states/LoadingState';
+import {is} from 'date-fns/locale';
 
 function Chat() {
   const [chatbotHistory, setChatbotHistory] =
@@ -44,7 +47,9 @@ function Chat() {
   const realModalId = ModalIdSwitch({modalId});
 
   const [buttonComponent, setButtonComponent] = useState<React.JSX.Element>();
-  const [isLoading, setIsLoading] = useState(true);
+
+  const [isLoading, setIsLoading] = useRecoilState(LoadingState);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const chatLayoutRef = useRef<ScrollView | null>(null); // Ref for the ScrollView
   // 모달이 보여질 때 호출되는 함수
@@ -58,7 +63,6 @@ function Chat() {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     putStartBlockToRecoil();
   }, []);
 
@@ -67,17 +71,30 @@ function Chat() {
     let roleFromServer = await getRoleBlockId();
     setRole(roleFromServer);
     const newBlock = await getBlock(roleFromServer, {});
-    setIsLoading(false);
+    // setIsLoading(false);
     if (newBlock) setBlock(newBlock);
   };
 
   useEffect(() => {
     // console.log(block);
-
     if (block.blockId === 0) return;
-    const chatbotBlock = makeChatbotBlock(block);
-    setChatbotHistory(prev => [...prev, chatbotBlock]);
+    // setIsLoading(true);
+    const loadData = async () => {
+      const chatbotBlock = makeChatbotBlock(block);
+      setChatbotHistory(prev => [...prev, chatbotBlock]);
+      // setIsLoading(false);
+    };
+    loadData();
   }, [block]);
+
+  // const makeLoaingBlock = () => {
+  //   return (
+  //     <>
+  //       <ChatbotProfile />
+  //       <Spinner size={30} type={'ThreeBounce'} color={'#182655'} />
+  //     </>
+  //   );
+  // };
 
   const makeChatbotBlock = (data: any) => {
     let newButtonComponent = <></>;
@@ -88,21 +105,16 @@ function Chat() {
     } else if (data.section === 2) newButtonComponent = <ChatChooseSection2 />;
     // console.log('newButtonComponent', newButtonComponent);
     // cardList를 순회하면서 각 cardType에 따른 컴포넌트 렌더링
+
     const cardComponents = data.cardList.map((card: any, index: any) => (
       <View key={index}>{ChatComponentIdSwitch(card)}</View>
     ));
 
     return (
       <>
-        {isLoading ? (
-          <PulseLoader color={'#182655'} loading={isLoading} size={8} />
-        ) : (
-          <>
-            <ChatbotProfile />
-            {cardComponents}
-            {newButtonComponent}
-          </>
-        )}
+        <ChatbotProfile />
+        {cardComponents}
+        {newButtonComponent}
       </>
     );
   };
@@ -111,7 +123,7 @@ function Chat() {
   useLayoutEffect(() => {
     // console.log('chatbotHistory 변경됨');
     scrollToBottom();
-  }, [chatbotHistory, buttonComponent]);
+  }, [chatbotHistory, buttonComponent, isLoading]);
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -134,10 +146,21 @@ function Chat() {
       <S.ChatLayout>
         <ScrollView ref={chatLayoutRef} showsVerticalScrollIndicator={false}>
           {chatbotHistory.map((component, index) => (
-            // chatbotHistory 배열 순회하며 컴포넌트 렌더링
             <View key={index}>{component}</View>
           ))}
+          {isLoading && (
+            <>
+              <ChatbotProfile />
+              <S.Loading>
+                <Spinner size={30} type={'ThreeBounce'} color={'#182655'} />
+              </S.Loading>
+            </>
+          )}
         </ScrollView>
+        {/* <ChatbotProfile /> */}
+        {/* <S.Loading>
+          <Spinner size={30} type={'ThreeBounce'} color={'#182655'} />
+        </S.Loading> */}
       </S.ChatLayout>
       <BottomSheet
         isModalVisible={isModalVisible == true} // 여기도 stateID값을 받을 수 있도록 해야함

@@ -9,7 +9,7 @@ import FAQ from '../../assets/icons/faq.svg';
 import Right from '../../assets/icons/right.svg';
 import Bell from '../../assets/icons/bell.svg';
 import Alert from '../../assets/icons/alert.svg';
-import profile from '../../assets/images/profile/손승연.png';
+import profile from '../../assets/images/profile/image10.png';
 
 interface SettingsProps {
   navigation: any;

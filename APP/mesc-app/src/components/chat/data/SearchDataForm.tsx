@@ -13,6 +13,8 @@ import {ConditionModifyState} from '../../../states/BottomSheetState';
 import {is} from 'date-fns/locale';
 import {ActionIdState, ActionIdTitleState} from '../../../states/ReadDataState';
 import {ProcessNameState} from '../../../states/ProcessNameState';
+import {LoadingState} from '../../../states/LoadingState';
+import {set} from 'lodash';
 
 type ButtonItem = {
   id: number;
@@ -37,8 +39,9 @@ const SearchDataForm = () => {
   const [keyword, setKeyword] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isWordSelected, setIsWordSelected] = useState(false);
-
+  const [isLoading, setIsLoading] = useRecoilState(LoadingState);
   const cardList = block.cardList;
+
   const mlCard = cardList.find(card => card.cardType === 'ML');
 
   useEffect(() => {
@@ -48,9 +51,8 @@ const SearchDataForm = () => {
     }
   }, [mlCard]);
 
-  // console.log('ProcessName==================', processName);
-
   const handleButtonClick = async (button: ButtonItem) => {
+    setIsLoading(true);
     // mlCard의 button 배열에서 각 name 추출 및 추가
     setIsModalVisible(false);
     setChatbotHistory([
@@ -58,17 +60,16 @@ const SearchDataForm = () => {
       <UserMessage message={button.name} />,
     ]);
 
-    console.log('actionId=======================', button.actionId);
-    
     setActionId(button.actionId);
     const body = {
       actionId: button.actionId,
       title: button.name,
       conditions: '',
     };
+
     const block = await getBlock(4, body);
-    console.log('block==============================',block);
-    
+    // console.log('block================', block);
+    setIsLoading(false);
     setBlock(block);
     setActionIdTitle(button.name);
   };

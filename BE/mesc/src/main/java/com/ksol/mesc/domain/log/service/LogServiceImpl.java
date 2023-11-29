@@ -18,17 +18,21 @@ public class LogServiceImpl implements LogSerivce {
 
     @Override
     public String getLogs(String command) {
+        log.info("command2 : {}", command);
         String result = "";
         try {
             result = sshUtil.command(command);
         } catch (Exception e) {
             log.info(e.getMessage());
         }
+        log.info("result : {}", result);
         return result;
     }
 
     @Override
     public String getCommand(String keyword, String date, List<String> levelList) {
+        log.info("levelList : {}", levelList);
+
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < date.length(); i++) {
             char ch = date.charAt(i);
@@ -37,14 +41,22 @@ public class LogServiceImpl implements LogSerivce {
         }
         date = sb.toString();
         System.out.println("date = " + date);
-        String level = levelList.isEmpty() ? null : levelList.get(0);
+        String level = levelList.isEmpty() ? null : "("+levelList.get(0).toUpperCase();
         for (int i = 1; i < levelList.size(); i++) {
-            level += "\\|" + levelList.get(i);
+            // level += "\\|" + levelList.get(i);
+            level += "|" + levelList.get(i).toUpperCase();
         }
-        String command = "grep -i \"" + keyword + "\" _data/RULEmgrlog" + date + '*';
+        if(!levelList.isEmpty()) level += ")";
+        String command = "";
+        // String command = "grep -i \"" + keyword + "\" _data/RULEmgrlog" + date + '*';
         if (level != null) {
-            command += "| grep -i \"" + level + "\"";
+            command += "grep -E \'\\b"+level+"\\b\' _data/RULEmgrlog" + date + "*" + " | grep -i \"" + keyword + "\"";
+            // command += "| grep -i \"" + level + "\"";
         }
+        else{
+            command += "grep -i \"" + keyword + "\" _data/RULEmgrlog" + date + '*';
+        }
+        log.info("command : {}", command);
         return command;
     }
 }

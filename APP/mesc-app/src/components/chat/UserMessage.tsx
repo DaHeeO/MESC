@@ -14,7 +14,7 @@ function UserMessage(props: {message: string}) {
 
     const maxLength = Math.max(...lines.map(line => line.length));
 
-    const minWidth = 80; // 최소 길이
+    const minWidth = 60; // 최소 길이
     const maxWidth = 250; // 최대 길이
 
     const dynamicWidth = maxLength * 12;

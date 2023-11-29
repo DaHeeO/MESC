@@ -48,7 +48,7 @@ export const AboutChatBtn = (props: ChatBtnProps) => {
       blockId = await getRoleBlockId();
     } else if (props.btnTitle === '보고하기') {
       blockId = BlockType.Report;
-    } else if (props.btnTitle === '데이터 조작') {
+    } else if (props.btnTitle === '데이터조작') {
       blockId = BlockType.QueryInput;
     }
     putBlockToRecoil(blockId);

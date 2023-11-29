@@ -30,6 +30,7 @@ public class SSHUtil {
             throw new Exception();
         }
         String result = getResult(command, session);
+        log.info("sshResult : {}", result);
         session.disconnect();
         return result;
     }
@@ -69,7 +70,7 @@ public class SSHUtil {
             log.info("channel 오류 발생");
             throw new Exception();
         }
-
+        log.info("result!!!!!!!!! : {}", result);
         return result;
     }
 

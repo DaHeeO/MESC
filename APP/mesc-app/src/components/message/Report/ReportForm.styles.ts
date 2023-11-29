@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {Image} from 'react-native';
 import {colors} from '../../common/Theme';
 
 export const ReportFormContainer = styled.View`
@@ -23,7 +24,7 @@ export const Text = styled.Text`
 
 export const ReportContainer = styled.View<ReportContainerProps>`
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 5px;
   // border: 1px solid blue;
   box-sizing: border-box;
   height: ${props => props.height || 'auto'};
@@ -122,11 +123,11 @@ export const CustomTextArea = styled.TextInput`
   border-width: 1px;
   border-color: #000;
   width: 370px;
-  height: 85%;
+  height: 60%;
   flex-shrink: 1;
   border-radius: 12px;
   background-color: #fff;
-  margin-top: 25px;
+  margin-top: 10px;
   // background-color: pink;
 `;
 
@@ -134,10 +135,9 @@ export const UserTag = styled.TouchableOpacity`
   background-color: ${colors.backgroundLight};
   flex-direction: row;
   border-radius: 14px;
-  width: 70px;
-  height: 70%;
-  justify-content: display-start;
-  align-items: center;
+  padding: 2px 5px;
+  justify-content: flex-start;
+  align-items: flex-start;
   margin-right: 17px;
   margin-left: 4px;
   // background-color: pink;
@@ -159,11 +159,11 @@ export const ReportTouchContainer = styled.TouchableOpacity<ReportContainerProps
 `;
 
 export const IconBox = styled.TouchableOpacity`
-  // background-color: gray;
   width: 24px;
   height: 24px;
-  // margin-left: 15px;
-  // background-color: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const NameBox = styled.View`
@@ -179,4 +179,10 @@ export const Container = styled.View`
   display: flex;
   align-items: center;
   // justify-content: center;
+`;
+
+export const Header = styled(Image)`
+  width: 370px;
+  height: 120px;
+  margin-top: 10px;
 `;

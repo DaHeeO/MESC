@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.BlockReqDto;
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
+import com.ksol.mesc.domain.block.dto.response.BlockInfoRes;
 import com.ksol.mesc.domain.block.dto.response.BlockRes;
 import com.ksol.mesc.domain.block.service.BlockService;
 import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
@@ -42,24 +42,34 @@ public class BlockController {
 		return ResponseEntity.ok(CommonResponseDto.success(blockResList));
 	}
 
-	@Operation(summary = "블록, 카드, 컴포넌트 추가 API", description = "새로운 블록, 카드, 컴포넌트을 DB에 저장한다.")
+	@Operation(summary = "블록, 카드, 컴포넌트 추가 및 수정 API", description = "새로운 블록, 카드, 컴포넌트을 DB에 저장한다.")
 	@PostMapping("/admin")
 	public ResponseEntity<CommonResponseDto<?>> addBlockInfo(@Parameter(description = "블록명", required = true)
-	@RequestBody BlockReqDto blockReqDto, Authentication authentication) {
-		blockService.addBlockContent(blockReqDto);
+	@RequestBody BlockReqDto blockReqDto) {
+		BlockInfoRes blockInfoRes = blockService.addBlockContent(blockReqDto);
 
-		return ResponseEntity.ok(CommonResponseDto.success(null));
+		return ResponseEntity.ok(CommonResponseDto.success(blockInfoRes));
 	}
 
-	@Operation(summary = "블록 내용 수정 API", description = "수정할 블록과 엮여 있는 정보를 수정한다.")
-	@PatchMapping("/admin/{blockId}")
-	public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
-	@PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
-	@RequestBody @Validated BlockReqDto blockReqDto) {
-		blockService.updateBlockContent(blockId, blockReqDto);
+	// @Operation(summary = "컴포넌트 추가 및 수정 API", description = "컴포넌트를 DB에 저장한다.")
+	// @PostMapping("/admin/component/{cardId}")
+	// public ResponseEntity<CommonResponseDto<?>> addComponentByCard(@Parameter(description = "카드 ID", required = true)
+	// @PathVariable @Valid Integer cardId, @Parameter(description = "컴포넌트 정보", required = true)
+	// @RequestBody @Validated ComponentListDto componentList) {
+	// 	blockService.addComponentByCard(cardId, componentList);
+	//
+	// 	return ResponseEntity.ok(CommonResponseDto.success(null));
+	// }
 
-		return ResponseEntity.ok(CommonResponseDto.success(null));
-	}
+	// @Operation(summary = "블록 내용 수정 API", description = "수정할 블록과 엮여 있는 정보를 수정한다.")
+	// @PatchMapping("/admin/{blockId}")
+	// public ResponseEntity<CommonResponseDto<?>> updateBlock(@Parameter(description = "블록 id", required = true)
+	// @PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
+	// @RequestBody @Validated BlockReqDto blockReqDto) {
+	// 	blockService.updateBlockContent(blockId, blockReqDto);
+	//
+	// 	return ResponseEntity.ok(CommonResponseDto.success(null));
+	// }
 
 	@Operation(summary = "블록 삭제 API", description = "수정된 블록과 엮여 있는 정보를 DB에 저장한다.")
 	@DeleteMapping("/admin/all/{blockId}")
@@ -71,7 +81,7 @@ public class BlockController {
 	}
 
 	@Operation(summary = "카드 삭제 API", description = "카드를 삭제한다.")
-	@PostMapping("/admin/delete/{blockId}")
+	@PostMapping("/admin/{blockId}")
 	public ResponseEntity<CommonResponseDto<?>> deleteBlockInfo(@Parameter(description = "블록 id", required = true)
 	@PathVariable @Valid Integer blockId, @Parameter(description = "블록 정보")
 	@RequestBody @Validated BlockReqDto blockReqDto) {
@@ -92,5 +102,15 @@ public class BlockController {
 		LinkedHashMap<String, Object> responseMap = blockService.selectBlockInfo(blockId, cardReqDto, userId);
 
 		return ResponseEntity.ok(CommonResponseDto.success(responseMap));
+	}
+
+	@Operation(summary = "관리자 블록 조회 API", description = "관리자 페이지에서 요청한 블록과 엮여 있는 정보를 조회한다.")
+	@GetMapping("/admin/{blockId}")
+	public ResponseEntity<CommonResponseDto<?>> selectBlockByAdmin(
+		@Parameter(description = "블록 id", required = true)
+		@PathVariable @Valid Integer blockId) {
+		BlockInfoRes blockInfoRes = blockService.selectBlockByAdmin(blockId);
+
+		return ResponseEntity.ok(CommonResponseDto.success(blockInfoRes));
 	}
 }

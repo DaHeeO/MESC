@@ -18,13 +18,28 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AutoCompleteService {
 
-	private static final String AUTOCOMPLETE_KEY = "mesc";
+	private static String AUTOCOMPLETE_KEY = "";
 	private static final String UNICODE_MAX_CHAR = "\ufff0";
 	private static final String WORD_TERMINATOR = "*";
 
 	private final RedisTemplate<String, String> redisTemplate;
 
-	public List<String> autocomplete(String prefix) {
+	public List<String> getSql(String prefix) {
+		AUTOCOMPLETE_KEY = "query";
+		return autocomplete(prefix, AUTOCOMPLETE_KEY);
+	}
+
+	public List<String> getTable(String prefix) {
+		AUTOCOMPLETE_KEY = "table";
+		return autocompleteSuggestion(prefix, AUTOCOMPLETE_KEY);
+	}
+
+	public List<String> getColumn(String prefix) {
+		AUTOCOMPLETE_KEY = "column2";
+		return autocompleteSuggestion(prefix, AUTOCOMPLETE_KEY);
+	}
+
+	public List<String> autocomplete(String prefix, String AUTOCOMPLETE_KEY) {
 		ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
 
 		Range<String> range = Range.from(Range.Bound.inclusive(prefix))
@@ -41,5 +56,23 @@ public class AutoCompleteService {
 		log.info("autoList : {}", autocompleteList);
 		return autocompleteList;
 	}
+
+	public List<String> autocompleteSuggestion(String prefix, String AUTOCOMPLETE_KEY) {
+		ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
+
+		// AUTOCOMPLETE_KEY를 사용하여 모든 항목 검색
+		Set<String> results = zSetOperations.rangeByLex(AUTOCOMPLETE_KEY, Range.unbounded());
+
+		// 결과 필터링: 선택적으로 prefix로 시작하는 항목만 반환
+		List<String> autocompleteList = results.stream()
+											   .filter(word -> word.startsWith(prefix) && word.endsWith(WORD_TERMINATOR))
+											   .map(word -> word.substring(0, word.length() - 1)) // *를 제거
+											   .collect(Collectors.toList());
+
+		Collections.sort(autocompleteList);
+		log.info("autoList : {}", autocompleteList);
+		return autocompleteList;
+	}
+
 
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
+import {LoadingState} from './src/states/LoadingState';
 
 // 로컬 스토리지에 accessToken 값 추출
 export async function getAccessToken() {
@@ -50,6 +51,7 @@ export async function getCard(cardId: number, body: {}) {
 // baseURL 설정
 export const customAxios = axios.create({
   baseURL: `https://www.mesc.kr/api/`,
+  // baseURL: `localhost:8080/mesc`,
 });
 
 // Add an interceptor to the request to set the Authorization header with the access token

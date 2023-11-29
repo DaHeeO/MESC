@@ -4,12 +4,8 @@ import {colors} from '../../components/common/Theme';
 
 // 채팅화면
 export const Container = styled.View`
-  // background-color: #323639;
-  // background-color: #f2f2f4;
-  // background-color: #f5f9ff;
-  // background-color: #e7f0ff85;
-  background-color: #e7e9eb;
-  // background-color: ${colors.backgroundLight};
+  // background-color: #e7e9eb;
+  background-color: #dde2ea;
   display: flex;
   flex: 1;
   // height: 91%;
@@ -31,4 +27,9 @@ export const ChatLayout = styled.View`
 export const ModalContainer = styled.View`
   flex: 1;
   background-color: rgba(0, 0, 0, 0.8);
+`;
+
+export const Loading = styled.View`
+  // margin-top: 10px;
+  margin-left: 56px;
 `;

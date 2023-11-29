@@ -37,7 +37,7 @@ public class Button {
 	@Builder.Default
 	private LinkType linkType = LinkType.B;
 	@Column(name = "LINK")
-	private String link;
+	private Integer link;
 	@Column(name = "ACTION_ID")
 	private Integer actionId;
 	@Column(name = "ICON_ID")

@@ -23,15 +23,15 @@ public class Table {
 	private Integer pageSize = 20;
 	private String title;
 
-	// public Table(ResultSet resultSet, Integer page, Integer totalSize) throws SQLException {
-	public Table(ResultSet resultSet, Integer totalSize) throws SQLException {
+	public Table(ResultSet resultSet, Integer page, Integer totalSize) throws SQLException {
+	// public Table(ResultSet resultSet, Integer totalSize) throws SQLException {
 		ResultSetMetaData metaData = resultSet.getMetaData();
 		this.tableList = new HashSet<>();
 		int columnCount = metaData.getColumnCount();
 		this.columns = new ArrayList<>();
 		for (int i = 1; i <= columnCount; i++) {
 			this.title = metaData.getTableName(i);
-			this.tableList.add(metaData.getTableName(i));
+			if(metaData.getTableName(i) != "") this.tableList.add(metaData.getTableName(i));
 			this.columns.add(new ColumnData(metaData, i));
 		}
 		this.rows = new ArrayList<>();
@@ -48,7 +48,7 @@ public class Table {
 		log.info("rowcnt : {}", rowCnt);
 		if (rowCnt < pageSize)
 			isLastPage = true;
-		// rowCnt += (page - 1) * pageSize;
+		rowCnt += (page - 1) * pageSize;
 		resultSet.close();
 		this.totalCnt = totalSize;
 	}

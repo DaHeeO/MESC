@@ -15,6 +15,9 @@ import FindId from './FindId';
 import FindPassword from './FindPassword';
 import customAxios from '../../../Api';
 
+import {userState} from '../../states/userState';
+import {useRecoilState} from 'recoil';
+
 interface LoginProps {
   navigation: any;
 }
@@ -22,6 +25,7 @@ interface LoginProps {
 const Login = ({navigation}: LoginProps) => {
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
+  const [userInfo, setUserInfo] = useRecoilState(userState);
 
   const pressedLoginButton = async () => {
     AsyncStorage.clear();
@@ -59,11 +63,14 @@ const Login = ({navigation}: LoginProps) => {
       .then(res => {
         const accessToken = res.data.tokenInfo.accessToken;
         const userName = res.data.name;
-        // console.log('usrName : ', userName);
+        console.log('usrName : ', userName);
         const userRole = res.data.role;
         AsyncStorage.setItem('accessToken', accessToken);
         AsyncStorage.setItem('userName', userName);
         AsyncStorage.setItem('userRole', userRole);
+        setUserInfo({userName: userName, userRole: userRole});
+        console.log('userInfo', userInfo);
+
         loginPass = true;
       })
       .catch(() => {
