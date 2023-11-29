@@ -28,6 +28,7 @@ import com.ksol.mesc.domain.user.service.UserService;
 import com.ksol.mesc.global.error.exception.InvalidValueException;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,17 +50,17 @@ public class ApiController {
 	}
 
 	@Operation(summary = "쿼리 데이터 조회 API", description = "쿼리를 통해 데이터를 조회한다.")
-	// @PostMapping("/developer/data/{page}")
-	@PostMapping("/developer/data")
+	@PostMapping("/developer/data/{page}")
+	// @PostMapping("/developer/data")
 	public ResponseEntity<?> getDeveloperData(
-		// @PathVariable @Valid Integer page,
+		@PathVariable @Valid Integer page,
 		@RequestBody @Validated DeveloperDataRequestDto developerDataRequestDto,
 		BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		String query = developerDataRequestDto.getQuery();
 		List<String> queryList = developerDataRequestDto.getQueryList();
-		// LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query, page, queryList);
-		LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query, queryList);
+		LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query, page, queryList);
+		// LinkedHashMap<String, Object> tableByQuery = apiService.getTableByQuery(query, queryList);
 		System.out.println(tableByQuery.keySet().stream().collect(Collectors.toList()));
 		if (tableByQuery.containsKey("message")) {
 			return new ResponseEntity<>(
@@ -85,19 +86,19 @@ public class ApiController {
 	}
 
 	@Operation(summary = "액션ID 데이터 조회 API", description = "액션ID를 통해 데이터를 조회한다.")
-	// @PostMapping("/worker/data/{actionId}/{page}")
-	@PostMapping("/worker/data/{actionId}")
+	@PostMapping("/worker/data/{actionId}/{page}")
+	// @PostMapping("/worker/data/{actionId}")
 	public ResponseEntity<?> getWorkerData(
-		// @PathVariable(required = true) Integer page,
+		@PathVariable(required = true) Integer page,
 		@PathVariable(required = true) Integer actionId,
 		@RequestBody @Validated WorkerDataRequestDto workerDataRequestDto,
 		BindingResult bindingResult) {
 		checkValidates(bindingResult);
 		String conditions = workerDataRequestDto.getConditions();
 		List<String> queryList = workerDataRequestDto.getQueryList();
-		// LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions, page,
-		// 	queryList);
-		LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions, queryList);
+		LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions, page,
+			queryList);
+		// LinkedHashMap<String, Object> tableByActionId = apiService.getTableByActionId(actionId, conditions, queryList);
 		if (tableByActionId.containsKey("message")) {
 			return new ResponseEntity<>(
 				CommonResponseDto.error(HttpStatus.NOT_ACCEPTABLE.value(), (String)tableByActionId.get("message")),

@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ksol.mesc.domain.block.dto.request.CardReqDto;
 import com.ksol.mesc.domain.block.service.BlockService;
+import com.ksol.mesc.domain.card.dto.rsponse.CardRes;
 import com.ksol.mesc.domain.card.entity.Card;
 import com.ksol.mesc.domain.card.service.CardService;
 import com.ksol.mesc.domain.common.dto.response.CommonResponseDto;
@@ -45,5 +47,15 @@ public class CardController {
 		LinkedHashMap<String, Object> responseMap = blockService.selectCardByType(card, cardReqDto, userId);
 
 		return ResponseEntity.ok(CommonResponseDto.success(responseMap));
+	}
+
+	@Operation(summary = "관리자 카드 조회 API", description = "요청한 카드와 엮여 있는 정보를 조회한다.")
+	@GetMapping("/admin/{cardId}")
+	public ResponseEntity<CommonResponseDto<?>> selectCardByAdmin(
+		@Parameter(description = "카드 id", required = true)
+		@PathVariable @Valid Integer cardId) {
+		CardRes cardRes = cardService.selectCardByAdmin(cardId);
+
+		return ResponseEntity.ok(CommonResponseDto.success(cardRes));
 	}
 }
