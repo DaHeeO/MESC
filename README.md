@@ -154,7 +154,7 @@
 ### 4. FAQ
 | FAQ |
 |:------:|
-| ![faq](/uploads/8e9f371a89324ced6dce80380129608f/faq.png){: width="800" height="400"} |
+| ![faq추가](/uploads/7e88ec00d69c5285c57520967e50a3a0/faq추가.gif){: width="800" height="400"} |
 <br>
 
 
