@@ -1,4 +1,5 @@
-<img src="https://github.com/Gitgloo/tempimage/assets/130892737/5658cf5c-37b2-4043-9158-b2fe20157a3e" width="24" height="24" alt="mesc"> # **MESC (삼성SDI 연계 프로젝트)**
+<img src="https://github.com/Gitgloo/tempimage/assets/130892737/5658cf5c-37b2-4043-9158-b2fe20157a3e" width="24" height="24" alt="mesc"> 
+# **MESC (삼성SDI 연계 프로젝트)**
 
 **🏆삼성 청년 SW아카데미(SSAFY) 9th 기업연계 프로젝트 우수상(2위)🏆**
 
