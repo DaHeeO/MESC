@@ -1,4 +1,4 @@
-# ![image](https://github.com/YeonySon/MESC/assets/116241870/4bc3a7ac-788e-4bc1-97b3-b09add4773c5) MESC (삼성SDI 연계 프로젝트)
+# ![image](https://github.com/YeonySon/MESC/assets/116241870/e7bf4ed9-f511-424d-9de1-0e0f6807128e) MESC (삼성SDI 연계 프로젝트)
 
 **🏆삼성 청년 SW아카데미(SSAFY) 9th 기업연계 프로젝트 우수상(2위)🏆**
 
@@ -27,32 +27,28 @@
 <td>
 <img src="https://img.shields.io/badge/Java-17.0.8-007396?style=flat&logo=Java&logoColor=white"/>
 <img src="https://img.shields.io/badge/Spring Boot-3.0.6-6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"/>
+<img src="https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
+<img src="https://img.shields.io/badge/JPA-6DB23E?style=flat-square&logo=Hibernate&logoColor=white"/>
+<br>
 <img src="https://img.shields.io/badge/Spring Security-3.0.4-6DB33F?style=flat-square&logo=Spring Security&logoColor=white"/>
-<br>
-<img src="https://img.shields.io/badge/MariaDB-8.0-4479A1?style=flat-square&logo=MariaDB&logoColor=white"/>
-<img src="https://img.shields.io/badge/JPA-59666C?style=flat-square&logo=Hibernate&logoColor=white"/>
-<br>
-<img src="https://img.shields.io/badge/Gradle-C71A36?style=flat-square&logo=Gradle&logoColor=white"/>
 <img src="https://img.shields.io/badge/JWT-000000?style=flat-square&logo=JSON Web Tokens&logoColor=white"/>
-<img src="https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white"/>
-<img src="https://img.shields.io/badge/Smartthings-15BFFF?style=flat-square&logo=smartthings&logoColor=white"/>
-<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/Pytorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white"/>
 </td>
 </tr>
 
 <tr>
 <td><b>Front-end</b></td>
 <td>
+<img src="https://img.shields.io/badge/TypeScript-F7DF1E?style=flat-square&logo=typescript&logoColor=black"/>
+<img src="https://img.shields.io/badge/React-18.2.0-61DAFB?style=flat-square&logo=React&logoColor=white"/>
+<img src="https://img.shields.io/badge/Reactnative-0.72.6-61DAFB?style=flat-square&logo=React&logoColor=white"/>
+<img src="https://img.shields.io/badge/Recoil-3958FF?style=flat-square&logo=Recoil&logoColor=white"/>
+<br>
 <img src="https://img.shields.io/badge/Npm-10.2.0-CB3837?style=flat-square&logo=Npm&logoColor=white"/>
 <img src="https://img.shields.io/badge/Node-18.18.2-339933?style=flat-square&logo=Node.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/React-18.2.0-61DAFB?style=flat-square&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/Recoil-18.2.0-61DAFB?style=flat-square&logo=Recoil&logoColor=white"/>
-<img src="https://img.shields.io/badge/Reactnative-0.72.6-61DAFB?style=flat-square&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/TypeScript-F7DF1E?style=flat-square&logo=typescript&logoColor=black"/>
 <img src="https://img.shields.io/badge/JSON-000000?style=flat-square&logo=json&logoColor=white"/>
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=c
+ss3&logoColor=white"/>
 </td>
 </tr>
 
@@ -61,9 +57,8 @@
 <td>
 <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazon aws&logoColor=white"/>
 <img src="https://img.shields.io/badge/Docker-4479A1?style=flat-square&logo=Docker&logoColor=white"/>
-<img src="https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=Kubernetes&logoColor=white"/>
-<img src="https://img.shields.io/badge/NGINX-1.18.0(Ubuntu)-009639?style=flat-square&logo=NGINX&logoColor=white"/>
-<img src="https://img.shields.io/badge/Grafana-F46800?style=flat-square&logo=Grafana&logoColor=white"/>
+<img src="https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=Jenkins&logoColor=white"/>
+<img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=NGINX&logoColor=white"/>
 </td>
 </tr>
 
@@ -76,7 +71,7 @@
 </td>
 </tr>
 </table>
-
+<br>
 
 ## 📱 주요 기능 - 앱
 
@@ -89,7 +84,7 @@
 <br>
 | 공정 선택 및 조회 | 조건 선택 조회 |
 |:------:|:------:|
-| ![select__1_](/uploads/059ad33cbcf7fb7ec518353db3a8eb47/select__1_.gif){: width="200" height="400"} | ![조건변경1](/uploads/be7e59f5c09c20f588f6ff1a32bfa92e/조건변경1.gif){: width="200" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/73ff3cfe-ac04-4a55-b306-99963ec00f76" width="200" height="400"> | <img src="https://github.com/YeonySon/MESC/assets/116241870/1f4bbfca-2fcb-4396-93dc-740086667657" width="200" height="400"> |
 
 ### 2. 데이터 조작(쿼리문 입력)
 2-1. 데이터 조작(update문)
@@ -102,12 +97,12 @@
 <br>
 | 데이터 조작(쿼리문 입력) | 커밋(지문인식) | 롤백 |
 |:------:|:------:|:------:|
-| ![update__1_](/uploads/3cab161b4cfec2206608e90a6f3717b9/update__1_.gif){: width="200" height="400"} | ![지문인식commit](/uploads/b9bedf196833d8d3d53e8cd5ed852aee/지문인식commit.gif){: width="200" height="400"} | ![검색조건변경1](/uploads/ec389505f51b5a641a0ae84d391dca72/검색조건변경1.gif){: width="200" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/a20760d7-e7b8-48d5-a595-e1fae3cf78b5" width="200" height="400"> | <img src="https://github.com/YeonySon/MESC/assets/116241870/8e11158f-1db0-4122-b669-149d068fae2c" width="200" height="400"> | <img src="https://github.com/YeonySon/MESC/assets/116241870/d3596f89-d5ed-4d04-9a91-ca185611697e" width="200" height="400"> |
 
 ### 3. 최근 공정 조회
 | 최근 공정 조회 |
 |:------:|
-| ![최근공정조회1](/uploads/e1fd7370ab87d488bb07055fb94d25dd/최근공정조회1.gif){: width="200" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/4fdcf6f6-07d0-4a78-b22d-0bedc9fc23e1" width="200" height="400"> |
 
 ### 4. 로그 조회
 4-1. 포함할 검색어 입력
@@ -118,12 +113,12 @@
 <br>
 | 로그 조회 |
 |:------:|
-| ![로그보기](/uploads/bdbff1cef0b66929e052655dc60f7730/로그보기.gif){: width="200" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/41bf0299-7315-4b92-9e91-f13302be6b04" width="200" height="400"> |
 
 ### 5. 보고하기
 | 보고 하기 |
 |:------:|
-| ![보고하기1](/uploads/a471defbbef27ade723c2fcd4075b26b/보고하기1.gif){: width="200" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/33eaaf3a-7eef-4a0f-bdd4-1eba17a5a7e0" width="200" height="400"> |
 
 
 ## 🖥️ 주요 기능 - 관리자 웹
@@ -131,7 +126,7 @@
 ### 1. 블록 조회
 | 블록 조회 |
 |:------:|
-| ![블록조회](/uploads/87af9a49bb7fd67826aad3f4dd59458a/블록조회.gif){: width="800" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/0e9bd3d8-fae8-4a16-8a16-3fca552c8a9e" width="800" height="400"> |
 
 ### 2. 블록 추가/수정/삭제
 2-1. 블록 추가/수정/삭제
@@ -140,30 +135,29 @@
 <br>
 | 카드 추가 |
 |:------:|
-| ![카드추가](/uploads/4382abb233294272afe58fb409608c1f/카드추가.gif){: width="800" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/01ee1bc1-c9bb-46da-b7c1-1ca894234953" width="800" height="400"> |
 
 | 카드 수정 |
 |:------:|
-| ![카드수정](/uploads/4f7daa2d4eb55b2808c4c1c6fb53b41d/카드수정.gif){: width="800" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/250d9fed-a24e-4d1a-a14f-d48f8d0d25f2" width="800" height="400"> |
 
 ### 3. 액션맵 조회/추가
 | 액션맵 조회/추가 |
 |:------:|
-| ![쿼리보기](/uploads/e3f69d1c31913040606e94f0362c7b3e/쿼리보기.gif){: width="800" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/d255ca4e-6be1-4666-8038-27703dc920a8" width="800" height="400"> |
 
 ### 4. FAQ
 | FAQ |
 |:------:|
-| ![faq추가](/uploads/7e88ec00d69c5285c57520967e50a3a0/faq추가.gif){: width="800" height="400"} |
+| <img src="https://github.com/YeonySon/MESC/assets/116241870/5e37ee90-d7c1-41d7-a937-2594e4ccde87" width="800" height="400"> |
 <br>
 
 
 ## 💫 아키텍처
-<img src="https://github.com/Gitgloo/tempimage/assets/130892737/446744a5-d022-4446-a64e-3d9123b77d7f" width="750" height="350"/>
+![아키텍처](https://github.com/YeonySon/MESC/assets/116241870/e76ba915-f794-452c-be39-2579751d8ca4)
 
 ## 🎨 ERD
-
-<img src="https://github.com/Gitgloo/tempimage/assets/130892737/4ac7e79d-e1e7-47b5-a2f1-517808a907c0" width="750" height="400"/>
+![ChatbotErd](https://github.com/YeonySon/MESC/assets/116241870/dbb3303d-4982-4d93-b4c8-93b758b8eee9)
 
 ## 📂 API 문서
 
@@ -260,7 +254,8 @@
     
 
 ## **😃 팀원 소개**
-| 손승연 | 김재이 | 오다희 | 송소연 | 김지희 | 이덕용 |
-| --- | --- | --- | --- | --- | --- |
-|![손승연](/uploads/be587f4b42311a585bd601c807c12807/손승연.png)|![김재이](/uploads/facc88b3ce93bec37d88e0e1efe76871/김재이.png)|![오다희](/uploads/a4daf4ee77a1c82907daab44d42a0c7e/오다희.png)  |![송소연](/uploads/95ca4633529f311a5232a0d991d88b61/송소연.png)| ![사진_50](/uploads/b88af508fd2d02c5d2fd5587537931cc/사진_50.jpg){: width="110" height="128"} |![이덕용](/uploads/9bbd2174d4f6491006fd427d6d5cb356/이덕용.png)|
+|![손승연](https://github.com/YeonySon/MESC/assets/116241870/b2d7849a-eb59-466a-91d1-8840b87530cd)|![김재이](https://github.com/YeonySon/MESC/assets/116241870/712799b4-146c-45b3-80b1-5116ae7546d6)|![오다희](https://github.com/YeonySon/MESC/assets/116241870/207fdcef-667d-424c-972e-f0304c5c0e32) |![송소연](https://github.com/YeonySon/MESC/assets/116241870/83891dc4-5860-4163-8419-e2fa05dea03a)| ![김지희](https://github.com/YeonySon/MESC/assets/116241870/bde46854-ef43-4ba2-a7d5-864adf56ca9d) |![이덕용](https://github.com/YeonySon/MESC/assets/116241870/a0ccdda9-a227-4589-95c3-7c5af7b1e9b2)|
+|:------:|:------:|:------:|:------:|:------:|:------:|
+| **손승연** | **김재이** | **오다희** | **송소연** | **김지희** | **이덕용** |
 | Front-End | Front-End | Front-End | Front-End & Back-End | Back-End | AWS & Back-End |
+| zzangookd@gmail.com | dobbykim0320@gmail.com | dhekgml1234@gmail.com | songsoy95@gmail.com | jihee9945@gmail.com | leedeok1996@gmail.com |
