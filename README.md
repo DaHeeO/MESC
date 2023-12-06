@@ -1,8 +1,8 @@
-# ![mesc](/uploads/66de32e2bfcc55f6b81c31f38b8cb9a1/mesc.PNG){: width="24" height="24"} MESC (삼성SDI 연계 프로젝트)
+# ![image](https://github.com/YeonySon/MESC/assets/116241870/4bc3a7ac-788e-4bc1-97b3-b09add4773c5) MESC (삼성SDI 연계 프로젝트)
 
 **🏆삼성 청년 SW아카데미(SSAFY) 9th 기업연계 프로젝트 우수상(2위)🏆**
 
-![MESC2](/uploads/c928d87579837d7669f0028de540b84d/MESC2.PNG){: width="750" height="400"}
+![image](https://github.com/YeonySon/MESC/assets/116241870/c8194f79-d24f-4ce8-9b61-081301a30d7c)
 <br>
 
 ## ✅ 프로젝트 진행 기간
